@@ -42,8 +42,8 @@ export async function POST(req: Request) {
 
   // Idempotency — refuse duplicates by inserting first.
   const { error: logErr } = await sb.from('stripe_event_log').insert({
-    id: event.id,
-    type: event.type,
+    event_id: event.id,
+    event_type: event.type,
     payload: event as unknown as Record<string, unknown>,
   });
   if (logErr) {
