@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { tiersBySlug, careTiersBySlug } from '@/data/services/tiers'
+import { rateLimit } from '@/lib/rate-limit'
 
 type CheckoutTarget = {
   slug: string
@@ -10,6 +11,9 @@ type CheckoutTarget = {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 20, windowMs: 60_000, prefix: 'checkout' })
+  if (limited) return limited
+
   const stripeKey = process.env.STRIPE_SECRET_KEY
   if (!stripeKey) {
     return NextResponse.json({ error: 'STRIPE_SECRET_KEY not configured' }, { status: 500 })

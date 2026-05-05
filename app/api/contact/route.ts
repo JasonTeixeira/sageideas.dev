@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 
@@ -6,28 +7,6 @@ export const dynamic = 'force-dynamic';
 // Get your access key at: https://web3forms.com
 // IMPORTANT: Keep the key server-side (do not expose it as NEXT_PUBLIC_*).
 const WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
-
-// Very lightweight in-memory rate limit (sufficient for a small portfolio).
-// For higher-traffic: use Vercel KV/Upstash or a dedicated rate-limit middleware.
-const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 10;
-const hits = new Map<string, number[]>();
-
-function rateLimitKey(req: NextRequest) {
-  // Prefer x-forwarded-for (Vercel) and fall back to request.ip.
-  const fwd = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-  // NextRequest doesn't type `ip` consistently across runtimes.
-  // We rely on x-forwarded-for, otherwise group as 'unknown'.
-  return fwd || 'unknown';
-}
-
-function isRateLimited(key: string) {
-  const now = Date.now();
-  const list = (hits.get(key) || []).filter((ts) => now - ts < RATE_LIMIT_WINDOW_MS);
-  list.push(now);
-  hits.set(key, list);
-  return list.length > RATE_LIMIT_MAX;
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,13 +17,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const key = rateLimitKey(request);
-    if (isRateLimited(key)) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { status: 429 }
-      );
-    }
+    const limited = rateLimit(request, { limit: 10, windowMs: 60_000, prefix: 'contact' });
+    if (limited) return limited;
 
     const body = await request.json();
     const { name, email, subject, message, company, website, honey } = body;

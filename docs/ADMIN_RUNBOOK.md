@@ -320,3 +320,51 @@ Both return JSON describing what was done.
 1. Check `/admin/audit-log` for an entry tagged `email.send`.
 2. Cross-reference the Resend dashboard for the message status.
 3. If Resend shows a bounce, fix the address in `profiles` or `organization_members` and resend.
+
+---
+
+## 12. Site Starter delivery
+
+Site Starter is the productized site-build offering: Landing ($1,500), Marketing ($2,500), Pro ($3,500). Stripe checkout is configured against three live price IDs documented in `STRIPE_PRICE_MAP.md`.
+
+When a Stripe `checkout.session.completed` event fires for a `site-starter-*` tier_slug:
+1. The webhook creates an `engagements` row with `tier_slug` and `contract_value`.
+2. The client receives an automated welcome email with intake form link.
+3. The studio receives a notification email.
+4. The engagement appears in `/admin/crm` under "Active engagements."
+
+**Day-by-day delivery process:** see [SOP 03 — Site Starter delivery](sops/03-site-starter-delivery.md). That SOP is templated so the build runs the same way every time, regardless of tier — only page count and CMS scope vary.
+
+**Quality gate before launch:** Lighthouse 95+ across Performance, A11y, SEO, Best Practices on both mobile and desktop. LCP < 1.5s on 4G mobile. Working contact form with spam protection.
+
+**Upsell at handoff:** Site Care ($300/mo) — see [SOP 04 — Care retainer monthly cycle](sops/04-care-retainer.md) for the ongoing workflow.
+
+### 12.1 If a Site Starter Stripe event lands without an engagement row
+
+This indicates the webhook handler missed processing. To recover:
+1. Open `/admin/stripe`.
+2. Find the session ID under "Recent events."
+3. Click "Re-process." The handler runs again idempotently.
+4. Verify the `engagements` row was created.
+
+### 12.2 If a client wants to upgrade tiers mid-build
+
+Treat as a change order:
+1. Quote the price delta (e.g. Landing → Marketing = +$1,000).
+2. Create a Stripe invoice for the delta via `/admin/crm/[engagement-id]/invoices`.
+3. Once paid, update the `engagements.tier_slug` and `contract_value`.
+4. Adjust scope per the new tier's SOP requirements.
+
+---
+
+## 13. Operations + SOP index
+
+For operations-level tasks (banking, bookkeeping, taxes, customer support inbox, contract storage), see [docs/AGENCY_OPERATIONS.md](AGENCY_OPERATIONS.md).
+
+For repeatable procedures, see the SOP index at [docs/sops/00-README.md](sops/00-README.md):
+
+- SOP 01 — Client onboarding
+- SOP 02 — Invoicing
+- SOP 03 — Site Starter delivery
+- SOP 04 — Care retainer monthly cycle
+- SOP 05 — Incident response

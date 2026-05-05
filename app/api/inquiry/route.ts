@@ -2,25 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createHash } from 'crypto'
 import { Resend } from 'resend'
 import { supabaseAdmin } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
-// Lightweight in-memory rate limit (sufficient for low-traffic studio site).
-const RATE_LIMIT_WINDOW_MS = 60_000
-const RATE_LIMIT_MAX = 5
-const hits = new Map<string, number[]>()
-
-function clientIp(req: NextRequest) {
+function clientIpForHash(req: NextRequest) {
   return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-}
-
-function isRateLimited(key: string) {
-  const now = Date.now()
-  const list = (hits.get(key) || []).filter((ts) => now - ts < RATE_LIMIT_WINDOW_MS)
-  list.push(now)
-  hits.set(key, list)
-  return list.length > RATE_LIMIT_MAX
 }
 
 const ENGAGEMENT_TYPES = ['studio', 'project', 'consult'] as const
@@ -60,10 +48,9 @@ function row(label: string, value: string) {
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = clientIp(request)
-    if (isRateLimited(ip)) {
-      return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 })
-    }
+    const limited = rateLimit(request, { limit: 10, windowMs: 60_000, prefix: 'inquiry' })
+    if (limited) return limited
+    const ip = clientIpForHash(request)
 
     const body = await request.json().catch(() => null)
     if (!body || typeof body !== 'object') {

@@ -1297,6 +1297,316 @@ export const tiers: Tier[] = [
     schemaSummary:
       'Custom web app development — spec, prototype, production build, QA, launch, optional Care.',
   },
+  // ────────────────────────────────────────────────────────────────────────
+  // 11. SITE STARTER — Landing
+  // ────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'site-starter-landing',
+    name: 'Site Starter — Landing',
+    shortName: 'Landing',
+    tagline: 'A 1-page Next.js landing site, mobile-first, in 5 business days.',
+    description:
+      'A 1-page Next.js landing site. Mobile-first responsive design, contact form wired to email, analytics in place, deployed to production. 5 business day turnaround. One round of revisions included.',
+    price: '$1,500',
+    priceCents: 150_000,
+    cadence: 'one-time',
+    timeline: '5 business days',
+    cta: 'Get Started',
+    ctaHref: '/services/site-starter',
+    stripeProductId: 'prod_USmNPfWIP0gz3p',
+    stripePriceId: 'price_1TTqpHEDeyGfkojJ2aWqeReE',
+    capability: 'web',
+    mode: 'sprint',
+    outcomes: [
+      'Live 1-page Next.js landing site, mobile-first',
+      'Contact form wired to your email',
+      'Google Analytics or Plausible installed',
+      'Deployed to Vercel with custom domain',
+    ],
+    deliverables: [
+      'One responsive landing page (hero, features, social proof, CTA, footer)',
+      'Contact form with spam protection',
+      'Analytics integration',
+      'Open Graph + favicon',
+      'Vercel deploy + DNS handoff',
+      'One round of revisions',
+    ],
+    notIncluded: [
+      'Multiple pages (use Site Starter Marketing or Pro)',
+      'CMS (use Site Starter Pro or Ship)',
+      'Custom illustration or video',
+    ],
+    faq: [
+      {
+        q: 'What if I need a second page later?',
+        a: 'Each additional page is $400, or upgrade to Site Starter Marketing ($2,500) for 4 pages.',
+      },
+      {
+        q: 'Do I own the code?',
+        a: 'Yes. The repository transfers to your GitHub org or stays in mine — your call.',
+      },
+      {
+        q: 'What if I need ongoing changes?',
+        a: 'Add Site Care ($300/mo) — copy edits, perf tuning, small feature tweaks, cancel anytime.',
+      },
+    ],
+    phases: [
+      {
+        label: 'Day 1',
+        title: 'Kickoff',
+        description: 'Brand intake, content checklist, wireframe approval.',
+        artifacts: ['Wireframe', 'Content checklist'],
+      },
+      {
+        label: 'Day 2-3',
+        title: 'Build',
+        description: 'Page implementation, mobile-first responsive, form wiring, analytics.',
+        artifacts: ['Preview deploy', 'Form test'],
+      },
+      {
+        label: 'Day 4',
+        title: 'Revisions',
+        description: 'One revision pass on copy, layout, color, type.',
+        artifacts: ['Revised preview deploy'],
+      },
+      {
+        label: 'Day 5',
+        title: 'Launch',
+        description: 'DNS cutover, production deploy, Loom handoff.',
+        artifacts: ['Live site', 'Loom walkthrough'],
+      },
+    ],
+    resultMetrics: [
+      { value: '5 days', label: 'Time to live', context: 'guaranteed' },
+      { value: '95+', label: 'Lighthouse', context: 'mobile + desktop' },
+      { value: '<1.5s', label: 'LCP', context: 'on launch' },
+    ],
+    addOns: [
+      {
+        name: 'Site Care retainer',
+        description: 'Monthly upkeep on the new site — patches, copy edits, small tweaks.',
+        price: '$300/mo',
+      },
+      {
+        name: 'Extra revision round',
+        description: 'A second round of revisions if the first round did not land it.',
+        price: '+$250',
+      },
+    ],
+    caseStudySlugs: [],
+    schemaSummary: 'Single-page Next.js landing site delivered in 5 business days.',
+  },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // 12. SITE STARTER — Marketing
+  // ────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'site-starter-marketing',
+    name: 'Site Starter — Marketing',
+    shortName: 'Marketing',
+    tagline: 'A 4-page marketing site, SEO-ready, in 7-10 business days.',
+    description:
+      'A 4-page marketing site (Home, Services, About, Contact). SEO foundation, structured data, sitemap, mobile-first responsive design, deployed to production. 7-10 business day turnaround. Two rounds of revisions.',
+    price: '$2,500',
+    priceCents: 250_000,
+    cadence: 'one-time',
+    timeline: '7-10 business days',
+    cta: 'Get Started',
+    ctaHref: '/services/site-starter',
+    stripeProductId: 'prod_USmNsfQxW1fuvc',
+    stripePriceId: 'price_1TTqpHEDeyGfkojJoEoe2KDn',
+    capability: 'web',
+    mode: 'sprint',
+    outcomes: [
+      'Live 4-page marketing site (Home, Services, About, Contact)',
+      'SEO foundation: schema, sitemap, robots, OG',
+      'Mobile-first responsive on every page',
+      'Two rounds of revisions',
+    ],
+    deliverables: [
+      'Four pages: Home, Services, About, Contact',
+      'Schema.org Organization + Service + Breadcrumb',
+      'Sitemap, robots, canonical configured',
+      'Contact form with spam protection',
+      'Analytics (Google Analytics or Plausible)',
+      'Open Graph + favicon + brand assets pipeline',
+      'Vercel deploy + DNS handoff',
+      'Two rounds of revisions',
+    ],
+    notIncluded: [
+      'CMS-backed blog (use Site Starter Pro)',
+      'Long-form copywriting (we provide structure + edits)',
+      'Custom illustration or video',
+    ],
+    faq: [
+      {
+        q: 'How is this different from Ship?',
+        a: 'Ship is a heavier 2-week engagement (up to 8 pages, CMS, custom integration). Site Starter Marketing is a tighter 4-page site without CMS — faster and cheaper if you do not need editorial cadence.',
+      },
+      {
+        q: 'Can I add a blog later?',
+        a: 'Yes. Upgrade to Site Starter Pro ($3,500) which adds a CMS-backed blog, or move up to Ship.',
+      },
+      {
+        q: 'Do you write copy?',
+        a: 'We provide structure, headlines, and edits. Long-form copy is BYO or add $1,200 for written + edited copy across all 4 pages.',
+      },
+    ],
+    phases: [
+      {
+        label: 'Day 1-2',
+        title: 'Discovery',
+        description: 'Sitemap, content inventory, wireframes for all 4 pages.',
+        artifacts: ['Sitemap', 'Wireframes'],
+      },
+      {
+        label: 'Day 3-6',
+        title: 'Build',
+        description: 'Page-by-page implementation, daily Vercel previews.',
+        artifacts: ['Preview deploys'],
+      },
+      {
+        label: 'Day 7-8',
+        title: 'SEO + revisions',
+        description: 'Schema, sitemap, OG, two rounds of revisions.',
+        artifacts: ['SEO checklist', 'Revised previews'],
+      },
+      {
+        label: 'Day 9-10',
+        title: 'Launch',
+        description: 'DNS cutover, production deploy, Loom handoff.',
+        artifacts: ['Live site', 'Loom walkthrough'],
+      },
+    ],
+    resultMetrics: [
+      { value: '7-10 days', label: 'Time to live', context: 'guaranteed' },
+      { value: '95+', label: 'Lighthouse SEO', context: 'sitewide' },
+      { value: '4', label: 'Pages shipped', context: 'every Marketing tier' },
+    ],
+    addOns: [
+      {
+        name: 'Site Care retainer',
+        description: 'Monthly upkeep on the new site — patches, copy edits, small tweaks.',
+        price: '$300/mo',
+      },
+      {
+        name: 'Long-form copywriting',
+        description: 'Up to 3,000 words across all pages, written and edited in your voice.',
+        price: '+$1,200',
+      },
+    ],
+    caseStudySlugs: [],
+    schemaSummary: 'Four-page marketing site with SEO foundation, delivered in 7-10 business days.',
+  },
+
+  // ────────────────────────────────────────────────────────────────────────
+  // 13. SITE STARTER — Pro
+  // ────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'site-starter-pro',
+    name: 'Site Starter — Pro',
+    shortName: 'Pro',
+    tagline: '6 pages + CMS-backed blog + SEO foundation, in 2 weeks.',
+    description:
+      '6 pages plus a CMS-backed blog and SEO foundation. Best for teams who want to publish content from day one. 2 week turnaround. 30 days of post-launch support included.',
+    price: '$3,500',
+    priceCents: 350_000,
+    cadence: 'one-time',
+    timeline: '2 weeks',
+    cta: 'Get Started',
+    ctaHref: '/services/site-starter',
+    stripeProductId: 'prod_USmNbtASJFlHyn',
+    stripePriceId: 'price_1TTqpHEDeyGfkojJjrZmmtyj',
+    highlight: true,
+    capability: 'web',
+    mode: 'sprint',
+    outcomes: [
+      'Live 6-page site with CMS-backed blog',
+      'SEO foundation that compounds',
+      '30 days of post-launch support included',
+      'Two rounds of revisions across 2 weeks',
+    ],
+    deliverables: [
+      'Six pages plus a CMS-backed blog (Sanity or Contentful)',
+      'Schema.org Organization, Service, Article, Breadcrumb',
+      'Sitemap, robots, canonical, OG configured',
+      'Contact form with spam protection',
+      'Analytics (Google Analytics or Plausible)',
+      'Open Graph + favicon + brand pipeline',
+      'Vercel deploy + DNS handoff',
+      'Two rounds of revisions',
+      '30 days of post-launch support',
+    ],
+    notIncluded: [
+      'Custom integrations beyond CMS + form (use Ship)',
+      'Long-form copywriting (we provide structure + edits)',
+      'Logo / brand identity (BYO or pair with Brand Sprint)',
+    ],
+    faq: [
+      {
+        q: 'How is this different from Ship?',
+        a: 'Site Starter Pro is a tighter scope (6 pages, CMS-backed blog, SEO) at a fixed lower price. Ship is up to 8 pages, includes a custom integration, and runs over 2 weeks with 30 days of support. If you need a custom CRM/booking integration, pick Ship.',
+      },
+      {
+        q: 'Which CMS do you use?',
+        a: 'Sanity by default (free tier covers most teams). Contentful available on request.',
+      },
+      {
+        q: 'What is included in 30-day support?',
+        a: 'Bug fixes, copy edits, small tweaks. Larger feature work rolls into Site Care ($300/mo) or Ship.',
+      },
+    ],
+    phases: [
+      {
+        label: 'Day 1-3',
+        title: 'Discovery',
+        description: 'Sitemap, CMS schema design, wireframes, content brief.',
+        artifacts: ['Sitemap', 'CMS schema', 'Wireframes'],
+      },
+      {
+        label: 'Day 4-9',
+        title: 'Build',
+        description: 'Page implementation, blog setup, CMS schemas, daily Vercel previews.',
+        artifacts: ['Preview deploys', 'CMS instance'],
+      },
+      {
+        label: 'Day 10-12',
+        title: 'SEO + revisions',
+        description: 'Schema, structured data, sitemap, OG. Two rounds of revisions.',
+        artifacts: ['SEO checklist', 'Revised previews'],
+      },
+      {
+        label: 'Day 13-14',
+        title: 'Launch',
+        description: 'DNS cutover, production deploy, Loom handoff, training session.',
+        artifacts: ['Live site', 'Handoff doc', 'Loom training'],
+      },
+    ],
+    resultMetrics: [
+      { value: '14 days', label: 'Time to live', context: 'guaranteed' },
+      { value: '95+', label: 'Lighthouse SEO', context: 'sitewide' },
+      { value: '30 days', label: 'Post-launch support', context: 'included' },
+    ],
+    addOns: [
+      {
+        name: 'Site Care retainer',
+        description: 'Monthly upkeep on the new site — patches, copy edits, small tweaks.',
+        price: '$300/mo',
+      },
+      {
+        name: 'Long-form copywriting',
+        description: 'Up to 5,000 words across pages + 2 launch blog posts.',
+        price: '+$1,800',
+      },
+      {
+        name: 'Brand Sprint pairing',
+        description: 'Pair with Brand Sprint for a complete identity + site.',
+        price: '+$2,000',
+      },
+    ],
+    caseStudySlugs: [],
+    schemaSummary: 'Six-page site with CMS-backed blog and SEO foundation, delivered in 2 weeks.',
+  },
 ] as const
 
 export const tiersBySlug = Object.fromEntries(tiers.map((t) => [t.slug, t]))

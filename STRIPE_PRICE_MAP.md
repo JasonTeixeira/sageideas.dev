@@ -19,3 +19,13 @@
 | Brand Care | $400/mo | 40000 |
 | Site Care | $300/mo | 30000 |
 | Content Care | $800/mo | 80000 |
+
+## Site Starter (Phase 35b — LIVE)
+
+| Tier | Display Price | Stripe Product ID | Stripe Price ID | Cents | Duration |
+|---|---|---|---|---|---|
+| Site Starter — Landing | $1,500 | prod_USmNPfWIP0gz3p | price_1TTqpHEDeyGfkojJ2aWqeReE | 150000 | 5 business days |
+| Site Starter — Marketing | $2,500 | prod_USmNsfQxW1fuvc | price_1TTqpHEDeyGfkojJoEoe2KDn | 250000 | 7-10 business days |
+| Site Starter — Pro | $3,500 | prod_USmNbtASJFlHyn | price_1TTqpHEDeyGfkojJjrZmmtyj | 350000 | 2 weeks |
+
+All one-time, USD, livemode=true. Slugs: `site-starter-landing`, `site-starter-marketing`, `site-starter-pro`. Page: `/services/site-starter`.

@@ -3,7 +3,7 @@ import { PutCommand, QueryCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { getDynamoDocClient } from '@/lib/awsDynamo';
 import { sendEmail } from '@/lib/awsSes';
 import { nowIso, randomToken, sha256, subscriberPk, subscriberSk, normalizeEmail } from '@/lib/newsletter';
-import { rateLimitOrThrow } from '@/lib/rateLimit';
+import { rateLimit } from '@/lib/rate-limit';
 
 export const dynamic = 'force-static';
 
@@ -14,16 +14,10 @@ function json(status: number, body: unknown) {
   return NextResponse.json(body, { status });
 }
 
-function getClientIp(req: NextRequest): string {
-  const xf = req.headers.get('x-forwarded-for');
-  if (xf) return xf.split(',')[0].trim();
-  return 'unknown';
-}
-
 export async function POST(req: NextRequest) {
   try {
-    const ip = getClientIp(req);
-    rateLimitOrThrow({ key: `newsletter:${ip}`, limit: 10, windowMs: 60_000 });
+    const limited = rateLimit(req, { limit: 10, windowMs: 60_000, prefix: 'newsletter' });
+    if (limited) return limited;
 
     const body = await req.json().catch(() => ({}));
     const emailRaw = String(body?.email ?? '');

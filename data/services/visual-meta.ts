@@ -63,6 +63,11 @@ export const visualMeta: Record<string, ServiceVisualMeta> = {
   operate: { icon: 'Activity', accent: 'cyan' },
   'app-development': { icon: 'Package', accent: 'violet' },
 
+  // Site Starter
+  'site-starter-landing': { icon: 'Zap', accent: 'cyan' },
+  'site-starter-marketing': { icon: 'Globe', accent: 'cyan' },
+  'site-starter-pro': { icon: 'Code2', accent: 'cyan' },
+
   // Care retainers
   'site-care': { icon: 'Globe', accent: 'cyan' },
   'brand-care': { icon: 'Brush', accent: 'rose' },

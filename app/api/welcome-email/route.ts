@@ -2,11 +2,15 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { sendWelcomeEmail } from '@/lib/welcomeEmail';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { notifyProfileCreated } from '@/lib/email/orchestrator';
+import { rateLimit } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 10, windowMs: 60_000, prefix: 'welcome-email' });
+  if (limited) return limited;
+
   let body: { to?: string; fullName?: string };
   try {
     body = (await req.json()) as { to?: string; fullName?: string };
