@@ -13,6 +13,7 @@ import {
   ScrollText,
   Settings2,
   ShieldCheck,
+  TrendingUp,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -23,6 +24,8 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/pipeline', label: 'Pipeline', icon: KanbanSquare },
   { href: '/admin/calendar', label: 'Calendar', icon: Calendar },
   { href: '/admin/time-tracking', label: 'Time Tracking', icon: Clock },
+  { href: '/admin/profitability', label: 'Profitability', icon: TrendingUp },
+  { href: '/admin/workload', label: 'Workload', icon: Users },
   { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
   { href: '/admin/templates', label: 'Templates', icon: FileText },
   { href: '/admin/audit-log', label: 'Audit Log', icon: ScrollText },

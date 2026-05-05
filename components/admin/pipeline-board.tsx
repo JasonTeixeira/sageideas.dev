@@ -157,6 +157,23 @@ export function PipelineBoard({
     });
   }
 
+  async function generateStatusReport(id: string) {
+    setError(null);
+    const res = await fetch(`/api/admin/projects/${id}/status-report`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ visible_to_client: false }),
+    });
+    if (!res.ok) {
+      setError(`Status report failed: ${await res.text().catch(() => 'error')}`);
+      return;
+    }
+    const json = (await res.json().catch(() => null)) as { report?: { id: string } } | null;
+    const reportId = json?.report?.id;
+    setError(reportId ? `Status report generated (id ${reportId.slice(0, 8)}).` : 'Status report generated.');
+    router.refresh();
+  }
+
   async function moveCard(id: string, toStage: Stage) {
     const card = cards.find((c) => c.id === id);
     if (!card) return;
@@ -450,6 +467,19 @@ export function PipelineBoard({
                           {c.contract_value ? formatCurrency(c.contract_value) : '—'}
                         </span>
                       </div>
+                      {density === 'comfortable' && (
+                        <div className="mt-2 pt-2 border-t border-[#1f1f23]">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              generateStatusReport(c.id);
+                            }}
+                            className="text-[10px] font-mono uppercase tracking-widest text-[#71717a] hover:text-[#06b6d4] transition-colors"
+                          >
+                            Generate status report →
+                          </button>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
