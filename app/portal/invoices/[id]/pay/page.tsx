@@ -7,6 +7,8 @@ import { Card, CardContent } from '@/components/portal/ui/card';
 import { Button } from '@/components/portal/ui/button';
 import { CreditCard, ArrowLeft } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import { isStripeConfigured } from '@/lib/stripe/client';
+import { PayRedirector } from './pay-redirector';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Pay invoice' };
@@ -14,6 +16,7 @@ export const metadata = { title: 'Pay invoice' };
 type Invoice = {
   id: string;
   number: string | null;
+  status: string | null;
   total: number | string | null;
   amount: number | string | null;
   organization_id: string;
@@ -29,7 +32,7 @@ export default async function PayInvoicePage({
   const sb = supabaseAdmin();
   const { data } = await sb
     .from('invoices')
-    .select('id, number, total, amount, organization_id')
+    .select('id, number, status, total, amount, organization_id')
     .eq('id', id)
     .maybeSingle();
   if (!data) notFound();
@@ -37,6 +40,8 @@ export default async function PayInvoicePage({
   if (!ctx.isAdmin && invoice.organization_id !== ctx.organizationId) notFound();
 
   const total = Number(invoice.total ?? invoice.amount ?? 0);
+  const stripeReady = isStripeConfigured();
+  const alreadyPaid = invoice.status === 'paid';
 
   return (
     <>
@@ -59,21 +64,39 @@ export default async function PayInvoicePage({
             <div className="text-3xl font-semibold text-[#fafafa] tabular-nums my-3">
               {formatCurrency(total)}
             </div>
-            <p className="text-sm text-[#a1a1aa] mb-6 max-w-md mx-auto">
-              Stripe checkout ships in the next deploy. Card payments, ACH, and wire
-              instructions will live here. Email sage@sageideas.dev for wire details
-              in the meantime.
-            </p>
-            <div className="flex items-center justify-center gap-3">
-              <Link href={`/portal/invoices/${invoice.id}`}>
-                <Button variant="outline" size="sm">
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to invoice
-                </Button>
-              </Link>
-              <Button size="sm" disabled>
-                Pay with card
-              </Button>
-            </div>
+
+            {alreadyPaid ? (
+              <>
+                <p className="text-sm text-[#a1a1aa] mb-6 max-w-md mx-auto">
+                  This invoice is already paid. Nothing to do here.
+                </p>
+                <Link href={`/portal/invoices/${invoice.id}`}>
+                  <Button size="sm">
+                    <ArrowLeft className="w-3.5 h-3.5" /> Back to invoice
+                  </Button>
+                </Link>
+              </>
+            ) : !stripeReady ? (
+              <>
+                <p className="text-sm text-[#a1a1aa] mb-6 max-w-md mx-auto">
+                  Stripe isn&apos;t configured on this environment. Email
+                  sage@sageideas.dev for wire instructions.
+                </p>
+                <Link href={`/portal/invoices/${invoice.id}`}>
+                  <Button variant="outline" size="sm">
+                    <ArrowLeft className="w-3.5 h-3.5" /> Back to invoice
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <p className="text-sm text-[#a1a1aa] mb-6 max-w-md mx-auto">
+                  Redirecting you to Stripe Checkout. If nothing happens within a
+                  few seconds, click the button below.
+                </p>
+                <PayRedirector invoiceId={invoice.id} />
+              </>
+            )}
           </CardContent>
         </Card>
       </div>
