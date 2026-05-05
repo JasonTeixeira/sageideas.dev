@@ -16,6 +16,7 @@ import {
   Activity,
   Calendar,
   Bell,
+  HelpCircle,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -30,6 +31,7 @@ const clientNav: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/portal/invoices', label: 'Invoices', icon: Receipt },
   { href: '/portal/settings', label: 'Settings', icon: Settings2 },
   { href: '/portal/catalog', label: 'Add Services', icon: Sparkles },
+  { href: '/portal/help', label: 'Help', icon: HelpCircle },
 ];
 
 const adminNav: { href: string; label: string; icon: LucideIcon }[] = [

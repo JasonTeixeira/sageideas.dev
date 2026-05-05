@@ -13,6 +13,7 @@ import {
   Sparkles,
   Settings2,
   Calendar,
+  HelpCircle,
   type LucideIcon,
 } from 'lucide-react';
 import { signOut } from '@/app/auth/actions';
@@ -27,6 +28,7 @@ const nav: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/portal/invoices', label: 'Invoices', icon: Receipt },
   { href: '/portal/settings', label: 'Settings', icon: Settings2 },
   { href: '/portal/catalog', label: 'Add Services', icon: Sparkles },
+  { href: '/portal/help', label: 'Help', icon: HelpCircle },
 ];
 
 export function MobileNav({ orgName }: { orgName?: string }) {
