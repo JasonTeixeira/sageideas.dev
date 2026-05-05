@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { Bell } from 'lucide-react';
+import { supabaseBrowser } from '@/lib/supabase/browser';
 
 type Notification = {
   id: string;
@@ -19,6 +20,7 @@ export function NotificationBell({ initialUnread = 0 }: { initialUnread?: number
   const [items, setItems] = useState<Notification[]>([]);
   const [unread, setUnread] = useState(initialUnread);
   const [loading, setLoading] = useState(false);
+  const subscribedRef = useRef(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -37,6 +39,61 @@ export function NotificationBell({ initialUnread = 0 }: { initialUnread?: number
   useEffect(() => {
     if (open) load();
   }, [open, load]);
+
+  // Realtime subscription: subscribe once on mount to update unread count
+  // without polling. Channel is auth-scoped via supabase-js auth.uid().
+  useEffect(() => {
+    if (subscribedRef.current) return;
+    subscribedRef.current = true;
+    let channel: ReturnType<ReturnType<typeof supabaseBrowser>['channel']> | null = null;
+    let mounted = true;
+    (async () => {
+      try {
+        const sb = supabaseBrowser();
+        const { data: { user } } = await sb.auth.getUser();
+        if (!user || !mounted) return;
+        channel = sb
+          .channel(`notifications:${user.id}`)
+          .on(
+            'postgres_changes',
+            {
+              event: 'INSERT',
+              schema: 'public',
+              table: 'notifications',
+              filter: `user_id=eq.${user.id}`,
+            },
+            (payload) => {
+              const row = payload.new as Notification;
+              setItems((prev) => [row, ...prev].slice(0, 50));
+              if (!row.read_at) setUnread((u) => u + 1);
+            },
+          )
+          .on(
+            'postgres_changes',
+            {
+              event: 'UPDATE',
+              schema: 'public',
+              table: 'notifications',
+              filter: `user_id=eq.${user.id}`,
+            },
+            (payload) => {
+              const row = payload.new as Notification;
+              setItems((prev) => prev.map((n) => (n.id === row.id ? row : n)));
+              if (row.read_at) {
+                setUnread((u) => Math.max(0, u - 1));
+              }
+            },
+          )
+          .subscribe();
+      } catch (err) {
+        console.warn('[notification-bell] realtime subscribe failed:', err);
+      }
+    })();
+    return () => {
+      mounted = false;
+      if (channel) channel.unsubscribe();
+    };
+  }, []);
 
   const markAllRead = useCallback(async () => {
     const ids = items.filter((n) => !n.read_at).map((n) => n.id);
@@ -96,7 +153,7 @@ export function NotificationBell({ initialUnread = 0 }: { initialUnread?: number
                   No notifications.
                 </div>
               ) : (
-                items.map((n) => {
+                items.slice(0, 5).map((n) => {
                   const inner = (
                     <div
                       className={`px-4 py-3 border-b border-[#1f1f23] last:border-b-0 ${
@@ -125,6 +182,15 @@ export function NotificationBell({ initialUnread = 0 }: { initialUnread?: number
                   );
                 })
               )}
+            </div>
+            <div className="border-t border-[#27272a] px-4 py-2 text-center">
+              <Link
+                href="/portal/inbox"
+                onClick={() => setOpen(false)}
+                className="text-[11px] text-[#06b6d4] hover:text-[#22d3ee]"
+              >
+                View all
+              </Link>
             </div>
           </div>
         </>

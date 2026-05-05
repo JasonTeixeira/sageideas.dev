@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { sendWelcomeEmail } from '@/lib/welcomeEmail';
+import { supabaseAdmin } from '@/lib/supabase/server';
+import { notifyProfileCreated } from '@/lib/email/orchestrator';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -17,6 +19,29 @@ export async function POST(req: NextRequest) {
 
   if (!to || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
     return NextResponse.json({ ok: false, error: 'invalid_email' }, { status: 400 });
+  }
+
+  // If a profile exists for this email, route through the orchestrator so we
+  // also drop an in-app notification, log to email_log, and respect prefs.
+  // Otherwise, fall back to the legacy direct sender to keep compatibility
+  // for callers that hit this endpoint pre-profile-creation (e.g. signup).
+  try {
+    const sb = supabaseAdmin();
+    const { data: profile } = await sb
+      .from('profiles')
+      .select('id')
+      .eq('email', to)
+      .maybeSingle();
+    if (profile?.id) {
+      const orchResult = await notifyProfileCreated(profile.id as string);
+      if (orchResult.ok === true) {
+        return NextResponse.json({ ok: true, id: 'id' in orchResult ? orchResult.id : '' });
+      }
+      const reason = 'reason' in orchResult ? orchResult.reason : 'queued';
+      return NextResponse.json({ ok: false, reason }, { status: 202 });
+    }
+  } catch (err) {
+    console.warn('[welcome-email] orchestrator path failed, falling back:', err instanceof Error ? err.message : err);
   }
 
   const result = await sendWelcomeEmail({ to, fullName });

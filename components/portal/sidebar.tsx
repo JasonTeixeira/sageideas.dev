@@ -15,6 +15,7 @@ import {
   Users,
   Activity,
   Calendar,
+  Bell,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -23,6 +24,7 @@ const clientNav: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/portal', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/portal/projects', label: 'Projects', icon: Briefcase },
   { href: '/portal/messages', label: 'Messages', icon: MessageSquare },
+  { href: '/portal/inbox', label: 'Inbox', icon: Bell },
   { href: '/portal/calendar', label: 'Calendar', icon: Calendar },
   { href: '/portal/documents', label: 'Documents', icon: FileSignature },
   { href: '/portal/invoices', label: 'Invoices', icon: Receipt },
