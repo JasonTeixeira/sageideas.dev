@@ -34,6 +34,18 @@ function isPortalChrome(pathname: string) {
   );
 }
 
+// Build a redirect response that carries any refreshed-session cookies from
+// `source` (the response that the supabase-ssr setAll callback writes to).
+// Without this, redirects from middleware drop the refresh-cookie set, which
+// breaks the session on the next navigation.
+function redirectWithSessionCookies(target: URL, source: NextResponse) {
+  const r = NextResponse.redirect(target);
+  source.cookies.getAll().forEach((c) => {
+    r.cookies.set(c);
+  });
+  return r;
+}
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -80,7 +92,7 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/auth/redirect';
     url.search = '';
-    return NextResponse.redirect(url);
+    return redirectWithSessionCookies(url, response);
   }
 
   // Protected zones.
@@ -91,7 +103,7 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.search = `?next=${encodeURIComponent(pathname + (search || ''))}`;
-    return NextResponse.redirect(url);
+    return redirectWithSessionCookies(url, response);
   }
 
   if (user && (needsAdmin || needsApprovedUser)) {
@@ -109,13 +121,13 @@ export async function updateSession(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = isApproved ? '/portal' : '/pending-approval';
       url.search = '';
-      return NextResponse.redirect(url);
+      return redirectWithSessionCookies(url, response);
     }
     if (needsApprovedUser && !isApproved && !isAdmin) {
       const url = request.nextUrl.clone();
       url.pathname = '/pending-approval';
       url.search = '';
-      return NextResponse.redirect(url);
+      return redirectWithSessionCookies(url, response);
     }
   }
 
