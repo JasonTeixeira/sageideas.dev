@@ -21,11 +21,18 @@ const cadenceLabel: Record<Tier['cadence'], string> = {
   custom: 'Custom',
 }
 
-export function ServicesGrid({ tiers }: { tiers: readonly (Tier | ExtendedTier)[] }) {
+export function ServicesGrid({
+  tiers,
+  leadingCard,
+}: {
+  tiers: readonly (Tier | ExtendedTier)[]
+  leadingCard?: React.ReactNode
+}) {
   const sorted = [...tiers].sort((a, b) => tierOrder[getServiceTier(a)] - tierOrder[getServiceTier(b)])
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {leadingCard}
       {sorted.map((tier, index) => {
         const serviceTier = getServiceTier(tier)
         const meta = getVisualMeta(tier.slug)

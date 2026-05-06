@@ -5,6 +5,7 @@ import { tiersOrdered, careTiers } from '@/data/services/tiers'
 import { SectionLabel } from '@/components/section-label'
 import { Button } from '@/components/ui/button'
 import { ServicesGrid } from './services-grid'
+import { SiteStarterInlineCard } from './site-starter-inline-card'
 import { ExtendedCatalog, ExtendedCategoryNav } from './extended-catalog'
 import { RefreshCw, Sparkles, Layers, FlaskConical } from 'lucide-react'
 import { CapacitySignal } from '@/components/social-proof/capacity-signal'
@@ -121,33 +122,6 @@ export default function ServicesPage() {
         <DecisionTree />
       </section>
 
-      {/* Site Starter highlight — productized site builds */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <Link
-          href="/services/site-starter"
-          className="group block rounded-2xl border border-[#06B6D4]/30 bg-gradient-to-br from-[#06B6D4]/[0.08] via-[#0891B2]/[0.04] to-transparent p-8 hover:border-[#06B6D4]/60 transition-colors"
-        >
-          <div className="flex items-start justify-between gap-6 flex-wrap">
-            <div className="max-w-2xl">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] mb-3 inline-block">
-                New · Productized
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-2">
-                Site Starter — $1,500 to $3,500
-              </h3>
-              <p className="text-[#A1A1AA] leading-relaxed">
-                Three fixed-scope site builds with Stripe checkout. Landing ($1,500, 5 days),
-                Marketing ($2,500, 7-10 days), or Pro ($3,500, 2 weeks with CMS-backed blog).
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-2 text-[#06B6D4] text-sm font-mono group-hover:translate-x-0.5 transition-transform">
-              See tiers
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </div>
-        </Link>
-      </section>
-
       {/* Tier Grid — productized engagements with Stripe checkout */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="flex items-center gap-2 mb-3">
@@ -161,7 +135,7 @@ export default function ServicesPage() {
           Fixed scope, fixed price, Stripe checkout. The original Sage Ideas catalog —
           strategy audits, marketing-site sprints, brand work, and platform builds.
         </p>
-        <ServicesGrid tiers={tiersOrdered} />
+        <ServicesGrid tiers={tiersOrdered} leadingCard={<SiteStarterInlineCard />} />
       </section>
 
       {/* AI & Automation — extended catalog */}
