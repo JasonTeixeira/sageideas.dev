@@ -3,6 +3,7 @@ import { sendWelcomeEmail } from '@/lib/welcomeEmail';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { notifyProfileCreated } from '@/lib/email/orchestrator';
 import { rateLimit } from '@/lib/rate-limit';
+import { requireAdminApi } from '@/lib/admin-guard';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -10,6 +11,9 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   const limited = rateLimit(req, { limit: 10, windowMs: 60_000, prefix: 'welcome-email' });
   if (limited) return limited;
+
+  const auth = await requireAdminApi();
+  if (auth instanceof NextResponse) return auth;
 
   let body: { to?: string; fullName?: string };
   try {
@@ -25,10 +29,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'invalid_email' }, { status: 400 });
   }
 
-  // If a profile exists for this email, route through the orchestrator so we
-  // also drop an in-app notification, log to email_log, and respect prefs.
-  // Otherwise, fall back to the legacy direct sender to keep compatibility
-  // for callers that hit this endpoint pre-profile-creation (e.g. signup).
   try {
     const sb = supabaseAdmin();
     const { data: profile } = await sb
@@ -39,10 +39,9 @@ export async function POST(req: NextRequest) {
     if (profile?.id) {
       const orchResult = await notifyProfileCreated(profile.id as string);
       if (orchResult.ok === true) {
-        return NextResponse.json({ ok: true, id: 'id' in orchResult ? orchResult.id : '' });
+        return NextResponse.json({ ok: true });
       }
-      const reason = 'reason' in orchResult ? orchResult.reason : 'queued';
-      return NextResponse.json({ ok: false, reason }, { status: 202 });
+      return NextResponse.json({ ok: true, queued: true });
     }
   } catch (err) {
     console.warn('[welcome-email] orchestrator path failed, falling back:', err instanceof Error ? err.message : err);
@@ -50,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   const result = await sendWelcomeEmail({ to, fullName });
   if (!result.ok) {
-    return NextResponse.json({ ok: false, reason: result.reason }, { status: 202 });
+    return NextResponse.json({ ok: true, queued: true });
   }
-  return NextResponse.json({ ok: true, id: result.id });
+  return NextResponse.json({ ok: true });
 }
