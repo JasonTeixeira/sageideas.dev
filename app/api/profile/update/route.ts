@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { logAudit } from '@/lib/admin-guard';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +22,12 @@ export async function PATCH(req: Request) {
   const ctx = await getPortalContext();
   const sb = supabaseAdmin();
 
+  const { data: prev } = await sb
+    .from('profiles')
+    .select('full_name, company')
+    .eq('id', ctx.user.clerk_id)
+    .maybeSingle();
+
   const { error } = await sb
     .from('profiles')
     .update({ full_name: fullName, company })
@@ -33,6 +40,16 @@ export async function PATCH(req: Request) {
     .from('app_users')
     .update({ full_name: fullName })
     .eq('clerk_id', ctx.user.clerk_id);
+
+  await logAudit({
+    actorId: ctx.user.clerk_id,
+    actorEmail: ctx.user.email,
+    action: 'profile.update',
+    entityType: 'profile',
+    entityId: ctx.user.clerk_id,
+    before: prev,
+    after: { full_name: fullName, company },
+  });
 
   return NextResponse.json({ ok: true });
 }

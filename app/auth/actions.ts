@@ -3,6 +3,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
+import { logAudit } from '@/lib/admin-guard';
 import { sendWelcomeEmail } from '@/lib/welcomeEmail';
 
 type Provider = 'google' | 'github' | 'linkedin_oidc';
@@ -50,12 +51,23 @@ export async function signInWithPassword(formData: FormData): Promise<void> {
   }
 
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     redirect(
       `/login?error=${encodeURIComponent('Invalid email or password.')}&next=${encodeURIComponent(next)}`,
     );
+  }
+
+  if (data.user) {
+    await logAudit({
+      actorId: data.user.id,
+      actorEmail: data.user.email ?? email,
+      action: 'auth.login',
+      entityType: 'session',
+      entityId: data.user.id,
+      after: { method: 'password' },
+    });
   }
 
   redirect(next);
@@ -294,6 +306,15 @@ export async function adminInviteUser(formData: FormData): Promise<void> {
       approval_status: 'approved',
       approved_at: new Date().toISOString(),
       approved_by: user.id,
+    });
+
+    await logAudit({
+      actorId: user.id,
+      actorEmail: user.email ?? '',
+      action: 'user.invite',
+      entityType: 'profile',
+      entityId: invited.user.id,
+      after: { email, full_name: fullName || null, app_role: appRole },
     });
   }
 

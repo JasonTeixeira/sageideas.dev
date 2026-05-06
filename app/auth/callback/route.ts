@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { logAudit } from '@/lib/admin-guard';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,6 +52,24 @@ export async function GET(request: NextRequest) {
     }
   } else {
     return NextResponse.redirect(`${origin}/login?error=missing_code`);
+  }
+
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user) {
+      await logAudit({
+        actorId: user.id,
+        actorEmail: user.email ?? '',
+        action: 'auth.login',
+        entityType: 'session',
+        entityId: user.id,
+        after: { method: code ? 'oauth_or_magic' : `otp_${type}` },
+      });
+    }
+  } catch {
+    // never block sign-in on audit failures
   }
 
   return response;
