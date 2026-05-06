@@ -32,6 +32,12 @@ const nextConfig: NextConfig = {
       { source: '/case-studies', destination: '/work', permanent: true },
       { source: '/case-studies/:slug*', destination: '/work/:slug*', permanent: true },
       { source: '/projects', destination: '/lab', permanent: true },
+      // Legacy QA-portfolio routes — redirect to closest Sage Ideas equivalent
+      // (kept as 308 so they can be reverted if we decide to repurpose them)
+      { source: '/dashboard', destination: '/portal/home', permanent: false },
+      { source: '/artifacts', destination: '/work', permanent: false },
+      { source: '/platform', destination: '/capabilities', permanent: false },
+      { source: '/platform/:path*', destination: '/capabilities', permanent: false },
     ]
   },
   async headers() {

@@ -1,242 +1,142 @@
-# Jason Teixeira - Cloud Automation Portfolio
+# Sage Ideas Studio
 
-A premium Next.js portfolio showcasing cloud/infrastructure automation, CI/CD systems, telemetry dashboards, and QA automation engineering with evidence-backed artifacts.
+The operating system of an AI-native B2B studio. A single Next.js app that runs the
+entire client lifecycle: marketing, lead capture, contracts, e-signature, billing,
+client portal, project delivery, time tracking, and audit logging.
 
-## Status
-
-[![CI](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/ci.yml)
-[![Portfolio Verification](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/qa-portfolio-verification.yml/badge.svg)](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/qa-portfolio-verification.yml)
-[![Quality Snapshot](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/quality-snapshot.yml/badge.svg)](https://github.com/JasonTeixeira/qa-portfolio/actions/workflows/quality-snapshot.yml)
-
-## Start here (60-second tour)
-
-If you only have a minute, these pages show the strongest signal (cloud automation + platform engineering + operational proof):
-
-- **Telemetry Dashboard:** `/dashboard`
-  - Snapshot / Live / Cloud modes
-  - Live mode attempts artifact-backed QA metrics with graceful fallback
-- **System Design (Telemetry Pipeline):** `/platform/quality-telemetry`
-  - Architecture + tradeoffs: CI as telemetry source, artifact ingestion, caching, safe observability, cloud deployment path
-- **Runbooks & Evidence:** `/artifacts`
-  - Evidence packs, runbooks, templates (how I operate)
-- **Case Studies:** `/projects`
-  - Framework + infrastructure work with real engineering outcomes
-
-## 🚀 Built With
-
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Fonts:** Inter + JetBrains Mono
-
-## ✨ Features
-
-- **Home Page:** Animated typing effect, stats bar, featured projects, testing philosophy
-- **About Page:** Professional journey, skills visualization, ISTQB certifications, career timeline
-- **Projects Page:** 6 detailed project showcases with metrics, filtering, and search
-- **Blog Page:** 10 technical articles with category filtering and newsletter CTA
-- **Contact Page:** Functional contact form with validation and availability status
-- **404 Page:** Custom error page with helpful navigation
-- **SEO Optimized:** Meta tags, sitemap, robots.txt
-- **Dark Theme:** Professional dark design with teal (#06b6d4) accents
-- **Fully Responsive:** Mobile-first design, works perfectly on all devices
-- **Performance:** Optimized for 95+ Lighthouse score
-- **Quality Telemetry:** Live GitHub Actions ingestion + artifact parsing for QA metrics
-- **System Design:** Dedicated platform-engineering writeup of the pipeline + tradeoffs
-
-## 📦 Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/JasonTeixeira/qa-portfolio.git
-cd qa-portfolio
-
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-```
-
-## 🌐 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Click "New Project"
-4. Import your GitHub repository
-5. Configure environment variables (if any)
-6. Click "Deploy"
-
-Vercel will automatically:
-- Build your project
-- Provide HTTPS
-- Set up global CDN
-- Enable preview deployments
-- Configure custom domain
-
-### Environment Variables
-
-No environment variables required for basic deployment. Optional:
-- Email service integration (Resend, Formspree, etc.) for contact form
-
-## 🎯 Portfolio Structure
-
-```
-qa-portfolio/
-├── app/                      # Next.js App Router pages
-│   ├── page.tsx             # Home page
-│   ├── about/               # About page
-│   ├── projects/            # Projects page
-│   ├── blog/                # Blog page
-│   ├── contact/             # Contact page
-│   ├── not-found.tsx        # 404 page
-│   ├── layout.tsx           # Root layout
-│   ├── globals.css          # Global styles
-│   ├── sitemap.ts           # SEO sitemap
-│   └── robots.txt           # SEO robots file
-├── components/
-│   ├── ui/                  # Reusable UI components
-│   │   ├── Navigation.tsx
-│   │   └── Footer.tsx
-│   └── sections/            # Page sections
-│       ├── Hero.tsx
-│       ├── about/           # About page sections
-│       ├── projects/        # Projects page sections
-│       ├── blog/            # Blog page sections
-│       └── contact/         # Contact page sections
-├── public/                  # Static assets
-└── tailwind.config.ts       # Tailwind configuration
-```
-
-## 🎨 Customization
-
-### Colors
-Edit `tailwind.config.ts`:
-```typescript
-colors: {
-  primary: "#06b6d4",        // Teal accent
-  dark: "#0a0a0a",           // Background
-  "dark-card": "#1a1a1a",    // Card background
-  "dark-lighter": "#2a2a2a"  // Lighter dark
-}
-```
-
-### Content
-- **Projects:** Edit `components/sections/projects/ProjectsGrid.tsx`
-- **Blog Posts:** Edit `components/sections/blog/BlogGrid.tsx`
-- **About Info:** Edit `components/sections/about/*`
-- **Contact Info:** Edit `components/sections/contact/ContactInfo.tsx`
-
-### Add Your Photo
-Replace the "JT" placeholder in:
-- `components/sections/AboutPreview.tsx`
-- `components/sections/about/AboutHero.tsx`
-
-## 📊 Performance Optimization
-
-Built-in optimizations:
-- ✅ Next.js Image component for automatic image optimization
-- ✅ Font optimization with `next/font`
-- ✅ Code splitting by route
-- ✅ Lazy loading with Framer Motion viewport detection
-- ✅ Semantic HTML for accessibility
-- ✅ SEO meta tags on all pages
-
-## 🔧 Development Tips
-
-```bash
-# Run development server
-npm run dev
-
-# Type checking
-npm run type-check
-
-# Lint code
-npm run lint
-
-# Build for production
-npm run build
-
-# Test production build locally
-npm run build && npm start
-```
-
-## 📱 Mobile Responsive
-
-Tested on:
-- iOS (iPhone 12, 13, 14, 15)
-- Android (Pixel, Samsung)
-- Tablets (iPad, Surface)
-- Desktop (Chrome, Firefox, Safari, Edge)
-
-## 🌟 Key Metrics Displayed
-
-- **Full-stack development** portfolio focus
-- **20+ projects** with real code on GitHub
-- **3 ISTQB certifications** (CTFL, TAE, CT-AI)
-- **5 years fintech development** (HighStrike)
-- **185 database tables** (Nexural Platform)
-- **5 AWS knowledge certifications**
-
-## 📧 Contact Form Integration
-
-The contact form is set up with client-side validation. To enable email sending:
-
-### Option 1: Resend (Recommended)
-```bash
-npm install resend
-# Add RESEND_API_KEY to .env.local
-```
-
-### Option 2: Formspree
-- Sign up at formspree.io
-- Update form action in `ContactForm.tsx`
-
-### Option 3: EmailJS
-- Sign up at emailjs.com
-- Install EmailJS SDK
-- Configure in `ContactForm.tsx`
-
-## 🔐 Security
-
-- No sensitive data exposed
-- Client-side form validation
-- Environment variables for API keys
-- HTTPS enforced (via Vercel)
-- No inline scripts (CSP friendly)
-
-## 📈 Analytics (Optional)
-
-Add Vercel Analytics or Google Analytics 4:
-
-```bash
-# Vercel Analytics
-npm install @vercel/analytics
-# Add to app/layout.tsx
-```
-
-## 📄 License
-
-MIT License - feel free to use for your own portfolio
-
-## 👤 Author
-
-**Jason Teixeira**
-- Email: sage@sageideas.org
-- Location: Orlando, FL (Remote-First)
-- LinkedIn: [linkedin.com/in/jasonteixeira](https://www.linkedin.com/in/jasonteixeira)
-- GitHub: [github.com/JasonTeixeira](https://github.com/JasonTeixeira)
+**Live:** https://www.sageideas.dev
 
 ---
 
-Built with ❤️ using Next.js, TypeScript, and Tailwind CSS
+## What this is
+
+This repository is the production codebase for [Sage Ideas LLC](https://www.sageideas.dev) —
+a digital studio that builds AI-native software, telemetry platforms, and trading
+systems for B2B operators. The app is the studio's go-to-market site, its CRM, and
+its delivery platform — all in one.
+
+Outside studios typically stitch together five SaaS tools to do this (HoneyBook +
+DocuSign + Stripe + Notion + ClientPortal.io). This is the integrated version.
+
+---
+
+## Architecture
+
+| Layer | Stack |
+|---|---|
+| Framework | Next.js 16 (App Router, RSC, Server Actions) |
+| UI | React 19, Tailwind 4, Radix Primitives, Framer Motion |
+| Auth | Supabase Auth (email + magic link + OAuth: Google, GitHub, LinkedIn) |
+| Database | Supabase Postgres 17 with Row Level Security |
+| Payments | Stripe Checkout + Subscriptions + Webhooks |
+| Email | Resend + AWS SES SDK |
+| E-signature | In-house signature pad + tamper-evident hash + audit trail |
+| Hosting | Vercel (Edge + Node runtimes) |
+| Observability | Sentry, PostHog, Vercel Analytics |
+| Testing | Playwright (E2E + UI), axe-core (a11y), Lighthouse CI, k6 (load) |
+
+---
+
+## Surface area
+
+- **Public:** marketing site, services × industries matrix, pricing, capabilities,
+  blog, lab, comparison pages, legal hub (MSA, NDA, SOW template, DPA, Privacy,
+  Terms, Cookies)
+- **Auth:** email/password, magic link, OAuth (Google, GitHub, LinkedIn), forgot
+  password, multi-step signup wizard, role-based redirect, approval queue
+- **Admin dashboard** (`/admin`): pipeline kanban, CRM, document templates,
+  contract generation + e-sign, invoicing, time tracking, profitability,
+  workload, audit log, user management, studio settings
+- **Client portal** (`/portal`): home, engagements, projects, deliverables,
+  documents (view + sign), invoices, billing, calendar, messages, inbox,
+  notification preferences, help center, service catalog
+
+105 routes, 57 API endpoints, 38 database tables, ~75K lines of TypeScript.
+
+---
+
+## Local development
+
+```bash
+# Install
+npm install
+
+# Configure env (see .env.example)
+cp .env.example .env.local
+
+# Run dev server (port 3040)
+npm run dev
+
+# Run tests
+npm run test:e2e         # Playwright E2E against local dev server
+npm run test:rls         # Supabase RLS isolation suite
+npm run lint             # ESLint
+npm run build            # Production build
+
+# Seed test data (Phase 0)
+npm run seed:test
+```
+
+### Required environment variables
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+RESEND_API_KEY=
+NEXT_PUBLIC_SITE_URL=https://www.sageideas.dev
+SENTRY_DSN=
+SENTRY_AUTH_TOKEN=
+```
+
+See `docs/AUTH_SETUP.md` for OAuth provider configuration and
+`docs/AUTH_EMAIL_HOOK_SETUP.md` for the custom email hook setup.
+
+---
+
+## Documentation
+
+- `docs/ADMIN_RUNBOOK.md` — every admin workflow end-to-end
+- `docs/AGENCY_OPERATIONS.md` — day-to-day operations
+- `docs/TEST_ACCOUNTS.md` — seeded test users (Phase 0)
+- `docs/sops/` — standard operating procedures (onboarding, invoicing,
+  delivery, retainer, incident response)
+- `content/legal/` — MSA, NDA, SOW template, Privacy, Terms, Cookies (MDX)
+
+---
+
+## Status
+
+- ✅ Public site live at https://www.sageideas.dev
+- ✅ Auth (password + magic link + 3 OAuth providers) — verified
+- ✅ Admin dashboard — 12 routes, all wired to Supabase
+- ✅ Client portal — 16 routes, all wired to Supabase
+- ✅ End-to-end pipeline: lead → contract → e-sign → invoice → payment → delivery
+- ✅ Stripe subscriptions + 7 webhook events handled
+- ✅ Audit log on every admin action
+- ✅ Row Level Security verified by isolation tests (10/10)
+- ✅ E2E suite passing against production (28/28)
+- ✅ CI green on every push (lint + build + content validation + E2E + RLS)
+
+The **Phased Game Plan to 95+** lives in the project tracker and ships in
+6 phases: Pre-flight → Security/DB → Pipeline → BI → Enterprise Readiness →
+Performance → Pen Test & Launch.
+
+---
+
+## Security
+
+See [`SECURITY.md`](./SECURITY.md) and `/.well-known/security.txt` for
+responsible disclosure.
+
+RLS isolation tests run on every push. Supabase advisor sweep is a release
+gate. External pen test is performed annually.
+
+---
+
+## License
+
+© 2026 Sage Ideas LLC. All rights reserved. This codebase is proprietary.
