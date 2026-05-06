@@ -1,7 +1,8 @@
 import { requireAdmin } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { AdminTopbar } from '@/components/admin/topbar';
-import { adminInviteUser, approveProfile } from '@/app/auth/actions';
+import { adminInviteUser } from '@/app/auth/actions';
+import { UserRowActions } from '@/components/admin/user-row-actions';
 import { formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -157,21 +158,16 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                   </td>
                   <td className="px-4 py-3 text-[#A1A1AA] text-xs">{formatDate(r.created_at)}</td>
                   <td className="px-4 py-3 text-right">
-                    {r.approval_status !== 'approved' ? (
-                      <form action={approveProfile} className="inline">
-                        <input type="hidden" name="id" value={r.id} />
-                        <button
-                          type="submit"
-                          className="rounded-md border border-[#06B6D4]/40 bg-[#06B6D4]/10 px-2.5 py-1 text-xs font-medium text-[#06B6D4] hover:bg-[#06B6D4]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 transition-colors"
-                        >
-                          Approve
-                        </button>
-                      </form>
-                    ) : (
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#52525B]">
-                        —
-                      </span>
-                    )}
+                    <UserRowActions
+                      user={{
+                        id: r.id,
+                        email: r.email,
+                        fullName: r.full_name,
+                        appRole: r.app_role,
+                        approvalStatus: r.approval_status,
+                        isSelf: false,
+                      }}
+                    />
                   </td>
                 </tr>
               ))}
