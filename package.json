@@ -17,7 +17,9 @@
     "test:all": "npm run test:links && npm run test:ui && npm run test:lh",
     "validate": "node scripts/validate-content.mjs",
     "audit:strict-ui": "node scripts/strict-ui-audit.mjs",
-    "build:recruiter-pack": "node scripts/build-recruiter-pack.mjs"
+    "build:recruiter-pack": "node scripts/build-recruiter-pack.mjs",
+    "seed:test-data": "tsx scripts/seed-test-data.ts",
+    "test:cleanup": "tsx tests/db/cleanup.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.879.0",
@@ -59,6 +61,7 @@
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
     "@react-pdf/renderer": "^4.5.1",
+    "@sentry/nextjs": "^10.51.0",
     "@stripe/stripe-js": "^9.4.0",
     "@supabase/ssr": "^0.6.0",
     "@supabase/supabase-js": "^2.47.10",

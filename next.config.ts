@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { withSentryConfig } from '@sentry/nextjs'
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -55,4 +56,23 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+// Wrap the config with Sentry so source maps + tunneling are wired up.
+// All Sentry behavior is gated on NEXT_PUBLIC_SENTRY_DSN — without it the
+// SDK is initialized as a no-op and these wrapper options are inert.
+const sentryWebpackPluginOptions = {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  // Suppress upload during local builds where SENTRY_AUTH_TOKEN isn't set.
+  silent: !process.env.SENTRY_AUTH_TOKEN,
+  // Tunnel ad-blocked requests through our origin so client errors still report.
+  tunnelRoute: '/monitoring',
+  // Hide Sentry from the public source map output.
+  hideSourceMaps: true,
+  // Avoid breaking the build if Sentry can't reach its API in CI.
+  errorHandler: () => {},
+  disableLogger: true,
+}
+
+export default process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_DSN
+  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+  : nextConfig
