@@ -2,6 +2,7 @@ import { requireAdmin } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { AdminTopbar } from '@/components/admin/topbar';
 import { PipelineBoard, type BoardCard, type Stage } from '@/components/admin/pipeline-board';
+import { NewEngagementModal } from '@/components/admin/new-engagement-modal';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Pipeline' };
@@ -59,6 +60,20 @@ export default async function PipelinePage() {
 
   const owners = [...ownerMap.entries()].map(([id, name]) => ({ id, name }));
 
+  const [{ data: orgRows }, { data: adminProfiles }] = await Promise.all([
+    sb.from('organizations').select('id, name').order('name', { ascending: true }).limit(500),
+    sb
+      .from('profiles')
+      .select('id, full_name, email')
+      .eq('app_role', 'admin')
+      .order('full_name', { ascending: true }),
+  ]);
+  const orgOptions = (orgRows ?? []).map((o) => ({ id: o.id, name: o.name as string }));
+  const ownerOptions = (adminProfiles ?? []).map((p) => ({
+    id: p.id,
+    name: (p.full_name as string | null) || (p.email as string),
+  }));
+
   return (
     <>
       <AdminTopbar
@@ -67,11 +82,14 @@ export default async function PipelinePage() {
         fullName={profile.full_name}
       />
       <div className="px-6 lg:px-8 py-8 max-w-[1600px] mx-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-[#fafafa]">Pipeline</h1>
-          <p className="text-sm text-[#a1a1aa] mt-1">
-            Drag engagements between stages. Shift-click cards to multi-select.
-          </p>
+        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight text-[#fafafa]">Pipeline</h1>
+            <p className="text-sm text-[#a1a1aa] mt-1">
+              Drag engagements between stages. Shift-click cards to multi-select.
+            </p>
+          </div>
+          <NewEngagementModal organizations={orgOptions} owners={ownerOptions} />
         </div>
         <PipelineBoard initial={initial} owners={owners} />
       </div>
