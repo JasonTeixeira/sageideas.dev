@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { signUpWithPassword, signUpWithMagicLink } from '@/app/auth/actions';
+import { signUpWithPassword } from '@/app/auth/actions';
 import { BrandPanel, SageLogo } from '@/components/auth/brand-panel';
 import { OAuthButtons } from '@/components/auth/oauth-buttons';
 import { GradientMesh } from '@/components/auth/gradient-mesh';
@@ -20,7 +20,6 @@ type Props = {
     full_name?: string;
     role?: string;
     company?: string;
-    mode?: string;
     error?: string;
   }>;
 };
@@ -83,11 +82,14 @@ export default async function SignupPage({ searchParams }: Props) {
   const fullName = sp.full_name ?? '';
   const role = sp.role ?? '';
   const company = sp.company ?? '';
-  const mode = sp.mode === 'magic' ? 'magic' : 'password';
   const error = sp.error;
 
   if (step >= 2 && !email) redirect('/signup');
-  if (step === 3 && !fullName) redirect(`/signup?step=2&email=${encodeURIComponent(email)}${mode === 'magic' ? '&mode=magic' : `&password=${encodeURIComponent(password)}`}`);
+  if (step === 3 && !fullName) {
+    redirect(
+      `/signup?step=2&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+    );
+  }
 
   return (
     <div className="relative min-h-screen flex bg-[#09090B]">
@@ -115,12 +117,11 @@ export default async function SignupPage({ searchParams }: Props) {
               )}
             </div>
 
-            {step === 1 && <StepAccount email={email} mode={mode} />}
+            {step === 1 && <StepAccount email={email} />}
             {step === 2 && (
               <StepIntake
                 email={email}
                 password={password}
-                mode={mode}
                 fullName={fullName}
                 role={role}
                 company={company}
@@ -130,7 +131,6 @@ export default async function SignupPage({ searchParams }: Props) {
               <StepGoals
                 email={email}
                 password={password}
-                mode={mode}
                 fullName={fullName}
                 role={role}
                 company={company}
@@ -153,8 +153,7 @@ export default async function SignupPage({ searchParams }: Props) {
   );
 }
 
-function StepAccount({ email, mode }: { email: string; mode: 'password' | 'magic' }) {
-  const isMagic = mode === 'magic';
+function StepAccount({ email }: { email: string }) {
   return (
     <>
       <div className="space-y-2 mb-6">
@@ -171,7 +170,6 @@ function StepAccount({ email, mode }: { email: string; mode: 'password' | 'magic
 
       <form action="/signup" method="GET" className="space-y-4">
         <input type="hidden" name="step" value="2" />
-        <input type="hidden" name="mode" value={mode} />
 
         <div className="space-y-1.5">
           <label
@@ -192,26 +190,24 @@ function StepAccount({ email, mode }: { email: string; mode: 'password' | 'magic
           />
         </div>
 
-        {!isMagic && (
-          <div className="space-y-1.5">
-            <label
-              htmlFor="password"
-              className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
-            >
-              Password (min 8 chars)
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={8}
-              autoComplete="new-password"
-              placeholder="••••••••"
-              className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
-            />
-          </div>
-        )}
+        <div className="space-y-1.5">
+          <label
+            htmlFor="password"
+            className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+          >
+            Password (min 8 chars)
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            minLength={8}
+            autoComplete="new-password"
+            placeholder="••••••••"
+            className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+          />
+        </div>
 
         <button
           type="submit"
@@ -220,15 +216,6 @@ function StepAccount({ email, mode }: { email: string; mode: 'password' | 'magic
           Continue
         </button>
       </form>
-
-      <div className="mt-3 text-center">
-        <Link
-          href={`/signup?step=1&mode=${isMagic ? 'password' : 'magic'}${email ? `&email=${encodeURIComponent(email)}` : ''}`}
-          className="text-xs text-[#71717A] hover:text-[#A1A1AA] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
-        >
-          {isMagic ? 'Use a password instead' : 'Email me a magic link instead'}
-        </Link>
-      </div>
 
       <div className="my-6 flex items-center gap-3" role="separator" aria-hidden>
         <div className="flex-1 h-px bg-[#27272A]" />
@@ -246,14 +233,12 @@ function StepAccount({ email, mode }: { email: string; mode: 'password' | 'magic
 function StepIntake({
   email,
   password,
-  mode,
   fullName,
   role,
   company,
 }: {
   email: string;
   password: string;
-  mode: 'password' | 'magic';
   fullName: string;
   role: string;
   company: string;
@@ -272,8 +257,7 @@ function StepIntake({
       <form action="/signup" method="GET" className="space-y-4">
         <input type="hidden" name="step" value="3" />
         <input type="hidden" name="email" value={email} />
-        <input type="hidden" name="mode" value={mode} />
-        {mode === 'password' && <input type="hidden" name="password" value={password} />}
+        <input type="hidden" name="password" value={password} />
 
         <div className="space-y-1.5">
           <label
@@ -336,7 +320,7 @@ function StepIntake({
 
         <div className="flex gap-2 pt-2">
           <Link
-            href={`/signup?step=1&mode=${mode}&email=${encodeURIComponent(email)}`}
+            href={`/signup?step=1&email=${encodeURIComponent(email)}`}
             className="flex-1 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
           >
             Back
@@ -356,19 +340,16 @@ function StepIntake({
 function StepGoals({
   email,
   password,
-  mode,
   fullName,
   role,
   company,
 }: {
   email: string;
   password: string;
-  mode: 'password' | 'magic';
   fullName: string;
   role: string;
   company: string;
 }) {
-  const action = mode === 'password' ? signUpWithPassword : signUpWithMagicLink;
   return (
     <>
       <div className="space-y-1.5 mb-6">
@@ -378,12 +359,12 @@ function StepGoals({
         <p className="text-sm text-[#A1A1AA]">Pick everything that fits — we’ll route accordingly.</p>
       </div>
 
-      <form action={action} className="space-y-4">
+      <form action={signUpWithPassword} className="space-y-4">
         <input type="hidden" name="email" value={email} />
         <input type="hidden" name="full_name" value={fullName} />
         <input type="hidden" name="role_in_company" value={role} />
         <input type="hidden" name="company" value={company} />
-        {mode === 'password' && <input type="hidden" name="password" value={password} />}
+        <input type="hidden" name="password" value={password} />
 
         <fieldset className="space-y-2">
           <legend className="sr-only">Goals</legend>
@@ -405,7 +386,7 @@ function StepGoals({
 
         <div className="flex gap-2 pt-2">
           <Link
-            href={`/signup?step=2&mode=${mode}&email=${encodeURIComponent(email)}${mode === 'password' ? `&password=${encodeURIComponent(password)}` : ''}&full_name=${encodeURIComponent(fullName)}&role=${encodeURIComponent(role)}&company=${encodeURIComponent(company)}`}
+            href={`/signup?step=2&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&full_name=${encodeURIComponent(fullName)}&role=${encodeURIComponent(role)}&company=${encodeURIComponent(company)}`}
             className="flex-1 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
           >
             Back
