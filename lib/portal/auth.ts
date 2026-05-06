@@ -1,5 +1,30 @@
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
+
+async function loginRedirectUrl(): Promise<string> {
+  try {
+    const h = await headers();
+    const pathname =
+      h.get('x-pathname') ||
+      h.get('x-invoke-path') ||
+      h.get('next-url') ||
+      '';
+    if (pathname && pathname.startsWith('/')) {
+      return `/login?next=${encodeURIComponent(pathname)}`;
+    }
+    const referer = h.get('referer');
+    if (referer) {
+      try {
+        const u = new URL(referer);
+        if (u.pathname && u.pathname !== '/login') {
+          return `/login?next=${encodeURIComponent(u.pathname + u.search)}`;
+        }
+      } catch {}
+    }
+  } catch {}
+  return '/login';
+}
 
 export interface PortalUser {
   id: string;
@@ -32,7 +57,7 @@ export async function getPortalContext(): Promise<PortalContext> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+  if (!user) redirect(await loginRedirectUrl());
 
   const sb = supabaseAdmin();
 

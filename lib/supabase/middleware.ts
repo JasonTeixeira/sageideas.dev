@@ -65,6 +65,11 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname, search } = request.nextUrl;
 
+  // Expose the request pathname to server components / layouts so that
+  // auth-gated server code can build a `?next=` redirect target.
+  response.headers.set('x-pathname', pathname + (search || ''));
+  request.headers.set('x-pathname', pathname + (search || ''));
+
   // Tag portal/auth routes so the marketing chrome stays out of their way.
   if (isPortalChrome(pathname)) {
     response.headers.set('x-portal', '1');
