@@ -76,7 +76,7 @@ function ServiceCard({ item }: { item: any }) {
             {formatCurrency(Number(item.price))}
             {item.recurring && <span className="text-xs text-[#71717a] font-normal">/mo</span>}
           </div>
-          <form action={`/api/checkout`} method="POST">
+          <form action={`/api/portal/checkout`} method="POST">
             <input type="hidden" name="priceId" value={item.stripe_price_id} />
             <input type="hidden" name="recurring" value={item.recurring ? '1' : '0'} />
             <Button size="sm" type="submit">

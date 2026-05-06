@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     cancel_url: `${baseUrl}/catalog?canceled=1`,
     metadata: {
       organization_id: ctx.organizationId ?? '',
-      clerk_user_id: ctx.user.clerk_id,
+      auth_user_id: ctx.user.clerk_id,
     },
   });
 
