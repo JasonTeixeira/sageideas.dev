@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { AdminTopbar } from '@/components/admin/topbar';
+import { NewInvoiceModal } from '@/components/admin/new-invoice-modal';
 import { formatCurrency, formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -64,6 +65,21 @@ export default async function AdminInvoicesPage({
     .filter((i) => i.status === 'sent' || i.status === 'overdue')
     .reduce((sum, i) => sum + Number(i.total ?? i.amount ?? 0), 0);
 
+  const [{ data: orgRows }, { data: engRows }] = await Promise.all([
+    sb.from('organizations').select('id, name').order('name', { ascending: true }).limit(500),
+    sb
+      .from('engagements')
+      .select('id, title, organization_id')
+      .order('updated_at', { ascending: false })
+      .limit(500),
+  ]);
+  const orgOptions = (orgRows ?? []).map((o) => ({ id: o.id, name: o.name as string }));
+  const engOptions = (engRows ?? []).map((e) => ({
+    id: e.id,
+    title: e.title as string,
+    organization_id: (e.organization_id as string | null) ?? null,
+  }));
+
   return (
     <>
       <AdminTopbar
@@ -80,12 +96,7 @@ export default async function AdminInvoicesPage({
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Link
-              href="/admin/invoices/new"
-              className="rounded-lg bg-[#06b6d4] px-3 py-1.5 text-xs font-semibold text-[#09090B] hover:bg-[#0891B2]"
-            >
-              + New invoice
-            </Link>
+            <NewInvoiceModal organizations={orgOptions} engagements={engOptions} />
           </div>
         </div>
 
