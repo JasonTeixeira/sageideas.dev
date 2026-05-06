@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +15,26 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(errorParam)}`);
   }
 
-  const supabase = await createSupabaseServerClient();
+  // Build the response we will return, then bind cookies to IT so that
+  // session cookies set by exchangeCodeForSession/verifyOtp persist on the redirect.
+  const response = NextResponse.redirect(`${origin}${next}`);
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options as CookieOptions);
+          });
+        },
+      },
+    },
+  );
 
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -34,5 +53,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/login?error=missing_code`);
   }
 
-  return NextResponse.redirect(`${origin}${next}`);
+  return response;
 }
