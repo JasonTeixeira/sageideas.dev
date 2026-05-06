@@ -17,7 +17,9 @@
     "test:all": "npm run test:links && npm run test:ui && npm run test:lh",
     "validate": "node scripts/validate-content.mjs",
     "audit:strict-ui": "node scripts/strict-ui-audit.mjs",
-    "build:recruiter-pack": "node scripts/build-recruiter-pack.mjs"
+    "build:recruiter-pack": "node scripts/build-recruiter-pack.mjs",
+    "seed:test-data": "tsx scripts/seed-test-data.ts",
+    "test:cleanup": "tsx tests/db/cleanup.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.879.0",
@@ -59,6 +61,7 @@
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
     "@react-pdf/renderer": "^4.5.1",
+    "@sentry/nextjs": "^10.51.0",
     "@stripe/stripe-js": "^9.4.0",
     "@supabase/ssr": "^0.6.0",
     "@supabase/supabase-js": "^2.47.10",
@@ -107,6 +110,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
     "archiver": "^6.0.2",
     "axe-core": "^4.11.0",
     "babel-plugin-react-compiler": "1.0.0",
@@ -122,6 +126,7 @@
     "tsx": "^4.21.0",
     "tw-animate-css": "1.3.3",
     "typescript": "^5.7.3",
-    "undici": "^7.16.0"
+    "undici": "^7.16.0",
+    "ws": "^8.20.0"
   }
 }

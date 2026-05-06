@@ -99,28 +99,20 @@ export function CommandPalette() {
       keywords: ['articles', 'posts', 'writing']
     },
     {
-      id: 'platform',
-      label: 'Platform Engineering',
-      description: 'CI/CD, IaC, SLOs, security receipts',
+      id: 'capabilities',
+      label: 'Capabilities',
+      description: 'What we build and how we operate',
       icon: <Code2 className="h-4 w-4" />,
-      action: () => navigate('/platform'),
-      keywords: ['platform', 'infrastructure', 'cicd', 'slo', 'security', 'ops']
+      action: () => navigate('/capabilities'),
+      keywords: ['platform', 'capabilities', 'infrastructure', 'cicd', 'security', 'ops']
     },
     {
-      id: 'dashboard',
-      label: 'Live Dashboard',
-      description: 'Quality telemetry in real-time',
+      id: 'work',
+      label: 'Work',
+      description: 'Case studies and engagement outcomes',
       icon: <Code2 className="h-4 w-4" />,
-      action: () => navigate('/dashboard'),
-      keywords: ['dashboard', 'telemetry', 'metrics', 'live']
-    },
-    {
-      id: 'artifacts',
-      label: 'Artifacts & Evidence',
-      description: 'Playbooks, templates, evidence',
-      icon: <Code2 className="h-4 w-4" />,
-      action: () => navigate('/artifacts'),
-      keywords: ['artifacts', 'evidence', 'playbooks', 'templates', 'download']
+      action: () => navigate('/work'),
+      keywords: ['work', 'case', 'studies', 'projects', 'evidence']
     },
     {
       id: 'founder',
