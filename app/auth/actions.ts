@@ -249,6 +249,57 @@ export async function signOut(): Promise<void> {
   redirect('/login');
 }
 
+export async function adminInviteUser(formData: FormData): Promise<void> {
+  const email = String(formData.get('email') ?? '').trim().toLowerCase();
+  const fullName = String(formData.get('full_name') ?? '').trim();
+  const appRole = String(formData.get('app_role') ?? 'client');
+
+  if (!email) redirect('/admin/users?error=missing_email');
+  if (!['client', 'admin'].includes(appRole)) {
+    redirect('/admin/users?error=invalid_role');
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
+  const sb = supabaseAdmin();
+  const { data: caller } = await sb
+    .from('profiles')
+    .select('app_role')
+    .eq('id', user.id)
+    .maybeSingle();
+  if (caller?.app_role !== 'admin') redirect('/portal');
+
+  const h = await headers();
+  const origin = siteOrigin(h);
+
+  const { data: invited, error } = await sb.auth.admin.inviteUserByEmail(email, {
+    redirectTo: `${origin}/auth/reset`,
+    data: { full_name: fullName, invited_by: user.id },
+  });
+
+  if (error) {
+    redirect(`/admin/users?error=${encodeURIComponent(error.message)}`);
+  }
+
+  if (invited?.user) {
+    await sb.from('profiles').upsert({
+      id: invited.user.id,
+      email,
+      full_name: fullName || null,
+      app_role: appRole,
+      approval_status: 'approved',
+      approved_at: new Date().toISOString(),
+      approved_by: user.id,
+    });
+  }
+
+  redirect(`/admin/users?invited=${encodeURIComponent(email)}`);
+}
+
 export async function approveProfile(formData: FormData): Promise<void> {
   const targetId = String(formData.get('id') ?? '');
   if (!targetId) return;

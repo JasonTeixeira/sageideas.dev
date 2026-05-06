@@ -14,6 +14,7 @@ import {
   Settings2,
   ShieldCheck,
   TrendingUp,
+  UserCog,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -29,6 +30,7 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
   { href: '/admin/templates', label: 'Templates', icon: FileText },
   { href: '/admin/audit-log', label: 'Audit Log', icon: ScrollText },
+  { href: '/admin/users', label: 'Users', icon: UserCog },
   { href: '/admin/settings', label: 'Settings', icon: Settings2 },
 ];
 
