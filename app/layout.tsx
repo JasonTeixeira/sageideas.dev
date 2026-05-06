@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { headers } from 'next/headers'
 import { MarketingChrome } from '@/components/marketing-chrome'
 import { CookieBanner } from '@/components/studio/cookie-banner'
 import { ExitIntentModal } from '@/components/exit-intent-modal'
@@ -160,11 +161,13 @@ const professionalServiceSchema = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const h = await headers()
+  const isPortal = h.get('x-portal') === '1'
   return (
     <html
       lang="en"
@@ -184,8 +187,8 @@ export default function RootLayout({
           <MarketingChrome position="top" />
           <MarketingChrome position="children">{children}</MarketingChrome>
           <MarketingChrome position="bottom" />
-          <CookieBanner />
-          <ExitIntentModal />
+          {!isPortal && <CookieBanner />}
+          {!isPortal && <ExitIntentModal />}
         </PostHogProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

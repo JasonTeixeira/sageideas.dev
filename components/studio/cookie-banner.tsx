@@ -48,9 +48,9 @@ export function CookieBanner() {
         role="dialog"
         aria-live="polite"
         aria-label="Cookie consent"
-        className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[90]"
+        className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[40] pointer-events-none"
       >
-        <div className="bg-[#0F0F12] border border-[#27272A] rounded-2xl p-5 shadow-2xl shadow-black/40 backdrop-blur-md">
+        <div className="bg-[#0F0F12] border border-[#27272A] rounded-2xl p-5 shadow-2xl shadow-black/40 backdrop-blur-md pointer-events-auto">
           <h2 className="text-sm font-semibold text-[#FAFAFA] mb-1">We use a few cookies.</h2>
           <p className="text-xs text-[#A1A1AA] leading-relaxed">
             Essential cookies keep the site working. Analytics cookies help us understand which
