@@ -11,6 +11,7 @@ import { renderMessageNotificationEmail } from '@/components/email/MessageNotifi
 import { renderMeetingInviteEmail } from '@/components/email/MeetingInviteEmail';
 import { renderProjectStatusUpdateEmail } from '@/components/email/ProjectStatusUpdateEmail';
 import { renderWeeklyDigestEmail, type WeeklyDigestSection } from '@/components/email/WeeklyDigestEmail';
+import { renderDocumentSharedEmail } from '@/components/email/DocumentSharedEmail';
 
 type Profile = {
   id: string;
@@ -711,6 +712,58 @@ async function findProfileById(id: string): Promise<{ id: string; email: string;
   if (!data) return null;
   const row = data as { id: string; email: string | null; full_name: string | null };
   return { id: row.id, email: row.email ?? '', full_name: row.full_name ?? null };
+}
+
+export async function notifyDocumentShared(documentId: string) {
+  const sb = supabaseAdmin();
+  const { data: doc } = await sb
+    .from('documents')
+    .select('id, title, description, organization_id')
+    .eq('id', documentId)
+    .maybeSingle();
+  if (!doc) return { ok: false, reason: 'no_document' as const };
+
+  const { data: org } = await sb
+    .from('organizations')
+    .select('name, primary_contact_email')
+    .eq('id', doc.organization_id as string)
+    .maybeSingle();
+
+  const recipientEmail = (org?.primary_contact_email as string | null) ?? '';
+  if (!recipientEmail) return { ok: false, reason: 'no_recipient' as const };
+
+  const userRow = await findProfileByEmail(recipientEmail);
+  if (userRow) {
+    await insertNotification({
+      user_id: userRow.id,
+      kind: 'document_shared',
+      title: `Document shared: ${String(doc.title ?? 'Document')}`,
+      body: 'Open the portal to view, download, or reply.',
+      link: `/portal/documents/${doc.id}`,
+      payload: { documentId: doc.id },
+    });
+  }
+
+  const tpl = renderDocumentSharedEmail({
+    to: recipientEmail,
+    fullName: userRow?.full_name ?? undefined,
+    documentTitle: String(doc.title ?? 'Document'),
+    organizationName: (org?.name as string | null) ?? undefined,
+    description: (doc.description as string | null) ?? null,
+    portalUrl: `${SITE}/portal/documents`,
+  });
+
+  await sendEmail({
+    to: recipientEmail,
+    subject: tpl.subject,
+    html: tpl.html,
+    text: tpl.text,
+    templateKey: 'document_shared',
+    userId: userRow?.id,
+    metadata: { documentId: doc.id },
+  });
+
+  return { ok: true as const };
 }
 
 function formatMoney(amount: number, currency: string): string {
