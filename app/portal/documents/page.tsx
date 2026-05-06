@@ -19,7 +19,20 @@ type Doc = {
   storage_path: string | null;
   version: number | null;
   created_at: string;
+  size_bytes: number | string | null;
 };
+
+function formatBytes(bytes: number | null): string {
+  if (!bytes || bytes <= 0) return '—';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let i = 0;
+  let n = bytes;
+  while (n >= 1024 && i < units.length - 1) {
+    n /= 1024;
+    i++;
+  }
+  return `${n.toFixed(n >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+}
 
 const CONTRACT_TYPES = new Set(['contract', 'sow', 'nda', 'amendment', 'msa']);
 
@@ -69,7 +82,7 @@ export default async function DocumentsPage() {
               <div className="hidden md:grid md:grid-cols-12 gap-3 px-4 py-2.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
                 <div className="md:col-span-5">Filename</div>
                 <div className="md:col-span-2">Type</div>
-                <div className="md:col-span-1">Version</div>
+                <div className="md:col-span-1">Size</div>
                 <div className="md:col-span-2">Uploaded</div>
                 <div className="md:col-span-2 text-right">Actions</div>
               </div>
@@ -88,7 +101,7 @@ export default async function DocumentsPage() {
                     {d.type ?? 'file'}
                   </div>
                   <div className="md:col-span-1 text-xs text-[#a1a1aa] tabular-nums">
-                    v{d.version ?? 1}
+                    {formatBytes(d.size_bytes !== null ? Number(d.size_bytes) : null)}
                   </div>
                   <div className="md:col-span-2 text-xs text-[#71717a]">
                     {formatDate(d.created_at)}
@@ -160,12 +173,10 @@ function DocAction({ doc }: { doc: Doc }) {
   if (doc.storage_path) {
     return (
       <a
-        href={doc.storage_path}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`/api/portal/documents/${doc.id}/download`}
         className="inline-flex items-center gap-1.5 text-xs text-[#22d3ee] hover:text-[#67e8f9]"
       >
-        <Download className="w-3.5 h-3.5" /> View
+        <Download className="w-3.5 h-3.5" /> Download
       </a>
     );
   }

@@ -24,10 +24,14 @@ export async function getEngagement(id: string) {
 
 export async function getDocumentsForOrg(organizationId: string) {
   const sb = supabaseAdmin();
+  // Clients see shared files plus contracts in flight or executed.
+  // Drafts and soft-deleted records are hidden.
   const { data } = await sb
     .from('documents')
     .select('*')
     .eq('organization_id', organizationId)
+    .in('status', ['shared', 'sent', 'signed', 'countersigned'])
+    .is('deleted_at', null)
     .order('created_at', { ascending: false });
   return data ?? [];
 }
