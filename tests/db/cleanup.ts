@@ -14,6 +14,12 @@
  *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npx tsx tests/db/cleanup.ts
  */
 
+// Node 20 ships without a global WebSocket; supabase-js v2 imports the realtime
+// client at module load even when realtime isn't used. Polyfill before importing.
+import WebSocket from 'ws';
+// @ts-expect-error — wiring a global polyfill on a Node runtime that lacks WebSocket.
+if (typeof globalThis.WebSocket === 'undefined') globalThis.WebSocket = WebSocket;
+
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const TEST_RUN_ID = 'phase-0-seed';
@@ -190,6 +196,14 @@ async function main() {
     profileCount += count ?? 0;
   }
   console.log(`  ✓ profiles: ${profileCount}`);
+
+  // Legacy app_users mirror (FK target for org_memberships) — wipe matching emails.
+  let appUserCount = 0;
+  for (const pat of TEST_EMAIL_PATTERNS) {
+    const { count } = await sb.from('app_users').delete({ count: 'exact' }).like('email', pat);
+    appUserCount += count ?? 0;
+  }
+  console.log(`  ✓ app_users: ${appUserCount}`);
 
   // 3. auth.users — last because profiles FK references it.
   const authDeleted = await deleteAuthUsers(sb);

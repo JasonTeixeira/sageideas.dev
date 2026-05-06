@@ -29,6 +29,12 @@
  *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npx tsx scripts/seed-test-data.ts
  */
 
+// Node 20 ships without a global WebSocket; supabase-js v2 imports the realtime
+// client at module load even when realtime isn't used. Polyfill before importing.
+import WebSocket from 'ws';
+// @ts-expect-error — wiring a global polyfill on a Node runtime that lacks WebSocket.
+if (typeof globalThis.WebSocket === 'undefined') globalThis.WebSocket = WebSocket;
+
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const TEST_RUN_ID = 'phase-0-seed';
@@ -119,6 +125,29 @@ async function upsertProfile(
   if (error) throw new Error(`upsert profile ${email}: ${error.message}`);
 }
 
+/**
+ * Legacy `app_users` table (Clerk era) is still referenced by org_memberships.user_id
+ * via FK. Phase 1 should migrate this FK to profiles(id) and drop app_users. Until
+ * then we mirror the row so memberships satisfy the constraint.
+ */
+async function ensureAppUser(
+  sb: SupabaseClient,
+  id: string,
+  email: string,
+  fullName: string,
+  role: 'admin' | 'client' | 'collaborator',
+) {
+  const payload = {
+    id,
+    clerk_id: `seed_${id}`, // not-null column; mark as seed origin
+    email,
+    full_name: fullName,
+    role,
+  };
+  const { error } = await sb.from('app_users').upsert(payload, { onConflict: 'id' });
+  if (error) throw new Error(`upsert app_user ${email}: ${error.message}`);
+}
+
 async function upsertOrg(sb: SupabaseClient, ownerId: string): Promise<string> {
   const payload = {
     name: ORG_NAME,
@@ -126,7 +155,7 @@ async function upsertOrg(sb: SupabaseClient, ownerId: string): Promise<string> {
     industry: 'SaaS',
     primary_contact_email: ACCOUNTS.client1.email,
     status: 'active',
-    pipeline_stage: 'engaged',
+    pipeline_stage: 'active',
     annual_value: 60000,
     notes: `TEST_RUN_ID:${TEST_RUN_ID}`,
     owner_id: ownerId,
@@ -330,7 +359,7 @@ async function replaceCalendarEvents(
     { title: 'Kickoff Call', offsetDays: -7, durationHours: 1, type: 'meeting' },
     { title: 'Discovery Workshop', offsetDays: -3, durationHours: 2, type: 'meeting' },
     { title: 'Sprint Review', offsetDays: 2, durationHours: 1, type: 'review' },
-    { title: 'Stakeholder Demo', offsetDays: 7, durationHours: 1, type: 'demo' },
+    { title: 'Stakeholder Demo', offsetDays: 7, durationHours: 1, type: 'client_call' },
     { title: 'Retrospective', offsetDays: 14, durationHours: 1, type: 'meeting' },
   ];
   const rows = events.map((e) => ({
@@ -353,8 +382,8 @@ async function replaceCalendarEvents(
 async function replaceDeliverables(sb: SupabaseClient, engagementId: string, assigneeId: string) {
   await sb.from('deliverables').delete().eq('engagement_id', engagementId);
   const rows = [
-    { title: 'Brand Audit Report', status: 'in_review', due_date_offset: 7 },
-    { title: 'Wireframes v1', status: 'in_progress', due_date_offset: 14 },
+    { title: 'Brand Audit Report', status: 'review', due_date_offset: 7 },
+    { title: 'Wireframes v1', status: 'submitted', due_date_offset: 14 },
     { title: 'Design System Tokens', status: 'draft', due_date_offset: 21 },
   ].map((d) => ({
     engagement_id: engagementId,
@@ -455,6 +484,13 @@ async function main() {
   await upsertProfile(sb, ids.pending, ACCOUNTS.pending.email, ACCOUNTS.pending.full_name, 'pending', 'pending');
   console.log('  profiles upserted: admin, client1, client2, pending');
 
+  // Mirror into legacy app_users (FK target for org_memberships).
+  await ensureAppUser(sb, ids.admin, ACCOUNTS.admin.email, ACCOUNTS.admin.full_name, 'admin');
+  await ensureAppUser(sb, ids.client1, ACCOUNTS.client1.email, ACCOUNTS.client1.full_name, 'client');
+  await ensureAppUser(sb, ids.client2, ACCOUNTS.client2.email, ACCOUNTS.client2.full_name, 'client');
+  await ensureAppUser(sb, ids.pending, ACCOUNTS.pending.email, ACCOUNTS.pending.full_name, 'client');
+  console.log('  app_users mirrored (legacy FK target)');
+
   // 2. Organization + memberships
   console.log('\n— Organization & memberships —');
   const orgId = await upsertOrg(sb, ids.admin);
@@ -498,7 +534,7 @@ async function main() {
   });
   await upsertDocument(sb, orgId, discoveryId, {
     title: 'Discovery — MSA',
-    type: 'msa',
+    type: 'contract',
     status: 'signed',
     templateId,
     signed: true,
@@ -514,7 +550,7 @@ async function main() {
   });
   await upsertDocument(sb, orgId, activeId, {
     title: 'Website Redesign — Change Order #1',
-    type: 'change_order',
+    type: 'amendment',
     status: 'sent',
     templateId,
     signed: false,

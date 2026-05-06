@@ -110,6 +110,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
     "archiver": "^6.0.2",
     "axe-core": "^4.11.0",
     "babel-plugin-react-compiler": "1.0.0",
@@ -125,6 +126,7 @@
     "tsx": "^4.21.0",
     "tw-animate-css": "1.3.3",
     "typescript": "^5.7.3",
-    "undici": "^7.16.0"
+    "undici": "^7.16.0",
+    "ws": "^8.20.0"
   }
 }
