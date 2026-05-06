@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { signInWithMagicLink } from '@/app/auth/actions';
+import { signInWithPassword } from '@/app/auth/actions';
 import { BrandPanel, SageLogo } from '@/components/auth/brand-panel';
 import { OAuthButtons } from '@/components/auth/oauth-buttons';
 import { GradientMesh } from '@/components/auth/gradient-mesh';
@@ -13,8 +13,6 @@ export const dynamic = 'force-dynamic';
 
 type Props = {
   searchParams: Promise<{
-    sent?: string;
-    email?: string;
     error?: string;
     next?: string;
   }>;
@@ -22,10 +20,10 @@ type Props = {
 
 export default async function LoginPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const sent = sp.sent === '1';
-  const sentEmail = sp.email ?? '';
   const error = sp.error;
   const next = sp.next ?? '/auth/redirect';
+  const signupHref =
+    next !== '/auth/redirect' ? `/signup?next=${encodeURIComponent(next)}` : '/signup';
 
   return (
     <div className="relative min-h-screen flex bg-[#09090B]">
@@ -48,7 +46,8 @@ export default async function LoginPage({ searchParams }: Props) {
                 Sign in to the studio
               </h2>
               <p className="text-sm text-[#A1A1AA]">
-                Use the email tied to your engagement, or continue with a connected account.
+                Use the email and password tied to your engagement, or continue with a connected
+                account.
               </p>
             </div>
 
@@ -63,76 +62,75 @@ export default async function LoginPage({ searchParams }: Props) {
               )}
             </div>
 
-            {sent ? (
-              <div
-                role="status"
-                aria-live="polite"
-                className="rounded-xl border border-[#06B6D4]/30 bg-[#06B6D4]/5 px-5 py-6 space-y-3"
-              >
-                <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
-                  Magic link sent
-                </div>
-                <p className="text-sm text-[#FAFAFA]">
-                  Check <span className="font-medium">{sentEmail}</span> for a link from Sage Ideas.
-                  Click it to finish signing in.
-                </p>
-                <p className="text-xs text-[#71717A]">
-                  The link expires in 1 hour. Didn’t get it? Check spam, then{' '}
-                  <Link
-                    href="/login"
-                    className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
-                  >
-                    request a new one
-                  </Link>
-                  .
-                </p>
+            <form action={signInWithPassword} className="space-y-4">
+              <input type="hidden" name="next" value={next} />
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A] mb-2"
+                >
+                  Work email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@company.com"
+                  className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+                />
               </div>
-            ) : (
-              <>
-                <form action={signInWithMagicLink} className="space-y-2.5">
-                  <input type="hidden" name="next" value={next} />
+              <div>
+                <div className="flex items-baseline justify-between mb-2">
                   <label
-                    htmlFor="email"
-                    className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+                    htmlFor="password"
+                    className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
                   >
-                    Email
+                    Password
                   </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="you@company.com"
-                    className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+                  <Link
+                    href="/auth/forgot-password"
+                    className="text-xs text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
                   >
-                    Send magic link
-                  </button>
-                </form>
-
-                <div className="my-6 flex items-center gap-3" role="separator" aria-hidden>
-                  <div className="flex-1 h-px bg-[#27272A]" />
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#52525B]">
-                    or continue with
-                  </span>
-                  <div className="flex-1 h-px bg-[#27272A]" />
+                    Forgot password?
+                  </Link>
                 </div>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete="current-password"
+                  className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+              >
+                Sign in
+              </button>
+            </form>
 
-                <OAuthButtons next={next} />
-              </>
-            )}
+            <div className="my-6 flex items-center gap-3" role="separator" aria-hidden>
+              <div className="flex-1 h-px bg-[#27272A]" />
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#52525B]">
+                or continue with
+              </span>
+              <div className="flex-1 h-px bg-[#27272A]" />
+            </div>
 
-            <p className="mt-8 text-xs text-[#71717A] text-center">
+            <OAuthButtons next={next} />
+
+            <p className="mt-8 text-center text-sm text-[#A1A1AA]">
               New here?{' '}
               <Link
-                href="/signup"
+                href={signupHref}
                 className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
               >
-                Request access →
+                Create an account →
               </Link>
             </p>
           </div>
