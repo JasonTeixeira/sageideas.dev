@@ -39,6 +39,66 @@ export async function signInWithMagicLink(formData: FormData): Promise<void> {
   redirect(`/login?sent=1&email=${encodeURIComponent(email)}`);
 }
 
+export async function signInWithPassword(formData: FormData): Promise<void> {
+  const email = String(formData.get('email') ?? '').trim().toLowerCase();
+  const password = String(formData.get('password') ?? '');
+  const next = String(formData.get('next') ?? '/auth/redirect');
+  if (!email || !password) {
+    redirect(
+      `/login?error=${encodeURIComponent('Email and password are required.')}&next=${encodeURIComponent(next)}`,
+    );
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    redirect(
+      `/login?error=${encodeURIComponent('Invalid email or password.')}&next=${encodeURIComponent(next)}`,
+    );
+  }
+
+  redirect(next);
+}
+
+export async function requestPasswordReset(formData: FormData): Promise<void> {
+  const email = String(formData.get('email') ?? '').trim().toLowerCase();
+  if (!email) redirect('/auth/forgot-password?error=missing_email');
+
+  const supabase = await createSupabaseServerClient();
+  const h = await headers();
+  const origin = siteOrigin(h);
+
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/reset`,
+  });
+
+  redirect(`/auth/forgot-password?sent=1&email=${encodeURIComponent(email)}`);
+}
+
+export async function updatePassword(formData: FormData): Promise<void> {
+  const password = String(formData.get('password') ?? '');
+  const confirm = String(formData.get('confirm_password') ?? '');
+
+  if (!password || password.length < 8) {
+    redirect(
+      `/auth/reset?error=${encodeURIComponent('Password must be at least 8 characters.')}`,
+    );
+  }
+  if (password !== confirm) {
+    redirect(`/auth/reset?error=${encodeURIComponent('Passwords do not match.')}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    redirect(`/auth/reset?error=${encodeURIComponent(error.message)}`);
+  }
+
+  redirect('/auth/redirect');
+}
+
 export async function signInWithProvider(formData: FormData): Promise<void> {
   const provider = String(formData.get('provider') ?? '') as Provider;
   const next = String(formData.get('next') ?? '/auth/redirect');
