@@ -1,0 +1,1680 @@
+{
+  "tool": "get_advisors",
+  "result": {
+    "result": {
+      "lints": [
+        {
+          "name": "rls_enabled_no_policy",
+          "title": "RLS Enabled No Policy",
+          "level": "INFO",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.",
+          "detail": "Table \\`public.sage_after_dark_featured_posts\\` has RLS enabled, but no policies exist",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+          "metadata": {
+            "name": "sage_after_dark_featured_posts",
+            "type": "table",
+            "schema": "public"
+          },
+          "cache_key": "rls_enabled_no_policy_public_sage_after_dark_featured_posts"
+        },
+        {
+          "name": "rls_enabled_no_policy",
+          "title": "RLS Enabled No Policy",
+          "level": "INFO",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.",
+          "detail": "Table \\`public.sage_after_dark_now_status\\` has RLS enabled, but no policies exist",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+          "metadata": {
+            "name": "sage_after_dark_now_status",
+            "type": "table",
+            "schema": "public"
+          },
+          "cache_key": "rls_enabled_no_policy_public_sage_after_dark_now_status"
+        },
+        {
+          "name": "rls_enabled_no_policy",
+          "title": "RLS Enabled No Policy",
+          "level": "INFO",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.",
+          "detail": "Table \\`public.sage_after_dark_password_resets\\` has RLS enabled, but no policies exist",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+          "metadata": {
+            "name": "sage_after_dark_password_resets",
+            "type": "table",
+            "schema": "public"
+          },
+          "cache_key": "rls_enabled_no_policy_public_sage_after_dark_password_resets"
+        },
+        {
+          "name": "rls_enabled_no_policy",
+          "title": "RLS Enabled No Policy",
+          "level": "INFO",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.",
+          "detail": "Table \\`public.sage_after_dark_rotation_items\\` has RLS enabled, but no policies exist",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+          "metadata": {
+            "name": "sage_after_dark_rotation_items",
+            "type": "table",
+            "schema": "public"
+          },
+          "cache_key": "rls_enabled_no_policy_public_sage_after_dark_rotation_items"
+        },
+        {
+          "name": "security_definer_view",
+          "title": "Security Definer View",
+          "level": "ERROR",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects views defined with the SECURITY DEFINER property. These views enforce Postgres permissions and row level security policies (RLS) of the view creator, rather than that of the querying user",
+          "detail": "View \\`public.sage_after_dark_pageview_counts\\` is defined with the SECURITY DEFINER property",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view",
+          "metadata": {
+            "name": "sage_after_dark_pageview_counts",
+            "type": "view",
+            "schema": "public"
+          },
+          "cache_key": "security_definer_view_public_sage_after_dark_pageview_counts"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_add_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_add_rotation",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_admin_featured_all(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_featured_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_featured_all",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_admin_featured_all_p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_admin_magic_links(p_secret text, p_limit integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_magic_links`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_magic_links",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text, p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_admin_magic_links_p_secret text, p_limit integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_admin_members(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_members`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_members",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_admin_members_p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_admin_rotation_all(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_rotation_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_rotation_all",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_admin_rotation_all_p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_check_admin_secret(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_check_admin_secret`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_check_admin_secret",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_check_admin_secret_p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_consume_magic_link(p_token text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_consume_magic_link",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_token text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_consume_magic_link_p_token text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_consume_password_reset(p_token_hash text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_consume_password_reset",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_token_hash text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_consume_password_reset_p_token_hash text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_create_magic_link(p_email text, p_token text, p_ttl_minutes integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_create_magic_link",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_token text, p_ttl_minutes integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_create_magic_link_p_email text, p_token text, p_ttl_minutes integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_create_password_reset(p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_create_password_reset",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_create_password_reset_p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_deactivate_rotation(p_id uuid)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_deactivate_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_id uuid",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_deactivate_rotation(p_id uuid, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_deactivate_rotation",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_id uuid, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_get_featured(p_slot text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_featured`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_featured",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slot text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_get_featured_p_slot text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_get_now_status()` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_now_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_get_now_status_"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_get_password(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_password`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_password",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_get_password_p_email text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_get_rotation(p_kind text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_kind text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_get_rotation_p_kind text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_member_status(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_member_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_member_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_member_status_p_email text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_pin_post",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slug text, p_slot text, p_rank integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_pin_post",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_slug text, p_slot text, p_rank integer, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_popular_posts(p_days integer, p_limit integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_popular_posts`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_popular_posts",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_days integer, p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_popular_posts_p_days integer, p_limit integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_record_login(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_record_login`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_record_login",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_record_login_p_email text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_register_member(p_email text, p_password_hash text, p_name text, p_referrer text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_register_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_register_member",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_password_hash text, p_name text, p_referrer text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_register_member_p_email text, p_password_hash text, p_name text, p_referrer text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_set_password(p_email text, p_password_hash text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_set_password`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_set_password",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_password_hash text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_set_password_p_email text, p_password_hash text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_stripe_event_record(p_event_id text, p_event_type text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_stripe_event_record`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_stripe_event_record",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_event_id text, p_event_type text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_stripe_event_record_p_event_id text, p_event_type text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_top_posts(p_limit integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_top_posts`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_top_posts",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_top_posts_p_limit integer"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_total_pageviews()` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_total_pageviews`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_total_pageviews",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_total_pageviews_"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_track_event(p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_track_event`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_track_event",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_track_event_p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_track_pageview(p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_track_pageview`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_track_pageview",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_track_pageview_p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_unpin_post(p_id uuid)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_unpin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_unpin_post",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_id uuid",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_unpin_post_p_id uuid"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_unpin_post(p_id uuid, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_unpin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_unpin_post",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_id uuid, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_unpin_post_p_id uuid, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_update_profile(p_email text, p_name text, p_referrer text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_update_profile`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_update_profile",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text, p_name text, p_referrer text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_update_profile_p_email text, p_name text, p_referrer text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_upsert_member(p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_member",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_upsert_member_p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_upsert_now_status(p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_now_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_upsert_now_status_p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_upsert_now_status(p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_now_status",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_upsert_now_status_p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_views_for_slug(p_slug text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_views_for_slug`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_views_for_slug",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slug text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_views_for_slug_p_slug text"
+        },
+        {
+          "name": "anon_security_definer_function_executable",
+          "title": "Public Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.",
+          "detail": "Function `public.sage_after_dark_whoami(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_whoami`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_whoami",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "anon_security_definer_function_executable_public_sage_after_dark_whoami_p_email text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.can_access_engagement(eng uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/can_access_engagement`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "can_access_engagement",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "eng uuid",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_can_access_engagement_eng uuid"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.current_role_app()` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/current_role_app`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "current_role_app",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_current_role_app_"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.is_admin(uid uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/is_admin`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "is_admin",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "uid uuid",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_is_admin_uid uuid"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.is_org_member(org uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/is_org_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "is_org_member",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "org uuid",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_is_org_member_org uuid"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_add_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_add_rotation",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_admin_featured_all(p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_featured_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_featured_all",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_admin_featured_all_p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_admin_magic_links(p_secret text, p_limit integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_magic_links`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_magic_links",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text, p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_admin_magic_links_p_secret text, p_limit integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_admin_members(p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_members`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_members",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_admin_members_p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_admin_rotation_all(p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_rotation_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_admin_rotation_all",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_admin_rotation_all_p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_check_admin_secret(p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_check_admin_secret`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_check_admin_secret",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_check_admin_secret_p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_consume_magic_link(p_token text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_consume_magic_link",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_token text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_consume_magic_link_p_token text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_consume_password_reset(p_token_hash text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_consume_password_reset",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_token_hash text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_consume_password_reset_p_token_hash text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_create_magic_link(p_email text, p_token text, p_ttl_minutes integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_create_magic_link",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_token text, p_ttl_minutes integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_create_magic_link_p_email text, p_token text, p_ttl_minutes integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_create_password_reset(p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_create_password_reset",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_create_password_reset_p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_deactivate_rotation(p_id uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_deactivate_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_id uuid",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_deactivate_rotation(p_id uuid, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_deactivate_rotation",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_id uuid, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_get_featured(p_slot text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_featured`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_featured",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slot text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_get_featured_p_slot text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_get_now_status()` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_now_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_get_now_status_"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_get_password(p_email text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_password`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_password",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_get_password_p_email text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_get_rotation(p_kind text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_get_rotation",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_kind text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_get_rotation_p_kind text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_member_status(p_email text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_member_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_member_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_member_status_p_email text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_pin_post",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slug text, p_slot text, p_rank integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_pin_post",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_slug text, p_slot text, p_rank integer, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_popular_posts(p_days integer, p_limit integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_popular_posts`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_popular_posts",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_days integer, p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_popular_posts_p_days integer, p_limit integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_record_login(p_email text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_record_login`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_record_login",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_record_login_p_email text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_register_member(p_email text, p_password_hash text, p_name text, p_referrer text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_register_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_register_member",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_password_hash text, p_name text, p_referrer text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_register_member_p_email text, p_password_hash text, p_name text, p_referrer text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_set_password(p_email text, p_password_hash text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_set_password`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_set_password",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_password_hash text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_set_password_p_email text, p_password_hash text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_stripe_event_record(p_event_id text, p_event_type text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_stripe_event_record`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_stripe_event_record",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_event_id text, p_event_type text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_stripe_event_record_p_event_id text, p_event_type text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_top_posts(p_limit integer)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_top_posts`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_top_posts",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_limit integer",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_top_posts_p_limit integer"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_total_pageviews()` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_total_pageviews`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_total_pageviews",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_total_pageviews_"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_track_event(p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_track_event`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_track_event",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_track_event_p_kind text, p_path text, p_slug text, p_meta jsonb, p_visitor_hash text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_track_pageview(p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_track_pageview`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_track_pageview",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_track_pageview_p_path text, p_pillar text, p_template text, p_slug text, p_referrer text, p_ua_class text, p_visitor_hash text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_unpin_post(p_id uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_unpin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_unpin_post",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_id uuid",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_unpin_post_p_id uuid"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_unpin_post(p_id uuid, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_unpin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_unpin_post",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_id uuid, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_unpin_post_p_id uuid, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_update_profile(p_email text, p_name text, p_referrer text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_update_profile`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_update_profile",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text, p_name text, p_referrer text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_update_profile_p_email text, p_name text, p_referrer text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_upsert_member(p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_member",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_upsert_member_p_email text, p_stripe_customer_id text, p_stripe_subscription_id text, p_status text, p_plan text, p_current_period_end timestamp with time zone, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_upsert_now_status(p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_now_status",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_upsert_now_status_p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_upsert_now_status(p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_upsert_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_upsert_now_status",
+            "schema": "public",
+            "language": "plpgsql",
+            "arguments": "p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_upsert_now_status_p_status text, p_location text, p_this_week jsonb, p_not_doing jsonb, p_secret text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_views_for_slug(p_slug text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_views_for_slug`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_views_for_slug",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_slug text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_views_for_slug_p_slug text"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "title": "Signed-In Users Can Execute SECURITY DEFINER Function",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Detects `SECURITY DEFINER` functions that are callable by signed-in users. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if signed-in users should not call it.",
+          "detail": "Function `public.sage_after_dark_whoami(p_email text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_whoami`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+          "metadata": {
+            "name": "sage_after_dark_whoami",
+            "schema": "public",
+            "language": "sql",
+            "arguments": "p_email text",
+            "security_definer": true
+          },
+          "cache_key": "authenticated_security_definer_function_executable_public_sage_after_dark_whoami_p_email text"
+        },
+        {
+          "name": "auth_leaked_password_protection",
+          "title": "Leaked Password Protection Disabled",
+          "level": "WARN",
+          "facing": "EXTERNAL",
+          "categories": [
+            "SECURITY"
+          ],
+          "description": "Leaked password protection is currently disabled.",
+          "detail": "Supabase Auth prevents the use of compromised passwords by checking against HaveIBeenPwned.org. Enable this feature to enhance security.",
+          "cache_key": "auth_leaked_password_protection",
+          "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection",
+          "metadata": {
+            "type": "auth",
+            "entity": "Auth"
+          }
+        }
+      ]
+    }
+  },
+  "connector": "supabase",
+  "output_schema": "{result:{lints:[{name:str\n   title:str\n   level:str\n   facing:str\n   categories:str[]\n   description:str\n   detail:str\n   remediation:str\n   metadata:{name?:str\n    type?:str\n    schema?:str\n    language?:str\n    arguments?:str\n    security_definer?:bool\n    entity?:str}\n   cache_key:str}]}}",
+  "structure": "JSON object with 1 keys: result",
+  "preview": "{\"result\":{\"lints\":[{\"name\":\"rls_enabled_no_policy\",\"title\":\"RLS Enabled No Policy\",\"level\":\"INFO\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.\",\"detail\":\"Table \\\\`public.sage_after_dark_featured_posts\\\\` has RLS enabled, but no policies exist\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy\",\"metadata\":{\"name\":\"sage_after_dark_featured_posts\",\"type\":\"table\",\"schema\":\"public\"},\"cache_key\":\"rls_enabled_no_policy_public_sage_after_dark_featured_posts\"},{\"name\":\"rls_enabled_no_policy\",\"title\":\"RLS Enabled No Policy\",\"level\":\"INFO\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.\",\"detail\":\"Table \\\\`public.sage_after_dark_now_status\\\\` has RLS enabled, but no policies exist\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy\",\"metadata\":{\"name\":\"sage_after_dark_now_status\",\"type\":\"table\",\"schema\":\"public\"},\"cache_key\":\"rls_enabled_no_policy_public_sage_after_dark_now_status\"},{\"name\":\"rls_enabled_no_policy\",\"title\":\"RLS Enabled No Policy\",\"level\":\"INFO\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.\",\"detail\":\"Table \\\\`public.sage_after_dark_password_resets\\\\` has RLS enabled, but no policies exist\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy\",\"metadata\":{\"name\":\"sage_after_dark_password_resets\",\"type\":\"table\",\"schema\":\"public\"},\"cache_key\":\"rls_enabled_no_policy_public_sage_after_dark_password_resets\"},{\"name\":\"rls_enabled_no_policy\",\"title\":\"RLS Enabled No Policy\",\"level\":\"INFO\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects cases where row level security (RLS) has been enabled on a table but no RLS policies have been created.\",\"detail\":\"Table \\\\`public.sage_after_dark_rotation_items\\\\` has RLS enabled, but no policies exist\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy\",\"metadata\":{\"name\":\"sage_after_dark_rotation_items\",\"type\":\"table\",\"schema\":\"public\"},\"cache_key\":\"rls_enabled_no_policy_public_sage_after_dark_rotation_items\"},{\"name\":\"security_definer_view\",\"title\":\"Security Definer View\",\"level\":\"ERROR\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects views defined with the SECURITY DEFINER property. These views enforce Postgres permissions and row level security policies (RLS) of the view creator, rather than that of the querying user\",\"detail\":\"View \\\\`public.sage_after_dark_pageview_counts\\\\` is defined with the SECURITY DEFINER property\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view\",\"metadata\":{\"name\":\"sage_after_dark_pageview_counts\",\"type\":\"view\",\"schema\":\"public\"},\"cache_key\":\"security_definer_view_public_sage_after_dark_pageview_counts\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_add_rotation\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_add_rotation(p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_add_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_add_rotation\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_add_rotation_p_kind text, p_title text, p_by text, p_year text, p_note text, p_shelf text, p_rank integer, p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_admin_featured_all(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_featured_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_admin_featured_all\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_admin_featured_all_p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_admin_magic_links(p_secret text, p_limit integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_magic_links`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_admin_magic_links\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_secret text, p_limit integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_admin_magic_links_p_secret text, p_limit integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_admin_members(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_members`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_admin_members\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_admin_members_p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_admin_rotation_all(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_admin_rotation_all`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_admin_rotation_all\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_admin_rotation_all_p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_check_admin_secret(p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_check_admin_secret`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_check_admin_secret\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_check_admin_secret_p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_consume_magic_link(p_token text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_consume_magic_link\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_token text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_consume_magic_link_p_token text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_consume_password_reset(p_token_hash text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_consume_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_consume_password_reset\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_token_hash text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_consume_password_reset_p_token_hash text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_create_magic_link(p_email text, p_token text, p_ttl_minutes integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_magic_link`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_create_magic_link\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_email text, p_token text, p_ttl_minutes integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_create_magic_link_p_email text, p_token text, p_ttl_minutes integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_create_password_reset(p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_create_password_reset`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_create_password_reset\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_create_password_reset_p_email text, p_token_hash text, p_purpose text, p_ttl_minutes integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_deactivate_rotation(p_id uuid)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_deactivate_rotation\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_id uuid\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_deactivate_rotation(p_id uuid, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_deactivate_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_deactivate_rotation\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_id uuid, p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_deactivate_rotation_p_id uuid, p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_get_featured(p_slot text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_featured`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_get_featured\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_slot text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_get_featured_p_slot text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_get_now_status()` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_now_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_get_now_status\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_get_now_status_\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_get_password(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_password`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_get_password\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_email text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_get_password_p_email text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_get_rotation(p_kind text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_get_rotation`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_get_rotation\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_kind text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_get_rotation_p_kind text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_member_status(p_email text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_member_status`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_member_status\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_email text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_member_status_p_email text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_pin_post\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_slug text, p_slot text, p_rank integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_pin_post(p_slug text, p_slot text, p_rank integer, p_secret text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_pin_post`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_pin_post\",\"schema\":\"public\",\"language\":\"plpgsql\",\"arguments\":\"p_slug text, p_slot text, p_rank integer, p_secret text\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_pin_post_p_slug text, p_slot text, p_rank integer, p_secret text\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in. Revoke `EXECUTE`, switch the function to `SECURITY INVOKER`, or move it out of your exposed API schema if it is not meant to be public.\",\"detail\":\"Function `public.sage_after_dark_popular_posts(p_days integer, p_limit integer)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/sage_after_dark_popular_posts`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.\",\"remediation\":\"https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable\",\"metadata\":{\"name\":\"sage_after_dark_popular_posts\",\"schema\":\"public\",\"language\":\"sql\",\"arguments\":\"p_days integer, p_limit integer\",\"security_definer\":true},\"cache_key\":\"anon_security_definer_function_executable_public_sage_after_dark_popular_posts_p_days integer, p_limit integer\"},{\"name\":\"anon_security_definer_function_executable\",\"title\":\"Public Can Execute SECURITY DEFINER Function\",\"level\":\"WARN\",\"facing\":\"EXTERNAL\",\"categories\":[\"SECURITY\"],\"description\":\"Detects `SECURITY DEFINER` functions that are callable without signing in....[truncated]"
+}
