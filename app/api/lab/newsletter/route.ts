@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 
 // Lightweight newsletter signup wired to Supabase.
 // Welcome email is sent server-side via the Resend connector by a separate
@@ -16,6 +17,9 @@ function getClientIp(req: NextRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, { limit: 10, windowMs: 60_000, prefix: 'lab-newsletter' })
+  if (limited) return limited
+
   try {
     const body = await req.json().catch(() => ({}))
     const emailRaw = String(body?.email ?? '').trim().toLowerCase()
