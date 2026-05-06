@@ -28,15 +28,9 @@ export async function GET(req: Request) {
   const authHeader = req.headers.get('authorization');
 
   if (!cronSecret) {
-    if (process.env.NODE_ENV === 'production') {
-      console.warn('[cron/dunning] CRON_SECRET missing in production');
-    }
-    // Allow in dev/preview without secret. Production without secret is a soft warn — Vercel cron
-    // adds its own header, but external invocations would get through. Better to fail closed.
-    if (process.env.NODE_ENV === 'production') {
-      return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
-    }
-  } else if (authHeader !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

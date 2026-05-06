@@ -9,19 +9,13 @@ export const maxDuration = 300;
 export async function GET(req: NextRequest) {
   const secret = process.env.CRON_SECRET;
   if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
-      return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
-    }
-  } else {
-    const auth = req.headers.get('authorization') ?? '';
-    const headerSecret = req.headers.get('x-cron-secret') ?? '';
-    const ok =
-      auth === `Bearer ${secret}` ||
-      headerSecret === secret ||
-      req.nextUrl.searchParams.get('secret') === secret;
-    if (!ok) {
-      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-    }
+    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
+  }
+  const auth = req.headers.get('authorization') ?? '';
+  const headerSecret = req.headers.get('x-cron-secret') ?? '';
+  const ok = auth === `Bearer ${secret}` || headerSecret === secret;
+  if (!ok) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
   const sb = supabaseAdmin();
