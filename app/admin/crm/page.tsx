@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { AdminTopbar } from '@/components/admin/topbar';
+import { NewClientModal } from '@/components/admin/new-client-modal';
 import { formatCurrency, formatRelative } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -77,33 +78,36 @@ export default async function AdminCrmPage({
               Every organization in the pipeline. Click through to edit.
             </p>
           </div>
-          <form className="flex flex-wrap items-center gap-2" action="/admin/crm">
-            <input
-              type="search"
-              name="q"
-              defaultValue={q}
-              placeholder="Search organizations…"
-              className="rounded-lg border border-[#27272a] bg-[#0f0f12] px-3 py-1.5 text-xs text-[#fafafa] placeholder:text-[#52525b] focus:border-[#06b6d4]/60 focus:outline-none"
-            />
-            <select
-              name="stage"
-              defaultValue={stage ?? ''}
-              className="rounded-lg border border-[#27272a] bg-[#0f0f12] px-2.5 py-1.5 text-xs text-[#fafafa]"
-            >
-              <option value="">All stages</option>
-              {STAGES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-            <button
-              type="submit"
-              className="rounded-lg bg-[#06b6d4] px-3 py-1.5 text-xs font-semibold text-[#09090B] hover:bg-[#0891B2]"
-            >
-              Filter
-            </button>
-          </form>
+          <div className="flex flex-wrap items-center gap-2">
+            <form className="flex flex-wrap items-center gap-2" action="/admin/crm">
+              <input
+                type="search"
+                name="q"
+                defaultValue={q}
+                placeholder="Search organizations…"
+                className="rounded-lg border border-[#27272a] bg-[#0f0f12] px-3 py-1.5 text-xs text-[#fafafa] placeholder:text-[#52525b] focus:border-[#06b6d4]/60 focus:outline-none"
+              />
+              <select
+                name="stage"
+                defaultValue={stage ?? ''}
+                className="rounded-lg border border-[#27272a] bg-[#0f0f12] px-2.5 py-1.5 text-xs text-[#fafafa]"
+              >
+                <option value="">All stages</option>
+                {STAGES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="submit"
+                className="rounded-lg border border-[#27272a] px-3 py-1.5 text-xs text-[#a1a1aa] hover:border-[#06b6d4] hover:text-[#06b6d4]"
+              >
+                Filter
+              </button>
+            </form>
+            <NewClientModal />
+          </div>
         </div>
 
         {orgList.length === 0 ? (
