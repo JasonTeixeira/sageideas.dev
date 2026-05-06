@@ -71,7 +71,7 @@ Do this **after** restore:
 - Why did it reach production?
 - Why didn’t monitoring catch it sooner?
 
-## 6) Prevent recurrence (the “senior” part)
+## 6) Prevent recurrence (the seasoned part)
 
 Turn the incident into engineering work:
 
