@@ -55,35 +55,34 @@ export default function SiteStarterPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchema) }}
       />
       <div className="min-h-screen bg-[#09090B]">
-        {/* Hero */}
-        <section className="relative pt-24 pb-12 overflow-hidden">
+        {/* Hero — tightened so tier cards land above the fold at 1080px */}
+        <section className="relative pt-16 pb-4 overflow-hidden">
           <div className="absolute inset-0 grid-pattern opacity-30" />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-6">
             <div className="max-w-3xl">
               <SectionLabel>Site Starter</SectionLabel>
-              <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+              <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] leading-tight">
                 A real site, live in days. <span className="text-[#06B6D4]">Pick a tier.</span>
               </h1>
-              <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
-                Three fixed-scope site builds with Stripe checkout. Mobile-first responsive design,
-                SEO foundation, analytics, and a Vercel deploy with custom domain. Pick the tier
-                that fits your scope — pay, kick off, ship.
+              <p className="mt-3 text-base text-[#A1A1AA] leading-relaxed max-w-2xl">
+                Three fixed-scope site builds with Stripe checkout. Mobile-first, SEO-ready,
+                deployed to Vercel with a custom domain. Pay, kick off, ship.
               </p>
-              <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#71717A]">
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#71717A]">
                 <span className="inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#06B6D4]" />
+                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
                   Next.js 15 + Tailwind
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#06B6D4]" />
+                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
                   Vercel deploy + DNS
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#06B6D4]" />
+                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
                   Mobile-first responsive
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#06B6D4]" />
+                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
                   SEO foundation
                 </span>
               </div>
@@ -92,7 +91,7 @@ export default function SiteStarterPage() {
         </section>
 
         {/* Pricing tiers */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-16">
           <div className="grid md:grid-cols-3 gap-6">
             {tiers.map((tier) => (
               <div
