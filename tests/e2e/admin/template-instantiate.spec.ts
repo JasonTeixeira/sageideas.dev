@@ -90,8 +90,15 @@ test.describe('Phase 2D PR-A - admin template instantiate', () => {
 
     await adminPage.waitForURL(/\/portal\/projects\/[0-9a-f-]+/, { timeout: 20_000 });
 
+    // ProjectTabs only renders the active tab's panel; explicitly switch to
+    // milestones so the seeded list is in the DOM.
+    await adminPage.goto(
+      `/portal/projects/${createdEngagementId}?tab=milestones`,
+      { waitUntil: 'domcontentloaded' },
+    );
+
     const list = adminPage.locator('[data-testid="engagement-milestones-list"]');
-    await expect(list).toBeVisible();
+    await expect(list).toBeVisible({ timeout: 30_000 });
     for (const name of ['Audit', 'On-page', 'Content sprint', 'Links + Reporting']) {
       await expect(list).toContainText(name);
     }

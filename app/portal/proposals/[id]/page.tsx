@@ -43,13 +43,15 @@ function ErrorPanel({
   heading,
   message,
   testId,
+  diag,
 }: {
   heading: string;
   message: string;
   testId?: string;
+  diag?: string;
 }) {
   return (
-    <div className="px-6 lg:px-8 py-12 max-w-2xl mx-auto" data-testid={testId}>
+    <div className="px-6 lg:px-8 py-12 max-w-2xl mx-auto" data-testid={testId} data-diag={diag}>
       <Card>
         <CardContent className="p-10 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#18181b] border border-[#27272a] mx-auto flex items-center justify-center mb-5">
