@@ -44,8 +44,8 @@ const pngBuf = readFileSync(join(process.cwd(), 'tests/fixtures/sample.png'));
 const pdfBuf = readFileSync(join(process.cwd(), 'tests/fixtures/sample.pdf'));
 
 test.describe('Phase 2C PR-B - message attachments', () => {
-  let attachmentPaths: string[] = [];
-  let messageIds: string[] = [];
+  const attachmentPaths: string[] = [];
+  const messageIds: string[] = [];
 
   test.afterAll(async () => {
     const sb = adminClient();
@@ -130,9 +130,9 @@ test.describe('Phase 2C PR-B - message attachments', () => {
         `/api/portal/messages/attachments/url?path=${encodeURIComponent(path)}`,
       );
       expect(resp.ok()).toBeTruthy();
-      const body = (await resp.json()) as { url?: string };
-      expect(typeof body.url).toBe('string');
-      expect(body.url!.length).toBeGreaterThan(0);
+      const json = (await resp.json()) as { url?: string };
+      expect(typeof json.url).toBe('string');
+      expect((json.url ?? '').length).toBeGreaterThan(0);
     }
 
     // Sanity: org was the right one for the path layout.
