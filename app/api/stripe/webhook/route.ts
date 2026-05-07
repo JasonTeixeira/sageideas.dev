@@ -64,11 +64,14 @@ export async function POST(req: Request) {
       case 'checkout.session.completed':
         await handleCheckoutCompleted(sb, event.data.object as Stripe.Checkout.Session);
         break;
+      case 'invoice.paid':
       case 'invoice.payment_succeeded':
         await handleInvoicePaymentSucceeded(sb, event.data.object as Stripe.Invoice);
+        await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.paid');
         break;
       case 'invoice.payment_failed':
         await handleInvoicePaymentFailed(sb, event.data.object as Stripe.Invoice);
+        await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.payment_failed');
         break;
       case 'customer.subscription.updated':
       case 'customer.subscription.created':
@@ -298,4 +301,47 @@ async function notifyOrgMembers(
     }));
   if (rows.length === 0) return;
   await sb.from('notifications').insert(rows);
+}
+
+/**
+ * Records an audit_log row for an invoice.* event scoped to the org of the
+ * Stripe customer. Resolves org via organizations.stripe_customer_id; if the
+ * customer is not mapped to any org, the audit row is still written with a
+ * null organization_id so the event isn't silently dropped.
+ */
+async function writeInvoiceAuditLog(sb: Sb, invoice: Stripe.Invoice, action: string) {
+  try {
+    const customerId =
+      typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id ?? null;
+
+    let orgId: string | null = null;
+    if (customerId) {
+      const { data: orgRow } = await sb
+        .from('organizations')
+        .select('id')
+        .eq('stripe_customer_id', customerId)
+        .maybeSingle();
+      orgId = orgRow?.id ?? null;
+    }
+
+    const amountCents = invoice.amount_paid ?? invoice.amount_due ?? 0;
+    await sb.from('audit_log').insert({
+      actor_id: null,
+      actor_email: 'stripe-webhook@system',
+      action,
+      entity_type: 'invoice',
+      entity_id: invoice.id ?? null,
+      organization_id: orgId,
+      after: {
+        stripe_invoice_id: invoice.id,
+        stripe_customer_id: customerId,
+        amount_cents: amountCents,
+        currency: invoice.currency ?? 'usd',
+        status: invoice.status,
+      },
+    });
+  } catch (err) {
+    console.error('[stripe/webhook] audit log insert failed', action, err);
+    // never block the webhook on audit failures
+  }
 }
