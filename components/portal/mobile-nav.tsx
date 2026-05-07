@@ -101,10 +101,18 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
           aria-label="Portal navigation"
           id="portal-mobile-nav"
         >
+          {/* Full-screen tinted layer purely for the visual scrim. */}
           <div
-            className="absolute inset-0 bg-[#000]/70"
-            onClick={close}
+            className="absolute inset-0 bg-[#000]/70 pointer-events-none"
             aria-hidden="true"
+          />
+          {/* Click target: only the area NOT covered by the drawer, so
+              Playwright's center-click on the backdrop reliably hits it. */}
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close navigation"
+            className="absolute inset-y-0 right-0 left-72 cursor-default"
             data-testid="portal-mobile-nav-backdrop"
           />
           <aside
