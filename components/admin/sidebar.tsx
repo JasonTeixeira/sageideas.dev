@@ -33,6 +33,7 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
   { href: '/admin/documents', label: 'Documents', icon: FolderOpen },
   { href: '/admin/templates', label: 'Templates', icon: FileText },
+  { href: '/admin/project-templates', label: 'Project templates', icon: KanbanSquare },
   { href: '/admin/audit-log', label: 'Audit Log', icon: ScrollText },
   { href: '/admin/users', label: 'Users', icon: UserCog },
   { href: '/admin/settings', label: 'Settings', icon: Settings2 },
