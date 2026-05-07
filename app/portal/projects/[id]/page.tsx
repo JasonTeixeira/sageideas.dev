@@ -7,6 +7,8 @@ import { Badge } from '@/components/portal/ui/badge';
 import { Progress } from '@/components/portal/ui/progress';
 import { ProjectTabs } from '@/components/portal/project-tabs';
 import { DeliverableDecision } from '@/components/portal/deliverable-decision';
+import { DocumentUploader, type UploadedFileRow } from '@/components/portal/document-uploader';
+import { ORG_QUOTA_BYTES } from '@/lib/portal/storage';
 import { Check, Circle, Clock } from 'lucide-react';
 import { formatDate, formatCurrency } from '@/lib/utils';
 
@@ -413,7 +415,46 @@ export default async function ProjectDetailPage({
       </div>
     );
 
-  const filesPanel = <EmptyState text="File browser ships in the next deploy." />;
+  const projectOrgId = eng.organization_id;
+  const filesData = projectOrgId
+    ? (
+        await sb
+          .from('files')
+          .select(
+            'id, organization_id, engagement_id, name, storage_path, mime_type, size_bytes, version, is_latest, uploaded_by, created_at, deleted_at, parent_id',
+          )
+          .eq('organization_id', projectOrgId)
+          .eq('engagement_id', id)
+          .eq('is_latest', true)
+          .is('deleted_at', null)
+          .order('created_at', { ascending: false })
+      ).data ?? []
+    : [];
+  const projectFiles = filesData as unknown as UploadedFileRow[];
+
+  const projectUsageRow = projectOrgId
+    ? (
+        await sb
+          .from('org_storage_usage')
+          .select('bytes_used, object_count')
+          .eq('organization_id', projectOrgId)
+          .maybeSingle()
+      ).data
+    : null;
+  const projectQuota = {
+    bytesUsed: Number(projectUsageRow?.bytes_used ?? 0),
+    objectCount: Number(projectUsageRow?.object_count ?? 0),
+    quotaBytes: ORG_QUOTA_BYTES,
+  };
+
+  const filesPanel = (
+    <DocumentUploader
+      engagementId={id}
+      initialFiles={projectFiles}
+      initialQuota={projectQuota}
+      testIdSuffix="project"
+    />
+  );
 
   return (
     <>

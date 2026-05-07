@@ -3,6 +3,7 @@ import { NotificationBell } from './notification-bell';
 import { MobileNav } from './mobile-nav';
 import { OrgSwitcher, type OrgSwitcherMembership } from './org-switcher';
 import { CommandPaletteTrigger } from './command-palette';
+import { TopbarAvatar } from './topbar-avatar';
 
 type Props = {
   userId: string;
@@ -33,6 +34,12 @@ export async function PortalTopbarSlot({
     .is('read_at', null);
   const unread = notifs?.length ?? 0;
 
+  const { data: meRow } = await sb
+    .from('profiles')
+    .select('email, full_name, avatar_url')
+    .eq('id', userId)
+    .maybeSingle();
+
   return (
     <div className="fixed top-0 right-0 z-40 h-14 flex items-center gap-2 px-4 lg:px-6 pointer-events-none">
       <div className="pointer-events-auto">
@@ -43,6 +50,13 @@ export async function PortalTopbarSlot({
       </div>
       <div className="pointer-events-auto">
         <NotificationBell initialUnread={unread} />
+      </div>
+      <div className="pointer-events-auto">
+        <TopbarAvatar
+          path={(meRow?.avatar_url as string | null) ?? null}
+          fullName={(meRow?.full_name as string | null) ?? null}
+          email={(meRow?.email as string | null) ?? ''}
+        />
       </div>
       <div className="pointer-events-auto lg:hidden">
         <MobileNav orgName={orgName ?? undefined} isAdmin={isAdmin} />

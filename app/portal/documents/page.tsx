@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { getPortalContext } from '@/lib/portal/auth';
 import { getDocumentsForOrg } from '@/lib/portal/queries';
+import { supabaseAdmin } from '@/lib/supabase/server';
+import { ORG_QUOTA_BYTES } from '@/lib/portal/storage';
+import { DocumentUploader, type UploadedFileRow } from '@/components/portal/document-uploader';
 import { Topbar } from '@/components/portal/topbar';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import { Button } from '@/components/portal/ui/button';
-import { FileSignature, FileText, Download, ExternalLink } from 'lucide-react';
+import { FileSignature } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -21,18 +24,6 @@ type Doc = {
   created_at: string;
   size_bytes: number | string | null;
 };
-
-function formatBytes(bytes: number | null): string {
-  if (!bytes || bytes <= 0) return '—';
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let i = 0;
-  let n = bytes;
-  while (n >= 1024 && i < units.length - 1) {
-    n /= 1024;
-    i++;
-  }
-  return `${n.toFixed(n >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
-}
 
 const CONTRACT_TYPES = new Set(['contract', 'sow', 'nda', 'amendment', 'msa']);
 
@@ -51,7 +42,39 @@ export default async function DocumentsPage() {
   );
 
   const contracts = allDocs.filter((d) => CONTRACT_TYPES.has((d.type ?? '').toLowerCase()));
-  const otherDocs = allDocs.filter((d) => !CONTRACT_TYPES.has((d.type ?? '').toLowerCase()));
+
+  // Pull org-scoped files for the uploader (latest-only). Admin client reads
+  // are fine here -- RLS would also allow it, but we already have the org id.
+  const sb = supabaseAdmin();
+  const filesData = ctx.organizationId
+    ? (
+        await sb
+          .from('files')
+          .select(
+            'id, organization_id, engagement_id, name, storage_path, mime_type, size_bytes, version, is_latest, uploaded_by, created_at, deleted_at, parent_id',
+          )
+          .eq('organization_id', ctx.organizationId)
+          .eq('is_latest', true)
+          .is('deleted_at', null)
+          .order('created_at', { ascending: false })
+      ).data ?? []
+    : [];
+  const initialFiles = filesData as unknown as UploadedFileRow[];
+
+  const usageRow = ctx.organizationId
+    ? (
+        await sb
+          .from('org_storage_usage')
+          .select('bytes_used, object_count')
+          .eq('organization_id', ctx.organizationId)
+          .maybeSingle()
+      ).data
+    : null;
+  const initialQuota = {
+    bytesUsed: Number(usageRow?.bytes_used ?? 0),
+    objectCount: Number(usageRow?.object_count ?? 0),
+    quotaBytes: ORG_QUOTA_BYTES,
+  };
 
   return (
     <>
@@ -69,50 +92,13 @@ export default async function DocumentsPage() {
             <h2 className="text-sm font-medium uppercase tracking-wider text-[#52525b]">
               Files
             </h2>
-            <span className="text-xs text-[#71717a]">{otherDocs.length} item{otherDocs.length === 1 ? '' : 's'}</span>
+            <span className="text-xs text-[#71717a]">{initialFiles.length} item{initialFiles.length === 1 ? '' : 's'}</span>
           </div>
-          {otherDocs.length === 0 ? (
-            <EmptyCard
-              icon={<FileText className="w-5 h-5 text-[#71717a]" />}
-              title="No files yet"
-              body="Project artifacts will land here as deliverables ship."
-            />
-          ) : (
-            <div className="rounded-xl border border-[#27272a] bg-[#0f0f12] divide-y divide-[#1f1f23]">
-              <div className="hidden md:grid md:grid-cols-12 gap-3 px-4 py-2.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
-                <div className="md:col-span-5">Filename</div>
-                <div className="md:col-span-2">Type</div>
-                <div className="md:col-span-1">Size</div>
-                <div className="md:col-span-2">Uploaded</div>
-                <div className="md:col-span-2 text-right">Actions</div>
-              </div>
-              {otherDocs.map((d) => (
-                <div
-                  key={d.id}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3 px-4 py-3 items-center hover:bg-[#131316]"
-                >
-                  <div className="md:col-span-5 flex items-center gap-2 min-w-0">
-                    <FileText className="w-4 h-4 text-[#71717a] shrink-0" />
-                    <span className="text-sm font-medium text-[#fafafa] truncate">
-                      {d.title}
-                    </span>
-                  </div>
-                  <div className="md:col-span-2 text-xs text-[#a1a1aa] capitalize">
-                    {d.type ?? 'file'}
-                  </div>
-                  <div className="md:col-span-1 text-xs text-[#a1a1aa] tabular-nums">
-                    {formatBytes(d.size_bytes !== null ? Number(d.size_bytes) : null)}
-                  </div>
-                  <div className="md:col-span-2 text-xs text-[#71717a]">
-                    {formatDate(d.created_at)}
-                  </div>
-                  <div className="md:col-span-2 flex md:justify-end">
-                    <DocAction doc={d} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <DocumentUploader
+            engagementId={null}
+            initialFiles={initialFiles}
+            initialQuota={initialQuota}
+          />
         </section>
 
         <section>
@@ -166,27 +152,6 @@ export default async function DocumentsPage() {
         </section>
       </div>
     </>
-  );
-}
-
-function DocAction({ doc }: { doc: Doc }) {
-  if (doc.storage_path) {
-    return (
-      <a
-        href={`/api/portal/documents/${doc.id}/download`}
-        className="inline-flex items-center gap-1.5 text-xs text-[#22d3ee] hover:text-[#67e8f9]"
-      >
-        <Download className="w-3.5 h-3.5" /> Download
-      </a>
-    );
-  }
-  return (
-    <Link
-      href={`/portal/documents/${doc.id}`}
-      className="inline-flex items-center gap-1.5 text-xs text-[#a1a1aa] hover:text-[#fafafa]"
-    >
-      <ExternalLink className="w-3.5 h-3.5" /> Open
-    </Link>
   );
 }
 

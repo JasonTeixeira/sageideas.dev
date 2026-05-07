@@ -8,7 +8,8 @@ import { Button } from '@/components/portal/ui/button';
 import { Input } from '@/components/portal/ui/input';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { User, Bell, ShieldCheck } from 'lucide-react';
-import { cn, initials } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { AvatarPicker } from '@/components/portal/avatar-picker';
 
 type ProfileShape = {
   email: string;
@@ -120,21 +121,11 @@ function ProfileTab({
   return (
     <Card>
       <CardContent className="p-6 space-y-6">
-        <div className="flex items-center gap-4">
-          {profile.avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={profile.avatarUrl}
-              alt={profile.fullName || profile.email}
-              className="w-14 h-14 rounded-full border border-[#27272a] object-cover"
-            />
-          ) : (
-            <div className="w-14 h-14 rounded-full border border-[#27272a] bg-[#18181b] flex items-center justify-center text-sm font-medium text-[#a1a1aa]">
-              {initials(profile.fullName || profile.email)}
-            </div>
-          )}
-          <div className="flex-1 min-w-0" />
-        </div>
+        <AvatarPicker
+          initialPath={profile.avatarUrl}
+          fullName={profile.fullName}
+          email={profile.email}
+        />
 
         <form onSubmit={save} className="space-y-4">
           <Field label="Full name">
