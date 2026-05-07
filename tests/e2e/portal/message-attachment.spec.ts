@@ -88,12 +88,18 @@ test.describe('Phase 2C PR-B - message attachments', () => {
     const sendButton = clientPage.getByRole('button', { name: /^Send$/i });
     await sendButton.click();
 
-    // Image thumbnail + PDF chip render once the message lands.
+    // Scope the assertions to the bubble for the message we just sent so we
+    // don't trip strict-mode violations against attachments left over from
+    // previous test runs against the same shared engagement.
+    const myBubble = clientPage
+      .getByRole('listitem')
+      .filter({ hasText: body })
+      .first();
     await expect(
-      clientPage.locator('[data-testid="message-attachment-image"]').first(),
+      myBubble.locator('[data-testid="message-attachment-image"]'),
     ).toBeVisible({ timeout: 15_000 });
     await expect(
-      clientPage.locator('[data-testid="message-attachment-chip"]'),
+      myBubble.locator('[data-testid="message-attachment-chip"]'),
     ).toBeVisible({ timeout: 15_000 });
 
     // Track for cleanup.
