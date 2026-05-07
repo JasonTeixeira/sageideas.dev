@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Inbox, MailOpen, Check, Archive } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -47,6 +47,7 @@ function formatRelative(iso: string): string {
 
 export function InboxList() {
   const router = useRouter();
+  const pathname = usePathname() ?? '/portal/inbox';
   const searchParams = useSearchParams();
   const initialType = (searchParams?.get('type') ?? 'all') as TypeFilter;
   const validInitial: TypeFilter = TYPE_CHIPS.some((c) => c.value === initialType)
@@ -69,9 +70,9 @@ export function InboxList() {
       if (next === 'all') params.delete('type');
       else params.set('type', next);
       const qs = params.toString();
-      router.replace(qs ? `?${qs}` : '?', { scroll: false });
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     },
-    [router, searchParams],
+    [router, searchParams, pathname],
   );
 
   const loadPage = useCallback(
