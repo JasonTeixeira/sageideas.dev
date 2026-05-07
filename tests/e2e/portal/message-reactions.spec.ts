@@ -75,13 +75,21 @@ test.describe('Phase 2E PR-A - message reactions', () => {
       clientPage.getByRole('button', { name: /^Send$/i }).click(),
     ]);
 
+    // Wait for the optimistic temp- id to be swapped for the canonical UUID
+    // by handleSend so subsequent reaction toggles hit the right URL.
+    const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+    await expect(async () => {
+      const bubble = clientPage
+        .locator('[data-message-id]')
+        .filter({ hasText: messageText })
+        .first();
+      const id = await bubble.getAttribute('data-message-id');
+      expect(id).toMatch(uuidRe);
+    }).toPass({ timeout: 15_000 });
     const bubble = clientPage
       .locator('[data-message-id]')
       .filter({ hasText: messageText })
       .first();
-    await expect(bubble).toBeVisible({ timeout: 15_000 });
-
-    // Capture id for cleanup.
     const id = await bubble.getAttribute('data-message-id');
     expect(id).toBeTruthy();
     messageId = id;

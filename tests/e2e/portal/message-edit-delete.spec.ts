@@ -82,11 +82,21 @@ test.describe('Phase 2E PR-A - message edit + delete', () => {
       clientPage.getByRole('button', { name: /^Send$/i }).click(),
     ]);
 
+    // Poll until the bubble's id flips from the optimistic temp- to a real
+    // UUID (handleSend swaps id once the POST body resolves).
+    const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+    await expect(async () => {
+      const bubble = clientPage
+        .locator('[data-message-id]')
+        .filter({ hasText: originalText })
+        .first();
+      const id = await bubble.getAttribute('data-message-id');
+      expect(id).toMatch(uuidRe);
+    }).toPass({ timeout: 15_000 });
     const bubble = clientPage
       .locator('[data-message-id]')
       .filter({ hasText: originalText })
       .first();
-    await expect(bubble).toBeVisible({ timeout: 15_000 });
     messageId = await bubble.getAttribute('data-message-id');
     expect(messageId).toBeTruthy();
 

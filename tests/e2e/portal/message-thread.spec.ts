@@ -71,6 +71,8 @@ test.describe('Phase 2E PR-A - threaded replies', () => {
     const composer = clientPage.locator('textarea').first();
     await expect(composer).toBeVisible({ timeout: 30_000 });
 
+    const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
     // 1) Send parent message.
     await composer.fill(parentText);
     await Promise.all([
@@ -80,6 +82,16 @@ test.describe('Phase 2E PR-A - threaded replies', () => {
       ),
       clientPage.getByRole('button', { name: /^Send$/i }).click(),
     ]);
+    // Wait for handleSend to swap the optimistic temp- id with the
+    // canonical UUID before we click Reply on the bubble.
+    await expect(async () => {
+      const bubble = clientPage
+        .locator('[data-message-id]')
+        .filter({ hasText: parentText })
+        .first();
+      const id = await bubble.getAttribute('data-message-id');
+      expect(id).toMatch(uuidRe);
+    }).toPass({ timeout: 15_000 });
     const parentBubble = clientPage
       .locator('[data-message-id]')
       .filter({ hasText: parentText })
@@ -112,6 +124,12 @@ test.describe('Phase 2E PR-A - threaded replies', () => {
 
     // 4) Reply to the reply -> chip should still anchor at the root parent
     //    (depth-1 flatten). After send, parent's expander shows 2 replies.
+    // Wait for the first reply bubble's id to flip to a real UUID first.
+    const replyInner = replyBubble.locator('[data-message-id]').first();
+    await expect(async () => {
+      const id = await replyInner.getAttribute('data-message-id');
+      expect(id).toMatch(uuidRe);
+    }).toPass({ timeout: 15_000 });
     await replyBubble.locator('[data-testid="message-reply-btn"]').click();
     const chip = clientPage.locator('[data-testid="compose-reply-chip"]');
     await expect(chip).toBeVisible();
