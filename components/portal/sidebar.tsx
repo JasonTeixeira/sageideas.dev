@@ -3,43 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from '@/app/auth/actions';
 import { LogOut } from 'lucide-react';
-import {
-  LayoutDashboard,
-  Briefcase,
-  FileSignature,
-  MessageSquare,
-  Receipt,
-  Sparkles,
-  Settings2,
-  ShieldCheck,
-  Users,
-  Activity,
-  Calendar,
-  Bell,
-  HelpCircle,
-  type LucideIcon,
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const clientNav: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: '/portal', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/portal/projects', label: 'Projects', icon: Briefcase },
-  { href: '/portal/messages', label: 'Messages', icon: MessageSquare },
-  { href: '/portal/inbox', label: 'Inbox', icon: Bell },
-  { href: '/portal/calendar', label: 'Calendar', icon: Calendar },
-  { href: '/portal/documents', label: 'Documents', icon: FileSignature },
-  { href: '/portal/invoices', label: 'Invoices', icon: Receipt },
-  { href: '/portal/settings', label: 'Settings', icon: Settings2 },
-  { href: '/portal/catalog', label: 'Add Services', icon: Sparkles },
-  { href: '/portal/help', label: 'Help', icon: HelpCircle },
-];
-
-const adminNav: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: '/portal/admin', label: 'Admin · Pipeline', icon: ShieldCheck },
-  { href: '/portal/admin/clients', label: 'Clients', icon: Users },
-  { href: '/portal/admin/activity', label: 'Activity', icon: Activity },
-  { href: '/portal/admin/settings', label: 'Settings', icon: Settings2 },
-];
+import { portalAdminNav, portalClientNav } from './nav-items';
 
 function SageLogo() {
   return (
@@ -76,7 +41,7 @@ export function Sidebar({ isAdmin = false, orgName }: { isAdmin?: boolean; orgNa
         <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
           Workspace
         </div>
-        {clientNav.map(({ href, label, icon: Icon }) => {
+        {portalClientNav.map(({ href, label, icon: Icon }) => {
           const active =
             href === '/portal'
               ? pathname === '/portal'
@@ -103,7 +68,7 @@ export function Sidebar({ isAdmin = false, orgName }: { isAdmin?: boolean; orgNa
             <div className="px-2 pt-5 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
               Admin
             </div>
-            {adminNav.map(({ href, label, icon: Icon }) => {
+            {portalAdminNav.map(({ href, label, icon: Icon }) => {
               const active = pathname === href || pathname?.startsWith(href + '/');
               return (
                 <Link
@@ -128,7 +93,7 @@ export function Sidebar({ isAdmin = false, orgName }: { isAdmin?: boolean; orgNa
       <div className="p-4 border-t border-[#27272a] flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <div className="text-xs text-[#a1a1aa]">Signed in</div>
-          <Link href="/portal/home" className="text-xs text-[#06b6d4] hover:text-[#22d3ee]">
+          <Link href="/portal/settings" className="text-xs text-[#06b6d4] hover:text-[#22d3ee]">
             Account
           </Link>
         </div>

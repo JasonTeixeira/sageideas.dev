@@ -14,8 +14,8 @@ type Invoice = {
   id: string;
   number: string | null;
   status: string;
-  amount: number | string | null;
   total: number | string | null;
+  amount_due: number | string | null;
   due_date: string | null;
   created_at: string;
   engagement_id: string | null;
@@ -40,7 +40,7 @@ export default async function InvoicesPage() {
     const { data } = await sb
       .from('invoices')
       .select(
-        'id, number, status, amount, total, due_date, created_at, engagement_id, engagements(id, title)',
+        'id, number, status, total, amount_due, due_date, created_at, engagement_id, engagements(id, title)',
       )
       .eq('organization_id', ctx.organizationId)
       .order('created_at', { ascending: false });
@@ -98,7 +98,7 @@ export default async function InvoicesPage() {
                   {i.due_date ? formatDate(i.due_date) : '—'}
                 </div>
                 <div className="md:col-span-1 text-sm font-semibold text-[#fafafa] tabular-nums md:text-right">
-                  {formatCurrency(Number(i.total ?? i.amount ?? 0))}
+                  {formatCurrency(Number(i.total ?? 0))}
                 </div>
               </Link>
             ))}
