@@ -19,7 +19,33 @@ type MessageRow = {
   body: string;
   sender_id: string | null;
   created_at: string;
+  attachments: unknown;
 };
+
+type AttachmentLike = {
+  path: string;
+  name: string;
+  mime: string;
+  size: number;
+};
+
+function parseAttachments(raw: unknown): AttachmentLike[] | null {
+  if (!Array.isArray(raw)) return null;
+  const out: AttachmentLike[] = [];
+  for (const item of raw) {
+    if (
+      item &&
+      typeof item === 'object' &&
+      typeof (item as { path?: unknown }).path === 'string' &&
+      typeof (item as { name?: unknown }).name === 'string' &&
+      typeof (item as { mime?: unknown }).mime === 'string' &&
+      typeof (item as { size?: unknown }).size === 'number'
+    ) {
+      out.push(item as AttachmentLike);
+    }
+  }
+  return out.length > 0 ? out : null;
+}
 
 type SenderRow = {
   id: string;
@@ -75,7 +101,7 @@ export default async function EngagementMessagesPage({
 
   const { data: msgsData } = await sb
     .from('messages')
-    .select('id, thread_id, body, sender_id, created_at')
+    .select('id, thread_id, body, sender_id, attachments, created_at')
     .eq('thread_id', threadId)
     .order('created_at', { ascending: true })
     .limit(500);
@@ -100,6 +126,7 @@ export default async function EngagementMessagesPage({
     sender_id: m.sender_id,
     sender_name: m.sender_id ? sendersById.get(m.sender_id)?.full_name ?? null : null,
     sender_avatar: m.sender_id ? sendersById.get(m.sender_id)?.avatar_url ?? null : null,
+    attachments: parseAttachments(m.attachments),
   }));
 
   return (
