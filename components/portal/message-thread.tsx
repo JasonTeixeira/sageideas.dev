@@ -725,6 +725,13 @@ export function MessageThread({
     setEditingId(message.id);
     setEditDraft(message.body);
     setOpenActionsFor(null);
+    // Scroll the chat container so the edit form (textarea + save/cancel)
+    // is fully in view; otherwise the composer toolbar covers the Save
+    // button on small viewports.
+    requestAnimationFrame(() => {
+      const el = scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
   }
 
   async function saveEdit(message: ThreadMessage, draftOverride?: string) {
@@ -797,7 +804,7 @@ export function MessageThread({
     <div className="flex flex-col h-[calc(100vh-3.5rem)]">
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-6 lg:px-8 py-6 max-w-4xl w-full mx-auto"
+        className="flex-1 overflow-y-auto px-6 lg:px-8 pt-6 pb-32 max-w-4xl w-full mx-auto"
       >
         {topLevelMessages.length === 0 ? (
           <div className="text-center text-sm text-[#71717a] py-20">
