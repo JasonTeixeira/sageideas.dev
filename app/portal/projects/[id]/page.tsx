@@ -8,6 +8,7 @@ import { Progress } from '@/components/portal/ui/progress';
 import Link from 'next/link';
 import { ProjectTabs } from '@/components/portal/project-tabs';
 import { DeliverableDecision } from '@/components/portal/deliverable-decision';
+import { DeliverableComments } from '@/components/portal/deliverable-comments';
 import { DocumentUploader, type UploadedFileRow } from '@/components/portal/document-uploader';
 import { ORG_QUOTA_BYTES } from '@/lib/portal/storage';
 import {
@@ -361,25 +362,32 @@ export default async function ProjectDetailPage({
       <div className="space-y-2">
         {deliverables.map((d) => (
           <Card key={d.id}>
-            <CardContent className="p-4 flex items-start gap-4 flex-wrap">
-              <div className="flex-1 min-w-0">
-                <div className="font-medium text-[#fafafa] truncate">{d.title}</div>
-                <div className="text-xs text-[#71717a] mt-0.5 line-clamp-2">
-                  {d.description ?? ''}
-                  {d.due_date && ` · Due ${formatDate(d.due_date)}`}
-                </div>
-                {d.rejection_reason && (
-                  <div className="text-xs text-[#f43f5e] mt-1.5">
-                    Rejection note: {d.rejection_reason}
+            <CardContent className="p-4">
+              <div className="flex items-start gap-4 flex-wrap">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-[#fafafa] truncate">{d.title}</div>
+                  <div className="text-xs text-[#71717a] mt-0.5 line-clamp-2">
+                    {d.description ?? ''}
+                    {d.due_date && ` · Due ${formatDate(d.due_date)}`}
                   </div>
+                  {d.rejection_reason && (
+                    <div className="text-xs text-[#f43f5e] mt-1.5">
+                      Rejection note: {d.rejection_reason}
+                    </div>
+                  )}
+                </div>
+                <Badge tone={DELIV_TONE[d.status] ?? 'neutral'}>
+                  {d.status.replace('_', ' ')}
+                </Badge>
+                {(d.status === 'in_review' || d.status === 'review') && (
+                  <DeliverableDecision deliverableId={d.id} />
                 )}
               </div>
-              <Badge tone={DELIV_TONE[d.status] ?? 'neutral'}>
-                {d.status.replace('_', ' ')}
-              </Badge>
-              {(d.status === 'in_review' || d.status === 'review') && (
-                <DeliverableDecision deliverableId={d.id} />
-              )}
+              <DeliverableComments
+                deliverableId={d.id}
+                currentUserId={ctx.user.id}
+                currentUserIsAdmin={ctx.isAdmin}
+              />
             </CardContent>
           </Card>
         ))}
