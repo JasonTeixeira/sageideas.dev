@@ -8,7 +8,7 @@
  * test stays valid even if seed IDs change.
  */
 
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import { createClient } from '@supabase/supabase-js';
 
 function adminClient() {
@@ -20,20 +20,18 @@ function adminClient() {
   });
 }
 
-async function findOrgIdForEmail(email: string): Promise<string | null> {
+// Resolve Acme by slug. After migration 0009 client1 belongs to two orgs;
+// looking up by membership.limit(1) is non-deterministic and can mismatch
+// the page's active org, causing detail pages to render an empty state
+// (no breadcrumbs).
+async function findAcmeOrgId(): Promise<string | null> {
   const sb = adminClient();
-  const { data: users } = await sb
-    .from('app_users')
+  const { data } = await sb
+    .from('organizations')
     .select('id')
-    .ilike('email', email);
-  const ids = (users ?? []).map((u: { id: string }) => u.id);
-  if (ids.length === 0) return null;
-  const { data: m } = await sb
-    .from('org_memberships')
-    .select('organization_id')
-    .in('user_id', ids)
-    .limit(1);
-  return m?.[0]?.organization_id ?? null;
+    .eq('slug', ACME_SLUG)
+    .maybeSingle();
+  return data?.id ?? null;
 }
 
 test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
@@ -44,9 +42,9 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
     await expect(clientPage.locator('nav[aria-label="Breadcrumb"]').first()).toBeVisible();
   });
 
-  test('project detail: Dashboard / Projects / <title>', async ({ clientPage }) => {
-    const orgId = await findOrgIdForEmail('client1+test@sageideas.org');
-    test.skip(!orgId, 'client1 has no org — seed not run');
+  test('project detail: Dashboard / Projects / <title>', async ({ clientPage, baseURL }) => {
+    const orgId = await findAcmeOrgId();
+    test.skip(!orgId, 'Acme org missing — seed not run');
     const sb = adminClient();
     const { data: eng } = await sb
       .from('engagements')
@@ -56,6 +54,7 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
       .maybeSingle();
     test.skip(!eng, 'no engagement to assert against');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto(`/portal/projects/${eng!.id}`);
     const nav = clientPage.locator('nav[aria-label="Breadcrumb"]').first();
     await expect(nav).toBeVisible();
@@ -65,9 +64,9 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
     await expect(nav).toContainText(eng!.title);
   });
 
-  test('invoice detail: Dashboard / Invoices / <number>', async ({ clientPage }) => {
-    const orgId = await findOrgIdForEmail('client1+test@sageideas.org');
-    test.skip(!orgId, 'client1 has no org — seed not run');
+  test('invoice detail: Dashboard / Invoices / <number>', async ({ clientPage, baseURL }) => {
+    const orgId = await findAcmeOrgId();
+    test.skip(!orgId, 'Acme org missing — seed not run');
     const sb = adminClient();
     const { data: inv } = await sb
       .from('invoices')
@@ -77,6 +76,7 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
       .maybeSingle();
     test.skip(!inv, 'no invoice to assert against');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto(`/portal/invoices/${inv!.id}`);
     const nav = clientPage.locator('nav[aria-label="Breadcrumb"]').first();
     await expect(nav).toBeVisible();
@@ -86,9 +86,9 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
     await expect(nav).toContainText(last);
   });
 
-  test('messages detail: Dashboard / Messages / <subject>', async ({ clientPage }) => {
-    const orgId = await findOrgIdForEmail('client1+test@sageideas.org');
-    test.skip(!orgId, 'client1 has no org — seed not run');
+  test('messages detail: Dashboard / Messages / <subject>', async ({ clientPage, baseURL }) => {
+    const orgId = await findAcmeOrgId();
+    test.skip(!orgId, 'Acme org missing — seed not run');
     const sb = adminClient();
     const { data: eng } = await sb
       .from('engagements')
@@ -98,6 +98,7 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
       .maybeSingle();
     test.skip(!eng, 'no engagement for message thread');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto(`/portal/messages/${eng!.id}`);
     const nav = clientPage.locator('nav[aria-label="Breadcrumb"]').first();
     await expect(nav).toBeVisible();
@@ -106,9 +107,9 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
     await expect(nav).toContainText(eng!.title);
   });
 
-  test('document detail: Dashboard / Documents / <title>', async ({ clientPage }) => {
-    const orgId = await findOrgIdForEmail('client1+test@sageideas.org');
-    test.skip(!orgId, 'client1 has no org — seed not run');
+  test('document detail: Dashboard / Documents / <title>', async ({ clientPage, baseURL }) => {
+    const orgId = await findAcmeOrgId();
+    test.skip(!orgId, 'Acme org missing — seed not run');
     const sb = adminClient();
     const { data: doc } = await sb
       .from('documents')
@@ -119,6 +120,7 @@ test.describe('Phase 2B PR-A — breadcrumbs coverage', () => {
       .maybeSingle();
     test.skip(!doc, 'no visible document for client1');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto(`/portal/documents/${doc!.id}`);
     const nav = clientPage.locator('nav[aria-label="Breadcrumb"]').first();
     await expect(nav).toBeVisible();

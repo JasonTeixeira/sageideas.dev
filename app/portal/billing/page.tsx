@@ -4,7 +4,8 @@ import { Topbar } from '@/components/portal/topbar';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import { Button } from '@/components/portal/ui/button';
-import { Receipt, Download } from 'lucide-react';
+import Link from 'next/link';
+import { Receipt, Download, CreditCard } from 'lucide-react';
 import { formatCurrency, formatDate } from '@/lib/utils';
 
 export const metadata = { title: 'Billing' };
@@ -22,11 +23,19 @@ export default async function BillingPage() {
     <>
       <Topbar crumbs={[{ label: 'Billing' }]} />
       <div className="px-6 lg:px-8 py-8 max-w-5xl mx-auto space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Billing</h1>
-          <p className="text-sm text-[#a1a1aa] mt-1">
-            Invoices, subscriptions, and payment history.
-          </p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight">Billing</h1>
+            <p className="text-sm text-[#a1a1aa] mt-1">
+              Invoices, subscriptions, and payment history.
+            </p>
+          </div>
+          <Link href="/portal/billing/manage" data-testid="manage-billing-link">
+            <Button variant="secondary" size="sm">
+              <CreditCard className="w-4 h-4 mr-1.5" />
+              Manage billing
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -113,21 +113,24 @@ export default async function CalendarPage() {
           </p>
         </div>
 
-        {events.length === 0 ? (
-          <Card>
-            <CardContent className="p-12 text-center">
-              <div className="w-12 h-12 rounded-xl bg-[#18181b] border border-[#27272a] mx-auto flex items-center justify-center mb-4">
-                <CalendarIcon className="w-5 h-5 text-[#71717a]" />
-              </div>
-              <h3 className="font-semibold text-[#fafafa]">Nothing on the books</h3>
-              <p className="text-sm text-[#71717a] mt-1.5">
-                Once a meeting or milestone is scheduled, it lands here.
-              </p>
-            </CardContent>
-          </Card>
-        ) : (
-          <CalendarView events={events} />
+        {events.length === 0 && (
+          <div className="mb-4" data-testid="calendar-empty-banner">
+            <Card>
+              <CardContent className="p-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#18181b] border border-[#27272a] flex items-center justify-center shrink-0">
+                  <CalendarIcon className="w-4 h-4 text-[#71717a]" />
+                </div>
+                <div className="text-sm text-[#a1a1aa]">
+                  Nothing on the books yet — the month grid below stays available so you can browse.
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         )}
+
+        <div data-testid="calendar-grid">
+          <CalendarView events={events} />
+        </div>
       </div>
     </>
   );

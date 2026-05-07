@@ -136,6 +136,34 @@ async function authedPage(context: BrowserContext, baseURL: string, who: UserKey
   return await context.newPage();
 }
 
+/**
+ * Pin the active org for a client session. Acme is the default Acme-scoped org
+ * in the seed pipeline; after migration 0009, client1 is also a member of
+ * Beta, so tests that depend on Acme-scoped data must set this cookie or
+ * navigate with `?org=<slug>` to be deterministic.
+ */
+export async function setActiveOrgCookie(
+  context: BrowserContext,
+  baseURL: string,
+  slug: string,
+): Promise<void> {
+  const { hostname } = new URL(baseURL);
+  await context.addCookies([
+    {
+      name: 'sage_active_org',
+      value: slug,
+      domain: hostname,
+      path: '/',
+      httpOnly: false,
+      secure: baseURL.startsWith('https://'),
+      sameSite: 'Lax',
+      expires: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+    },
+  ]);
+}
+
+export const ACME_SLUG = 'acme-test-co';
+
 type Fixtures = {
   adminPage: Page;
   clientPage: Page;
