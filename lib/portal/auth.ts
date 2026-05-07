@@ -1,6 +1,7 @@
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
+import { resolveActiveOrg, type MembershipRef, type OrgRef } from '@/lib/portal/active-org';
 
 async function loginRedirectUrl(): Promise<string> {
   try {
@@ -38,13 +39,21 @@ export interface PortalUser {
   role: 'admin' | 'client';
 }
 
+export type { OrgRef, MembershipRef };
+
 export interface PortalContext {
   user: PortalUser;
+  // Backwards-compat: aliases for activeOrg.id / activeOrg.name. All existing
+  // callers used these flat fields; PR-A keeps them populated so nothing breaks.
   organizationId: string | null;
   organizationName: string | null;
   isAdmin: boolean;
+  // Phase 2B PR-A — multi-org foundations.
+  memberships: MembershipRef[];
+  activeOrg: OrgRef | null;
 }
 
+export const ACTIVE_ORG_COOKIE = 'sage_active_org';
 const ADMIN_EMAILS = ['sage@sageideas.dev', 'sage@sageideas.org'];
 
 type AppUserRow = {
@@ -56,12 +65,38 @@ type AppUserRow = {
   role: 'admin' | 'client';
 };
 
+type MembershipRow = {
+  organization_id: string;
+  role: string | null;
+  organizations:
+    | { id: string; name: string | null; slug: string | null }
+    | { id: string; name: string | null; slug: string | null }[]
+    | null;
+};
+
+function pickOrg(
+  raw: MembershipRow['organizations'],
+): { id: string; name: string | null; slug: string | null } | null {
+  if (!raw) return null;
+  if (Array.isArray(raw)) return raw[0] ?? null;
+  return raw;
+}
+
+// resolveActiveOrg is exported from ./active-org for unit testing.
+export { resolveActiveOrg };
+
 /**
  * Resolves the Supabase-authenticated user, ensures their profile + app_users row
  * exist, and returns their portal context (org membership, role).
  * Use in every server component / route handler that requires an approved session.
+ *
+ * Phase 2B PR-A — accepts an optional `orgSlug` (typically `searchParams.org`).
+ * Resolution precedence: orgSlug → cookie → first membership. Cookie is updated
+ * when the user explicitly switches via the slug param.
  */
-export async function getPortalContext(): Promise<PortalContext> {
+export async function getPortalContext(opts?: {
+  orgSlug?: string | null;
+}): Promise<PortalContext> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -168,27 +203,27 @@ export async function getPortalContext(): Promise<PortalContext> {
     throw new Error('Failed to provision app_users row');
   }
 
-  const { data: memberships } = await sb
+  // Phase 2B PR-A — load ALL memberships, not the first one.
+  const { data: rawMemberships } = await sb
     .from('org_memberships')
-    .select('organization_id, organizations(id, name, slug)')
-    .eq('user_id', appUser.id)
-    .limit(1);
+    .select('organization_id, role, organizations(id, name, slug)')
+    .eq('user_id', appUser.id);
 
-  let organizationId: string | null = null;
-  let organizationName: string | null = null;
+  let memberships: MembershipRef[] = ((rawMemberships ?? []) as MembershipRow[])
+    .map((m) => {
+      const org = pickOrg(m.organizations);
+      if (!org) return null;
+      return {
+        org: { id: org.id, name: org.name ?? '', slug: org.slug },
+        role: m.role ?? 'member',
+      } satisfies MembershipRef;
+    })
+    .filter((m): m is MembershipRef => m !== null);
 
-  if (memberships && memberships.length > 0) {
-    const m = memberships[0] as {
-      organization_id: string;
-      organizations?: { name?: string };
-    };
-    organizationId = m.organization_id;
-    organizationName = m.organizations?.name ?? null;
-  } else if (!isAdmin) {
-    // Phase 2A.4 — refuse to auto-create a phantom "Workspace" org if any
-    // sibling app_users row (matched by email) already has memberships. That
-    // case means the dedupe migration hasn't run yet but the user is the same
-    // human; we surface the existing org instead of inventing a new one.
+  // Phase 2A.4 — auto-create / phantom-org-prevention. Only runs for non-admin
+  // users with zero memberships, just like before; the multi-org refactor
+  // doesn't change this codepath, only the single-membership shortcut above.
+  if (memberships.length === 0 && !isAdmin) {
     const { data: siblings } = await sb
       .from('app_users')
       .select('id')
@@ -199,32 +234,44 @@ export async function getPortalContext(): Promise<PortalContext> {
     if (siblingIds.length > 0) {
       const { data: siblingMemberships } = await sb
         .from('org_memberships')
-        .select('organization_id, organizations(id, name)')
-        .in('user_id', siblingIds)
-        .limit(1);
-      if (siblingMemberships && siblingMemberships.length > 0) {
-        const sm = siblingMemberships[0] as {
-          organization_id: string;
-          organizations?: { id?: string; name?: string };
-        };
-        organizationId = sm.organization_id;
-        organizationName = sm.organizations?.name ?? null;
-        // Repoint the membership to the canonical row so future loads find it
-        // without traversing siblings. (Idempotent — collisions are deduped.)
+        .select('organization_id, role, organizations(id, name, slug)')
+        .in('user_id', siblingIds);
+      const siblingRows = (siblingMemberships ?? []) as MembershipRow[];
+      if (siblingRows.length > 0) {
+        // Repoint sibling memberships to the canonical row so future loads
+        // find them directly. Idempotent: collisions get deduped by the
+        // primary key on (user_id, organization_id).
+        const sm = siblingRows[0];
+        const targetOrgId = sm.organization_id;
         await sb
           .from('org_memberships')
           .delete()
           .eq('user_id', appUser.id)
-          .eq('organization_id', organizationId);
+          .eq('organization_id', targetOrgId);
         await sb
           .from('org_memberships')
           .update({ user_id: appUser.id })
           .in('user_id', siblingIds)
-          .eq('organization_id', organizationId);
+          .eq('organization_id', targetOrgId);
+        // Re-fetch the canonical memberships now that we've repointed.
+        const { data: refetched } = await sb
+          .from('org_memberships')
+          .select('organization_id, role, organizations(id, name, slug)')
+          .eq('user_id', appUser.id);
+        memberships = ((refetched ?? []) as MembershipRow[])
+          .map((m) => {
+            const org = pickOrg(m.organizations);
+            if (!org) return null;
+            return {
+              org: { id: org.id, name: org.name ?? '', slug: org.slug },
+              role: m.role ?? 'member',
+            } satisfies MembershipRef;
+          })
+          .filter((m): m is MembershipRef => m !== null);
       }
     }
 
-    if (!organizationId) {
+    if (memberships.length === 0) {
       const slug =
         email.split('@')[0].replace(/[^a-z0-9]/g, '-') +
         '-' +
@@ -246,18 +293,72 @@ export async function getPortalContext(): Promise<PortalContext> {
           organization_id: newOrg.id,
           role: 'owner',
         });
-        organizationId = newOrg.id;
-        organizationName = newOrg.name;
+        memberships = [
+          {
+            org: { id: newOrg.id, name: newOrg.name ?? '', slug: newOrg.slug ?? null },
+            role: 'owner',
+          },
+        ];
       }
     }
   }
 
+  // Resolve active org from slug → cookie → first.
+  const cookieStore = await cookies();
+  const cookieSlug = cookieStore.get(ACTIVE_ORG_COOKIE)?.value ?? null;
+  const active = resolveActiveOrg(memberships, {
+    slug: opts?.orgSlug ?? null,
+    cookieSlug,
+  });
+
+  // Persist explicit slug switches so subsequent navigations remember the
+  // selection. We only write when the user provided ?org= explicitly AND it
+  // resolved to something different from the current cookie.
+  if (
+    opts?.orgSlug &&
+    active &&
+    active.org.slug &&
+    active.org.slug === opts.orgSlug &&
+    cookieSlug !== opts.orgSlug
+  ) {
+    try {
+      cookieStore.set(ACTIVE_ORG_COOKIE, active.org.slug, {
+        path: '/',
+        httpOnly: false,
+        sameSite: 'lax',
+        // 1 year — the switcher is sticky until the user changes it.
+        maxAge: 60 * 60 * 24 * 365,
+      });
+    } catch {
+      // cookies().set() throws when called from a server component (read-only
+      // context). That's fine — middleware/route-handler callers will set it.
+    }
+  }
+
+  const activeOrg: OrgRef | null = active
+    ? { id: active.org.id, name: active.org.name, slug: active.org.slug }
+    : null;
+
   return {
     user: appUser as PortalUser,
-    organizationId,
-    organizationName,
+    organizationId: activeOrg?.id ?? null,
+    organizationName: activeOrg?.name ?? null,
     isAdmin,
+    memberships,
+    activeOrg,
   };
+}
+
+/**
+ * Convenience wrapper for routes that already have `searchParams`.
+ */
+export async function getActiveOrg(
+  searchParams?: { org?: string | string[] | null } | Promise<{ org?: string | string[] | null }>,
+): Promise<PortalContext> {
+  const sp = searchParams ? await searchParams : undefined;
+  const raw = sp?.org;
+  const slug = Array.isArray(raw) ? raw[0] : raw;
+  return getPortalContext({ orgSlug: slug ?? null });
 }
 
 export async function requireAdmin(): Promise<PortalContext> {

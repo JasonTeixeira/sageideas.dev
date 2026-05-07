@@ -106,6 +106,7 @@ export default async function EngagementMessagesPage({
     <>
       <Topbar
         crumbs={[
+          { label: 'Dashboard', href: '/portal' },
           { label: 'Messages', href: '/portal/messages' },
           { label: engagement.title },
         ]}

@@ -31,7 +31,8 @@ export default async function DocumentDetailPage({
     <>
       <Topbar
         crumbs={[
-          { label: 'Documents', href: '/documents' },
+          { label: 'Dashboard', href: '/portal' },
+          { label: 'Documents', href: '/portal/documents' },
           { label: doc.title },
         ]}
       />

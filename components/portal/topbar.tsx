@@ -19,7 +19,7 @@ export function Topbar({
   return (
     <header className="sticky top-0 z-30 backdrop-blur bg-[#09090B]/80 border-b border-[#27272a]">
       <div className="flex items-center justify-between px-6 lg:px-8 h-14">
-        <nav className="flex items-center gap-1.5 text-sm min-w-0">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm min-w-0">
           {crumbs.map((c, i) => (
             <span key={i} className="flex items-center gap-1.5 min-w-0">
               {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-[#52525b] shrink-0" />}
