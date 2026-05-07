@@ -31,7 +31,6 @@ type ProposalRow = {
   currency: string | null;
   acceptance_token: string | null;
   acceptance_token_expires: string | null;
-  signing_token_used?: boolean | null;
   resulting_engagement_id: string | null;
   resulting_invoice_id: string | null;
 };

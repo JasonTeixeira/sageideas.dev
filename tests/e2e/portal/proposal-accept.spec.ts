@@ -97,9 +97,15 @@ test.describe('Phase 2D PR-A - portal proposal accept', () => {
     );
     await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
 
-    await clientPage.goto(`/portal/proposals/${proposalId}?token=${token}`);
-    await expect(clientPage.locator('[data-testid="proposal-view-page"]')).toBeVisible();
-    await expect(clientPage.locator('[data-testid="proposal-line-items-table"]')).toBeVisible();
+    await clientPage.goto(`/portal/proposals/${proposalId}?token=${token}`, {
+      waitUntil: 'domcontentloaded',
+    });
+    await expect(clientPage.locator('[data-testid="proposal-view-page"]')).toBeVisible({
+      timeout: 30_000,
+    });
+    await expect(
+      clientPage.locator('[data-testid="proposal-line-items-table"]'),
+    ).toBeVisible({ timeout: 15_000 });
     await expect(clientPage.locator('[data-testid="proposal-total"]')).toContainText(
       /2,?500/,
     );

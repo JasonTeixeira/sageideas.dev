@@ -197,12 +197,16 @@ export default async function PortalProposalPage({
   }
 
   // First-time view — flip status to 'viewed' (only when transitioning from sent).
+  // Awaited so any error surfaces in logs rather than as an uncaught rejection.
   if (proposal.status === 'sent') {
-    void sb
-      .from('proposals')
-      .update({ status: 'viewed', viewed_at: new Date().toISOString() })
-      .eq('id', proposal.id)
-      .then(() => undefined);
+    try {
+      await sb
+        .from('proposals')
+        .update({ status: 'viewed', viewed_at: new Date().toISOString() })
+        .eq('id', proposal.id);
+    } catch (err) {
+      console.warn('[proposal] view-transition update failed', err);
+    }
   }
 
   const total = Number(proposal.total ?? 0);

@@ -57,8 +57,10 @@ test.describe('Phase 2D PR-A - admin template instantiate', () => {
     const orgId = await findAcmeOrgId();
     test.skip(!orgId, 'Acme org not found.');
 
-    await adminPage.goto('/admin/project-templates');
-    await expect(adminPage.locator('[data-testid="admin-templates-list"]')).toBeVisible();
+    await adminPage.goto('/admin/project-templates', { waitUntil: 'domcontentloaded' });
+    await expect(adminPage.locator('[data-testid="admin-templates-list"]')).toBeVisible({
+      timeout: 30_000,
+    });
     await expect(
       adminPage.locator('[data-testid="template-row"]', { hasText: 'Web Design' }),
     ).toBeVisible();

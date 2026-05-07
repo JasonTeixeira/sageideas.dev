@@ -133,7 +133,7 @@ export async function POST(
     const taskRows = tasks.map((t, i) => ({
       engagement_id: engagementId,
       title: t.title,
-      status: 'open',
+      status: 'todo',
       priority: 'normal',
       position: i,
     }));
