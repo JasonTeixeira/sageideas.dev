@@ -11,7 +11,7 @@
  * Newly created rows are cleaned up in afterAll so the test is rerunnable.
  */
 
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import { createClient } from '@supabase/supabase-js';
 
 function adminClient() {
@@ -23,20 +23,17 @@ function adminClient() {
   });
 }
 
-async function getClient1Engagement(): Promise<{ orgId: string; engagementId: string } | null> {
+// Pin to Acme. After migration 0009 client1 belongs to Acme + Beta; the
+// new-thread modal is server-rendered with the active org's engagements,
+// so the engagement we look up must match the org we set as active.
+async function getAcmeEngagement(): Promise<{ orgId: string; engagementId: string } | null> {
   const sb = adminClient();
-  const { data: users } = await sb
-    .from('app_users')
+  const { data: org } = await sb
+    .from('organizations')
     .select('id')
-    .ilike('email', 'client1+test@sageideas.org');
-  const userIds = (users ?? []).map((u: { id: string }) => u.id);
-  if (userIds.length === 0) return null;
-  const { data: m } = await sb
-    .from('org_memberships')
-    .select('organization_id')
-    .in('user_id', userIds)
-    .limit(1);
-  const orgId = m?.[0]?.organization_id;
+    .eq('slug', ACME_SLUG)
+    .maybeSingle();
+  const orgId = org?.id;
   if (!orgId) return null;
   const { data: eng } = await sb
     .from('engagements')
@@ -67,10 +64,12 @@ test.describe('Phase 2B PR-C — client-initiated thread create', () => {
 
   test('client opens new thread, redirects to engagement, message + admin notification appear', async ({
     clientPage,
+    baseURL,
   }) => {
-    const ctx = await getClient1Engagement();
-    test.skip(!ctx, 'client1 has no engagement to thread against — seed not run.');
+    const ctx = await getAcmeEngagement();
+    test.skip(!ctx, 'Acme has no engagement to thread against — seed not run.');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal/messages');
     await expect(clientPage.getByTestId('new-thread-button')).toBeVisible({ timeout: 15_000 });
     await clientPage.getByTestId('new-thread-button').click();
