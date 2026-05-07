@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import { MessageSquare } from 'lucide-react';
 import { formatRelative } from '@/lib/utils';
+import { NewThreadButton } from '@/components/portal/new-thread-button';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Messages' };
@@ -105,11 +106,18 @@ export default async function MessagesPage() {
     })
     .sort((a, b) => (a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0));
 
+  const newThreadEngagements = engagements.map((e) => ({ id: e.id, title: e.title }));
+
   if (rows.length === 0) {
     return (
       <>
         <Topbar crumbs={[{ label: 'Messages' }]} />
-        <div className="px-6 lg:px-8 py-8 max-w-5xl mx-auto">
+        <div className="px-6 lg:px-8 py-8 max-w-5xl mx-auto space-y-4">
+          {newThreadEngagements.length > 0 && (
+            <div className="flex items-center justify-end">
+              <NewThreadButton engagements={newThreadEngagements} />
+            </div>
+          )}
           <EmptyState />
         </div>
       </>
@@ -120,11 +128,14 @@ export default async function MessagesPage() {
     <>
       <Topbar crumbs={[{ label: 'Messages' }]} />
       <div className="px-6 lg:px-8 py-8 max-w-5xl mx-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-[#fafafa]">Messages</h1>
-          <p className="text-sm text-[#a1a1aa] mt-1">
-            One thread per project. No email loops, no Slack channels.
-          </p>
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight text-[#fafafa]">Messages</h1>
+            <p className="text-sm text-[#a1a1aa] mt-1">
+              One thread per project. No email loops, no Slack channels.
+            </p>
+          </div>
+          <NewThreadButton engagements={newThreadEngagements} />
         </div>
         <div className="space-y-2">
           {rows.map(({ eng, last, unread }) => (
