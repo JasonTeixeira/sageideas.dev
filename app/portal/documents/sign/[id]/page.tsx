@@ -99,5 +99,5 @@ export default async function SignDocumentPage({
       .eq('id', doc.id);
   }
 
-  redirect(`/sign/${token}`);
+  redirect(`/portal/documents/${doc.id}/sign?token=${token}`);
 }

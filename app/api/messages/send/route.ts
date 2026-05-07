@@ -4,8 +4,33 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
+type AttachmentInput = {
+  path: string;
+  name: string;
+  mime: string;
+  size: number;
+};
+
+function isAttachmentArray(v: unknown): v is AttachmentInput[] {
+  if (!Array.isArray(v)) return false;
+  return v.every(
+    (a) =>
+      a !== null &&
+      typeof a === 'object' &&
+      typeof (a as { path?: unknown }).path === 'string' &&
+      typeof (a as { name?: unknown }).name === 'string' &&
+      typeof (a as { mime?: unknown }).mime === 'string' &&
+      typeof (a as { size?: unknown }).size === 'number',
+  );
+}
+
 export async function POST(req: Request) {
-  let payload: { engagementId?: string; threadId?: string; body?: string };
+  let payload: {
+    engagementId?: string;
+    threadId?: string;
+    body?: string;
+    attachments?: unknown;
+  };
   try {
     payload = await req.json();
   } catch {
@@ -15,9 +40,18 @@ export async function POST(req: Request) {
   const body = (payload.body ?? '').trim();
   const engagementId = payload.engagementId;
   const threadId = payload.threadId;
+  const attachments: AttachmentInput[] = isAttachmentArray(payload.attachments)
+    ? payload.attachments
+    : [];
 
-  if (!body) return NextResponse.json({ error: 'Empty message' }, { status: 400 });
+  // Allow attachment-only messages (e.g. dropping a file with no text).
+  if (!body && attachments.length === 0) {
+    return NextResponse.json({ error: 'Empty message' }, { status: 400 });
+  }
   if (body.length > 8000) return NextResponse.json({ error: 'Message too long' }, { status: 400 });
+  if (attachments.length > 10) {
+    return NextResponse.json({ error: 'Too many attachments' }, { status: 400 });
+  }
   if (!engagementId || !threadId) {
     return NextResponse.json({ error: 'Missing engagementId or threadId' }, { status: 400 });
   }
@@ -40,8 +74,13 @@ export async function POST(req: Request) {
 
   const { data: inserted, error } = await sb
     .from('messages')
-    .insert({ thread_id: threadId, sender_id: ctx.user.id, body })
-    .select('id, thread_id, body, sender_id, created_at')
+    .insert({
+      thread_id: threadId,
+      sender_id: ctx.user.id,
+      body,
+      attachments: attachments.length > 0 ? attachments : null,
+    })
+    .select('id, thread_id, body, sender_id, attachments, created_at')
     .single();
   if (error || !inserted) {
     return NextResponse.json({ error: error?.message ?? 'Insert failed' }, { status: 500 });

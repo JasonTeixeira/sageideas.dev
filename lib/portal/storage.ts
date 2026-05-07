@@ -10,7 +10,30 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 export const CLIENT_UPLOADS_BUCKET = 'client-uploads';
 export const AVATARS_BUCKET = 'avatars';
+export const MESSAGE_ATTACHMENTS_BUCKET = 'message-attachments';
+export const CONTRACTS_BUCKET = 'contracts';
 export const ORG_QUOTA_BYTES = 5_368_709_120; // 5 GiB -- matches the trigger.
+
+/**
+ * Generic single-shot upload. Used by routes that don't need the
+ * versioning/quota machinery of uploadProjectFile (message attachments,
+ * signed-contract receipts, etc.). Caller is responsible for path layout.
+ */
+export async function uploadToBucket(input: {
+  bucket: string;
+  path: string;
+  bytes: ArrayBuffer | Uint8Array;
+  contentType: string;
+  upsert?: boolean;
+  supabase: SupabaseClient;
+}): Promise<void> {
+  const { bucket, path, bytes, contentType, upsert, supabase } = input;
+  const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  const { error } = await supabase.storage
+    .from(bucket)
+    .upload(path, u8, { contentType, upsert: upsert ?? false });
+  if (error) throw error;
+}
 
 export type UploadInput = {
   orgId: string;
