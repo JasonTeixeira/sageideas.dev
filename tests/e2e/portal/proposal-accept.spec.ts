@@ -100,23 +100,6 @@ test.describe('Phase 2D PR-A - portal proposal accept', () => {
     await clientPage.goto(`/portal/proposals/${proposalId}?token=${token}`, {
       waitUntil: 'domcontentloaded',
     });
-    // Diagnostic: log resulting URL + page heading so a failure surfaces what
-    // actually rendered (login redirect, error panel, error boundary, etc).
-    const url = clientPage.url();
-    const headings = await clientPage
-      .locator('h1, h2, [data-testid]')
-      .evaluateAll((els) =>
-        els
-          .map((el) => {
-            const tid = (el as HTMLElement).getAttribute('data-testid');
-            const text = (el as HTMLElement).textContent?.slice(0, 80) ?? '';
-            return tid ? `[${tid}] ${text}` : text;
-          })
-          .filter(Boolean)
-          .slice(0, 12),
-      );
-    // eslint-disable-next-line no-console
-    console.log('[proposal-accept] URL=', url, '\nheadings:', JSON.stringify(headings, null, 2));
     await expect(clientPage.locator('[data-testid="proposal-view-page"]')).toBeVisible({
       timeout: 30_000,
     });

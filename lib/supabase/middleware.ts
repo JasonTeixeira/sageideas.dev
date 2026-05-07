@@ -33,6 +33,7 @@ const PORTAL_VALID_SEGMENTS = new Set([
   'invoices',
   'messages',
   'projects',
+  'proposals',
   'settings',
   // Internal target for the not-found rewrite below — must not be 404'd.
   'not-found-render',
