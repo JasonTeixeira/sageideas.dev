@@ -5,11 +5,17 @@ import { Topbar } from '@/components/portal/topbar';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import { Progress } from '@/components/portal/ui/progress';
+import Link from 'next/link';
 import { ProjectTabs } from '@/components/portal/project-tabs';
 import { DeliverableDecision } from '@/components/portal/deliverable-decision';
 import { DocumentUploader, type UploadedFileRow } from '@/components/portal/document-uploader';
 import { ORG_QUOTA_BYTES } from '@/lib/portal/storage';
-import { Check, Circle, Clock } from 'lucide-react';
+import {
+  loadFormDefinitionForEngagement,
+  readAnswers,
+} from '@/lib/portal/intake';
+import { Button } from '@/components/portal/ui/button';
+import { Check, Circle, Clock, FormInput } from 'lucide-react';
 import { formatDate, formatCurrency } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -25,6 +31,10 @@ type Engagement = {
   contract_value: number | string | null;
   start_date: string | null;
   target_date: string | null;
+  service_type: string | null;
+  intake: unknown;
+  intake_form_id: string | null;
+  intake_submitted_at: string | null;
 };
 
 type Phase = {
@@ -108,7 +118,7 @@ export default async function ProjectDetailPage({
   const { data: eng } = await sb
     .from('engagements')
     .select(
-      'id, organization_id, title, description, status, pipeline_stage, health, contract_value, start_date, target_date',
+      'id, organization_id, title, description, status, pipeline_stage, health, contract_value, start_date, target_date, service_type, intake, intake_form_id, intake_submitted_at',
     )
     .eq('id', id)
     .maybeSingle<Engagement>();
@@ -456,6 +466,59 @@ export default async function ProjectDetailPage({
     />
   );
 
+  // Kickoff panel — show submitted answers (read-only) or a CTA to fill in.
+  const intakeDef = await loadFormDefinitionForEngagement({
+    engagement: {
+      id: eng.id,
+      intake_form_id: eng.intake_form_id,
+      service_type: eng.service_type,
+    },
+    sb,
+  });
+  const intakeAnswers = readAnswers(eng.intake);
+  const kickoffPanel = eng.intake_submitted_at && intakeDef ? (
+    <Card>
+      <CardContent className="p-6 space-y-3">
+        <div>
+          <h3 className="text-sm font-medium text-[#fafafa]">{intakeDef.title}</h3>
+          <p className="text-xs text-[#71717a]">
+            Submitted {formatDate(eng.intake_submitted_at)}
+          </p>
+        </div>
+        <div
+          className="rounded-lg border border-[#27272a] divide-y divide-[#1f1f23]"
+          data-testid="kickoff-answers"
+        >
+          {intakeDef.schema.fields.map((f) => (
+            <div key={f.id} className="px-4 py-3">
+              <div className="text-[10px] uppercase tracking-wider text-[#52525b]">
+                {f.label}
+              </div>
+              <div className="mt-1 text-sm text-[#fafafa] whitespace-pre-wrap">
+                {intakeAnswers[f.id] || '—'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  ) : (
+    <Card>
+      <CardContent className="p-8 text-center space-y-4">
+        <FormInput className="w-7 h-7 text-[#52525b] mx-auto" />
+        <div>
+          <h3 className="text-sm font-semibold text-[#fafafa]">Kickoff intake pending</h3>
+          <p className="text-xs text-[#71717a] mt-1">
+            A few quick answers help us tailor the work to your goals.
+          </p>
+        </div>
+        <Link href={`/portal/intake/${eng.id}`}>
+          <Button size="sm">Complete kickoff form</Button>
+        </Link>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <>
       <Topbar
@@ -492,6 +555,7 @@ export default async function ProjectDetailPage({
             tasks: tasksPanel,
             status: statusPanel,
             files: filesPanel,
+            kickoff: kickoffPanel,
           }}
         />
       </div>
