@@ -11,7 +11,7 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     continue-on-error: true
-    timeout-minutes: 15
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,8 +34,11 @@ jobs:
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -e
-          # Wait up to ~10 min for Vercel preview to be ready for the PR head SHA.
-          for i in $(seq 1 60); do
+          # Wait up to ~20 min for Vercel preview to be ready for the PR head SHA.
+          # Vercel cold builds for this repo regularly take 10-13 min; the
+          # earlier 10-min cap caused the e2e job to fall back to prod and
+          # miss PR-only routes.
+          for i in $(seq 1 120); do
             URL=$(gh api repos/${{ github.repository }}/deployments \
               --jq "map(select(.sha == \"$PR_HEAD_SHA\" and .environment == \"Preview\")) | .[0].statuses_url" 2>/dev/null || true)
             if [ -n "$URL" ] && [ "$URL" != "null" ]; then

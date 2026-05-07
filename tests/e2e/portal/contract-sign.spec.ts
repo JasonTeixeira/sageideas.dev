@@ -78,6 +78,10 @@ test.describe('Phase 2C PR-B - in-portal contract e-sign', () => {
     baseURL,
   }) => {
     test.skip(!documentId, 'document not seeded');
+    test.skip(
+      !!baseURL && /www\.sageideas\.dev$/i.test(new URL(baseURL).host),
+      'Skipping against prod — PR-B routes only exist on the Vercel preview.',
+    );
     await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
 
     await clientPage.goto(
