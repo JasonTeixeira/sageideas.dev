@@ -14,7 +14,7 @@
  * test stays valid even on a fresh DB.
  */
 
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import { createClient } from '@supabase/supabase-js';
 
 function adminClient() {
@@ -26,20 +26,18 @@ function adminClient() {
   });
 }
 
-async function getClient1Org(): Promise<{ orgId: string; engagementId: string | null } | null> {
+async function getAcmeContext(): Promise<{ orgId: string; engagementId: string | null } | null> {
+  // After migration 0009, client1 belongs to both Acme and Beta. Pin to Acme
+  // explicitly so the seeded event lands in the same org we set as active
+  // via the sage_active_org cookie below — otherwise the ICS handler 403s
+  // because the event's org doesn't match ctx.organizationId.
   const sb = adminClient();
-  const { data: users } = await sb
-    .from('app_users')
+  const { data: org } = await sb
+    .from('organizations')
     .select('id')
-    .ilike('email', 'client1+test@sageideas.org');
-  const userIds = (users ?? []).map((u: { id: string }) => u.id);
-  if (userIds.length === 0) return null;
-  const { data: m } = await sb
-    .from('org_memberships')
-    .select('organization_id')
-    .in('user_id', userIds)
-    .limit(1);
-  const orgId = m?.[0]?.organization_id;
+    .eq('slug', ACME_SLUG)
+    .maybeSingle();
+  const orgId = org?.id;
   if (!orgId) return null;
   const { data: eng } = await sb
     .from('engagements')
@@ -54,7 +52,7 @@ test.describe('Phase 2B PR-C — calendar + ICS', () => {
   const seedTitle = `PR-C ICS Test ${Date.now()}`;
 
   test.beforeAll(async () => {
-    const ctx = await getClient1Org();
+    const ctx = await getAcmeContext();
     if (!ctx) return;
     const sb = adminClient();
     const start = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -91,7 +89,9 @@ test.describe('Phase 2B PR-C — calendar + ICS', () => {
 
   test('calendar page renders the month grid even when there are no events', async ({
     clientPage,
+    baseURL,
   }) => {
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal/calendar');
     // The grid container is always rendered now, regardless of event count.
     await expect(clientPage.getByTestId('calendar-grid')).toBeVisible();
@@ -101,9 +101,11 @@ test.describe('Phase 2B PR-C — calendar + ICS', () => {
 
   test('ICS download for a seeded event returns a valid VEVENT with matching UID', async ({
     clientPage,
+    baseURL,
   }) => {
     test.skip(!seededEventId, 'seed step did not insert an event (env missing?)');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     // Hit the ICS endpoint directly — the route is auth-scoped via the same
     // cookies the page already has.
     const url = `/api/portal/calendar/${seededEventId}/ics`;

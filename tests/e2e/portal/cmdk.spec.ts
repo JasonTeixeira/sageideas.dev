@@ -8,7 +8,7 @@
  * so tests look up at least one engagement for client1 to drive the search.
  */
 
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import type { Page } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 
@@ -21,17 +21,14 @@ function adminClient() {
   });
 }
 
-async function findOrgIdForEmail(email: string): Promise<string | null> {
+async function findAcmeOrgId(): Promise<string | null> {
   const sb = adminClient();
-  const { data: users } = await sb.from('app_users').select('id').ilike('email', email);
-  const ids = (users ?? []).map((u: { id: string }) => u.id);
-  if (ids.length === 0) return null;
-  const { data: m } = await sb
-    .from('org_memberships')
-    .select('organization_id')
-    .in('user_id', ids)
-    .limit(1);
-  return m?.[0]?.organization_id ?? null;
+  const { data } = await sb
+    .from('organizations')
+    .select('id')
+    .eq('slug', ACME_SLUG)
+    .maybeSingle();
+  return data?.id ?? null;
 }
 
 async function openWithModK(page: Page) {
@@ -80,9 +77,15 @@ test.describe('Phase 2B PR-B — command palette', () => {
     await clientPage.waitForURL(/\/portal\/settings/);
   });
 
-  test('Project search routes to project detail when one exists', async ({ clientPage }) => {
-    const orgId = await findOrgIdForEmail('client1+test@sageideas.org');
-    test.skip(!orgId, 'client1 has no org — seed not run');
+  test('Project search routes to project detail when one exists', async ({
+    clientPage,
+    baseURL,
+  }) => {
+    // Pin Acme as the active org. After migration 0009, client1 belongs to
+    // both Acme + Beta; the cmdk index only contains the active org's data,
+    // so we must force Acme to match the engagement we look up below.
+    const orgId = await findAcmeOrgId();
+    test.skip(!orgId, 'Acme org missing — seed not run');
     const sb = adminClient();
     const { data: eng } = await sb
       .from('engagements')
@@ -92,6 +95,7 @@ test.describe('Phase 2B PR-B — command palette', () => {
       .maybeSingle();
     test.skip(!eng, 'no engagement to drive cmdk search against');
 
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal');
     await clientPage.waitForLoadState('domcontentloaded');
 

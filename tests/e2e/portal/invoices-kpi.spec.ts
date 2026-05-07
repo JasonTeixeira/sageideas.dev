@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import { createClient } from '@supabase/supabase-js';
 
 const ORG_ACME = '1dd90daf-a55b-4ce4-9ef3-0c086604dc46';
@@ -70,19 +70,25 @@ test.describe('Invoice KPI + breakdown (Phase 2A.3)', () => {
     }
   });
 
-  test('dashboard KPI sums amount_due correctly', async ({ clientPage }) => {
+  test('dashboard KPI sums amount_due correctly', async ({ clientPage, baseURL }) => {
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal');
     // KPI sub-text contains the formatted currency.
     await expect(clientPage.getByText(/\$1,234\.56/)).toBeVisible();
   });
 
-  test('invoices list row shows total', async ({ clientPage }) => {
+  test('invoices list row shows total', async ({ clientPage, baseURL }) => {
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal/invoices');
     await expect(clientPage.getByText(/\$1,234\.56/).first()).toBeVisible();
   });
 
-  test('invoice detail shows full breakdown including amount due', async ({ clientPage }) => {
+  test('invoice detail shows full breakdown including amount due', async ({
+    clientPage,
+    baseURL,
+  }) => {
     if (!invoiceId) test.skip(true, 'invoice not seeded');
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto(`/portal/invoices/${invoiceId}`);
     await expect(clientPage.getByText(/Subtotal/i)).toBeVisible();
     await expect(clientPage.getByText(/^Total$/i).first()).toBeVisible();
