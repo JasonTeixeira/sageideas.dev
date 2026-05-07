@@ -30,6 +30,7 @@ export async function POST(req: Request) {
     threadId?: string;
     body?: string;
     attachments?: unknown;
+    parentId?: string | null;
   };
   try {
     payload = await req.json();
@@ -43,6 +44,10 @@ export async function POST(req: Request) {
   const attachments: AttachmentInput[] = isAttachmentArray(payload.attachments)
     ? payload.attachments
     : [];
+  const parentIdInput =
+    typeof payload.parentId === 'string' && payload.parentId.length > 0
+      ? payload.parentId
+      : null;
 
   // Allow attachment-only messages (e.g. dropping a file with no text).
   if (!body && attachments.length === 0) {
@@ -72,6 +77,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
+  // Threaded replies are flattened to depth 1: if parentIdInput points to a
+  // message that itself has a parent_id, hop up to the root so a "reply to a
+  // reply" still anchors at the original parent.
+  let parentId: string | null = null;
+  if (parentIdInput) {
+    const { data: parentRow } = await sb
+      .from('messages')
+      .select('id, thread_id, parent_id')
+      .eq('id', parentIdInput)
+      .maybeSingle();
+    if (!parentRow) {
+      return NextResponse.json({ error: 'Parent message not found' }, { status: 400 });
+    }
+    if (parentRow.thread_id !== threadId) {
+      return NextResponse.json(
+        { error: 'Parent belongs to another thread' },
+        { status: 400 },
+      );
+    }
+    parentId = (parentRow.parent_id as string | null) ?? (parentRow.id as string);
+  }
+
   const { data: inserted, error } = await sb
     .from('messages')
     .insert({
@@ -79,8 +106,9 @@ export async function POST(req: Request) {
       sender_id: ctx.user.id,
       body,
       attachments: attachments.length > 0 ? attachments : null,
+      parent_id: parentId,
     })
-    .select('id, thread_id, body, sender_id, attachments, created_at')
+    .select('id, thread_id, body, sender_id, attachments, created_at, parent_id')
     .single();
   if (error || !inserted) {
     return NextResponse.json({ error: error?.message ?? 'Insert failed' }, { status: 500 });
