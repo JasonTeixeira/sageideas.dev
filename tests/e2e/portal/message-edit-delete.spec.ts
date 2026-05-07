@@ -93,12 +93,15 @@ test.describe('Phase 2E PR-A - message edit + delete', () => {
       const id = await bubble.getAttribute('data-message-id');
       expect(id).toMatch(uuidRe);
     }).toPass({ timeout: 15_000 });
-    const bubble = clientPage
+    const textBubble = clientPage
       .locator('[data-message-id]')
       .filter({ hasText: originalText })
       .first();
-    messageId = await bubble.getAttribute('data-message-id');
+    messageId = await textBubble.getAttribute('data-message-id');
     expect(messageId).toBeTruthy();
+    // Re-derive an id-stable locator so subsequent steps (which mutate the
+    // bubble's text) don't lose the bubble.
+    const bubble = clientPage.locator(`[data-message-id="${messageId}"]`);
 
     // Edit via actions menu.
     await bubble.locator('[data-testid="msg-actions-menu"]').click();
@@ -116,12 +119,8 @@ test.describe('Phase 2E PR-A - message edit + delete', () => {
       bubble.locator('[data-testid="msg-edit-save"]').click(),
     ]);
 
-    const editedBubble = clientPage
-      .locator('[data-message-id]')
-      .filter({ hasText: editedText })
-      .first();
-    await expect(editedBubble).toBeVisible({ timeout: 15_000 });
-    await expect(editedBubble.locator('[data-testid="msg-edited-badge"]')).toBeVisible();
+    await expect(bubble).toContainText(editedText, { timeout: 15_000 });
+    await expect(bubble.locator('[data-testid="msg-edited-badge"]')).toBeVisible();
 
     // DB check: edited_at + edit_count.
     const sb = adminClient();
@@ -145,7 +144,7 @@ test.describe('Phase 2E PR-A - message edit + delete', () => {
     clientPage.once('dialog', (d) => {
       void d.accept();
     });
-    await editedBubble.locator('[data-testid="msg-actions-menu"]').click();
+    await bubble.locator('[data-testid="msg-actions-menu"]').click();
     await Promise.all([
       clientPage.waitForResponse(
         (r) =>
@@ -153,7 +152,7 @@ test.describe('Phase 2E PR-A - message edit + delete', () => {
           r.request().method() === 'DELETE',
         { timeout: 15_000 },
       ),
-      editedBubble.locator('[data-testid="msg-delete-action"]').click(),
+      bubble.locator('[data-testid="msg-delete-action"]').click(),
     ]);
 
     await expect(
