@@ -47,6 +47,15 @@ export interface PortalContext {
 
 const ADMIN_EMAILS = ['sage@sageideas.dev', 'sage@sageideas.org'];
 
+type AppUserRow = {
+  id: string;
+  clerk_id: string;
+  email: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  role: 'admin' | 'client';
+};
+
 /**
  * Resolves the Supabase-authenticated user, ensures their profile + app_users row
  * exist, and returns their portal context (org membership, role).
@@ -84,42 +93,85 @@ export async function getPortalContext(): Promise<PortalContext> {
     throw new Error('Failed to load or create profile');
   }
 
-  const email = profile.email ?? user.email ?? '';
+  const email = (profile.email ?? user.email ?? '').toLowerCase();
   const fullName = profile.full_name ?? '';
   const isAdmin =
-    profile.app_role === 'admin' || ADMIN_EMAILS.includes(email.toLowerCase());
+    profile.app_role === 'admin' || ADMIN_EMAILS.includes(email);
 
   if (!isAdmin && profile.approval_status !== 'approved') {
     redirect('/pending-approval');
   }
 
-  // Bridge to existing app_users row used by other tables (engagements, activity, etc.).
-  const { data: upsertedAppUser } = await sb
+  // Phase 2A.4 — bridge to app_users by EMAIL first, not just clerk_id.
+  // The seed pipeline creates rows with clerk_id='seed_<uuid>'. When the user
+  // logs in, the legacy upsert path inserted a SECOND row keyed by their real
+  // auth UUID, orphaning seeded engagements/memberships. We now:
+  //   1) Look up by lower(email).
+  //   2) If found, update clerk_id to the auth user id (in case it was a seed).
+  //   3) Otherwise insert a fresh row keyed on the auth UUID.
+  const desiredAvatar =
+    profile.avatar_url ??
+    (user.user_metadata?.avatar_url as string | undefined) ??
+    null;
+  const desiredRole: 'admin' | 'client' = isAdmin ? 'admin' : 'client';
+
+  const { data: existingByEmail } = await sb
     .from('app_users')
-    .upsert(
-      {
+    .select('*')
+    .ilike('email', email)
+    .order('created_at', { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  let appUser: AppUserRow | null = null;
+
+  if (existingByEmail) {
+    const needsUpdate =
+      existingByEmail.clerk_id !== user.id ||
+      existingByEmail.full_name !== fullName ||
+      existingByEmail.avatar_url !== desiredAvatar ||
+      existingByEmail.role !== desiredRole;
+
+    if (needsUpdate) {
+      const { data: updated } = await sb
+        .from('app_users')
+        .update({
+          clerk_id: user.id,
+          email,
+          full_name: fullName,
+          avatar_url: desiredAvatar,
+          role: desiredRole,
+        })
+        .eq('id', existingByEmail.id)
+        .select()
+        .maybeSingle();
+      appUser = (updated ?? existingByEmail) as AppUserRow;
+    } else {
+      appUser = existingByEmail as AppUserRow;
+    }
+  } else {
+    const { data: inserted } = await sb
+      .from('app_users')
+      .insert({
         clerk_id: user.id,
         email,
         full_name: fullName,
-        avatar_url:
-          profile.avatar_url ??
-          (user.user_metadata?.avatar_url as string | undefined) ??
-          null,
-        role: isAdmin ? 'admin' : 'client',
-      },
-      { onConflict: 'clerk_id' },
-    )
-    .select()
-    .single();
+        avatar_url: desiredAvatar,
+        role: desiredRole,
+      })
+      .select()
+      .maybeSingle();
+    appUser = inserted as AppUserRow | null;
+  }
 
-  if (!upsertedAppUser) {
+  if (!appUser) {
     throw new Error('Failed to provision app_users row');
   }
 
   const { data: memberships } = await sb
     .from('org_memberships')
     .select('organization_id, organizations(id, name, slug)')
-    .eq('user_id', upsertedAppUser.id)
+    .eq('user_id', appUser.id)
     .limit(1);
 
   let organizationId: string | null = null;
@@ -133,34 +185,75 @@ export async function getPortalContext(): Promise<PortalContext> {
     organizationId = m.organization_id;
     organizationName = m.organizations?.name ?? null;
   } else if (!isAdmin) {
-    const slug =
-      email.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '-') +
-      '-' +
-      Math.random().toString(36).slice(2, 6);
-    const { data: newOrg } = await sb
-      .from('organizations')
-      .insert({
-        name: `${fullName.split(' ')[0] || email.split('@')[0]}'s Workspace`,
-        slug,
-        primary_contact_email: email,
-        status: 'prospect',
-      })
-      .select()
-      .single();
+    // Phase 2A.4 — refuse to auto-create a phantom "Workspace" org if any
+    // sibling app_users row (matched by email) already has memberships. That
+    // case means the dedupe migration hasn't run yet but the user is the same
+    // human; we surface the existing org instead of inventing a new one.
+    const { data: siblings } = await sb
+      .from('app_users')
+      .select('id')
+      .ilike('email', email)
+      .neq('id', appUser.id);
+    const siblingIds = (siblings ?? []).map((s: { id: string }) => s.id);
 
-    if (newOrg) {
-      await sb.from('org_memberships').insert({
-        user_id: upsertedAppUser.id,
-        organization_id: newOrg.id,
-        role: 'owner',
-      });
-      organizationId = newOrg.id;
-      organizationName = newOrg.name;
+    if (siblingIds.length > 0) {
+      const { data: siblingMemberships } = await sb
+        .from('org_memberships')
+        .select('organization_id, organizations(id, name)')
+        .in('user_id', siblingIds)
+        .limit(1);
+      if (siblingMemberships && siblingMemberships.length > 0) {
+        const sm = siblingMemberships[0] as {
+          organization_id: string;
+          organizations?: { id?: string; name?: string };
+        };
+        organizationId = sm.organization_id;
+        organizationName = sm.organizations?.name ?? null;
+        // Repoint the membership to the canonical row so future loads find it
+        // without traversing siblings. (Idempotent — collisions are deduped.)
+        await sb
+          .from('org_memberships')
+          .delete()
+          .eq('user_id', appUser.id)
+          .eq('organization_id', organizationId);
+        await sb
+          .from('org_memberships')
+          .update({ user_id: appUser.id })
+          .in('user_id', siblingIds)
+          .eq('organization_id', organizationId);
+      }
+    }
+
+    if (!organizationId) {
+      const slug =
+        email.split('@')[0].replace(/[^a-z0-9]/g, '-') +
+        '-' +
+        Math.random().toString(36).slice(2, 6);
+      const { data: newOrg } = await sb
+        .from('organizations')
+        .insert({
+          name: `${fullName.split(' ')[0] || email.split('@')[0]}'s Workspace`,
+          slug,
+          primary_contact_email: email,
+          status: 'prospect',
+        })
+        .select()
+        .single();
+
+      if (newOrg) {
+        await sb.from('org_memberships').insert({
+          user_id: appUser.id,
+          organization_id: newOrg.id,
+          role: 'owner',
+        });
+        organizationId = newOrg.id;
+        organizationName = newOrg.name;
+      }
     }
   }
 
   return {
-    user: upsertedAppUser as PortalUser,
+    user: appUser as PortalUser,
     organizationId,
     organizationName,
     isAdmin,
@@ -169,6 +262,6 @@ export async function getPortalContext(): Promise<PortalContext> {
 
 export async function requireAdmin(): Promise<PortalContext> {
   const ctx = await getPortalContext();
-  if (!ctx.isAdmin) redirect('/portal/home');
+  if (!ctx.isAdmin) redirect('/portal');
   return ctx;
 }

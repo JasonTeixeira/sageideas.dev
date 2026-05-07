@@ -47,7 +47,7 @@ export default function PortalErrorBoundary({
             Try again
           </button>
           <Link
-            href="/portal/home"
+            href="/portal"
             className="inline-flex items-center gap-2 border border-[#27272A] hover:border-[#3F3F46] text-[#FAFAFA] font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Home className="h-4 w-4" />

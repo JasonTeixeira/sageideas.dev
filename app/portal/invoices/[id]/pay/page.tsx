@@ -18,7 +18,7 @@ type Invoice = {
   number: string | null;
   status: string | null;
   total: number | string | null;
-  amount: number | string | null;
+  amount_due: number | string | null;
   organization_id: string;
 };
 
@@ -32,14 +32,14 @@ export default async function PayInvoicePage({
   const sb = supabaseAdmin();
   const { data } = await sb
     .from('invoices')
-    .select('id, number, status, total, amount, organization_id')
+    .select('id, number, status, total, amount_due, organization_id')
     .eq('id', id)
     .maybeSingle();
   if (!data) notFound();
   const invoice = data as Invoice;
   if (!ctx.isAdmin && invoice.organization_id !== ctx.organizationId) notFound();
 
-  const total = Number(invoice.total ?? invoice.amount ?? 0);
+  const total = Number(invoice.amount_due ?? invoice.total ?? 0);
   const stripeReady = isStripeConfigured();
   const alreadyPaid = invoice.status === 'paid';
 

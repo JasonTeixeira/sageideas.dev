@@ -17,6 +17,27 @@ const PUBLIC_PREFIXES = [
   '/favicon',
 ];
 
+// First-segment routes that exist under /portal. Anything not in this set
+// falls through to the catch-all route, which renders the portal 404. We
+// detect that here so the response can be served with HTTP 404 (Next's
+// notFound() inside a Suspense-wrapped tree otherwise stays at 200).
+const PORTAL_VALID_SEGMENTS = new Set([
+  'billing',
+  'calendar',
+  'catalog',
+  'documents',
+  'engagements',
+  'help',
+  'home',
+  'inbox',
+  'invoices',
+  'messages',
+  'projects',
+  'settings',
+  // Internal target for the not-found rewrite below — must not be 404'd.
+  'not-found-render',
+]);
+
 function isPublic(pathname: string) {
   if (PUBLIC_PATHS.has(pathname)) return true;
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + '/'));
@@ -179,6 +200,33 @@ export async function updateSession(request: NextRequest) {
         path: '/admin',
         maxAge: Math.ceil(IDLE_MS / 1000),
       });
+    }
+  }
+
+  // Unknown /portal/* sub-route: rewrite to the dedicated portal not-found
+  // page with HTTP 404. Notes:
+  //   - We rewrite to a real URL (not the original) because Next treats a
+  //     same-URL rewrite + 404 as the framework's own 404 path and renders
+  //     the root app/not-found.tsx, dropping portal chrome.
+  //   - Calling notFound() directly from a catch-all page commits status 200
+  //     because the portal segment has loading.tsx, so the response stream
+  //     flushes before the throw.
+  if (
+    needsApprovedUser &&
+    pathname !== '/portal' &&
+    pathname.startsWith('/portal/')
+  ) {
+    const firstSegment = pathname.slice('/portal/'.length).split('/')[0];
+    if (firstSegment && !PORTAL_VALID_SEGMENTS.has(firstSegment)) {
+      const target = request.nextUrl.clone();
+      target.pathname = '/portal/not-found-render';
+      target.search = '';
+      const rewrite = NextResponse.rewrite(target, {
+        status: 404,
+        request: { headers: request.headers },
+      });
+      response.cookies.getAll().forEach((c) => rewrite.cookies.set(c));
+      return rewrite;
     }
   }
 

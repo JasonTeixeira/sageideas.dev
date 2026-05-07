@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
@@ -25,10 +25,39 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      - name: Playwright E2E (against prod)
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      - name: Resolve Vercel preview URL (PRs only)
+        id: preview
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -e
+          # Wait up to ~10 min for Vercel preview to be ready for the PR head SHA.
+          for i in $(seq 1 60); do
+            URL=$(gh api repos/${{ github.repository }}/deployments \
+              --jq "map(select(.sha == \"$PR_HEAD_SHA\" and .environment == \"Preview\")) | .[0].statuses_url" 2>/dev/null || true)
+            if [ -n "$URL" ] && [ "$URL" != "null" ]; then
+              ENV_URL=$(gh api "${URL#https://api.github.com/}" --jq 'map(select(.state=="success")) | .[0].environment_url' 2>/dev/null || true)
+              if [ -n "$ENV_URL" ] && [ "$ENV_URL" != "null" ]; then
+                echo "Found Vercel preview: $ENV_URL"
+                echo "url=$ENV_URL" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            fi
+            echo "Attempt $i: preview not ready yet, sleeping 10s…"
+            sleep 10
+          done
+          echo "Vercel preview never became ready; falling back to prod."
+          echo "url=https://www.sageideas.dev" >> "$GITHUB_OUTPUT"
+      - name: Playwright E2E
         run: npm run test:e2e
         env:
-          PW_BASE_URL: https://www.sageideas.dev
+          PW_BASE_URL: ${{ steps.preview.outputs.url || 'https://www.sageideas.dev' }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

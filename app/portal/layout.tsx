@@ -1,5 +1,6 @@
 import { getPortalContext } from '@/lib/portal/auth';
 import { Sidebar } from '@/components/portal/sidebar';
+import { PortalTopbarSlot } from '@/components/portal/topbar-slot';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
 // Portal is fully auth-gated and DB-backed. Skip static optimization
@@ -41,6 +42,11 @@ export default async function PortalLayout({ children }: { children: React.React
         )}
         {children}
       </main>
+      <PortalTopbarSlot
+        userId={ctx.user.clerk_id}
+        orgName={ctx.organizationName}
+        isAdmin={ctx.isAdmin}
+      />
     </div>
   );
 }

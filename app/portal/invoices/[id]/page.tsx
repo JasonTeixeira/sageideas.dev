@@ -25,10 +25,11 @@ type Invoice = {
   id: string;
   number: string | null;
   status: string;
-  amount: number | string | null;
   subtotal: number | string | null;
   tax: number | string | null;
   total: number | string | null;
+  amount_due: number | string | null;
+  amount_paid: number | string | null;
   due_date: string | null;
   created_at: string;
   sent_at: string | null;
@@ -59,7 +60,7 @@ export default async function InvoiceDetailPage({
   const { data } = await sb
     .from('invoices')
     .select(
-      'id, number, status, amount, subtotal, tax, total, due_date, created_at, sent_at, notes, organization_id, engagement_id, engagements(id, title)',
+      'id, number, status, subtotal, tax, total, amount_due, amount_paid, due_date, created_at, sent_at, notes, organization_id, engagement_id, engagements(id, title)',
     )
     .eq('id', id)
     .maybeSingle();
@@ -77,7 +78,9 @@ export default async function InvoiceDetailPage({
   const computedSubtotal = lineItems.reduce((sum, li) => sum + Number(li.amount ?? 0), 0);
   const subtotal = Number(invoice.subtotal ?? computedSubtotal);
   const tax = Number(invoice.tax ?? 0);
-  const total = Number(invoice.total ?? invoice.amount ?? subtotal + tax);
+  const total = Number(invoice.total ?? subtotal + tax);
+  const amountPaid = Number(invoice.amount_paid ?? 0);
+  const amountDue = Number(invoice.amount_due ?? Math.max(total - amountPaid, 0));
   const isPaid = invoice.status === 'paid';
 
   return (
@@ -143,6 +146,16 @@ export default async function InvoiceDetailPage({
                 <span className="font-semibold text-[#fafafa]">Total</span>
                 <span className="font-semibold text-[#fafafa] tabular-nums">
                   {formatCurrency(total)}
+                </span>
+              </div>
+              <SummaryRow label="Paid" value={formatCurrency(amountPaid)} />
+              <div className="flex justify-between pt-2 mt-2 border-t border-[#1f1f23]">
+                <span className="font-semibold text-[#fafafa]">Amount due</span>
+                <span
+                  className="font-semibold text-[#fafafa] tabular-nums"
+                  data-testid="invoice-amount-due"
+                >
+                  {formatCurrency(amountDue)}
                 </span>
               </div>
             </div>

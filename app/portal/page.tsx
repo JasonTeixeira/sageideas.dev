@@ -2,8 +2,6 @@ import Link from 'next/link';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { Topbar } from '@/components/portal/topbar';
-import { NotificationBell } from '@/components/portal/notification-bell';
-import { MobileNav } from '@/components/portal/mobile-nav';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import {
@@ -19,7 +17,7 @@ import {
 import { formatCurrency, formatDate, formatRelative } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
-export const metadata = { title: 'Dashboard' };
+export const metadata = { title: 'Dashboard · Sage Ideas' };
 
 type Engagement = {
   id: string;
@@ -39,8 +37,8 @@ type Deliverable = {
 type Invoice = {
   id: string;
   status: string;
-  amount: number | string | null;
   total: number | string | null;
+  amount_due: number | string | null;
   due_date: string | null;
 };
 
@@ -99,7 +97,7 @@ export default async function PortalDashboard() {
         .in('engagement_id', engagementIds),
       sb
         .from('invoices')
-        .select('id, status, amount, total, due_date')
+        .select('id, status, total, amount_due, due_date')
         .eq('organization_id', orgId),
       sb
         .from('calendar_events')
@@ -135,24 +133,18 @@ export default async function PortalDashboard() {
     activity = aud ?? [];
   }
 
-  const { data: notifs } = await sb
-    .from('notifications')
-    .select('id')
-    .eq('user_id', ctx.user.clerk_id)
-    .is('read_at', null);
-  const unreadNotifs = notifs?.length ?? 0;
-
   const activeProjects = engagements.filter((e) =>
     ['active', 'discovery', 'review'].includes(e.status),
   ).length;
   const openDeliverables = deliverables.filter(
     (d) => d.status !== 'approved' && d.status !== 'closed',
   ).length;
-  const pendingInvoices = invoices.filter(
-    (i) => i.status === 'open' || i.status === 'sent',
+  // "Pending Invoices" KPI sums amount_due across non-terminal invoice statuses.
+  const pendingInvoices = invoices.filter((i) =>
+    ['open', 'sent', 'due', 'past_due'].includes(i.status),
   );
   const openInvoiceTotal = pendingInvoices.reduce(
-    (sum, i) => sum + Number(i.total ?? i.amount ?? 0),
+    (sum, i) => sum + Number(i.amount_due ?? 0),
     0,
   );
 
@@ -163,11 +155,7 @@ export default async function PortalDashboard() {
 
   return (
     <>
-      <Topbar
-        crumbs={[{ label: 'Dashboard' }]}
-        actions={<MobileNav orgName={ctx.organizationName ?? undefined} />}
-        rightSlot={<NotificationBell initialUnread={unreadNotifs} />}
-      />
+      <Topbar crumbs={[{ label: 'Dashboard' }]} />
 
       <div className="px-6 lg:px-8 py-8 max-w-6xl mx-auto space-y-8">
         <div>

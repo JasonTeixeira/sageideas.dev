@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Paperclip, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { Button } from '@/components/portal/ui/button';
 import { Textarea } from '@/components/portal/ui/input';
@@ -240,15 +240,6 @@ export function MessageThread({
             <div className="mb-2 text-xs text-[#f43f5e]">{error}</div>
           )}
           <div className="flex items-end gap-2">
-            <button
-              type="button"
-              disabled
-              title="Coming soon"
-              aria-label="Attach file (coming soon)"
-              className="h-10 w-10 inline-flex items-center justify-center rounded-lg text-[#52525b] hover:text-[#71717a] disabled:cursor-not-allowed shrink-0"
-            >
-              <Paperclip className="w-4 h-4" />
-            </button>
             <Textarea
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
