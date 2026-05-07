@@ -5,8 +5,11 @@ import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
 import { logAudit } from '@/lib/admin-guard';
 import { sendWelcomeEmail } from '@/lib/welcomeEmail';
+import { checkRateLimitFromHeaders } from '@/lib/rate-limit';
 
 type Provider = 'google' | 'github' | 'linkedin_oidc';
+
+const AUTH_LIMIT = { limit: 5, windowMs: 15 * 60 * 1000 } as const;
 
 function siteOrigin(reqHeaders: Awaited<ReturnType<typeof headers>>) {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -16,13 +19,23 @@ function siteOrigin(reqHeaders: Awaited<ReturnType<typeof headers>>) {
   return `${proto}://${host}`;
 }
 
+function rateLimitMessage(retryAfterSeconds: number): string {
+  const minutes = Math.max(1, Math.ceil(retryAfterSeconds / 60));
+  return `Too many attempts. Please try again in ${minutes} minute${minutes === 1 ? '' : 's'}.`;
+}
+
 export async function signInWithMagicLink(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   const next = String(formData.get('next') ?? '/auth/redirect');
   if (!email) redirect('/login?error=missing_email');
 
-  const supabase = await createSupabaseServerClient();
   const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:magic' });
+  if (!rl.ok) {
+    redirect(`/login?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}&next=${encodeURIComponent(next)}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
   const origin = siteOrigin(h);
 
   const { error } = await supabase.auth.signInWithOtp({
@@ -47,6 +60,14 @@ export async function signInWithPassword(formData: FormData): Promise<void> {
   if (!email || !password) {
     redirect(
       `/login?error=${encodeURIComponent('Email and password are required.')}&next=${encodeURIComponent(next)}`,
+    );
+  }
+
+  const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:signin' });
+  if (!rl.ok) {
+    redirect(
+      `/login?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}&next=${encodeURIComponent(next)}`,
     );
   }
 
@@ -77,8 +98,13 @@ export async function requestPasswordReset(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   if (!email) redirect('/auth/forgot-password?error=missing_email');
 
-  const supabase = await createSupabaseServerClient();
   const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:reset' });
+  if (!rl.ok) {
+    redirect(`/auth/forgot-password?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
   const origin = siteOrigin(h);
 
   await supabase.auth.resetPasswordForEmail(email, {
@@ -144,8 +170,13 @@ export async function signUpWithMagicLink(formData: FormData): Promise<void> {
   const goals = formData.getAll('goals').map((g) => String(g)).filter(Boolean);
   if (!email) redirect('/signup?error=missing_email');
 
-  const supabase = await createSupabaseServerClient();
   const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:signup-magic' });
+  if (!rl.ok) {
+    redirect(`/signup?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
   const origin = siteOrigin(h);
 
   const { error } = await supabase.auth.signInWithOtp({
@@ -195,8 +226,13 @@ export async function signUpWithPassword(formData: FormData): Promise<void> {
     redirect(`/signup?step=1&email=${encodeURIComponent(email)}&error=${encodeURIComponent('Password must be at least 8 characters.')}`);
   }
 
-  const supabase = await createSupabaseServerClient();
   const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:signup' });
+  if (!rl.ok) {
+    redirect(`/signup?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
   const origin = siteOrigin(h);
 
   const { error } = await supabase.auth.signUp({
@@ -236,8 +272,13 @@ export async function resendVerification(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   if (!email) redirect('/onboarding?error=missing_email');
 
-  const supabase = await createSupabaseServerClient();
   const h = await headers();
+  const rl = checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:resend' });
+  if (!rl.ok) {
+    redirect(`/onboarding?email=${encodeURIComponent(email)}&error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
+  }
+
+  const supabase = await createSupabaseServerClient();
   const origin = siteOrigin(h);
 
   const { error } = await supabase.auth.signInWithOtp({
