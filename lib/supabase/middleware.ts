@@ -152,7 +152,6 @@ export async function updateSession(request: NextRequest) {
         }
       } else if (process.env.NODE_ENV !== 'production') {
         // Loud-ish in dev so reviewers know the gate is intentionally off.
-        // eslint-disable-next-line no-console
         console.debug('[middleware] MFA_REQUIRED_FOR_ADMIN=false — admin MFA gate skipped');
       }
 

@@ -13,6 +13,8 @@
     "test:e2e": "playwright test --config=playwright.e2e.config.ts",
     "test:e2e:local": "PW_BASE_URL=http://localhost:3000 playwright test --config=playwright.e2e.config.ts",
     "test:rls": "node tests/rls/run.mjs",
+    "test:unit": "tsx tests/unit/run.mjs",
+    "typecheck": "tsc --noEmit",
     "test:lh": "npm run build && lhci autorun",
     "test:all": "npm run test:links && npm run test:ui && npm run test:lh",
     "validate": "node scripts/validate-content.mjs",
