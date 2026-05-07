@@ -40,19 +40,23 @@ export async function POST(req: Request) {
 
   const sb = supabaseAdmin();
 
-  // Idempotency — refuse duplicates by inserting first.
+  // Replay protection — insert-first into stripe_event_log so a duplicate
+  // delivery is rejected by the unique constraint on event_id before any
+  // side-effects run. Stripe retries failed deliveries for up to 3 days.
   const { error: logErr } = await sb.from('stripe_event_log').insert({
     event_id: event.id,
     event_type: event.type,
     payload: event as unknown as Record<string, unknown>,
   });
   if (logErr) {
-    // 23505 = unique_violation → already processed.
+    // 23505 = unique_violation → already processed; ack 200 immediately.
     if ((logErr as { code?: string }).code === '23505') {
       return NextResponse.json({ received: true, duplicate: true });
     }
+    // Any other insert failure: dedup not guaranteed. Refuse to process and
+    // return 503 so Stripe retries rather than risk double-processing.
     console.error('[stripe/webhook] event_log insert', logErr);
-    // Still try to process — better to double-process than drop.
+    return NextResponse.json({ error: 'event log unavailable' }, { status: 503 });
   }
 
   try {

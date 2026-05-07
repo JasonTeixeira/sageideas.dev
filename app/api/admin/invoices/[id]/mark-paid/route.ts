@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { badRequest, fromZodError, notFound } from '@/lib/api-errors';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const schema = z
+  .object({
+    method: z.string().max(50).optional(),
+    note: z.string().max(2_000).optional(),
+  })
+  .strict();
 
 export async function POST(
   req: Request,
@@ -13,10 +22,15 @@ export async function POST(
   if (guard instanceof NextResponse) return guard;
   const { id } = await params;
 
-  const body = (await req.json().catch(() => ({}))) as {
-    method?: string;
-    note?: string;
-  };
+  let raw: unknown = {};
+  try {
+    raw = await req.json();
+  } catch {
+    // Empty body is allowed.
+  }
+  const parsed = schema.safeParse(raw);
+  if (!parsed.success) return fromZodError(parsed.error);
+  const body = parsed.data;
 
   const sb = supabaseAdmin();
   const { data: inv } = await sb
@@ -24,7 +38,7 @@ export async function POST(
     .select('id, status, organization_id, total, amount')
     .eq('id', id)
     .maybeSingle();
-  if (!inv) return NextResponse.json({ error: 'not_found' }, { status: 404 });
+  if (!inv) return notFound('Invoice not found');
 
   const amount = Number(inv.total ?? inv.amount ?? 0);
   const paidAt = new Date().toISOString();
@@ -39,7 +53,7 @@ export async function POST(
     })
     .eq('id', id);
 
-  await sb.from('payments').insert({
+  const { error: payErr } = await sb.from('payments').insert({
     invoice_id: id,
     organization_id: inv.organization_id,
     amount,
@@ -49,6 +63,7 @@ export async function POST(
     failure_reason: null,
     raw_event: { manual: true, note: body.note ?? null, by: guard.email },
   });
+  if (payErr) return badRequest(payErr.message);
 
   await logAudit({
     actorId: guard.userId,

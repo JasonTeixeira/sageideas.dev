@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import QRCode from 'qrcode';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { Badge } from '@/components/portal/ui/badge';
 import { Button } from '@/components/portal/ui/button';
@@ -370,6 +371,8 @@ function SecurityTab({ email }: { email: string }) {
         </CardContent>
       </Card>
 
+      <MfaCard />
+
       <Card>
         <CardContent className="p-6">
           <h2 className="text-sm font-medium text-[#fafafa] mb-1">Active sessions</h2>
@@ -382,6 +385,252 @@ function SecurityTab({ email }: { email: string }) {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+type MfaFactor = {
+  id: string;
+  factor_type: string;
+  status: 'verified' | 'unverified' | string;
+  friendly_name?: string | null;
+};
+
+type EnrollState =
+  | { phase: 'idle' }
+  | { phase: 'loading' }
+  | {
+      phase: 'pending';
+      factorId: string;
+      qrDataUrl: string;
+      secret: string;
+      uri: string;
+    };
+
+function MfaCard() {
+  const [factors, setFactors] = useState<MfaFactor[] | null>(null);
+  const [enroll, setEnroll] = useState<EnrollState>({ phase: 'idle' });
+  const [code, setCode] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState<{ ok: boolean; msg: string } | null>(null);
+
+  const refresh = useCallback(async () => {
+    const sb = createSupabaseBrowserClient();
+    const { data, error } = await sb.auth.mfa.listFactors();
+    if (error) {
+      setStatus({ ok: false, msg: error.message });
+      setFactors([]);
+      return;
+    }
+    const totp = (data?.totp ?? []) as MfaFactor[];
+    setFactors(totp);
+  }, []);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  const verified = factors?.find((f) => f.status === 'verified') ?? null;
+
+  async function startEnroll() {
+    setStatus(null);
+    setBusy(true);
+    setEnroll({ phase: 'loading' });
+    try {
+      const sb = createSupabaseBrowserClient();
+      // Clean up any prior unverified TOTP factor so enroll doesn't 422 with
+      // "factor already exists".
+      const stale = (factors ?? []).find((f) => f.status !== 'verified');
+      if (stale) {
+        await sb.auth.mfa.unenroll({ factorId: stale.id });
+      }
+      const { data, error } = await sb.auth.mfa.enroll({ factorType: 'totp' });
+      if (error || !data) throw new Error(error?.message ?? 'Enroll failed');
+      const uri = data.totp.uri;
+      const secret = data.totp.secret;
+      const qrDataUrl = await QRCode.toDataURL(uri, { margin: 1, width: 220 });
+      setEnroll({ phase: 'pending', factorId: data.id, qrDataUrl, secret, uri });
+    } catch (err) {
+      setEnroll({ phase: 'idle' });
+      setStatus({ ok: false, msg: err instanceof Error ? err.message : 'Enroll failed' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function verifyCode() {
+    if (enroll.phase !== 'pending') return;
+    setStatus(null);
+    if (!/^\d{6}$/.test(code.trim())) {
+      setStatus({ ok: false, msg: 'Enter the 6-digit code from your authenticator.' });
+      return;
+    }
+    setBusy(true);
+    try {
+      const sb = createSupabaseBrowserClient();
+      const challenge = await sb.auth.mfa.challenge({ factorId: enroll.factorId });
+      if (challenge.error || !challenge.data) {
+        throw new Error(challenge.error?.message ?? 'Challenge failed');
+      }
+      const verify = await sb.auth.mfa.verify({
+        factorId: enroll.factorId,
+        challengeId: challenge.data.id,
+        code: code.trim(),
+      });
+      if (verify.error) throw new Error(verify.error.message);
+      setEnroll({ phase: 'idle' });
+      setCode('');
+      setStatus({ ok: true, msg: 'Two-factor authentication enabled.' });
+      await refresh();
+    } catch (err) {
+      setStatus({ ok: false, msg: err instanceof Error ? err.message : 'Verification failed' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function cancelEnroll() {
+    if (enroll.phase !== 'pending') {
+      setEnroll({ phase: 'idle' });
+      return;
+    }
+    setBusy(true);
+    try {
+      const sb = createSupabaseBrowserClient();
+      await sb.auth.mfa.unenroll({ factorId: enroll.factorId });
+    } finally {
+      setEnroll({ phase: 'idle' });
+      setCode('');
+      setBusy(false);
+      void refresh();
+    }
+  }
+
+  async function disable() {
+    if (!verified) return;
+    setStatus(null);
+    setBusy(true);
+    try {
+      const sb = createSupabaseBrowserClient();
+      const { error } = await sb.auth.mfa.unenroll({ factorId: verified.id });
+      if (error) throw new Error(error.message);
+      setStatus({ ok: true, msg: 'Two-factor authentication disabled.' });
+      await refresh();
+    } catch (err) {
+      setStatus({ ok: false, msg: err instanceof Error ? err.message : 'Failed to disable' });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Card>
+      <CardContent className="p-6 space-y-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-sm font-medium text-[#fafafa] mb-1">
+              Two-factor authentication
+            </h2>
+            <p className="text-xs text-[#71717a]">
+              Use an authenticator app (1Password, Authy, Google Authenticator) to
+              add a second sign-in step.
+            </p>
+          </div>
+          {verified ? (
+            <Badge tone="emerald">Enabled</Badge>
+          ) : (
+            <Badge tone="neutral">Off</Badge>
+          )}
+        </div>
+
+        {factors === null ? (
+          <p className="text-xs text-[#52525b]">Loading…</p>
+        ) : verified && enroll.phase === 'idle' ? (
+          <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#1f1f23]">
+            <span className="text-xs text-[#71717a]">
+              You&apos;ll be asked for a 6-digit code on next sign-in.
+            </span>
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={busy}
+              onClick={disable}
+            >
+              {busy ? 'Working…' : 'Disable'}
+            </Button>
+          </div>
+        ) : enroll.phase === 'pending' ? (
+          <div className="space-y-4 pt-2 border-t border-[#1f1f23]">
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={enroll.qrDataUrl}
+                alt="Scan with your authenticator app"
+                className="w-[180px] h-[180px] bg-white rounded-md p-2 border border-[#27272a]"
+              />
+              <div className="text-xs text-[#a1a1aa] space-y-2 min-w-0">
+                <p>Scan the QR with your authenticator app, or enter this secret manually:</p>
+                <code className="block break-all bg-[#0f0f12] border border-[#27272a] rounded px-2 py-1 text-[#fafafa] font-mono text-[11px]">
+                  {enroll.secret}
+                </code>
+              </div>
+            </div>
+            <Field label="6-digit code">
+              <Input
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                value={code}
+                onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+                placeholder="123456"
+              />
+            </Field>
+            <div className="flex items-center justify-between gap-3">
+              <span
+                role="status"
+                aria-live="polite"
+                className={cn(
+                  'text-xs',
+                  status?.ok ? 'text-[#10b981]' : 'text-[#f43f5e]',
+                )}
+              >
+                {status?.msg}
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  disabled={busy}
+                  onClick={cancelEnroll}
+                >
+                  Cancel
+                </Button>
+                <Button type="button" size="sm" disabled={busy} onClick={verifyCode}>
+                  {busy ? 'Verifying…' : 'Verify & enable'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#1f1f23]">
+            <span
+              role="status"
+              aria-live="polite"
+              className={cn(
+                'text-xs',
+                status?.ok ? 'text-[#10b981]' : 'text-[#f43f5e]',
+              )}
+            >
+              {status?.msg ?? 'Add a layer of protection in under a minute.'}
+            </span>
+            <Button type="button" size="sm" disabled={busy} onClick={startEnroll}>
+              {busy ? 'Working…' : 'Enroll'}
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

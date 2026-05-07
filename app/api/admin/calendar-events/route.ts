@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { badRequest, fromZodError } from '@/lib/api-errors';
 
-const TYPES = new Set([
+const eventTypeSchema = z.enum([
   'meeting',
   'milestone',
   'deadline',
@@ -12,31 +14,42 @@ const TYPES = new Set([
   'other',
 ]);
 
+const createSchema = z.object({
+  title: z.string().min(1).max(300),
+  description: z.string().max(5_000).optional().nullable(),
+  starts_at: z.string().datetime({ offset: true }),
+  ends_at: z.string().datetime({ offset: true }),
+  all_day: z.boolean().optional(),
+  event_type: eventTypeSchema.optional().default('meeting'),
+  location: z.string().max(300).optional().nullable(),
+  engagement_id: z.string().uuid().optional().nullable(),
+  visible_to_client: z.boolean().optional().default(true),
+});
+
 export async function POST(req: Request) {
   const guard = await requireAdminApi();
   if (guard instanceof NextResponse) return guard;
 
-  const body = (await req.json().catch(() => null)) as Record<string, unknown> | null;
-  if (!body) return NextResponse.json({ error: 'invalid_body' }, { status: 400 });
-
-  const title = String(body.title ?? '').trim();
-  const starts_at = String(body.starts_at ?? '');
-  const ends_at = String(body.ends_at ?? '');
-  if (!title || !starts_at || !ends_at) {
-    return NextResponse.json({ error: 'missing_fields' }, { status: 400 });
+  let raw: unknown;
+  try {
+    raw = await req.json();
+  } catch {
+    return badRequest('Invalid JSON body');
   }
-  const event_type = TYPES.has(String(body.event_type)) ? String(body.event_type) : 'meeting';
+  const parsed = createSchema.safeParse(raw);
+  if (!parsed.success) return fromZodError(parsed.error);
+  const body = parsed.data;
 
   const insert = {
-    title,
-    description: (body.description as string) || null,
-    starts_at,
-    ends_at,
-    all_day: !!body.all_day,
-    event_type,
-    location: (body.location as string) || null,
-    engagement_id: (body.engagement_id as string) || null,
-    visible_to_client: body.visible_to_client !== false,
+    title: body.title.trim(),
+    description: body.description ?? null,
+    starts_at: body.starts_at,
+    ends_at: body.ends_at,
+    all_day: body.all_day ?? false,
+    event_type: body.event_type,
+    location: body.location ?? null,
+    engagement_id: body.engagement_id ?? null,
+    visible_to_client: body.visible_to_client,
     owner_id: guard.userId,
   };
 
@@ -48,7 +61,7 @@ export async function POST(req: Request) {
       'id, title, description, starts_at, ends_at, event_type, location, all_day, engagement_id, visible_to_client',
     )
     .maybeSingle();
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return badRequest(error.message);
 
   await logAudit({
     actorId: guard.userId,

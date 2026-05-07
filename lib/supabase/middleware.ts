@@ -129,6 +129,57 @@ export async function updateSession(request: NextRequest) {
       url.search = '';
       return redirectWithSessionCookies(url, response);
     }
+
+    // Admin-only hardening: MFA step-up + sliding idle timeout.
+    if (needsAdmin && isAdmin) {
+      const mfaRequired = process.env.MFA_REQUIRED_FOR_ADMIN === 'true';
+      if (mfaRequired) {
+        const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+        // currentLevel === 'aal1' means the session has not satisfied the
+        // step-up factor. nextLevel === 'aal2' means a TOTP factor is enrolled
+        // and step-up is possible. If no factor is enrolled at all, both
+        // levels are 'aal1' — push them to /portal/settings to enroll.
+        if (aal?.currentLevel === 'aal1') {
+          const url = request.nextUrl.clone();
+          if (aal.nextLevel === 'aal2') {
+            url.pathname = '/auth/mfa';
+            url.search = `?next=${encodeURIComponent(pathname + (search || ''))}`;
+          } else {
+            url.pathname = '/portal/settings';
+            url.search = '?mfa=required';
+          }
+          return redirectWithSessionCookies(url, response);
+        }
+      } else if (process.env.NODE_ENV !== 'production') {
+        // Loud-ish in dev so reviewers know the gate is intentionally off.
+        console.debug('[middleware] MFA_REQUIRED_FOR_ADMIN=false — admin MFA gate skipped');
+      }
+
+      // Sliding 30-min idle timeout for admin sessions only.
+      const IDLE_MS = 30 * 60 * 1000;
+      const lastActiveRaw = request.cookies.get('admin_last_active')?.value;
+      const lastActive = lastActiveRaw ? Number(lastActiveRaw) : NaN;
+      const now = Date.now();
+      if (Number.isFinite(lastActive) && now - lastActive > IDLE_MS) {
+        await supabase.auth.signOut();
+        const url = request.nextUrl.clone();
+        url.pathname = '/login';
+        url.search = `?reason=idle&next=${encodeURIComponent(pathname + (search || ''))}`;
+        const r = redirectWithSessionCookies(url, response);
+        r.cookies.set('admin_last_active', '', {
+          path: '/admin',
+          maxAge: 0,
+        });
+        return r;
+      }
+      response.cookies.set('admin_last_active', String(now), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/admin',
+        maxAge: Math.ceil(IDLE_MS / 1000),
+      });
+    }
   }
 
   // Pass through (with refreshed cookies) for everything else, public or otherwise.

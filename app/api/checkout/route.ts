@@ -1,3 +1,4 @@
+import { createHash } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { tiersBySlug, careTiersBySlug } from '@/data/services/tiers'
@@ -84,7 +85,18 @@ export async function POST(req: NextRequest) {
     sessionParams.customer_creation = 'always'
   }
 
-  const session = await stripe.checkout.sessions.create(sessionParams)
+  // Stable key per (ip, slug, day) so a refresh doesn't open a second
+  // session — anonymous tier checkout has no user id available.
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown'
+  const dayBucket = new Date().toISOString().slice(0, 10)
+  const idempotencyKey = createHash('sha256')
+    .update(`tier:${target.slug}:${ip}:${dayBucket}`)
+    .digest('hex')
+
+  const session = await stripe.checkout.sessions.create(sessionParams, { idempotencyKey })
 
   return NextResponse.json({ url: session.url })
 }

@@ -42,6 +42,24 @@ const nextConfig: NextConfig = {
     ]
   },
   async headers() {
+    const cspDirectives = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://js.stripe.com https://*.sentry.io https://va.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://*.sentry.io https://o*.ingest.sentry.io https://va.vercel-scripts.com",
+      "frame-src https://js.stripe.com https://hooks.stripe.com",
+      "frame-ancestors 'self'",
+      "form-action 'self' https://checkout.stripe.com",
+      "base-uri 'self'",
+      "object-src 'none'",
+    ].join('; ')
+    const cspEnforce = process.env.CSP_ENFORCE === 'true'
+    const cspKey = cspEnforce
+      ? 'Content-Security-Policy'
+      : 'Content-Security-Policy-Report-Only'
+
     return [
       {
         source: '/:path*',
@@ -50,6 +68,11 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self)' },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          { key: cspKey, value: cspDirectives },
         ],
       },
     ]

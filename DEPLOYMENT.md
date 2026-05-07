@@ -260,6 +260,33 @@ Create `.env.local`:
 RESEND_API_KEY=your_key_here
 ```
 
+### Phase-1 security flags
+
+These flags are read at the edge by `middleware.ts` and `next.config.ts`. They
+ship OFF by default so the new behavior can be enabled per-environment:
+
+| Variable | Default | Effect when `=true` |
+| --- | --- | --- |
+| `MFA_REQUIRED_FOR_ADMIN` | unset (off) | Any signed-in admin whose session AAL is below `aal2` is redirected to `/auth/mfa` (or `/portal/settings?mfa=required` if no TOTP factor is enrolled yet) before they can hit `/admin/*`. |
+| `CSP_ENFORCE` | unset (report-only) | The strict Content-Security-Policy is sent as `Content-Security-Policy` (enforcing) instead of `Content-Security-Policy-Report-Only`. Flip this on only after you've audited browser console reports from a representative session. |
+
+Manual one-time dashboard steps that pair with these flags:
+1. **Supabase → Authentication → Providers → Email**: enable "Leaked password protection (HIBP)".
+2. **Supabase → Authentication → MFA**: enable TOTP.
+3. **Vercel → Settings → Env Vars**: set `MFA_REQUIRED_FOR_ADMIN=true` once the team has enrolled, and `CSP_ENFORCE=true` once report-only is clean.
+
+### security.txt
+
+`public/.well-known/security.txt` is served at
+`https://www.sageideas.dev/.well-known/security.txt`. The `Expires` field
+is set one year out — bump it on the next anniversary.
+
+Signing the file (RFC 9116 §3) is optional and currently skipped. If/when we
+want it: generate an OpenPGP detached signature for `security.txt`, drop the
+ASCII-armored result at `public/.well-known/security.txt.sig`, and add a
+`Signature: https://www.sageideas.dev/.well-known/security.txt.sig` line to
+`security.txt`.
+
 ---
 
 ## Performance Targets

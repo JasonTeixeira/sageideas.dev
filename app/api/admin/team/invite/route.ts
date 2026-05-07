@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { badRequest, fromZodError } from '@/lib/api-errors';
+
+const schema = z.object({
+  email: z.string().email().max(254),
+});
 
 function siteOrigin(h: Headers) {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -15,9 +21,15 @@ export async function POST(req: Request) {
   const guard = await requireAdminApi();
   if (guard instanceof NextResponse) return guard;
 
-  const body = (await req.json().catch(() => null)) as { email?: string } | null;
-  const email = String(body?.email ?? '').trim().toLowerCase();
-  if (!email) return NextResponse.json({ error: 'missing_email' }, { status: 400 });
+  let raw: unknown;
+  try {
+    raw = await req.json();
+  } catch {
+    return badRequest('Invalid JSON body');
+  }
+  const parsed = schema.safeParse(raw);
+  if (!parsed.success) return fromZodError(parsed.error);
+  const email = parsed.data.email.trim().toLowerCase();
 
   const h = await headers();
   const origin = siteOrigin(h);
@@ -26,7 +38,7 @@ export async function POST(req: Request) {
   const { data: invited, error } = await sb.auth.admin.inviteUserByEmail(email, {
     redirectTo: `${origin}/auth/callback?next=/admin`,
   });
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return badRequest(error.message);
 
   // Pre-mark profile as admin so first sign-in lands in cockpit.
   if (invited?.user?.id) {

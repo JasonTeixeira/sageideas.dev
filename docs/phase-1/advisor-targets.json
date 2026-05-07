@@ -1,0 +1,821 @@
+{
+  "initplan": [
+    {
+      "table": "profiles",
+      "policy": "admins all access"
+    },
+    {
+      "table": "profiles",
+      "policy": "users read own profile"
+    },
+    {
+      "table": "profiles",
+      "policy": "users update own profile"
+    },
+    {
+      "table": "organizations",
+      "policy": "orgs_admin_all"
+    },
+    {
+      "table": "org_memberships",
+      "policy": "om_admin_all"
+    },
+    {
+      "table": "org_memberships",
+      "policy": "om_self_read"
+    },
+    {
+      "table": "engagements",
+      "policy": "eng_admin_all"
+    },
+    {
+      "table": "phases",
+      "policy": "phases_admin_all"
+    },
+    {
+      "table": "deliverables",
+      "policy": "deliv_admin_all"
+    },
+    {
+      "table": "iterations",
+      "policy": "iter_admin_all"
+    },
+    {
+      "table": "invoices",
+      "policy": "inv_admin_all"
+    },
+    {
+      "table": "invoice_line_items",
+      "policy": "ili_admin_all"
+    },
+    {
+      "table": "payments",
+      "policy": "pay_admin_all"
+    },
+    {
+      "table": "threads",
+      "policy": "thr_admin_all"
+    },
+    {
+      "table": "messages",
+      "policy": "msg_admin_all"
+    },
+    {
+      "table": "messages",
+      "policy": "msg_thread_members_insert"
+    },
+    {
+      "table": "message_read_receipts",
+      "policy": "mrr_self_all"
+    },
+    {
+      "table": "message_read_receipts",
+      "policy": "mrr_admin_read"
+    },
+    {
+      "table": "activity",
+      "policy": "act_admin_all"
+    },
+    {
+      "table": "files",
+      "policy": "files_admin_all"
+    },
+    {
+      "table": "files",
+      "policy": "files_members_insert"
+    },
+    {
+      "table": "file_versions",
+      "policy": "fv_admin_all"
+    },
+    {
+      "table": "documents",
+      "policy": "docs_admin_all"
+    },
+    {
+      "table": "signature_audits",
+      "policy": "sig_admin_all"
+    },
+    {
+      "table": "signature_audits",
+      "policy": "sig_self_read"
+    },
+    {
+      "table": "service_catalog",
+      "policy": "svc_admin_all"
+    },
+    {
+      "table": "app_users",
+      "policy": "appu_admin_all"
+    },
+    {
+      "table": "newsletter_subscribers",
+      "policy": "ns_admin_all"
+    },
+    {
+      "table": "tasks",
+      "policy": "tasks_admin_all"
+    },
+    {
+      "table": "tasks",
+      "policy": "tasks_assignee_update"
+    },
+    {
+      "table": "task_comments",
+      "policy": "tc_admin_all"
+    },
+    {
+      "table": "deliverable_approvals",
+      "policy": "da_admin_all"
+    },
+    {
+      "table": "task_comments",
+      "policy": "tc_members_insert"
+    },
+    {
+      "table": "task_attachments",
+      "policy": "ta_admin_all"
+    },
+    {
+      "table": "project_milestones",
+      "policy": "pm_admin_all"
+    },
+    {
+      "table": "project_status_updates",
+      "policy": "psu_admin_all"
+    },
+    {
+      "table": "contract_templates",
+      "policy": "ct_admin_all"
+    },
+    {
+      "table": "calendar_events",
+      "policy": "cal_admin_all"
+    },
+    {
+      "table": "meeting_notes",
+      "policy": "mn_admin_all"
+    },
+    {
+      "table": "time_entries",
+      "policy": "te_admin_all"
+    },
+    {
+      "table": "time_entries",
+      "policy": "te_self_all"
+    },
+    {
+      "table": "notifications",
+      "policy": "notif_self_all"
+    },
+    {
+      "table": "notifications",
+      "policy": "notif_admin_read"
+    },
+    {
+      "table": "notification_preferences",
+      "policy": "np_self_all"
+    },
+    {
+      "table": "audit_log",
+      "policy": "al_admin_read"
+    },
+    {
+      "table": "studio_settings",
+      "policy": "studio_settings_admin_select"
+    },
+    {
+      "table": "studio_settings",
+      "policy": "studio_settings_admin_update"
+    },
+    {
+      "table": "email_log",
+      "policy": "email_log_admin_read"
+    },
+    {
+      "table": "stripe_subscriptions",
+      "policy": "stripe_subs_admin_all"
+    },
+    {
+      "table": "stripe_event_log",
+      "policy": "stripe_event_log_admin_read"
+    }
+  ],
+  "unused_indexes": [
+    {
+      "table": "analytics_event",
+      "index": "analytics_event_slug_idx"
+    },
+    {
+      "table": "app_users",
+      "index": "app_users_clerk_id_idx"
+    },
+    {
+      "table": "engagement_inquiries",
+      "index": "engagement_inquiries_status_idx"
+    },
+    {
+      "table": "engagement_inquiries",
+      "index": "engagement_inquiries_type_idx"
+    },
+    {
+      "table": "subscribers",
+      "index": "subscribers_status_idx"
+    },
+    {
+      "table": "task_comments",
+      "index": "idx_task_comments_task"
+    },
+    {
+      "table": "task_attachments",
+      "index": "idx_task_attachments_task"
+    },
+    {
+      "table": "newsletter_subscribers",
+      "index": "newsletter_subscribers_status_idx"
+    },
+    {
+      "table": "analytics_pageview",
+      "index": "analytics_pageview_path_idx"
+    },
+    {
+      "table": "analytics_pageview",
+      "index": "analytics_pageview_created_at_idx"
+    },
+    {
+      "table": "analytics_event",
+      "index": "analytics_event_kind_idx"
+    },
+    {
+      "table": "analytics_event",
+      "index": "analytics_event_created_at_idx"
+    },
+    {
+      "table": "audit_log",
+      "index": "idx_audit_entity"
+    },
+    {
+      "table": "email_log",
+      "index": "idx_email_log_provider_msg"
+    },
+    {
+      "table": "email_log",
+      "index": "idx_email_log_status_sent"
+    },
+    {
+      "table": "invoices",
+      "index": "idx_invoices_stripe_session"
+    },
+    {
+      "table": "email_log",
+      "index": "idx_email_log_recipient"
+    },
+    {
+      "table": "invoices",
+      "index": "idx_invoices_dunning_status"
+    },
+    {
+      "table": "stripe_event_log",
+      "index": "idx_stripe_event_log_event_type"
+    },
+    {
+      "table": "activity",
+      "index": "activity_actor_id_idx"
+    },
+    {
+      "table": "deliverable_approvals",
+      "index": "deliverable_approvals_iteration_id_idx"
+    },
+    {
+      "table": "deliverables",
+      "index": "deliverables_phase_id_idx"
+    },
+    {
+      "table": "documents",
+      "index": "documents_created_by_idx"
+    },
+    {
+      "table": "files",
+      "index": "files_iteration_id_idx"
+    },
+    {
+      "table": "files",
+      "index": "files_uploaded_by_idx"
+    },
+    {
+      "table": "iterations",
+      "index": "iterations_reviewed_by_idx"
+    },
+    {
+      "table": "iterations",
+      "index": "iterations_submitted_by_idx"
+    },
+    {
+      "table": "messages",
+      "index": "messages_sender_id_idx"
+    },
+    {
+      "table": "profiles",
+      "index": "profiles_approved_by_idx"
+    },
+    {
+      "table": "signature_audits",
+      "index": "signature_audits_signer_id_idx"
+    },
+    {
+      "table": "studio_settings",
+      "index": "studio_settings_updated_by_idx"
+    },
+    {
+      "table": "task_attachments",
+      "index": "task_attachments_file_id_idx"
+    },
+    {
+      "table": "tasks",
+      "index": "tasks_parent_task_id_idx"
+    },
+    {
+      "table": "tasks",
+      "index": "tasks_phase_id_idx"
+    },
+    {
+      "table": "time_entries",
+      "index": "time_entries_task_id_idx"
+    }
+  ],
+  "multiple_permissive": [
+    {
+      "table": "activity",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "act_admin_all",
+        "act_members_read"
+      ]
+    },
+    {
+      "table": "calendar_events",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "cal_admin_all",
+        "cal_members_read"
+      ]
+    },
+    {
+      "table": "deliverable_approvals",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "da_admin_all",
+        "da_members_read"
+      ]
+    },
+    {
+      "table": "deliverables",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "deliv_admin_all",
+        "deliv_members_rw"
+      ]
+    },
+    {
+      "table": "documents",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "docs_admin_all",
+        "docs_members_read"
+      ]
+    },
+    {
+      "table": "engagements",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "eng_admin_all",
+        "eng_members_read"
+      ]
+    },
+    {
+      "table": "file_versions",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "fv_admin_all",
+        "fv_members_read"
+      ]
+    },
+    {
+      "table": "files",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "files_admin_all",
+        "files_members_insert"
+      ]
+    },
+    {
+      "table": "files",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "files_admin_all",
+        "files_members_rw"
+      ]
+    },
+    {
+      "table": "invoice_line_items",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "ili_admin_all",
+        "ili_members_read"
+      ]
+    },
+    {
+      "table": "invoices",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "inv_admin_all",
+        "inv_members_read"
+      ]
+    },
+    {
+      "table": "iterations",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "iter_admin_all",
+        "iter_members_read"
+      ]
+    },
+    {
+      "table": "meeting_notes",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "mn_admin_all",
+        "mn_members_read"
+      ]
+    },
+    {
+      "table": "message_read_receipts",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "mrr_admin_read",
+        "mrr_self_all"
+      ]
+    },
+    {
+      "table": "messages",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "msg_admin_all",
+        "msg_thread_members_insert"
+      ]
+    },
+    {
+      "table": "messages",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "msg_admin_all",
+        "msg_thread_members_read"
+      ]
+    },
+    {
+      "table": "notifications",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "notif_admin_read",
+        "notif_self_all"
+      ]
+    },
+    {
+      "table": "org_memberships",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "om_admin_all",
+        "om_self_read"
+      ]
+    },
+    {
+      "table": "organizations",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "orgs_admin_all",
+        "orgs_members_read"
+      ]
+    },
+    {
+      "table": "payments",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "pay_admin_all",
+        "pay_members_read"
+      ]
+    },
+    {
+      "table": "phases",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "phases_admin_all",
+        "phases_members_read"
+      ]
+    },
+    {
+      "table": "profiles",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "\"admins all access\"",
+        "\"users read own profile\""
+      ]
+    },
+    {
+      "table": "profiles",
+      "role": "authenticated",
+      "action": "UPDATE",
+      "policies": [
+        "\"admins all access\"",
+        "\"users update own profile\""
+      ]
+    },
+    {
+      "table": "project_milestones",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "pm_admin_all",
+        "pm_members_read"
+      ]
+    },
+    {
+      "table": "project_status_updates",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "psu_admin_all",
+        "psu_members_read"
+      ]
+    },
+    {
+      "table": "service_catalog",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "svc_admin_all",
+        "svc_public_read"
+      ]
+    },
+    {
+      "table": "signature_audits",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "sig_admin_all",
+        "sig_self_read"
+      ]
+    },
+    {
+      "table": "stripe_subscriptions",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "stripe_subs_admin_all",
+        "stripe_subs_members_read"
+      ]
+    },
+    {
+      "table": "task_attachments",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "ta_admin_all",
+        "ta_members_read"
+      ]
+    },
+    {
+      "table": "task_comments",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "tc_admin_all",
+        "tc_members_insert"
+      ]
+    },
+    {
+      "table": "task_comments",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "tc_admin_all",
+        "tc_members_rw"
+      ]
+    },
+    {
+      "table": "tasks",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "tasks_admin_all",
+        "tasks_members_insert"
+      ]
+    },
+    {
+      "table": "tasks",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "tasks_admin_all",
+        "tasks_members_rw"
+      ]
+    },
+    {
+      "table": "tasks",
+      "role": "authenticated",
+      "action": "UPDATE",
+      "policies": [
+        "tasks_admin_all",
+        "tasks_assignee_update"
+      ]
+    },
+    {
+      "table": "threads",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "thr_admin_all",
+        "thr_members_insert"
+      ]
+    },
+    {
+      "table": "threads",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "thr_admin_all",
+        "thr_members_rw"
+      ]
+    },
+    {
+      "table": "time_entries",
+      "role": "authenticated",
+      "action": "DELETE",
+      "policies": [
+        "te_admin_all",
+        "te_self_all"
+      ]
+    },
+    {
+      "table": "time_entries",
+      "role": "authenticated",
+      "action": "INSERT",
+      "policies": [
+        "te_admin_all",
+        "te_self_all"
+      ]
+    },
+    {
+      "table": "time_entries",
+      "role": "authenticated",
+      "action": "SELECT",
+      "policies": [
+        "te_admin_all",
+        "te_self_all"
+      ]
+    },
+    {
+      "table": "time_entries",
+      "role": "authenticated",
+      "action": "UPDATE",
+      "policies": [
+        "te_admin_all",
+        "te_self_all"
+      ]
+    }
+  ],
+  "security_lints": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "detail": "Table \\`public.analytics_event\\` has RLS enabled, but no policies exist",
+      "metadata": {
+        "name": "analytics_event",
+        "type": "table",
+        "schema": "public"
+      }
+    },
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "detail": "Table \\`public.analytics_pageview\\` has RLS enabled, but no policies exist",
+      "metadata": {
+        "name": "analytics_pageview",
+        "type": "table",
+        "schema": "public"
+      }
+    },
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "detail": "Table \\`public.engagement_inquiries\\` has RLS enabled, but no policies exist",
+      "metadata": {
+        "name": "engagement_inquiries",
+        "type": "table",
+        "schema": "public"
+      }
+    },
+    {
+      "name": "anon_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.subscribe(p_email text, p_source text)` can be executed by the `anon` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/subscribe`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "subscribe",
+        "schema": "public",
+        "language": "plpgsql",
+        "arguments": "p_email text, p_source text",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.can_access_engagement(eng uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/can_access_engagement`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "can_access_engagement",
+        "schema": "public",
+        "language": "sql",
+        "arguments": "eng uuid",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.current_role_app()` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/current_role_app`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "current_role_app",
+        "schema": "public",
+        "language": "sql",
+        "arguments": "",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.is_admin(uid uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/is_admin`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "is_admin",
+        "schema": "public",
+        "language": "sql",
+        "arguments": "uid uuid",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.is_org_member(org uuid)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/is_org_member`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "is_org_member",
+        "schema": "public",
+        "language": "sql",
+        "arguments": "org uuid",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "detail": "Function `public.subscribe(p_email text, p_source text)` can be executed by the `authenticated` role as a `SECURITY DEFINER` function via `/rest/v1/rpc/subscribe`. Revoke `EXECUTE` or switch it to `SECURITY INVOKER` if that is not intentional.",
+      "metadata": {
+        "name": "subscribe",
+        "schema": "public",
+        "language": "plpgsql",
+        "arguments": "p_email text, p_source text",
+        "security_definer": true
+      }
+    },
+    {
+      "name": "auth_leaked_password_protection",
+      "level": "WARN",
+      "detail": "Supabase Auth prevents the use of compromised passwords by checking against HaveIBeenPwned.org. Enable this feature to enhance security.",
+      "metadata": {
+        "type": "auth",
+        "entity": "Auth"
+      }
+    }
+  ]
+}

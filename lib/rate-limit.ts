@@ -18,12 +18,20 @@ type Bucket = {
 const MAX_IPS = 10_000
 const buckets = new Map<string, Bucket>()
 
-function clientIp(req: NextRequest): string {
-  const fwd = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+type HeaderLike = {
+  get(name: string): string | null
+}
+
+function clientIpFromHeaders(h: HeaderLike): string {
+  const fwd = h.get('x-forwarded-for')?.split(',')[0]?.trim()
   if (fwd) return fwd
-  const real = req.headers.get('x-real-ip')?.trim()
+  const real = h.get('x-real-ip')?.trim()
   if (real) return real
   return 'unknown'
+}
+
+function clientIp(req: NextRequest): string {
+  return clientIpFromHeaders(req.headers)
 }
 
 function evictIfFull() {
@@ -44,12 +52,11 @@ export type RateLimitResult =
   | { ok: true }
   | { ok: false; retryAfterSeconds: number }
 
-export function checkRateLimit(
-  req: NextRequest,
+function recordHit(
+  ip: string,
   opts: { limit: number; windowMs: number; prefix?: string },
 ): RateLimitResult {
   const now = Date.now()
-  const ip = clientIp(req)
   const key = opts.prefix ? `${opts.prefix}:${ip}` : ip
 
   const bucket = buckets.get(key)
@@ -67,6 +74,25 @@ export function checkRateLimit(
   buckets.set(key, { hits: fresh, lastSeen: now })
   evictIfFull()
   return { ok: true }
+}
+
+export function checkRateLimit(
+  req: NextRequest,
+  opts: { limit: number; windowMs: number; prefix?: string },
+): RateLimitResult {
+  return recordHit(clientIp(req), opts)
+}
+
+/**
+ * Variant for contexts where only the request headers are available
+ * (server actions, route handlers that already consumed the request body).
+ * Pass the awaited result of `headers()` (or any HeaderLike).
+ */
+export function checkRateLimitFromHeaders(
+  h: HeaderLike,
+  opts: { limit: number; windowMs: number; prefix?: string },
+): RateLimitResult {
+  return recordHit(clientIpFromHeaders(h), opts)
 }
 
 /**
