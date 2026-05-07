@@ -37,6 +37,16 @@ test.describe('Phase 2E PR-B - time-tracking visibility', () => {
     test.skip(!eng?.[0]?.id, 'Acme engagement not found.');
     engagementId = eng![0].id as string;
 
+    // time_entries.user_id is NOT NULL — find an admin to attribute the
+    // seeded entries to.
+    const { data: adm } = await sb
+      .from('profiles')
+      .select('id')
+      .eq('email', 'sage+admin@sageideas.org')
+      .maybeSingle();
+    const adminId = adm?.id as string | undefined;
+    test.skip(!adminId, 'Admin profile not found.');
+
     // Reset to false; insert two time entries this week.
     await sb.from('organizations').update({ show_time_tracking: false }).eq('id', orgId);
     const now = new Date();
@@ -45,6 +55,7 @@ test.describe('Phase 2E PR-B - time-tracking visibility', () => {
       .from('time_entries')
       .insert({
         engagement_id: engagementId,
+        user_id: adminId!,
         duration_minutes: 60,
         started_at: yesterday.toISOString(),
         ended_at: new Date(yesterday.getTime() + 3600 * 1000).toISOString(),
@@ -57,6 +68,7 @@ test.describe('Phase 2E PR-B - time-tracking visibility', () => {
       .from('time_entries')
       .insert({
         engagement_id: engagementId,
+        user_id: adminId!,
         duration_minutes: 30,
         started_at: now.toISOString(),
         ended_at: new Date(now.getTime() + 1800 * 1000).toISOString(),
@@ -103,6 +115,6 @@ test.describe('Phase 2E PR-B - time-tracking visibility', () => {
     const section = clientPage.locator('[data-testid="time-summary-section"]');
     await expect(section).toBeVisible({ timeout: 15_000 });
     // Total = 60 + 30 = 90 minutes -> "1h 30m"
-    await expect(section).toContainText(/1h 30m/);
+    await expect(section).toContainText(/1h\s*30m/, { timeout: 10_000 });
   });
 });
