@@ -190,10 +190,17 @@ export function MessageThread({
       .upsert(rows, { onConflict: 'message_id,user_id', ignoreDuplicates: true });
   }, [supabase, initialMessages, currentUserAuthId]);
 
+  // Track current message ids in a ref so the reactions handlers can filter
+  // INSERT/DELETE rows to the active thread without re-subscribing every
+  // time a message lands.
+  const messageIdsRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    messageIdsRef.current = new Set(messages.map((m) => m.id));
+  }, [messages]);
+
   // Realtime — messages INSERT / UPDATE for this thread + reactions
   // INSERT / DELETE for messages in this thread.
   useEffect(() => {
-    const messageIds = new Set<string>(messages.map((m) => m.id));
     const channel = supabase.channel(`thread:${threadId}`);
 
     channel.on(
@@ -305,7 +312,7 @@ export function MessageThread({
           user_id: string;
           emoji: string;
         };
-        if (!messageIds.has(r.message_id)) return;
+        if (!messageIdsRef.current.has(r.message_id)) return;
         setReactions((prev) => {
           if (
             prev.some(
@@ -622,6 +629,28 @@ export function MessageThread({
       if (!res.ok) {
         const detail = await res.json().catch(() => ({}));
         throw new Error((detail as { error?: string }).error ?? 'Failed to send');
+      }
+      // Swap optimistic temp id with the canonical row from the server so
+      // immediate follow-on actions (reply, react, edit, delete) hit the
+      // correct UUID without waiting for the realtime INSERT to land.
+      const json = (await res.json().catch(() => null)) as
+        | { message?: { id?: string; created_at?: string; parent_id?: string | null } }
+        | null;
+      const real = json?.message;
+      if (real?.id) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === tempId
+              ? {
+                  ...m,
+                  id: real.id as string,
+                  created_at: real.created_at ?? m.created_at,
+                  parent_id: (real.parent_id as string | null | undefined) ?? m.parent_id ?? null,
+                  pending: false,
+                }
+              : m,
+          ),
+        );
       }
     } catch (err) {
       setMessages((prev) => prev.filter((m) => m.id !== tempId));
