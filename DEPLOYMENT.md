@@ -275,6 +275,18 @@ Manual one-time dashboard steps that pair with these flags:
 2. **Supabase → Authentication → MFA**: enable TOTP.
 3. **Vercel → Settings → Env Vars**: set `MFA_REQUIRED_FOR_ADMIN=true` once the team has enrolled, and `CSP_ENFORCE=true` once report-only is clean.
 
+### security.txt
+
+`public/.well-known/security.txt` is served at
+`https://www.sageideas.dev/.well-known/security.txt`. The `Expires` field
+is set one year out — bump it on the next anniversary.
+
+Signing the file (RFC 9116 §3) is optional and currently skipped. If/when we
+want it: generate an OpenPGP detached signature for `security.txt`, drop the
+ASCII-armored result at `public/.well-known/security.txt.sig`, and add a
+`Signature: https://www.sageideas.dev/.well-known/security.txt.sig` line to
+`security.txt`.
+
 ---
 
 ## Performance Targets
