@@ -135,7 +135,9 @@ export default async function DocumentsPage() {
                     </div>
                     {c.status === 'sent' ? (
                       <Link href={`/portal/documents/sign/${c.id}`}>
-                        <Button size="sm">Sign</Button>
+                        <Button size="sm" data-testid="documents-sign-cta">
+                          Sign now
+                        </Button>
                       </Link>
                     ) : (
                       <Link href={`/portal/documents/${c.id}`}>
