@@ -15,11 +15,31 @@ function adminClient() {
   });
 }
 
+type SuspendedInvoice = { id: string; status: string };
+
 test.describe('Invoice KPI + breakdown (Phase 2A.3)', () => {
   let invoiceId: string | null = null;
+  let suspended: SuspendedInvoice[] = [];
 
   test.beforeAll(async () => {
     const sb = adminClient();
+
+    // Isolate the dashboard KPI: temporarily mark every other non-terminal
+    // invoice on this org as `void` so the only invoice contributing to the
+    // pending-invoices KPI sum is the one we seed below. Restored in afterAll.
+    const { data: existing } = await sb
+      .from('invoices')
+      .select('id, status')
+      .eq('organization_id', ORG_ACME)
+      .in('status', ['open', 'sent', 'due', 'past_due']);
+    suspended = (existing ?? []) as SuspendedInvoice[];
+    if (suspended.length > 0) {
+      await sb
+        .from('invoices')
+        .update({ status: 'void' })
+        .in('id', suspended.map((r) => r.id));
+    }
+
     const number = `PHASE2A-TEST-${Date.now()}`;
     const { data, error } = await sb
       .from('invoices')
@@ -40,9 +60,14 @@ test.describe('Invoice KPI + breakdown (Phase 2A.3)', () => {
   });
 
   test.afterAll(async () => {
-    if (!invoiceId) return;
     const sb = adminClient();
-    await sb.from('invoices').delete().eq('id', invoiceId);
+    if (invoiceId) {
+      await sb.from('invoices').delete().eq('id', invoiceId);
+    }
+    // Restore previously-suspended invoices to their original status.
+    for (const row of suspended) {
+      await sb.from('invoices').update({ status: row.status }).eq('id', row.id);
+    }
   });
 
   test('dashboard KPI sums amount_due correctly', async ({ clientPage }) => {
