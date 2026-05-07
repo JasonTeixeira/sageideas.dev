@@ -1,19 +1,30 @@
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { NotificationBell } from './notification-bell';
 import { MobileNav } from './mobile-nav';
+import { OrgSwitcher, type OrgSwitcherMembership } from './org-switcher';
+import { CommandPaletteTrigger } from './command-palette';
 
 type Props = {
   userId: string;
   orgName?: string | null;
   isAdmin?: boolean;
+  memberships?: OrgSwitcherMembership[];
+  activeOrg?: OrgSwitcherMembership | null;
 };
 
 /**
- * Floating top-right slot with NotificationBell + MobileNav.
- * Mounted by the portal layout so every portal route gets the bell and
- * the mobile hamburger, regardless of whether the page renders its own Topbar.
+ * Floating top-right slot with NotificationBell + MobileNav + OrgSwitcher +
+ * Command palette trigger. Mounted by the portal layout so every portal route
+ * gets the bell, hamburger, palette, and switcher regardless of whether the
+ * page renders its own Topbar.
  */
-export async function PortalTopbarSlot({ userId, orgName, isAdmin = false }: Props) {
+export async function PortalTopbarSlot({
+  userId,
+  orgName,
+  isAdmin = false,
+  memberships = [],
+  activeOrg = null,
+}: Props) {
   const sb = supabaseAdmin();
   const { data: notifs } = await sb
     .from('notifications')
@@ -24,6 +35,12 @@ export async function PortalTopbarSlot({ userId, orgName, isAdmin = false }: Pro
 
   return (
     <div className="fixed top-0 right-0 z-40 h-14 flex items-center gap-2 px-4 lg:px-6 pointer-events-none">
+      <div className="pointer-events-auto">
+        <CommandPaletteTrigger />
+      </div>
+      <div className="pointer-events-auto">
+        <OrgSwitcher active={activeOrg} memberships={memberships} />
+      </div>
       <div className="pointer-events-auto">
         <NotificationBell initialUnread={unread} />
       </div>

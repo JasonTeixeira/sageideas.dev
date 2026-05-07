@@ -1,6 +1,8 @@
+import { headers } from 'next/headers';
 import { getPortalContext } from '@/lib/portal/auth';
 import { Sidebar } from '@/components/portal/sidebar';
 import { PortalTopbarSlot } from '@/components/portal/topbar-slot';
+import { CommandPaletteLoader } from '@/components/portal/command-palette-loader';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
 // Portal is fully auth-gated and DB-backed. Skip static optimization
@@ -15,8 +17,23 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+async function readOrgSlugFromHeaders(): Promise<string | null> {
+  try {
+    const h = await headers();
+    const path = h.get('x-pathname') ?? '';
+    const qIndex = path.indexOf('?');
+    if (qIndex === -1) return null;
+    const search = path.slice(qIndex + 1);
+    const params = new URLSearchParams(search);
+    return params.get('org');
+  } catch {
+    return null;
+  }
+}
+
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
-  const ctx = await getPortalContext();
+  const orgSlug = await readOrgSlugFromHeaders();
+  const ctx = await getPortalContext({ orgSlug });
 
   const sb = supabaseAdmin();
   const { data: profile } = await sb
@@ -27,6 +44,12 @@ export default async function PortalLayout({ children }: { children: React.React
 
   const isPending =
     profile?.app_role === 'pending' || profile?.approval_status === 'pending';
+
+  const switcherMemberships = ctx.memberships.map((m) => ({
+    id: m.org.id,
+    name: m.org.name,
+    slug: m.org.slug,
+  }));
 
   return (
     <div className="flex min-h-screen bg-[#09090B]">
@@ -46,7 +69,10 @@ export default async function PortalLayout({ children }: { children: React.React
         userId={ctx.user.clerk_id}
         orgName={ctx.organizationName}
         isAdmin={ctx.isAdmin}
+        memberships={switcherMemberships}
+        activeOrg={ctx.activeOrg}
       />
+      <CommandPaletteLoader organizationId={ctx.organizationId} />
     </div>
   );
 }
