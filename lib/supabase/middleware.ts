@@ -17,6 +17,25 @@ const PUBLIC_PREFIXES = [
   '/favicon',
 ];
 
+// First-segment routes that exist under /portal. Anything not in this set
+// falls through to the catch-all route, which renders the portal 404. We
+// detect that here so the response can be served with HTTP 404 (Next's
+// notFound() inside a Suspense-wrapped tree otherwise stays at 200).
+const PORTAL_VALID_SEGMENTS = new Set([
+  'billing',
+  'calendar',
+  'catalog',
+  'documents',
+  'engagements',
+  'help',
+  'home',
+  'inbox',
+  'invoices',
+  'messages',
+  'projects',
+  'settings',
+]);
+
 function isPublic(pathname: string) {
   if (PUBLIC_PATHS.has(pathname)) return true;
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + '/'));
@@ -179,6 +198,26 @@ export async function updateSession(request: NextRequest) {
         path: '/admin',
         maxAge: Math.ceil(IDLE_MS / 1000),
       });
+    }
+  }
+
+  // Unknown /portal/* sub-route: rewrite to itself with HTTP 404 so the
+  // catch-all page renders the portal not-found UI but the response carries
+  // the right status. (notFound() inside the Suspense-wrapped portal tree
+  // would otherwise commit at 200.)
+  if (
+    needsApprovedUser &&
+    pathname !== '/portal' &&
+    pathname.startsWith('/portal/')
+  ) {
+    const firstSegment = pathname.slice('/portal/'.length).split('/')[0];
+    if (firstSegment && !PORTAL_VALID_SEGMENTS.has(firstSegment)) {
+      const rewrite = NextResponse.rewrite(request.nextUrl, {
+        status: 404,
+        request: { headers: request.headers },
+      });
+      response.cookies.getAll().forEach((c) => rewrite.cookies.set(c));
+      return rewrite;
     }
   }
 

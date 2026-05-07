@@ -1,10 +1,12 @@
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-// No `dynamic = 'force-dynamic'`: with the parent layout's force-dynamic
-// already applying, declaring it again here can leave the response status
-// stuck at 200 because Vercel commits headers before the page throws.
-// Treating the route as static lets Next set 404 synchronously.
+export const dynamic = 'force-dynamic';
 
-export default function PortalCatchAll() {
+export default async function PortalCatchAll() {
+  // Touch headers() before throwing so Next treats the page as dynamic and
+  // commits the 404 status from notFound() instead of the cached 200 a
+  // statically-traced render would emit.
+  await headers();
   notFound();
 }
