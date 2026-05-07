@@ -30,6 +30,7 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/profitability', label: 'Profitability', icon: TrendingUp },
   { href: '/admin/workload', label: 'Workload', icon: Users },
   { href: '/admin/proposals', label: 'Proposals', icon: FileSignature },
+  { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
   { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
   { href: '/admin/documents', label: 'Documents', icon: FolderOpen },
   { href: '/admin/templates', label: 'Templates', icon: FileText },

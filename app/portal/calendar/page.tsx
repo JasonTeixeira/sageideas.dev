@@ -100,6 +100,43 @@ export default async function CalendarPage() {
         body: n.body_md,
       })),
     }));
+
+    // Merge in studio bookings (Phase 2D PR-B) so the calendar reflects
+    // self-served meetings.
+    let bookingsQuery = sb
+      .from('bookings')
+      .select('id, organization_id, engagement_id, starts_at, ends_at, meeting_kind, status')
+      .gte('starts_at', horizonStart)
+      .lte('starts_at', horizonEnd)
+      .eq('status', 'confirmed');
+    if (!ctx.isAdmin && ctx.organizationId) {
+      bookingsQuery = bookingsQuery.eq('organization_id', ctx.organizationId);
+    }
+    const { data: bookingRows } = await bookingsQuery;
+    type BookingRow = {
+      id: string;
+      organization_id: string | null;
+      engagement_id: string | null;
+      starts_at: string;
+      ends_at: string;
+      meeting_kind: string | null;
+      status: string | null;
+    };
+    for (const b of (bookingRows ?? []) as BookingRow[]) {
+      events.push({
+        id: `booking-${b.id}`,
+        title: `Studio meeting · ${b.meeting_kind ?? 'meeting'}`,
+        description: null,
+        start: b.starts_at,
+        end: b.ends_at,
+        allDay: false,
+        eventType: 'meeting',
+        location: null,
+        attendees: [],
+        notes: [],
+      });
+    }
+    events.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
   }
 
   return (
