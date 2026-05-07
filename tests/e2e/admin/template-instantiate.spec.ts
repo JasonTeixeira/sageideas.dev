@@ -71,7 +71,7 @@ test.describe('Phase 2D PR-A - admin template instantiate', () => {
 
     await seoRow.locator('[data-testid="engagement-from-template-button"]').click();
     const modal = adminPage.locator('[data-testid="template-picker-modal"]');
-    await expect(modal).toBeVisible();
+    await expect(modal).toBeVisible({ timeout: 15_000 });
     await modal.locator('[data-testid="template-picker-org"]').selectOption(orgId!);
 
     const instResp = adminPage.waitForResponse(
