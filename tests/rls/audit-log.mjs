@@ -87,13 +87,14 @@ async function findOrgIdForEmail(email) {
 }
 
 async function seedRow(orgId, label) {
+  // Note: audit_log.entity_id is uuid, so we leave it null and stash the
+  // distinguishing label in the JSONB `after` column.
   const inserted = await adminFetch(`/audit_log?select=id`, {
     method: 'POST',
     headers: { Prefer: 'return=representation' },
     body: JSON.stringify({
       action: ACTION_TAG,
       entity_type: 'rls_test',
-      entity_id: label,
       organization_id: orgId,
       actor_email: 'rls-suite@sageideas.dev',
       after: { synthetic: true, label },

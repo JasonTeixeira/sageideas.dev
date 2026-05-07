@@ -47,7 +47,6 @@ test.beforeAll(async () => {
     .insert({
       action: SYNTH_ACTION,
       entity_type: 'phase2b_test',
-      entity_id: 'fixture',
       organization_id: orgId,
       actor_email: 'client1+test@sageideas.org',
       after: { synthetic: true, label: 'PR-A audit log fixture' },
