@@ -289,7 +289,7 @@ export default async function ProjectDetailPage({
     ) : (
       <Card>
         <CardContent className="p-0">
-          <ol className="relative">
+          <ol className="relative" data-testid="engagement-milestones-list">
             {milestones.map((m, idx) => {
               const colors: Record<string, string> = {
                 complete: 'bg-[#10b981]',
