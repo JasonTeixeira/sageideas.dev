@@ -194,7 +194,7 @@ export function ProposalAcceptForm({
             Back
           </Button>
           <Button type="submit" size="sm" disabled={busy} data-testid="proposal-accept-submit">
-            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Sign &amp; accept'}
+            {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Sign & accept'}
           </Button>
         </div>
       </div>
