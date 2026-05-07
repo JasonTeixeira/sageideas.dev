@@ -2,7 +2,13 @@ import { NextResponse } from 'next/server';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
-const ALLOWED = new Set(['pipeline_stage', 'annual_value', 'notes', 'owner_id']);
+const ALLOWED = new Set([
+  'pipeline_stage',
+  'annual_value',
+  'notes',
+  'owner_id',
+  'show_time_tracking',
+]);
 
 export async function PATCH(
   req: Request,

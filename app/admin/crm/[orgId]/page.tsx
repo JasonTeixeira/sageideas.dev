@@ -37,7 +37,7 @@ export default async function OrgDetailPage({
   const { data: org } = await sb
     .from('organizations')
     .select(
-      'id, name, pipeline_stage, annual_value, notes, owner_id, created_at, updated_at, website, industry',
+      'id, name, pipeline_stage, annual_value, notes, owner_id, created_at, updated_at, website, industry, show_time_tracking',
     )
     .eq('id', orgId)
     .maybeSingle();
@@ -95,6 +95,7 @@ export default async function OrgDetailPage({
               annual_value: org.annual_value ? Number(org.annual_value) : null,
               notes: org.notes,
               owner_id: org.owner_id,
+              show_time_tracking: !!org.show_time_tracking,
             }}
             owners={owners}
           />

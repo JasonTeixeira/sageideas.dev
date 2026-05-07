@@ -171,8 +171,101 @@ export default async function ProjectDetailPage({
 
   const stage = eng.pipeline_stage ?? eng.status;
 
+  // 2E.5 — time-tracking visibility flag + weekly buckets.
+  let timeTrackingVisible = false;
+  let timeWeeks: { week_starting: string; total_minutes: number }[] = [];
+  if (eng.organization_id) {
+    const { data: orgRow } = await sb
+      .from('organizations')
+      .select('show_time_tracking')
+      .eq('id', eng.organization_id)
+      .maybeSingle();
+    timeTrackingVisible = !!orgRow?.show_time_tracking;
+    if (timeTrackingVisible || ctx.isAdmin) {
+      const horizon = new Date();
+      horizon.setUTCDate(horizon.getUTCDate() - 12 * 7);
+      const { data: entries } = await sb
+        .from('time_entries')
+        .select('duration_minutes, started_at')
+        .eq('engagement_id', id)
+        .gte('started_at', horizon.toISOString());
+      const buckets = new Map<string, number>();
+      for (const r of (entries ?? []) as Array<{
+        duration_minutes: number | string | null;
+        started_at: string | null;
+      }>) {
+        if (!r.started_at) continue;
+        const d = new Date(r.started_at);
+        const utc = new Date(
+          Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()),
+        );
+        const day = utc.getUTCDay();
+        utc.setUTCDate(utc.getUTCDate() + (day === 0 ? -6 : 1 - day));
+        const week = utc.toISOString().slice(0, 10);
+        buckets.set(week, (buckets.get(week) ?? 0) + Number(r.duration_minutes ?? 0));
+      }
+      timeWeeks = Array.from(buckets.entries())
+        .map(([week_starting, total_minutes]) => ({ week_starting, total_minutes }))
+        .sort((a, b) => a.week_starting.localeCompare(b.week_starting));
+    }
+  }
+  const formatHM = (mins: number): string => {
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    if (h === 0) return `${m}m`;
+    if (m === 0) return `${h}h`;
+    return `${h}h ${m}m`;
+  };
+  const totalMinutes = timeWeeks.reduce((s, w) => s + w.total_minutes, 0);
+  const showTimeForClient = timeTrackingVisible && !ctx.isAdmin;
+  const showTimeForAdmin = ctx.isAdmin;
+  const timeSection =
+    showTimeForClient || showTimeForAdmin ? (
+      <Card>
+        <CardContent className="p-5 space-y-3" data-testid="time-summary-section">
+          <div className="flex items-baseline justify-between gap-2 flex-wrap">
+            <h3 className="text-sm font-medium text-[#fafafa]">Time logged</h3>
+            <div className="flex items-center gap-2 text-xs text-[#a1a1aa]">
+              <span>Total: {formatHM(totalMinutes)}</span>
+              {ctx.isAdmin ? (
+                <Badge tone={timeTrackingVisible ? 'emerald' : 'neutral'}>
+                  {timeTrackingVisible ? 'Visible to client' : 'Hidden from clients'}
+                </Badge>
+              ) : null}
+            </div>
+          </div>
+          {timeWeeks.length === 0 ? (
+            <p
+              className="text-xs text-[#71717a]"
+              data-testid="time-summary-disabled-message"
+            >
+              No tracked time yet.
+            </p>
+          ) : (
+            <ul className="divide-y divide-[#1f1f23]">
+              {timeWeeks.map((w) => (
+                <li
+                  key={w.week_starting}
+                  className="flex items-center justify-between py-1.5 text-xs"
+                  data-testid={`time-summary-week-${w.week_starting}`}
+                >
+                  <span className="text-[#a1a1aa] tabular-nums">
+                    Week of {w.week_starting}
+                  </span>
+                  <span className="text-[#fafafa] tabular-nums">
+                    {formatHM(w.total_minutes)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
+    ) : null;
+
   const overviewPanel = (
     <div className="space-y-6">
+      {timeSection}
       <Card>
         <CardContent className="p-5">
           <div className="grid sm:grid-cols-3 gap-4 text-sm">
