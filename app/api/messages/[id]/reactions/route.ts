@@ -29,7 +29,8 @@ const EMOJI_ALIASES: Record<string, string> = {
 const ALL_EMOJI = new Set(Object.values(EMOJI_ALIASES));
 
 const schema = z.object({
-  emoji: z.string().min(1).max(8),
+  // Accept either an alias (e.g. 'thumbs-up') or the raw emoji glyph.
+  emoji: z.string().min(1).max(32),
 });
 
 function resolveEmoji(input: string): string | null {

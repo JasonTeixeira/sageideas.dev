@@ -564,7 +564,6 @@ export function MessageThread({
     const author = rootMsg.sender_id === currentUserId ? 'yourself' : (rootMsg.sender_name ?? 'Sage Studio');
     const snippet = (rootMsg.body ?? '').slice(0, 80);
     setReplyTarget({ id: rootId, authorName: author, snippet });
-    setExpandedRoots((prev) => new Set([...prev, rootId]));
     requestAnimationFrame(() => {
       composerRef.current?.focus();
     });
@@ -728,8 +727,8 @@ export function MessageThread({
     setOpenActionsFor(null);
   }
 
-  async function saveEdit(message: ThreadMessage) {
-    const newBody = editDraft.trim();
+  async function saveEdit(message: ThreadMessage, draftOverride?: string) {
+    const newBody = (draftOverride ?? editDraft).trim();
     if (!newBody) return;
     if (newBody === message.body) {
       setEditingId(null);
@@ -833,7 +832,7 @@ export function MessageThread({
                     isEditing={editingId === m.id}
                     editDraft={editDraft}
                     onEditDraftChange={setEditDraft}
-                    onSaveEdit={() => saveEdit(m)}
+                    onSaveEdit={(value) => saveEdit(m, value)}
                     onCancelEdit={() => setEditingId(null)}
                   />
                   {replies.length > 0 ? (
@@ -882,7 +881,7 @@ export function MessageThread({
                                 isEditing={editingId === r.id}
                                 editDraft={editDraft}
                                 onEditDraftChange={setEditDraft}
-                                onSaveEdit={() => saveEdit(r)}
+                                onSaveEdit={(value) => saveEdit(r, value)}
                                 onCancelEdit={() => setEditingId(null)}
                               />
                             </li>
@@ -1072,7 +1071,7 @@ function Bubble({
   isEditing: boolean;
   editDraft: string;
   onEditDraftChange: (v: string) => void;
-  onSaveEdit: () => void;
+  onSaveEdit: (value: string) => void;
   onCancelEdit: () => void;
 }) {
   const mine = msg.sender_id === currentUserId;
@@ -1128,35 +1127,14 @@ function Bubble({
               {msg.sender_name ? `${msg.sender_name} deleted this message.` : 'Message deleted.'}
             </div>
           ) : isEditing ? (
-            <div className="space-y-2">
-              <textarea
-                className="w-full rounded-md border border-[#3f3f46] bg-[#0f0f12] text-[#fafafa] px-2 py-1.5 text-sm focus:outline-none focus:border-[#06b6d4]"
-                value={editDraft}
-                onChange={(e) => onEditDraftChange(e.target.value)}
-                rows={3}
-                data-testid="msg-edit-input"
-                autoFocus
-              />
-              <div className="flex justify-end gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={onCancelEdit}
-                  data-testid="msg-edit-cancel"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  onClick={onSaveEdit}
-                  data-testid="msg-edit-save"
-                >
-                  <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Save
-                </Button>
-              </div>
-            </div>
+            <EditingComposer
+              initial={editDraft}
+              onSave={(value) => {
+                onEditDraftChange(value);
+                onSaveEdit(value);
+              }}
+              onCancel={onCancelEdit}
+            />
           ) : (
             <>
               {msg.body ? <div>{msg.body}</div> : null}
@@ -1386,3 +1364,48 @@ function MessageAttachment({
 }
 
 void NAME_TO_EMOJI; // referenced only by tests; keep export shape stable.
+
+function EditingComposer({
+  initial,
+  onSave,
+  onCancel,
+}: {
+  initial: string;
+  onSave: (value: string) => void;
+  onCancel: () => void;
+}) {
+  // Local state — independent of the parent's editDraft so the textarea
+  // remains responsive even if the React Compiler memoizes parent props.
+  const [value, setValue] = useState(initial);
+  return (
+    <div className="space-y-2">
+      <textarea
+        className="w-full rounded-md border border-[#3f3f46] bg-[#0f0f12] text-[#fafafa] px-2 py-1.5 text-sm focus:outline-none focus:border-[#06b6d4]"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        rows={3}
+        data-testid="msg-edit-input"
+        autoFocus
+      />
+      <div className="flex justify-end gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={onCancel}
+          data-testid="msg-edit-cancel"
+        >
+          Cancel
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          onClick={() => onSave(value)}
+          data-testid="msg-edit-save"
+        >
+          <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Save
+        </Button>
+      </div>
+    </div>
+  );
+}
