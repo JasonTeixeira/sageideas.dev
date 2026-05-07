@@ -7,7 +7,7 @@ import { Badge } from '@/components/portal/ui/badge';
 import { Button } from '@/components/portal/ui/button';
 import { Input } from '@/components/portal/ui/input';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
-import { User, Bell, ShieldCheck, Upload } from 'lucide-react';
+import { User, Bell, ShieldCheck } from 'lucide-react';
 import { cn, initials } from '@/lib/utils';
 
 type ProfileShape = {
@@ -133,16 +133,7 @@ function ProfileTab({
               {initials(profile.fullName || profile.email)}
             </div>
           )}
-          <div className="flex-1 min-w-0">
-            <button
-              type="button"
-              disabled
-              title="Coming soon"
-              className="inline-flex items-center gap-1.5 text-xs text-[#52525b] disabled:cursor-not-allowed"
-            >
-              <Upload className="w-3.5 h-3.5" /> Upload avatar (coming soon)
-            </button>
-          </div>
+          <div className="flex-1 min-w-0" />
         </div>
 
         <form onSubmit={save} className="space-y-4">

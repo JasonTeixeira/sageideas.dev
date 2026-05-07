@@ -33,9 +33,17 @@ const nextConfig: NextConfig = {
       { source: '/case-studies', destination: '/work', permanent: true },
       { source: '/case-studies/:slug*', destination: '/work/:slug*', permanent: true },
       { source: '/projects', destination: '/lab', permanent: true },
+      // Phase 2A.5 — /portal/home was a duplicate dashboard, consolidated into /portal
+      { source: '/portal/home', destination: '/portal', permanent: true },
+      // Phase 2A.6 — /portal/admin/* consolidated into /admin/*
+      { source: '/portal/admin', destination: '/admin', permanent: true },
+      { source: '/portal/admin/clients', destination: '/admin/crm', permanent: true },
+      { source: '/portal/admin/activity', destination: '/admin/audit-log', permanent: true },
+      { source: '/portal/admin/settings', destination: '/admin/settings', permanent: true },
+      { source: '/portal/admin/:path*', destination: '/admin/:path*', permanent: true },
       // Legacy QA-portfolio routes — redirect to closest Sage Ideas equivalent
       // (kept as 308 so they can be reverted if we decide to repurpose them)
-      { source: '/dashboard', destination: '/portal/home', permanent: false },
+      { source: '/dashboard', destination: '/portal', permanent: false },
       { source: '/artifacts', destination: '/work', permanent: false },
       { source: '/platform', destination: '/capabilities', permanent: false },
       { source: '/platform/:path*', destination: '/capabilities', permanent: false },
