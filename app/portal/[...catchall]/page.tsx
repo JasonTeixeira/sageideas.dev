@@ -1,12 +1,9 @@
-import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
-export default async function PortalCatchAll() {
-  // Touch headers() before throwing so Next treats the page as dynamic and
-  // commits the 404 status from notFound() instead of the cached 200 a
-  // statically-traced render would emit.
-  await headers();
+// Belt-and-suspenders fallback. The middleware rewrites unknown /portal/*
+// routes to /portal/__not_found__ with status: 404 — but if that ever
+// fails to fire (e.g. local dev with the middleware disabled), this
+// page surfaces the not-found UI rather than a blank screen.
+export default function PortalCatchAll() {
   notFound();
 }

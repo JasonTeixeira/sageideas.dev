@@ -34,6 +34,8 @@ const PORTAL_VALID_SEGMENTS = new Set([
   'messages',
   'projects',
   'settings',
+  // Internal target for the not-found rewrite below — must not be 404'd.
+  '__not_found__',
 ]);
 
 function isPublic(pathname: string) {
@@ -201,10 +203,14 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  // Unknown /portal/* sub-route: rewrite to itself with HTTP 404 so the
-  // catch-all page renders the portal not-found UI but the response carries
-  // the right status. (notFound() inside the Suspense-wrapped portal tree
-  // would otherwise commit at 200.)
+  // Unknown /portal/* sub-route: rewrite to the dedicated portal not-found
+  // page with HTTP 404. Notes:
+  //   - We rewrite to a real URL (not the original) because Next treats a
+  //     same-URL rewrite + 404 as the framework's own 404 path and renders
+  //     the root app/not-found.tsx, dropping portal chrome.
+  //   - Calling notFound() directly from a catch-all page commits status 200
+  //     because the portal segment has loading.tsx, so the response stream
+  //     flushes before the throw.
   if (
     needsApprovedUser &&
     pathname !== '/portal' &&
@@ -212,7 +218,10 @@ export async function updateSession(request: NextRequest) {
   ) {
     const firstSegment = pathname.slice('/portal/'.length).split('/')[0];
     if (firstSegment && !PORTAL_VALID_SEGMENTS.has(firstSegment)) {
-      const rewrite = NextResponse.rewrite(request.nextUrl, {
+      const target = request.nextUrl.clone();
+      target.pathname = '/portal/__not_found__';
+      target.search = '';
+      const rewrite = NextResponse.rewrite(target, {
         status: 404,
         request: { headers: request.headers },
       });
