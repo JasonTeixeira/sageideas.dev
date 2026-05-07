@@ -1,8 +1,24 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { badRequest, fromZodError } from '@/lib/api-errors';
 
-const ALLOWED = new Set(['title', 'slug', 'category', 'body_md', 'active']);
+const patchSchema = z
+  .object({
+    title: z.string().min(1).max(300),
+    slug: z
+      .string()
+      .max(120)
+      .regex(/^[a-z0-9-]+$/),
+    category: z.string().max(60),
+    body_md: z.string().max(200_000),
+    active: z.boolean(),
+  })
+  .partial()
+  .refine((obj) => Object.keys(obj).length > 0, {
+    message: 'At least one field must be provided.',
+  });
 
 export async function PATCH(
   req: Request,
@@ -12,16 +28,15 @@ export async function PATCH(
   if (guard instanceof NextResponse) return guard;
   const { id } = await params;
 
-  const body = (await req.json().catch(() => null)) as Record<string, unknown> | null;
-  if (!body) return NextResponse.json({ error: 'invalid_body' }, { status: 400 });
-
-  const update: Record<string, unknown> = {};
-  for (const k of Object.keys(body)) {
-    if (ALLOWED.has(k)) update[k] = body[k];
+  let raw: unknown;
+  try {
+    raw = await req.json();
+  } catch {
+    return badRequest('Invalid JSON body');
   }
-  if (Object.keys(update).length === 0) {
-    return NextResponse.json({ error: 'no_fields' }, { status: 400 });
-  }
+  const parsed = patchSchema.safeParse(raw);
+  if (!parsed.success) return fromZodError(parsed.error);
+  const update: Record<string, unknown> = { ...parsed.data };
 
   const sb = supabaseAdmin();
   const { data: prev } = await sb
@@ -41,7 +56,7 @@ export async function PATCH(
     .eq('id', id)
     .select('id, slug, title, category, body_md, active, version, updated_at')
     .maybeSingle();
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return badRequest(error.message);
 
   await logAudit({
     actorId: guard.userId,
@@ -71,7 +86,7 @@ export async function DELETE(
     .eq('id', id)
     .maybeSingle();
   const { error } = await sb.from('contract_templates').delete().eq('id', id);
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return badRequest(error.message);
 
   await logAudit({
     actorId: guard.userId,

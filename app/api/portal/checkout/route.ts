@@ -1,17 +1,30 @@
 import { createHash } from 'crypto';
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import Stripe from 'stripe';
 import { getPortalContext } from '@/lib/portal/auth';
+import { badRequest, fromZodError } from '@/lib/api-errors';
+
+const schema = z.object({
+  priceId: z.string().min(1).max(120),
+  recurring: z.union([z.literal('1'), z.literal('0'), z.literal('true'), z.literal('false')]).optional(),
+});
 
 export async function POST(req: Request) {
   const ctx = await getPortalContext();
   const formData = await req.formData();
-  const priceId = formData.get('priceId') as string;
-  const recurring = formData.get('recurring') === '1';
+  const parsed = schema.safeParse({
+    priceId: formData.get('priceId'),
+    recurring: formData.get('recurring') ?? undefined,
+  });
+  if (!parsed.success) return fromZodError(parsed.error);
+  const { priceId } = parsed.data;
+  const recurring = parsed.data.recurring === '1' || parsed.data.recurring === 'true';
 
-  if (!priceId) return NextResponse.json({ error: 'Missing priceId' }, { status: 400 });
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeKey) return badRequest('Stripe not configured');
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  const stripe = new Stripe(stripeKey, {
     apiVersion: '2026-04-22.dahlia' as any,
   });
 
