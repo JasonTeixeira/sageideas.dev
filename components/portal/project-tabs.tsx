@@ -10,6 +10,7 @@ const TABS = [
   { id: 'tasks', label: 'Tasks' },
   { id: 'status', label: 'Status updates' },
   { id: 'files', label: 'Files' },
+  { id: 'kickoff', label: 'Kickoff' },
 ] as const;
 
 export type ProjectTabId = (typeof TABS)[number]['id'];
@@ -45,6 +46,7 @@ export function ProjectTabs({
               key={t.id}
               type="button"
               onClick={() => selectTab(t.id)}
+              data-testid={t.id === 'kickoff' ? 'kickoff-tab' : undefined}
               className={`px-3 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
                 isActive
                   ? 'border-[#06b6d4] text-[#fafafa]'

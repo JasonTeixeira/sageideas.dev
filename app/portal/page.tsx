@@ -25,6 +25,9 @@ type Engagement = {
   status: string;
   pipeline_stage: string | null;
   organization_id: string | null;
+  service_type: string | null;
+  intake_form_id: string | null;
+  intake_submitted_at: string | null;
 };
 
 type Deliverable = {
@@ -82,9 +85,11 @@ export default async function PortalDashboard() {
   if (orgId) {
     const { data: engs } = await sb
       .from('engagements')
-      .select('id, title, status, pipeline_stage, organization_id')
+      .select(
+        'id, title, status, pipeline_stage, organization_id, service_type, intake_form_id, intake_submitted_at',
+      )
       .eq('organization_id', orgId);
-    engagements = engs ?? [];
+    engagements = (engs ?? []) as Engagement[];
   }
 
   const engagementIds = engagements.map((e) => e.id);
@@ -152,6 +157,12 @@ export default async function PortalDashboard() {
   const firstReviewDeliverable = deliverables.find(
     (d) => d.status === 'review' || d.status === 'in_review',
   );
+  const intakeNeeded = engagements.find(
+    (e) =>
+      !e.intake_submitted_at &&
+      ['active', 'discovery', 'review'].includes(e.status) &&
+      (e.intake_form_id != null || e.service_type != null),
+  );
 
   return (
     <>
@@ -195,6 +206,30 @@ export default async function PortalDashboard() {
             tone="emerald"
           />
         </div>
+
+        {intakeNeeded ? (
+          <div
+            className="flex items-center justify-between gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3"
+            data-testid="intake-cta-dashboard"
+          >
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-amber-200 truncate">
+                Kickoff intake needed for {intakeNeeded.title}
+              </p>
+              <p className="text-xs text-amber-300/80">
+                A few quick answers so we can hit the ground running.
+              </p>
+            </div>
+            <Link href={`/portal/intake/${intakeNeeded.id}`}>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 px-3 py-1.5 text-xs font-medium text-amber-100"
+              >
+                Complete kickoff form →
+              </button>
+            </Link>
+          </div>
+        ) : null}
 
         {(engagements.length > 0 || firstOpenInvoice || firstReviewDeliverable) && (
           <div className="flex flex-wrap gap-2">

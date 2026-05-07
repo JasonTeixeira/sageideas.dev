@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/auth';
+import { test, expect, setActiveOrgCookie, ACME_SLUG } from '../../fixtures/auth';
 import { createClient } from '@supabase/supabase-js';
 
 function adminClient() {
@@ -13,7 +13,10 @@ function adminClient() {
 }
 
 test.describe('No phantom Workspace org (Phase 2A.4)', () => {
-  test('client1+test sees Acme Test Co, not a phantom workspace', async ({ clientPage }) => {
+  test('client1+test sees Acme Test Co, not a phantom workspace', async ({ clientPage, baseURL }) => {
+    // Phase 2B added a multi-org membership for client1 (Acme + Beta); pin
+    // Acme so the active-org resolver is deterministic.
+    await setActiveOrgCookie(clientPage.context(), baseURL!, ACME_SLUG);
     await clientPage.goto('/portal');
     // Sidebar org label, visible at >=lg viewport (default Playwright is 1280x720).
     await expect(clientPage.getByText(/Acme Test Co/i).first()).toBeVisible();
