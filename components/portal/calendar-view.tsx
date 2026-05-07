@@ -7,7 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import type { EventClickArg, EventInput } from '@fullcalendar/core';
-import { X, MapPin, Users, FileText } from 'lucide-react';
+import { X, MapPin, Users, FileText, Download } from 'lucide-react';
 
 export interface CalendarEventData {
   id: string;
@@ -174,6 +174,17 @@ export function CalendarView({ events }: { events: CalendarEventData[] }) {
                 active.notes.length === 0 && (
                   <p className="text-xs text-[#52525b]">No additional details.</p>
                 )}
+            </div>
+            <div className="px-5 py-3 border-t border-[#27272a] flex items-center justify-end gap-2">
+              <a
+                href={`/api/portal/calendar/${active.id}/ics`}
+                download
+                data-testid="ics-download-link"
+                className="inline-flex items-center gap-1.5 rounded-md border border-[#27272a] bg-[#18181b] hover:bg-[#27272a] text-[#fafafa] text-xs px-3 py-1.5"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Add to calendar
+              </a>
             </div>
           </div>
         </div>
