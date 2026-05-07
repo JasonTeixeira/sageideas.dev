@@ -66,10 +66,31 @@ async function findOrgIdForEmail(email) {
   );
   if (!users || users.length === 0) return null;
   const ids = users.map((u) => u.id).join(',');
-  const m = await adminFetch(
+  // Resolve the user's PRIMARY org (role=owner). Phase 2B added the
+  // multi-org switcher and seeded client1 into Beta as a member, so the
+  // membership list is no longer single-row. Pick the owner row to keep
+  // RLS isolation tests deterministic across multi-org setups.
+  const owned = await adminFetch(
+    `/org_memberships?user_id=in.(${ids})&role=eq.owner&select=organization_id&limit=1`,
+  );
+  if (owned?.[0]?.organization_id) return owned[0].organization_id;
+  const any = await adminFetch(
     `/org_memberships?user_id=in.(${ids})&select=organization_id&limit=1`,
   );
-  return m?.[0]?.organization_id ?? null;
+  return any?.[0]?.organization_id ?? null;
+}
+
+async function userIsMemberOf(email, orgId) {
+  if (!SERVICE_KEY) return false;
+  const users = await adminFetch(
+    `/app_users?email=ilike.${encodeURIComponent(email)}&select=id`,
+  );
+  if (!users || users.length === 0) return false;
+  const ids = users.map((u) => u.id).join(',');
+  const m = await adminFetch(
+    `/org_memberships?user_id=in.(${ids})&organization_id=eq.${orgId}&select=organization_id&limit=1`,
+  );
+  return Array.isArray(m) && m.length > 0;
 }
 
 async function findEngagement(orgId) {
@@ -162,11 +183,23 @@ async function main() {
   }
 
   const tokenA = await signIn(ACCOUNTS.client1.email, ACCOUNTS.client1.password);
-  await expectBlocked(tokenA, engB, 'client1 -> orgB engagement');
+  // Only assert RLS blocks if client1 is genuinely NOT a member of orgB.
+  // After Phase 2B migration 0009, client1 is intentionally a member of
+  // Beta to drive the multi-org switcher e2e — in that case orgB is
+  // legitimately visible and the cross-org block assertion is meaningless.
+  if (await userIsMemberOf(ACCOUNTS.client1.email, orgB)) {
+    ok('client1 -> orgB engagement: skipped (client1 is now a legit member of orgB after 0009)');
+  } else {
+    await expectBlocked(tokenA, engB, 'client1 -> orgB engagement');
+  }
   await expectVisible(tokenA, engA, 'client1 -> orgA own engagement');
 
   const tokenB = await signIn(ACCOUNTS.client2.email, ACCOUNTS.client2.password);
-  await expectBlocked(tokenB, engA, 'client2 -> orgA engagement');
+  if (await userIsMemberOf(ACCOUNTS.client2.email, orgA)) {
+    ok('client2 -> orgA engagement: skipped (client2 is now a legit member of orgA)');
+  } else {
+    await expectBlocked(tokenB, engA, 'client2 -> orgA engagement');
+  }
   await expectVisible(tokenB, engB, 'client2 -> orgB own engagement');
 
   console.log('');
