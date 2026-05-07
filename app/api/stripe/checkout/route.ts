@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { NextResponse } from 'next/server';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
@@ -153,17 +154,25 @@ export async function POST(req: Request) {
 
   try {
     const stripe = getStripe();
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      customer: customerId,
-      line_items: stripeLineItems,
-      success_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/cancel`,
-      metadata: { invoice_id: invoice.id },
-      payment_intent_data: {
+    // Stable key per (user, invoice) — repeated POSTs from a refreshed page
+    // collapse to one Stripe session instead of opening N parallel ones.
+    const idempotencyKey = createHash('sha256')
+      .update(`invoice:${invoice.id}:${ctx.user.clerk_id}`)
+      .digest('hex');
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: 'payment',
+        customer: customerId,
+        line_items: stripeLineItems,
+        success_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/cancel`,
         metadata: { invoice_id: invoice.id },
+        payment_intent_data: {
+          metadata: { invoice_id: invoice.id },
+        },
       },
-    });
+      { idempotencyKey },
+    );
 
     await sb
       .from('invoices')
