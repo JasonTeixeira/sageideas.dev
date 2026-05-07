@@ -35,7 +35,7 @@ const PORTAL_VALID_SEGMENTS = new Set([
   'projects',
   'settings',
   // Internal target for the not-found rewrite below — must not be 404'd.
-  '__not_found__',
+  'not-found-render',
 ]);
 
 function isPublic(pathname: string) {
@@ -219,7 +219,7 @@ export async function updateSession(request: NextRequest) {
     const firstSegment = pathname.slice('/portal/'.length).split('/')[0];
     if (firstSegment && !PORTAL_VALID_SEGMENTS.has(firstSegment)) {
       const target = request.nextUrl.clone();
-      target.pathname = '/portal/__not_found__';
+      target.pathname = '/portal/not-found-render';
       target.search = '';
       const rewrite = NextResponse.rewrite(target, {
         status: 404,
