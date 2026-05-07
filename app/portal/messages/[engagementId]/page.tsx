@@ -20,6 +20,16 @@ type MessageRow = {
   sender_id: string | null;
   created_at: string;
   attachments: unknown;
+  parent_id: string | null;
+  edited_at: string | null;
+  deleted_at: string | null;
+  edit_count: number | null;
+};
+
+type ReactionRow = {
+  message_id: string;
+  user_id: string;
+  emoji: string;
 };
 
 type AttachmentLike = {
@@ -101,11 +111,23 @@ export default async function EngagementMessagesPage({
 
   const { data: msgsData } = await sb
     .from('messages')
-    .select('id, thread_id, body, sender_id, attachments, created_at')
+    .select(
+      'id, thread_id, body, sender_id, attachments, created_at, parent_id, edited_at, deleted_at, edit_count',
+    )
     .eq('thread_id', threadId)
     .order('created_at', { ascending: true })
     .limit(500);
   const messages: MessageRow[] = (msgsData ?? []) as MessageRow[];
+
+  const messageIds = messages.map((m) => m.id);
+  let reactions: ReactionRow[] = [];
+  if (messageIds.length > 0) {
+    const { data: rxs } = await sb
+      .from('message_reactions')
+      .select('message_id, user_id, emoji')
+      .in('message_id', messageIds);
+    reactions = (rxs ?? []) as ReactionRow[];
+  }
 
   const senderIds = Array.from(
     new Set(messages.map((m) => m.sender_id).filter((id): id is string => Boolean(id))),
@@ -127,6 +149,16 @@ export default async function EngagementMessagesPage({
     sender_name: m.sender_id ? sendersById.get(m.sender_id)?.full_name ?? null : null,
     sender_avatar: m.sender_id ? sendersById.get(m.sender_id)?.avatar_url ?? null : null,
     attachments: parseAttachments(m.attachments),
+    parent_id: m.parent_id,
+    edited_at: m.edited_at,
+    deleted_at: m.deleted_at,
+    edit_count: m.edit_count ?? 0,
+  }));
+
+  const initialReactions = reactions.map((r) => ({
+    message_id: r.message_id,
+    user_id: r.user_id,
+    emoji: r.emoji,
   }));
 
   return (
@@ -145,7 +177,9 @@ export default async function EngagementMessagesPage({
         currentUserId={ctx.user.id}
         currentUserAuthId={ctx.user.clerk_id}
         currentUserName={ctx.user.full_name ?? ctx.user.email}
+        currentUserIsAdmin={ctx.isAdmin}
         initialMessages={initialMessages}
+        initialReactions={initialReactions}
       />
     </>
   );
