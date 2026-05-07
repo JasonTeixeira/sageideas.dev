@@ -139,6 +139,7 @@ async function authedPage(context: BrowserContext, baseURL: string, who: UserKey
 type Fixtures = {
   adminPage: Page;
   clientPage: Page;
+  client2Page: Page;
   pendingPage: Page;
 };
 
@@ -152,6 +153,12 @@ export const test = base.extend<Fixtures>({
   clientPage: async ({ context, baseURL }, use) => {
     if (!baseURL) throw new Error('baseURL must be configured in playwright config');
     const page = await authedPage(context, baseURL, 'client');
+    await use(page);
+    await page.close();
+  },
+  client2Page: async ({ context, baseURL }, use) => {
+    if (!baseURL) throw new Error('baseURL must be configured in playwright config');
+    const page = await authedPage(context, baseURL, 'client2');
     await use(page);
     await page.close();
   },
