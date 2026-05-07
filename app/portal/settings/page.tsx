@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { ScrollText } from 'lucide-react';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { Topbar } from '@/components/portal/topbar';
@@ -85,6 +87,23 @@ export default async function SettingsPage() {
           orgName={ctx.organizationName ?? null}
           preferences={prefs}
         />
+
+        <div className="mt-8">
+          <Link
+            href="/portal/settings/audit-log"
+            data-testid="settings-audit-log-link"
+            className="flex items-center gap-3 rounded-xl border border-[#27272a] bg-[#0f0f12] p-4 hover:border-[#06b6d4] transition-colors"
+          >
+            <ScrollText className="w-5 h-5 text-[#06b6d4] shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium text-[#fafafa]">Audit log</div>
+              <div className="text-xs text-[#71717a] mt-0.5">
+                Review activity in your organization over the last 90 days.
+              </div>
+            </div>
+            <span className="text-xs text-[#52525b]">→</span>
+          </Link>
+        </div>
       </div>
     </>
   );

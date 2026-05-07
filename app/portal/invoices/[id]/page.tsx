@@ -87,6 +87,7 @@ export default async function InvoiceDetailPage({
     <>
       <Topbar
         crumbs={[
+          { label: 'Dashboard', href: '/portal' },
           { label: 'Invoices', href: '/portal/invoices' },
           { label: invoice.number ?? invoice.id.slice(0, 8) },
         ]}

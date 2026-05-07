@@ -124,6 +124,53 @@ test('admin/templates POST: malformed body returns 400 with { error }', async ()
   assert.ok(typeof body.code === 'string');
 });
 
+// -------------------------------------------------------------- active-org (Phase 2B PR-A)
+
+test('resolveActiveOrg: explicit slug wins over cookie and first', async () => {
+  const { resolveActiveOrg } = await import('../../lib/portal/active-org.ts');
+  const memberships = [
+    { org: { id: 'a', name: 'Acme', slug: 'acme' }, role: 'owner' },
+    { org: { id: 'b', name: 'Beta', slug: 'beta-test-co' }, role: 'member' },
+  ];
+  const out = resolveActiveOrg(memberships, {
+    slug: 'beta-test-co',
+    cookieSlug: 'acme',
+  });
+  assert.equal(out?.org.id, 'b');
+});
+
+test('resolveActiveOrg: cookie wins when no explicit slug', async () => {
+  const { resolveActiveOrg } = await import('../../lib/portal/active-org.ts');
+  const memberships = [
+    { org: { id: 'a', name: 'Acme', slug: 'acme' }, role: 'owner' },
+    { org: { id: 'b', name: 'Beta', slug: 'beta-test-co' }, role: 'member' },
+  ];
+  const out = resolveActiveOrg(memberships, {
+    slug: null,
+    cookieSlug: 'beta-test-co',
+  });
+  assert.equal(out?.org.id, 'b');
+});
+
+test('resolveActiveOrg: falls back to first when slug+cookie miss', async () => {
+  const { resolveActiveOrg } = await import('../../lib/portal/active-org.ts');
+  const memberships = [
+    { org: { id: 'a', name: 'Acme', slug: 'acme' }, role: 'owner' },
+    { org: { id: 'b', name: 'Beta', slug: 'beta-test-co' }, role: 'member' },
+  ];
+  const out = resolveActiveOrg(memberships, {
+    slug: 'unknown-slug',
+    cookieSlug: 'also-unknown',
+  });
+  assert.equal(out?.org.id, 'a');
+});
+
+test('resolveActiveOrg: empty memberships -> null', async () => {
+  const { resolveActiveOrg } = await import('../../lib/portal/active-org.ts');
+  const out = resolveActiveOrg([], { slug: 'anything', cookieSlug: 'whatever' });
+  assert.equal(out, null);
+});
+
 // -------------------------------------------------------------- runner
 
 let pass = 0;

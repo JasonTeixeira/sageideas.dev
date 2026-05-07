@@ -419,6 +419,7 @@ export default async function ProjectDetailPage({
     <>
       <Topbar
         crumbs={[
+          { label: 'Dashboard', href: '/portal' },
           { label: 'Projects', href: '/portal/projects' },
           { label: eng.title },
         ]}
