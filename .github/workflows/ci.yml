@@ -49,3 +49,32 @@ jobs:
           CLERK_SECRET_KEY: sk_test_placeholder
           NEXT_PUBLIC_APP_URL: https://www.sageideas.dev
         run: npm run build
+
+  lighthouse:
+    # Phase 2F PR-A — informational performance budget. Runs lhci against the
+    # production-built marketing pages (no Supabase round-trips). Marked
+    # continue-on-error so a regression doesn't block code review while we
+    # tune the budget.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run Lighthouse CI
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder
+          SUPABASE_SERVICE_ROLE_KEY: placeholder
+          STRIPE_SECRET_KEY: sk_test_placeholder
+          STRIPE_WEBHOOK_SECRET: whsec_placeholder
+          RESEND_API_KEY: re_placeholder
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsucGxhY2Vob2xkZXIuZGV2JA
+          CLERK_SECRET_KEY: sk_test_placeholder
+          NEXT_PUBLIC_APP_URL: https://www.sageideas.dev
+        run: npx --yes @lhci/cli@latest autorun
