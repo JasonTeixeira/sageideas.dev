@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { approveProfile } from '@/app/auth/actions';
 import { requireAdmin } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { timed } from '@/lib/portal/db-timing';
 import { AdminTopbar } from '@/components/admin/topbar';
 import { formatCurrency, formatRelative } from '@/lib/utils';
 import {
@@ -86,7 +87,9 @@ export default async function AdminHomePage() {
     auditRes,
     workloadRes,
     profileMapRes,
-  ] = await Promise.all([
+  ] = await timed(
+    'admin.dashboard.fanout',
+    Promise.all([
     sb.from('engagements').select('id', { count: 'exact', head: true }).eq('status', 'active'),
     sb
       .from('deliverables')
@@ -118,7 +121,8 @@ export default async function AdminHomePage() {
       .select('assignee_id, status')
       .in('status', ['todo', 'in_progress', 'review', 'blocked']),
     sb.from('profiles').select('id, full_name, email'),
-  ]);
+  ]),
+  );
 
   const mtdRevenue = (paidThisMonthRes.data ?? []).reduce(
     (sum, r) => sum + Number(r.total ?? 0),

@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { ProjectTabs } from '@/components/portal/project-tabs';
 import { DeliverableDecision } from '@/components/portal/deliverable-decision';
 import { DeliverableComments } from '@/components/portal/deliverable-comments';
+import { timed } from '@/lib/portal/db-timing';
 import { DocumentUploader, type UploadedFileRow } from '@/components/portal/document-uploader';
 import { ORG_QUOTA_BYTES } from '@/lib/portal/storage';
 import {
@@ -127,8 +128,9 @@ export default async function ProjectDetailPage({
   if (!eng) notFound();
   if (!ctx.isAdmin && eng.organization_id !== ctx.organizationId) notFound();
 
-  const [phasesRes, delivRes, milesRes, tasksRes, statusRes, assigneesRes] =
-    await Promise.all([
+  const [phasesRes, delivRes, milesRes, tasksRes, statusRes, assigneesRes] = await timed(
+    'project.detail.fanout',
+    Promise.all([
       sb.from('phases').select('id, name, status, position').eq('engagement_id', id).order('position'),
       sb
         .from('deliverables')
@@ -153,7 +155,8 @@ export default async function ProjectDetailPage({
         .eq('visible_to_client', true)
         .order('created_at', { ascending: false }),
       sb.from('app_users').select('clerk_id, full_name'),
-    ]);
+    ]),
+  );
 
   const phases = (phasesRes.data ?? []) as Phase[];
   const deliverables = (delivRes.data ?? []) as Deliverable[];
