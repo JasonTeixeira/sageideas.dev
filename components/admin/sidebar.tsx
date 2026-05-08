@@ -36,6 +36,8 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/templates', label: 'Templates', icon: FileText },
   { href: '/admin/project-templates', label: 'Project templates', icon: KanbanSquare },
   { href: '/admin/audit-log', label: 'Audit Log', icon: ScrollText },
+  { href: '/admin/observability', label: 'Observability', icon: TrendingUp },
+  { href: '/admin/availability', label: 'Availability', icon: Calendar },
   { href: '/admin/users', label: 'Users', icon: UserCog },
   { href: '/admin/settings', label: 'Settings', icon: Settings2 },
 ];

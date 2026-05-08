@@ -7,6 +7,8 @@ import { MarketingChrome } from '@/components/marketing-chrome'
 import { CookieBanner } from '@/components/studio/cookie-banner'
 import { ExitIntentModal } from '@/components/exit-intent-modal'
 import { PostHogProvider } from '@/components/analytics/posthog-provider'
+import { WebVitalsReporter } from '@/components/web-vitals-reporter'
+import { ClientErrorReporter } from '@/components/client-error-reporter'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -189,6 +191,8 @@ export default async function RootLayout({
           <MarketingChrome position="bottom" />
           {!isPortal && <CookieBanner />}
           {!isPortal && <ExitIntentModal />}
+          <WebVitalsReporter />
+          <ClientErrorReporter />
         </PostHogProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
