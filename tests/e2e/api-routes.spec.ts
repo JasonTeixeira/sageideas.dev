@@ -42,12 +42,15 @@ test.describe('API routes', () => {
     expect([401, 403, 404]).toContain(res.status());
   });
 
-  test('POST /api/sign/:token with invalid token → 4xx (not 500)', async ({ request }) => {
+  test('legacy POST /api/sign/:token returns 4xx (route deleted in Phase 2F)', async ({
+    request,
+  }) => {
     const res = await request.post('/api/sign/invalid-token', {
       data: { signature: 'fake' },
       headers: { 'content-type': 'application/json' },
     });
     expect(res.status()).toBeLessThan(500);
+    expect([404, 405]).toContain(res.status());
   });
 
   test('all sampled API endpoints respond within 3s', async ({ request }) => {

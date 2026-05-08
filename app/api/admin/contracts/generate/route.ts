@@ -96,7 +96,7 @@ export async function POST(req: Request) {
   return NextResponse.json({
     id: doc.id,
     signing_token: doc.signing_token,
-    signing_url: `/sign/${doc.signing_token}`,
+    signing_url: `/portal/documents/${doc.id}/sign?token=${encodeURIComponent(doc.signing_token)}`,
     expires: doc.signing_token_expires,
   });
 }
