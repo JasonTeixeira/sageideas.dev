@@ -16,6 +16,7 @@ export function OrgEditForm({
     annual_value: number | null;
     notes: string | null;
     owner_id: string | null;
+    show_time_tracking?: boolean;
   };
   owners: { id: string; label: string }[];
 }) {
@@ -36,6 +37,7 @@ export function OrgEditForm({
           annual_value: fd.get('annual_value') ? Number(fd.get('annual_value')) : null,
           notes: String(fd.get('notes') ?? ''),
           owner_id: (fd.get('owner_id') as string) || null,
+          show_time_tracking: fd.get('show_time_tracking') === 'on',
         };
         start(async () => {
           const res = await fetch(`/api/admin/organizations/${orgId}`, {
@@ -100,6 +102,17 @@ export function OrgEditForm({
             </option>
           ))}
         </select>
+      </label>
+
+      <label className="flex items-center gap-2 text-sm text-[#fafafa]">
+        <input
+          type="checkbox"
+          name="show_time_tracking"
+          defaultChecked={!!defaults.show_time_tracking}
+          data-testid="admin-org-time-tracking-toggle"
+          className="h-4 w-4 rounded border-[#3f3f46] bg-[#0f0f12]"
+        />
+        <span>Show time tracking to client</span>
       </label>
 
       <label className="space-y-1.5 block">
