@@ -83,15 +83,15 @@ test.describe('Phase 2F PR-B - admin availability editor', () => {
       'Skipping against prod.',
     );
     const sb = adminClient();
-    const { data: any } = await sb
+    const { data: anyRule } = await sb
       .from('studio_availability')
       .select('id')
       .limit(1)
       .maybeSingle();
-    test.skip(!any?.id, 'No studio_availability rows seeded.');
+    test.skip(!anyRule?.id, 'No studio_availability rows seeded.');
 
     const resp = await adminPage.request.patch(
-      `/api/admin/availability/${any!.id}`,
+      `/api/admin/availability/${anyRule!.id}`,
       { data: { start_time: '18:00', end_time: '09:00' } },
     );
     expect(resp.status()).toBe(400);

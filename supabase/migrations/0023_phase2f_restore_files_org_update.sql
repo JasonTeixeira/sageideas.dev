@@ -7,19 +7,20 @@
 -- re-uploaded; without it, both the old and new rows stay is_latest=true
 -- and the versioning UI shows duplicate file rows.
 --
--- This restores the original 0011 policy verbatim, keyed off org membership.
+-- Wraps auth.uid() with (SELECT auth.uid()) per init plan optimization
+-- (matches the pattern in 0019).
 
 DROP POLICY IF EXISTS files_org_update ON public.files;
 CREATE POLICY files_org_update ON public.files FOR UPDATE TO authenticated
   USING (
     organization_id IS NOT NULL AND EXISTS (
       SELECT 1 FROM public.org_memberships m
-      WHERE m.user_id = auth.uid() AND m.organization_id = files.organization_id
+      WHERE m.user_id = (SELECT auth.uid()) AND m.organization_id = files.organization_id
     )
   )
   WITH CHECK (
     organization_id IS NOT NULL AND EXISTS (
       SELECT 1 FROM public.org_memberships m
-      WHERE m.user_id = auth.uid() AND m.organization_id = files.organization_id
+      WHERE m.user_id = (SELECT auth.uid()) AND m.organization_id = files.organization_id
     )
   );
