@@ -58,7 +58,7 @@ function validateQualitySnapshot(payload, modeLabel) {
 async function main() {
   console.log(`Verifying production at ${SITE_URL}`);
 
-  // 1) Health endpoint — public, follows apex→www redirect.
+  // 1) Health endpoint — public, follows apex→www redirect. Must be healthy.
   {
     const res = await fetchWithTimeout(`${SITE_URL}/api/health`, {
       redirect: 'follow',
@@ -67,8 +67,8 @@ async function main() {
     expect(res.ok, `/api/health not OK (status ${res.status})`);
     const json = await res.json().catch(() => null);
     expect(json && typeof json === 'object', '/api/health returned non-JSON body');
-    expect(json?.status !== 'fail', `/api/health status=${json?.status} (expected ok|degraded)`);
-    ok(`/api/health reachable (status=${json?.status}, sha=${json?.sha ?? 'n/a'})`);
+    expect(json?.status === 'healthy', `/api/health status=${json?.status} (expected healthy)`);
+    ok(`/api/health healthy (sha=${json?.sha ?? 'n/a'})`);
   }
 
   // 2) Quality (default / live mode).

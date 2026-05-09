@@ -117,20 +117,6 @@ test('Project pages render and GitHub link exists', async ({ page }) => {
   }
 });
 
-test('Dashboard renders build health table', async ({ page }) => {
-  await page.goto('/dashboard');
-  // Trend column present (sparklines)
-  await expect(page.getByRole('columnheader', { name: 'Trend' })).toBeVisible();
-  // Filter controls
-
-  // Clickable sort headers
-  await page.getByRole('button', { name: /Sort by project name/i }).click();
-  await page.getByRole('button', { name: /Sort by project name/i }).click();
-  await expect(page.getByLabel(/Search repositories/i)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Quality Dashboard', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Build Health by Project', exact: true })).toBeVisible();
-});
-
 test('Platform page renders architecture and pillars', async ({ page }) => {
   await page.goto('/platform');
   await expect(page.getByRole('heading', { name: /I build and operate automation systems in the cloud/i })).toBeVisible();

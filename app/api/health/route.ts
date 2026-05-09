@@ -5,18 +5,22 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 /**
- * Phase 0 — health endpoint.
+ * Phase 0 — health endpoint (Phase 2G PR-3: drop auth probe).
+ *
+ * The previous incarnation hit Supabase /auth/v1/health, which always
+ * returns 401 to anon callers — making /api/health a permanent
+ * "degraded". DB reachability is the only meaningful signal, so we
+ * collapse to just db + env.
  *
  * Surface area:
- *   - HTTP 200 when the build is reachable AND Supabase responds within timeout
- *   - HTTP 503 if any required check fails
+ *   - HTTP 200 when env is set AND Supabase db responds within timeout
+ *   - HTTP 503 otherwise
  *
  * Payload:
  *   - sha          → Vercel commit SHA (or 'local')
  *   - environment  → Vercel env (production / preview / development / local)
  *   - region       → Vercel deployment region
- *   - checks.db    → 'ok' | 'fail' (anonymous Supabase ping with HEAD count on contract_templates)
- *   - checks.auth  → 'ok' | 'fail' (Supabase auth health endpoint)
+ *   - checks.db    → 'ok' | 'fail' (anonymous Supabase HEAD count on contract_templates)
  *   - checks.env   → 'ok' | 'fail' (required env vars present)
  *   - latency_ms   → per-check timings
  *
@@ -56,23 +60,6 @@ async function checkDb(): Promise<CheckResult> {
   return error ? { status: 'fail', latency_ms: ms, error } : { status: 'ok', latency_ms: ms };
 }
 
-async function checkAuth(): Promise<CheckResult> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!url) return { status: 'fail', latency_ms: 0, error: 'missing supabase url' };
-  const { ms, error } = await timed(async () => {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 4000);
-    try {
-      const res = await fetch(`${url}/auth/v1/health`, { signal: ctrl.signal });
-      if (!res.ok) throw new Error(`auth health http ${res.status}`);
-      return true;
-    } finally {
-      clearTimeout(t);
-    }
-  });
-  return error ? { status: 'fail', latency_ms: ms, error } : { status: 'ok', latency_ms: ms };
-}
-
 function checkEnv(): CheckResult {
   const required = ['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY'];
   const missing = required.filter((k) => !process.env[k]);
@@ -83,25 +70,21 @@ function checkEnv(): CheckResult {
 }
 
 export async function GET() {
-  const [db, auth] = await Promise.all([checkDb(), checkAuth()]);
+  const db = await checkDb();
   const env = checkEnv();
 
-  const overall: 'ok' | 'degraded' | 'fail' =
-    db.status === 'ok' && auth.status === 'ok' && env.status === 'ok'
-      ? 'ok'
-      : db.status === 'fail' || env.status === 'fail'
-      ? 'fail'
-      : 'degraded';
+  const overall: 'healthy' | 'fail' =
+    db.status === 'ok' && env.status === 'ok' ? 'healthy' : 'fail';
 
   const body = {
     status: overall,
+    ok: overall === 'healthy',
     sha: process.env.VERCEL_GIT_COMMIT_SHA ?? 'local',
     environment: process.env.VERCEL_ENV ?? 'local',
     region: process.env.VERCEL_REGION ?? null,
     timestamp: new Date().toISOString(),
     checks: {
       db,
-      auth,
       env,
     },
   };
