@@ -11,6 +11,30 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error('[app/global-error]', error)
+    // Report to /api/telemetry/error directly — this boundary sits above
+    // the layout so we can't import the client reporter component.
+    try {
+      const body = JSON.stringify({
+        message: error.message,
+        stack: error.stack ?? null,
+        digest: error.digest ?? null,
+        severity: 'error',
+        url: typeof window !== 'undefined' ? window.location.pathname : null,
+      })
+      if (navigator && typeof navigator.sendBeacon === 'function') {
+        const blob = new Blob([body], { type: 'application/json' })
+        navigator.sendBeacon('/api/telemetry/error', blob)
+      } else {
+        void fetch('/api/telemetry/error', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body,
+          keepalive: true,
+        }).catch(() => undefined)
+      }
+    } catch {
+      // best-effort
+    }
   }, [error])
 
   // Must include html + body — this replaces the root layout when it fails.

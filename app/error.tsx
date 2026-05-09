@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { ArrowRight, Home, RotateCcw } from 'lucide-react'
+import { reportError } from '@/components/client-error-reporter'
 
 export default function ErrorBoundary({
   error,
@@ -14,6 +15,12 @@ export default function ErrorBoundary({
   useEffect(() => {
     // Surfaces in Vercel logs; client-side console for local dev.
     console.error('[app/error]', error)
+    reportError({
+      message: error.message,
+      stack: error.stack ?? null,
+      digest: error.digest ?? null,
+      severity: 'error',
+    })
   }, [error])
 
   return (

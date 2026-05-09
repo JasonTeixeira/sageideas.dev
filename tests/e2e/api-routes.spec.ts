@@ -42,13 +42,10 @@ test.describe('API routes', () => {
     expect([401, 403, 404]).toContain(res.status());
   });
 
-  test('POST /api/sign/:token with invalid token → 4xx (not 500)', async ({ request }) => {
-    const res = await request.post('/api/sign/invalid-token', {
-      data: { signature: 'fake' },
-      headers: { 'content-type': 'application/json' },
-    });
-    expect(res.status()).toBeLessThan(500);
-  });
+  // Legacy /api/sign route was deleted in Phase 2F; the page-side 404
+  // assertion lives in public-pages.spec.ts and proposals-list.spec.ts —
+  // a duplicate API-side check is brittle (Next's response status for
+  // unmapped POSTs varies between dev/preview/prod) without adding signal.
 
   test('all sampled API endpoints respond within 3s', async ({ request }) => {
     const endpoints = [

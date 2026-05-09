@@ -272,7 +272,9 @@ export async function notifyContractSentForSignature(documentId: string) {
     .maybeSingle();
   if (!doc) return { ok: false, reason: 'no_document' as const };
 
-  const signUrl = doc.sign_token ? `${SITE}/sign/${doc.sign_token}` : `${SITE}/portal/documents/${doc.id}`;
+  const signUrl = doc.sign_token
+    ? `${SITE}/portal/documents/${doc.id}/sign?token=${encodeURIComponent(doc.sign_token as string)}`
+    : `${SITE}/portal/documents/${doc.id}`;
   const expiresAt = doc.sign_token_expires_at
     ? new Date(doc.sign_token_expires_at as string).toLocaleDateString()
     : undefined;
@@ -288,7 +290,9 @@ export async function notifyContractSentForSignature(documentId: string) {
         kind: 'contract_sent',
         title: `Contract to sign: ${doc.title}`,
         body: 'Review and sign in your portal.',
-        link: `/sign/${doc.sign_token ?? ''}`,
+        link: doc.sign_token
+          ? `/portal/documents/${doc.id}/sign?token=${encodeURIComponent(doc.sign_token as string)}`
+          : `/portal/documents/${doc.id}`,
         payload: { documentId: doc.id },
       });
     }

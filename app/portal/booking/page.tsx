@@ -4,6 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import { Topbar } from '@/components/portal/topbar';
 import { Card, CardContent } from '@/components/portal/ui/card';
 import { BookingForm, type EngagementOption } from '@/components/portal/booking-form';
+import { BookingList, type UpcomingBooking } from '@/components/portal/booking-list';
 import { generateSlots, type AvailabilityRow, type BookingRow } from '@/lib/portal/booking';
 
 export const dynamic = 'force-dynamic';
@@ -48,6 +49,20 @@ export default async function PortalBookingPage() {
 
   const slots = generateSlots({ availability, bookings });
 
+  // Pull this org's upcoming bookings (any status) so the user can cancel a
+  // confirmed slot or see a cancelled badge.
+  let upcoming: UpcomingBooking[] = [];
+  if (orgId) {
+    const { data: mine } = await sb
+      .from('bookings')
+      .select('id, starts_at, ends_at, meeting_kind, status')
+      .eq('organization_id', orgId)
+      .gte('starts_at', new Date().toISOString())
+      .order('starts_at', { ascending: true })
+      .limit(20);
+    upcoming = (mine ?? []) as UpcomingBooking[];
+  }
+
   const engagementOptions: EngagementOption[] = engagements.map((e) => ({
     id: e.id,
     title: e.title,
@@ -84,6 +99,13 @@ export default async function PortalBookingPage() {
         ) : (
           <BookingForm engagements={engagementOptions} slots={slots} />
         )}
+
+        <section className="mt-10" data-testid="bookings-upcoming">
+          <h2 className="text-sm font-medium tracking-tight text-[#fafafa] mb-3">
+            Upcoming bookings
+          </h2>
+          <BookingList bookings={upcoming} />
+        </section>
       </div>
     </>
   );

@@ -32,6 +32,7 @@ type ProposalRow = {
   resulting_invoice_id: string | null;
   notes: string | null;
   organization_id: string | null;
+  created_at: string | null;
   organizations: { name: string | null; primary_contact_email: string | null } | null;
 };
 
@@ -109,7 +110,7 @@ export default async function AdminProposalDetailPage({
         <Card>
           <CardContent className="p-6 space-y-4">
             <div className="grid grid-cols-2 gap-4 text-xs text-[#a1a1aa]">
-              <Meta label="Created" value={formatDate(proposal['accepted_at'] ?? null) || '—'} />
+              <Meta label="Created" value={formatDate(proposal.created_at) || '—'} />
               <Meta label="Sent" value={formatDate(proposal.sent_at)} />
               <Meta label="Viewed" value={formatDate(proposal.viewed_at)} />
               <Meta label="Accepted" value={formatDate(proposal.accepted_at)} />

@@ -17,7 +17,6 @@ const PUBLIC_PAGES = [
   '/signup',
   '/onboarding',
   '/unsubscribe',
-  '/sign/test-bad-token',
 ];
 
 test.describe('Public pages', () => {
@@ -46,10 +45,11 @@ test.describe('Public pages', () => {
     expect(body).toMatch(/sage/i);
   });
 
-  test('/sign/test-bad-token does not crash', async ({ request }) => {
+  test('/sign/test-bad-token returns 404 (legacy route deleted in Phase 2F)', async ({
+    request,
+  }) => {
     const res = await request.get('/sign/test-bad-token');
-    // Should be a 200 with friendly error, or 404 - just not a 5xx crash
-    expect(res.status()).toBeLessThan(500);
+    expect(res.status()).toBe(404);
   });
 
   test('legal pages return non-5xx', async ({ request }) => {
