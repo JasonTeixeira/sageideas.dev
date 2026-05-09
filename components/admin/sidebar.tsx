@@ -32,6 +32,7 @@ const NAV: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/proposals', label: 'Proposals', icon: FileSignature },
   { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
   { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
+  { href: '/admin/payments', label: 'Payments', icon: Receipt },
   { href: '/admin/documents', label: 'Documents', icon: FolderOpen },
   { href: '/admin/templates', label: 'Templates', icon: FileText },
   { href: '/admin/project-templates', label: 'Project templates', icon: KanbanSquare },
