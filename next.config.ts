@@ -35,6 +35,9 @@ const nextConfig: NextConfig = {
       { source: '/projects', destination: '/lab', permanent: true },
       // Phase 2A.5 — /portal/home was a duplicate dashboard, consolidated into /portal
       { source: '/portal/home', destination: '/portal', permanent: true },
+      // Phase 2H — Files feature lives at /portal/documents; stale /portal/files links 404'd.
+      { source: '/portal/files', destination: '/portal/documents', permanent: false },
+      { source: '/portal/files/:path*', destination: '/portal/documents/:path*', permanent: false },
       // Phase 2A.6 — /portal/admin/* consolidated into /admin/*
       { source: '/portal/admin', destination: '/admin', permanent: true },
       { source: '/portal/admin/clients', destination: '/admin/crm', permanent: true },

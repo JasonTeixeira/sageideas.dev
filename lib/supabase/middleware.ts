@@ -27,6 +27,10 @@ const PORTAL_VALID_SEGMENTS = new Set([
   'catalog',
   'documents',
   'engagements',
+  // 'files' is not a real segment — it's redirected to 'documents' in next.config.ts.
+  // Listed here so the middleware allowlist doesn't 404 the request before Next's
+  // redirects() machinery runs.
+  'files',
   'help',
   'home',
   'inbox',
