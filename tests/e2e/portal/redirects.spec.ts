@@ -22,4 +22,9 @@ test.describe('Phase 2A redirects', () => {
     await adminPage.goto('/portal/admin/activity', { waitUntil: 'domcontentloaded' });
     await expect(adminPage).toHaveURL(/\/admin\/audit-log(?:\/?$|\?)/);
   });
+
+  test('/portal/files redirects to /portal/documents', async ({ clientPage }) => {
+    await clientPage.goto('/portal/files', { waitUntil: 'domcontentloaded' });
+    expect(clientPage.url()).toContain('/portal/documents');
+  });
 });
