@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { HealthStatus, QualityHistory, QualityMetricsSnapshot, QualityProjectMetric } from '@/lib/qualityMetrics';
 import { mergeQaMetricsIntoProject, tryFetchQaMetrics } from '@/lib/githubArtifacts';
-import { tryFetchAwsMetricsLatest } from '@/lib/awsMetrics';
-
-type DebugInfo =
-  | { source: 'aws-proxy' }
-  | { source: 'snapshot-fallback'; awsNotes: string };
 
 export const dynamic = 'force-dynamic';
 
@@ -40,7 +35,6 @@ const WRITE_TOKEN = process.env.QUALITY_GITHUB_TOKEN;
 
 const CACHE_TTL_MS = 60_000; // 1 minute
 let liveCache: { ts: number; data: QualityMetricsSnapshot } | null = null;
-let awsCache: { ts: number; data: QualityMetricsSnapshot } | null = null;
 let historyCache: { ts: number; data: QualityHistory } | null = null;
 
 async function ghFetch(url: string) {
@@ -198,48 +192,6 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const mode = url.searchParams.get('mode') || 'latest';
 
-  // Optional cloud-backed mode (S3). Best-effort; falls back to snapshot if not configured.
-  if (mode === 'aws') {
-    const now = Date.now();
-    if (awsCache && now - awsCache.ts < CACHE_TTL_MS) {
-      return NextResponse.json(awsCache.data, {
-        headers: { 'Cache-Control': 'no-store' },
-      });
-    }
-
-    const aws = await tryFetchAwsMetricsLatest();
-    if (aws.ok) {
-      const data: QualityMetricsSnapshot & { debug?: DebugInfo } = {
-        ...aws.snapshot,
-        summary: {
-          ...(aws.snapshot.summary ?? {}),
-          notes: aws.notes || 'Loaded from AWS S3.',
-        },
-      };
-      data.debug = {
-        source: 'aws-proxy',
-      };
-      awsCache = { ts: now, data };
-      return NextResponse.json(data, { headers: { 'Cache-Control': 'no-store' } });
-    }
-
-    const fallback = await getStaticSnapshot();
-    const data: QualityMetricsSnapshot & { debug?: DebugInfo } = {
-      ...fallback,
-      summary: {
-        ...(fallback.summary || {}),
-        overallStatus: 'degraded',
-        notes: `AWS mode unavailable; using snapshot. (${aws.notes})`,
-      },
-    };
-    data.debug = {
-      source: 'snapshot-fallback',
-      awsNotes: aws.notes,
-    };
-    awsCache = { ts: now, data };
-    return NextResponse.json(data, { headers: { 'Cache-Control': 'no-store' } });
-  }
-
   if (mode === 'history') {
     const now = Date.now();
     if (historyCache && now - historyCache.ts < CACHE_TTL_MS) {
@@ -253,6 +205,13 @@ export async function GET(request: Request) {
     const history = await getStaticHistory();
     historyCache = { ts: now, data: history };
     return NextResponse.json(history, {
+      headers: { 'Cache-Control': 'no-store' },
+    });
+  }
+
+  if (mode === 'snapshot') {
+    const snapshot = await getStaticSnapshot();
+    return NextResponse.json(snapshot, {
       headers: { 'Cache-Control': 'no-store' },
     });
   }
