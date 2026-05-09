@@ -40,59 +40,77 @@ export async function POST(req: Request) {
 
   const sb = supabaseAdmin();
 
-  // Replay protection — insert-first into stripe_event_log so a duplicate
-  // delivery is rejected by the unique constraint on event_id before any
-  // side-effects run. Stripe retries failed deliveries for up to 3 days.
-  const { error: logErr } = await sb.from('stripe_event_log').insert({
+  // Replay protection — insert-first into stripe_webhook_events keyed on
+  // event.id. The unique-violation path acks immediately so Stripe stops
+  // retrying. A failure to log is fail-closed (503) so an event is never
+  // processed without a row that admins can later inspect.
+  const { error: logErr } = await sb.from('stripe_webhook_events').insert({
     event_id: event.id,
     event_type: event.type,
+    status: 'received',
     payload: event as unknown as Record<string, unknown>,
   });
   if (logErr) {
-    // 23505 = unique_violation → already processed; ack 200 immediately.
     if ((logErr as { code?: string }).code === '23505') {
+      await sb
+        .from('stripe_webhook_events')
+        .update({ status: 'duplicate' })
+        .eq('event_id', event.id)
+        .neq('status', 'processed');
       return NextResponse.json({ received: true, duplicate: true });
     }
-    // Any other insert failure: dedup not guaranteed. Refuse to process and
-    // return 503 so Stripe retries rather than risk double-processing.
     console.error('[stripe/webhook] event_log insert', logErr);
     return NextResponse.json({ error: 'event log unavailable' }, { status: 503 });
   }
 
   try {
-    switch (event.type) {
-      case 'checkout.session.completed':
-        await handleCheckoutCompleted(sb, event.data.object as Stripe.Checkout.Session);
-        break;
-      case 'invoice.paid':
-      case 'invoice.payment_succeeded':
-        await handleInvoicePaymentSucceeded(sb, event.data.object as Stripe.Invoice);
-        await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.paid');
-        break;
-      case 'invoice.payment_failed':
-        await handleInvoicePaymentFailed(sb, event.data.object as Stripe.Invoice);
-        await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.payment_failed');
-        break;
-      case 'customer.subscription.updated':
-      case 'customer.subscription.created':
-        await upsertSubscription(sb, event.data.object as Stripe.Subscription);
-        break;
-      case 'customer.subscription.deleted':
-        await markSubscriptionCanceled(sb, event.data.object as Stripe.Subscription);
-        break;
-      case 'charge.refunded':
-        await handleChargeRefunded(sb, event.data.object as Stripe.Charge);
-        break;
-      default:
-        // Other events — logged but not processed.
-        break;
-    }
+    await dispatchEvent(sb, event);
+    await sb
+      .from('stripe_webhook_events')
+      .update({ status: 'processed', processed_at: new Date().toISOString(), error: null })
+      .eq('event_id', event.id);
+    return NextResponse.json({ received: true });
   } catch (err) {
-    console.error('[stripe/webhook] handler error', event.type, err);
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[stripe/webhook] handler error', event.type, msg);
+    await sb
+      .from('stripe_webhook_events')
+      .update({ status: 'failed', error: msg.slice(0, 1000) })
+      .eq('event_id', event.id);
     return NextResponse.json({ error: 'Handler failed' }, { status: 500 });
   }
+}
 
-  return NextResponse.json({ received: true });
+export async function dispatchEvent(sb: Sb, event: Stripe.Event): Promise<void> {
+  switch (event.type) {
+    case 'checkout.session.completed':
+      await handleCheckoutCompleted(sb, event.data.object as Stripe.Checkout.Session);
+      return;
+    case 'invoice.paid':
+    case 'invoice.payment_succeeded':
+      await handleInvoicePaymentSucceeded(sb, event.data.object as Stripe.Invoice);
+      await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.paid');
+      return;
+    case 'invoice.payment_failed':
+      await handleInvoicePaymentFailed(sb, event.data.object as Stripe.Invoice);
+      await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.payment_failed');
+      return;
+    case 'customer.subscription.updated':
+    case 'customer.subscription.created':
+      await upsertSubscription(sb, event.data.object as Stripe.Subscription);
+      return;
+    case 'customer.subscription.deleted':
+      await markSubscriptionCanceled(sb, event.data.object as Stripe.Subscription);
+      return;
+    case 'charge.refunded':
+      await handleChargeRefunded(sb, event.data.object as Stripe.Charge);
+      return;
+    default:
+      // Unhandled event types are still logged in stripe_webhook_events;
+      // we 200 below so Stripe doesn't retry events we don't act on.
+      console.log('[stripe/webhook] unhandled event type', event.type);
+      return;
+  }
 }
 
 type Sb = ReturnType<typeof supabaseAdmin>;
