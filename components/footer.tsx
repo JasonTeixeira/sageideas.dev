@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react'
-import { SageLogo } from '@/components/sage-logo'
 
 // Services grouped by outcome — no prices, no menu-card vibe.
 const servicesBuild = [
@@ -77,7 +76,7 @@ export function Footer() {
               href="/"
               className="inline-flex items-center gap-2.5 text-xl font-bold text-[#FAFAFA] tracking-tight hover:text-[#0ED3CF] transition-colors group"
             >
-<SageLogo size="sm" showText={false} />
+<img src="/brand/sage-logo.png" alt="" className="h-8 w-auto" aria-hidden />
               <span className="tracking-[0.08em] text-[17px] font-semibold">SAGE IDEAS</span>
             </Link>
             <p className="text-sm text-[#A8A29E] leading-relaxed max-w-sm">

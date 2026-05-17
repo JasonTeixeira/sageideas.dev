@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { SageLogo } from '@/components/sage-logo'
 import type { Metadata } from 'next'
 import { ArrowRight, Home } from 'lucide-react'
 
@@ -33,7 +32,7 @@ export default function NotFound() {
               </span>
             </div>
             <div className="flex items-center gap-4 mb-2">
-              <SageLogo size="sm" showText={false} />
+              <img src="/brand/sage-logo.png" alt="" className="h-10 w-auto opacity-80" aria-hidden />
               <span className="text-xs font-mono uppercase tracking-widest text-[#57534E]">Sage Ideas</span>
             </div>
             <h1 className="text-7xl sm:text-8xl font-normal text-[#FAFAFA] leading-none tracking-tight">

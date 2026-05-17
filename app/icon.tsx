@@ -3,6 +3,7 @@ import { ImageResponse } from 'next/og'
 export const size = { width: 32, height: 32 }
 export const contentType = 'image/png'
 
+/** Branded S-mark favicon — gradient matching the real logo colors */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -15,24 +16,23 @@ export default function Icon() {
           justifyContent: 'center',
           background: '#09090B',
           borderRadius: 6,
-          border: '1.5px solid #2A2826',
-          overflow: 'hidden',
         }}
       >
+        {/* Gradient S matching the logo ribbon flow */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: 24,
-            height: 24,
-            background: 'linear-gradient(135deg, #E85D3A, #A8C633, #0ED3CF)',
-            borderRadius: 5,
-            color: '#09090B',
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: 800,
             fontFamily: 'Georgia, serif',
             fontStyle: 'italic',
+            background: 'linear-gradient(180deg, #E85D3A 0%, #C7236E 35%, #A8C633 65%, #0ED3CF 100%)',
+            backgroundClip: 'text',
+            color: 'transparent',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
           }}
         >
           S

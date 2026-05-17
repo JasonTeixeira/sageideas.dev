@@ -31,7 +31,6 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { SageLogo } from '@/components/sage-logo'
 
 // ────────────────────────────────────────────────────────────────────────────
 // Mega-menu data
@@ -462,10 +461,11 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
           {/* Wordmark — left */}
           <Link
             href="/"
-            className="shrink-0 text-lg font-bold tracking-tight text-[#FAFAFA] hover:text-[#0ED3CF] transition-colors whitespace-nowrap"
+            className="shrink-0 flex items-center gap-2.5 hover:opacity-90 transition-opacity"
             aria-label="Sage Ideas — Home"
           >
-            SAGE IDEAS
+            <img src="/brand/sage-logo.png" alt="" className="h-7 w-auto" aria-hidden />
+            <span className="text-[15px] font-semibold tracking-[0.08em] text-[#F4F2EF]">SAGE IDEAS</span>
           </Link>
 
           {/* Center cluster — primary nav */}
