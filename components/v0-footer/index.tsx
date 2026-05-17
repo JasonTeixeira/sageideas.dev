@@ -9,30 +9,30 @@ const navColumns = [
   {
     heading: 'Build',
     links: [
-      { label: 'Build', href: '/build' },
-      { label: 'Ship', href: '/build/ship' },
-      { label: 'App Development', href: '/build/app-development' },
-      { label: 'Automate', href: '/build/automate' },
-      { label: 'Brand Sprint', href: '/build/brand-sprint' },
+      { label: 'Build', href: '/services/build' },
+      { label: 'Ship', href: '/services/ship' },
+      { label: 'App Development', href: '/services/app-development' },
+      { label: 'Automate', href: '/services/automate' },
+      { label: 'Brand Sprint', href: '/services/brand-sprint' },
     ],
   },
   {
     heading: 'Grow',
     links: [
       { label: 'Grow', href: '/grow' },
-      { label: 'Sage Audit', href: '/grow/audit' },
-      { label: 'SEO Sprint', href: '/grow/seo' },
-      { label: 'Content Engine', href: '/grow/content' },
-      { label: 'Scale', href: '/grow/scale' },
+      { label: 'Sage Audit', href: '/services/audit' },
+      { label: 'SEO Sprint', href: '/services/seo' },
+      { label: 'Content Engine', href: '/services/content' },
+      { label: 'Scale', href: '/services/scale' },
     ],
   },
   {
     heading: 'Operate',
     links: [
       { label: 'Operate', href: '/operate' },
-      { label: 'Site Care', href: '/operate/site-care' },
-      { label: 'Brand Care', href: '/operate/brand-care' },
-      { label: 'Content Care', href: '/operate/content-care' },
+      { label: 'Site Care', href: '/services/site-care' },
+      { label: 'Brand Care', href: '/services/brand-care' },
+      { label: 'Content Care', href: '/services/content-care' },
     ],
   },
   {

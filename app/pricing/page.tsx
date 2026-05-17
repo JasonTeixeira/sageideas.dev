@@ -3,6 +3,7 @@ import { tiersOrdered, careTiers } from '@/data/services/tiers'
 import { extendedTiers } from '@/data/services/extended'
 import { pricingFaq } from '@/data/services/pricing-faq'
 import { PricingContent } from './pricing-content'
+import V0PricingPage from '@/components/v0-pricing/pricing-page'
 import { ExtendedPricingMenu } from './extended-pricing-menu'
 import { JsonLd } from '@/components/json-ld'
 import { PageViewTracker } from '@/components/analytics/page-view-tracker'
@@ -49,7 +50,7 @@ export default function PricingPage() {
     <>
       <JsonLd data={[faqSchema, breadcrumbSchema]} />
       <PageViewTracker event="pricing_view" />
-      <PricingContent tiers={tiersOrdered} />
+      <V0PricingPage heroImageSrc="/images/hero-pricing.jpg" />
       <ExtendedPricingMenu extended={extendedTiers} care={careTiers} />
     </>
   )

@@ -1,12 +1,12 @@
 "use client"
 
-import { PricingNav } from "@/components/pricing-nav"
-import { PricingHero } from "@/components/pricing-hero"
-import { TierCards } from "@/components/tier-cards"
-import { ComparisonTable } from "@/components/comparison-table"
-import { CarePlans } from "@/components/care-plans"
-import { FAQAccordion } from "@/components/faq-accordion"
-import { FinalCTA } from "@/components/final-cta"
+import { PricingNav } from "@/components/v0-pricing/pricing-nav"
+import { PricingHero } from "@/components/v0-pricing/pricing-hero"
+import { TierCards } from "@/components/v0-pricing/tier-cards"
+import { ComparisonTable } from "@/components/v0-pricing/comparison-table"
+import { CarePlans } from "@/components/v0-pricing/care-plans"
+import { FAQAccordion } from "@/components/v0-pricing/faq-accordion"
+import { FinalCTA } from "@/components/v0-pricing/final-cta"
 
 interface PricingPageProps {
   heroImageSrc?: string

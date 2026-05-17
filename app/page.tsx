@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -15,44 +14,16 @@ import {
 import { Button } from '@/components/ui/button'
 import { SectionLabel } from '@/components/section-label'
 import { FounderPortrait } from '@/components/founder-portrait'
-import { HeroMotionLayer } from '@/components/hero-motion-layer'
 import { GlowCard } from '@/components/glow-card'
 import { MetricCounter } from '@/components/metric-counter'
 import { GitHubActivity } from '@/components/github-activity'
-import { ProductRotator, type RotatorItem } from '@/components/home/product-rotator'
 import { TypewriterLines, Stagger, StaggerItem, HoverGlow } from '@/components/motion'
 import { TestimonialCarousel } from '@/components/social-proof/testimonial-carousel'
 import { testimonials } from '@/data/social-proof/testimonials'
 import { TrackedLink } from '@/components/analytics/tracked-link'
+import HeroSection from '@/components/v0-hero-section'
 import { LogoStrip } from '@/components/logo-strip'
 
-const HERO_ROTATOR_ITEMS: RotatorItem[] = [
-  {
-    src: '/work/screens/nexural-1.png',
-    alt: 'Nexural fintech platform — datasets dashboard',
-    project: 'Nexural — Fintech Platform',
-    url: 'nexural.dev / dashboard',
-  },
-  {
-    src: '/work/screens/alphastream-1.png',
-    alt: 'AlphaStream live trading dashboard with 200+ indicators',
-    project: 'AlphaStream — ML Trading Engine',
-    url: 'alphastream.io / live',
-  },
-  {
-    src: '/work/screens/jobpoise-1.png',
-    alt: 'JobPoise mock interview session',
-    project: 'JobPoise — Interview Coach',
-    url: 'jobpoise.app / sessions',
-  },
-  {
-    src: '/work/screens/quality-telemetry-1.png',
-    alt: 'Quality telemetry SLO dashboard',
-    project: 'Quality Telemetry — SLO Board',
-    url: 'telemetry.sageideas.dev',
-  },
-]
-import { FloatingOrbs } from '@/components/floating-orbs'
 import { TestimonialCard } from '@/components/testimonial-card'
 import { references, trustedBy } from '@/data/references'
 
@@ -201,149 +172,18 @@ const homepageStats = [
 export default function HomePage() {
   return (
     <div className="overflow-hidden">
-      <FloatingOrbs />
 
-      {/* HERO */}
-      {/* Hero background image — optimized */}
-      <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
-        <Image
-          src="/images/hero-abstract.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          aria-hidden="true"
-        />
-      </div>
-      <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
-        <HeroMotionLayer intensity="medium" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left: Copy */}
-            <motion.div className="lg:col-span-7 space-y-8" {...fadeInUp}>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 mb-2"><img src="/brand/sage-logo.png" alt="" className="h-8 w-auto" aria-hidden /><SectionLabel>Sage Ideas · Studio</SectionLabel></div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tight text-[#FAFAFA] leading-[1.05]">
-                  <TypewriterLines
-                    lines={[
-                      'I build AI systems.',
-                      'I ship them to production.',
-                      'I keep them healthy.',
-                    ]}
-                    speed={42}
-                    cursorChar="▌"
-                    lineClassName="block"
-                  />
-                </h1>
-                <p className="text-lg lg:text-xl text-[#A8A29E] leading-relaxed max-w-2xl">
-                  Sage Ideas is a one-person studio for founders who need it built right the
-                  first time. Full-stack, AI-native, billing-grade. No agency middleman, no
-                  offshore handoff, no swap-in resource on your account.
-                </p>
-              </div>
+      {/* HERO — v0 generated */}
+      <HeroSection
+        logoMark={<img src="/brand/sage-logo.png" alt="" className="h-8 w-auto" aria-hidden />}
+        projects={[
+          { name: 'Nexural', url: 'nexural.dev', screenshot: '/work/screens/nexural-1.png', accent: '#0ED3CF' },
+          { name: 'AlphaStream', url: 'alphastream.io', screenshot: '/work/screens/alphastream-1.png', accent: '#E85D3A' },
+          { name: 'Jobpoise', url: 'jobpoise.app', screenshot: '/work/screens/jobpoise-1.png', accent: '#A8C633' },
+          { name: 'Quality Telemetry', url: 'telemetry.sageideas.dev', screenshot: '/work/screens/quality-telemetry-1.png', accent: '#C7236E' },
+        ]}
+      />
 
-              <div className="flex flex-wrap items-center gap-3">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold shadow-lg shadow-[#0ED3CF]/20 hover:shadow-[#0ED3CF]/30 transition-all"
-                >
-                  <Link href="/book">
-                    Book a Discovery Call
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="ghost"
-                  className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826] hover:border-[#0ED3CF]/40 transition-all"
-                >
-                  <Link href="/work">See Our Work</Link>
-                </Button>
-              </div>
-
-              {/* Trust micro-strip */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#78716C] pt-4 border-t border-[#2A2826]">
-                <span>9 certifications</span>
-                <span aria-hidden>·</span>
-                <span>106 public repos</span>
-                <span aria-hidden>·</span>
-                <span>1,438 commits last year</span>
-                <span aria-hidden>·</span>
-                <span>6 live products</span>
-              </div>
-            </motion.div>
-
-            {/* Right: Product rotator */}
-            <motion.div
-              className="lg:col-span-5"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <ProductRotator items={HERO_ROTATOR_ITEMS} />
-            </motion.div>
-          </div>
-
-          {/* Three-lane CTA strip */}
-          <motion.div
-            className="mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Link
-              href="/pricing#productized"
-              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#0ED3CF]/50 rounded-2xl px-6 py-5 transition-all"
-            >
-              <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-1">
-                  Productized
-                </div>
-                <div className="text-sm text-[#FAFAFA]">
-                  Fixed-scope engagements from $750 to $9,500+. Stripe checkout.
-                </div>
-              </div>
-              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#0ED3CF] group-hover:translate-x-1 transition-all" />
-            </Link>
-            <Link
-              href="/pricing#care"
-              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#E85D3A]/50 rounded-2xl px-6 py-5 transition-all"
-            >
-              <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#E85D3A] mb-1">
-                  Care
-                </div>
-                <div className="text-sm text-[#FAFAFA]">
-                  Monthly retainers from $300 to $800. Cancel any month.
-                </div>
-              </div>
-              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#E85D3A] group-hover:translate-x-1 transition-all" />
-            </Link>
-            <Link
-              href="/services/studio-engagement"
-              className="group flex items-center justify-between bg-gradient-to-br from-[#0ED3CF]/[0.05] via-[#12110F] to-[#E85D3A]/[0.05] border border-[#2A2826] hover:border-[#C7236E]/50 rounded-2xl px-6 py-5 transition-all sm:col-span-2 lg:col-span-1"
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Lock className="w-3 h-3 text-[#FAFAFA]" />
-                  <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#FAFAFA]">
-                    Studio Engagement
-                  </div>
-                </div>
-                <div className="text-sm text-[#FAFAFA]">
-                  From $25k/quarter. By application. 3 slots a year.
-                </div>
-              </div>
-              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#FAFAFA] group-hover:translate-x-1 transition-all" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      
       {/* WHAT WE DO */}
       <section className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
