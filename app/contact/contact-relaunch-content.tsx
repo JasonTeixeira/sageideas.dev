@@ -9,6 +9,7 @@ import { ArrowRight, Calendar, CheckCircle2, Clock, Loader2, MessageSquare, Rock
 import { SectionLabel } from '@/components/section-label'
 import { GlowCard } from '@/components/glow-card'
 import { Button } from '@/components/ui/button'
+import { PageHeroBg } from '@/components/page-hero-bg'
 import { extendedTiersBySlug } from '@/data/services/extended'
 import { tiersBySlug, careTiers } from '@/data/services/tiers'
 import { CapacitySignal } from '@/components/social-proof/capacity-signal'

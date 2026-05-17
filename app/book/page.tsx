@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SectionLabel } from '@/components/section-label'
 import { ArrowRight, Mail, Calendar } from 'lucide-react'
+import { FounderPortrait } from '@/components/founder-portrait'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.sageideas.dev/book' },
@@ -24,6 +26,7 @@ export default function BookPage() {
     <div className="min-h-screen bg-[#09090B]">
       {/* Hero */}
       <section className="relative overflow-hidden">
+        <PageHeroBg src="/images/hero-abstract.jpg" />
         <div className="absolute inset-0 grid-pattern opacity-20" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
           <div className="max-w-2xl">
@@ -133,6 +136,21 @@ export default function BookPage() {
                 sage@sageideas.dev <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
+          </div>
+        </div>
+
+        {/* Founder sidebar */}
+        <div className="mt-16 flex flex-col lg:flex-row gap-8 items-start">
+          <div className="lg:w-48 shrink-0">
+            <FounderPortrait size="md" caption={false} />
+            <p className="mt-3 text-center text-xs text-[#78716C] font-mono">Jason Teixeira</p>
+          </div>
+          <div className="flex-1 rounded-xl border border-[#2A2826] bg-[#12110F] p-6">
+            <p className="text-sm text-[#A8A29E] leading-relaxed">
+              &ldquo;I take these calls myself. No sales rep, no account manager. If we&rsquo;re a fit,
+              I&rsquo;ll tell you exactly what I&rsquo;d build, how long it takes, and what it costs.
+              If we&rsquo;re not, I&rsquo;ll tell you that too.&rdquo;
+            </p>
           </div>
         </div>
 

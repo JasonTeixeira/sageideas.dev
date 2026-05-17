@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { SectionLabel } from '@/components/section-label'
+import { PullQuote, Callout, SectionDivider } from '@/components/pull-quote'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.sageideas.dev/pov' },
@@ -22,7 +24,8 @@ export default function POVPage() {
     <div className="min-h-screen bg-[#09090B]">
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(6,182,212,0.10),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(139,92,246,0.08),transparent_55%)]" />
+        <PageHeroBg src="/images/hero-trust.jpg" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(14,211,207,0.10),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(232,93,58,0.06),transparent_55%)]" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
           <SectionLabel>Sage Ideas · POV</SectionLabel>
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight leading-[1.05]">
@@ -68,6 +71,12 @@ export default function POVPage() {
             production fintech, billing systems, and AI-native products without
             a 24/7 ops team behind it.
           </p>
+
+          <PullQuote>
+            Every change we ship either rolls back in under 30 seconds, or it doesn&rsquo;t ship that day.
+          </PullQuote>
+
+          <SectionDivider />
 
           <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             What &ldquo;30-second rollback&rdquo; actually means.
