@@ -24,6 +24,7 @@ import { TypewriterLines, Stagger, StaggerItem, HoverGlow } from '@/components/m
 import { TestimonialCarousel } from '@/components/social-proof/testimonial-carousel'
 import { testimonials } from '@/data/social-proof/testimonials'
 import { TrackedLink } from '@/components/analytics/tracked-link'
+import { SageLogo } from '@/components/sage-logo'
 import { LogoStrip } from '@/components/logo-strip'
 
 const HERO_ROTATOR_ITEMS: RotatorItem[] = [
@@ -223,7 +224,7 @@ export default function HomePage() {
             {/* Left: Copy */}
             <motion.div className="lg:col-span-7 space-y-8" {...fadeInUp}>
               <div className="space-y-4">
-                <div className="flex items-center gap-3 mb-2"><img src="/brand/sage-logo.png" alt="" className="w-8 h-8" aria-hidden /><SectionLabel>Sage Ideas · Studio</SectionLabel></div>
+                <div className="flex items-center gap-3 mb-2"><SageLogo size="sm" showText={false} /><SectionLabel>Sage Ideas · Studio</SectionLabel></div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tight text-[#FAFAFA] leading-[1.05]">
                   <TypewriterLines
                     lines={[
