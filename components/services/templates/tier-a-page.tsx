@@ -62,12 +62,12 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <motion.div {...fadeUp} className="max-w-3xl">
-            <div className="flex items-center gap-2 mb-6 text-xs font-mono uppercase tracking-widest text-[#71717A]">
-              <Link href="/services" className="hover:text-[#06B6D4] transition-colors">
+            <div className="flex items-center gap-2 mb-6 text-xs font-mono uppercase tracking-widest text-[#78716C]">
+              <Link href="/services" className="hover:text-[#0ED3CF] transition-colors">
                 Services
               </Link>
               <span>·</span>
-              <span className="text-[#A1A1AA] capitalize">{tier.capability}</span>
+              <span className="text-[#A8A29E] capitalize">{tier.capability}</span>
             </div>
 
             <div className="flex items-center gap-4 mb-6">
@@ -81,16 +81,16 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
               {tier.name}
             </h1>
             <p className={`mt-4 text-xl ${accent.text} font-medium`}>{tier.tagline}</p>
-            <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed">{tier.description}</p>
+            <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">{tier.description}</p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-bold text-[#FAFAFA]">{tier.price}</span>
                 {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
-                  <span className="text-[#71717A] text-sm">/mo</span>
+                  <span className="text-[#78716C] text-sm">/mo</span>
                 )}
               </div>
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#A1A1AA]">
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#A8A29E]">
                 <Clock className="w-4 h-4" />
                 {tier.timeline}
               </span>
@@ -101,7 +101,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
                 {stack.map((chip) => (
                   <span
                     key={chip}
-                    className="text-xs font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-2.5 py-1 rounded-full"
+                    className="text-xs font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-2.5 py-1 rounded-full"
                   >
                     {chip}
                   </span>
@@ -110,13 +110,13 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
             )}
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B]">
+              <Button asChild size="lg" className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B]">
                 <Link href={tier.ctaHref}>
                   {tier.cta}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-[#27272A] text-[#FAFAFA] hover:bg-[#18181B]">
+              <Button asChild size="lg" variant="outline" className="border-[#2A2826] text-[#FAFAFA] hover:bg-[#1A1917]">
                 <Link href="/contact">Have a question first?</Link>
               </Button>
             </div>
@@ -130,7 +130,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
         <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
           Concrete artifacts you keep.
         </h2>
-        <p className="mt-3 text-[#A1A1AA] max-w-2xl">
+        <p className="mt-3 text-[#A8A29E] max-w-2xl">
           Every line below ships during the engagement. No “TBDs”, no slide-deck hand-waving —
           working code, written docs, and dashboards your team owns.
         </p>
@@ -168,7 +168,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
           {tier.outcomes.map((o) => (
             <li
               key={o}
-              className="flex items-start gap-3 p-4 rounded-xl border border-[#27272A] bg-[#18181B]"
+              className="flex items-start gap-3 p-4 rounded-xl border border-[#2A2826] bg-[#1A1917]"
             >
               <Check className={`w-5 h-5 ${accent.text} shrink-0 mt-0.5`} />
               <span className="text-[#FAFAFA] leading-relaxed">{o}</span>
@@ -192,7 +192,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="rounded-xl border border-[#27272A] bg-[#18181B] p-5 flex flex-col md:flex-row md:items-center gap-4"
+                className="rounded-xl border border-[#2A2826] bg-[#1A1917] p-5 flex flex-col md:flex-row md:items-center gap-4"
               >
                 <div className="flex items-center gap-3 md:w-44 shrink-0">
                   <span
@@ -200,13 +200,13 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
                   >
                     {i + 1}
                   </span>
-                  <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA]">
+                  <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E]">
                     {phase.label}
                   </span>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-[#FAFAFA]">{phase.title}</h3>
-                  <p className="text-sm text-[#A1A1AA] mt-1">{phase.description}</p>
+                  <p className="text-sm text-[#A8A29E] mt-1">{phase.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -224,16 +224,16 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
               <Link
                 key={cs.slug}
                 href={`/work/${cs.slug}`}
-                className="group rounded-xl border border-[#27272A] bg-[#18181B] p-6 hover:border-[#06B6D4]/40 transition-colors"
+                className="group rounded-xl border border-[#2A2826] bg-[#1A1917] p-6 hover:border-[#0ED3CF]/40 transition-colors"
               >
-                <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
                   Case study
                 </span>
-                <h3 className="mt-2 text-xl font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+                <h3 className="mt-2 text-xl font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
                   {cs.title}
                 </h3>
-                <p className="mt-2 text-sm text-[#A1A1AA] line-clamp-2">{cs.tagline}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm text-[#06B6D4]">
+                <p className="mt-2 text-sm text-[#A8A29E] line-clamp-2">{cs.tagline}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm text-[#0ED3CF]">
                   Read case study <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>
@@ -262,10 +262,10 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
             {tier.faq.slice(0, 4).map((f) => (
               <div
                 key={f.q}
-                className="rounded-xl border border-[#27272A] bg-[#18181B] p-5"
+                className="rounded-xl border border-[#2A2826] bg-[#1A1917] p-5"
               >
                 <dt className="text-base font-semibold text-[#FAFAFA]">{f.q}</dt>
-                <dd className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">{f.a}</dd>
+                <dd className="mt-2 text-sm text-[#A8A29E] leading-relaxed">{f.a}</dd>
               </div>
             ))}
           </dl>
@@ -275,21 +275,21 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <h2 className="text-4xl font-bold text-[#FAFAFA]">Ready to scope {tier.shortName}?</h2>
-        <p className="mt-4 text-lg text-[#A1A1AA] max-w-2xl mx-auto">
+        <p className="mt-4 text-lg text-[#A8A29E] max-w-2xl mx-auto">
           A 30-minute call to confirm fit, scope, and timeline. No pressure, no slides.
         </p>
         <div className="mt-8 inline-flex flex-wrap justify-center gap-3">
-          <Button asChild size="lg" className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B]">
+          <Button asChild size="lg" className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B]">
             <Link href={tier.ctaHref}>
               {tier.cta}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-[#27272A] text-[#FAFAFA] hover:bg-[#18181B]">
+          <Button asChild size="lg" variant="outline" className="border-[#2A2826] text-[#FAFAFA] hover:bg-[#1A1917]">
             <Link href="/services">All services</Link>
           </Button>
         </div>
-        <p className="mt-6 text-xs font-mono uppercase tracking-widest text-[#52525B] inline-flex items-center gap-2">
+        <p className="mt-6 text-xs font-mono uppercase tracking-widest text-[#57534E] inline-flex items-center gap-2">
           <Calendar className="w-3.5 h-3.5" /> Average reply: 3 hours, business days
         </p>
       </section>

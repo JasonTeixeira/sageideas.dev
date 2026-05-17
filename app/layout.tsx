@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Instrument_Serif, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { headers } from 'next/headers'
@@ -10,15 +10,23 @@ import { PostHogProvider } from '@/components/analytics/posthog-provider'
 import { WebVitalsReporter } from '@/components/web-vitals-reporter'
 import { ClientErrorReporter } from '@/components/client-error-reporter'
 
-const inter = Inter({
+const display = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-display',
   display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -174,9 +182,10 @@ export default async function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${jetbrainsMono.variable} bg-[#09090B]`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} bg-[#09090B]`}
     >
       <body className="font-sans antialiased min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

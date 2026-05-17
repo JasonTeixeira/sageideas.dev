@@ -53,7 +53,7 @@ export function StickyCta({
       role="region"
       aria-label="Call to action"
     >
-      <div className="bg-[#18181B]/95 backdrop-blur border-t border-[#27272A] py-3 px-4">
+      <div className="bg-[#1A1917]/95 backdrop-blur border-t border-[#2A2826] py-3 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
           <p className="text-[#FAFAFA] text-sm sm:text-base font-medium truncate">
             {pitch}
@@ -61,14 +61,14 @@ export function StickyCta({
           <div className="flex items-center gap-2 shrink-0">
             <Link
               href={ctaHref}
-              className="inline-flex items-center gap-1.5 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
             >
               {ctaLabel}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <button
               onClick={handleDismiss}
-              className="p-2 text-[#71717A] hover:text-[#FAFAFA] hover:bg-[#27272A] rounded-lg transition-colors"
+              className="p-2 text-[#78716C] hover:text-[#FAFAFA] hover:bg-[#2A2826] rounded-lg transition-colors"
               aria-label="Dismiss"
             >
               <X className="w-4 h-4" />

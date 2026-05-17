@@ -39,8 +39,8 @@ export function WorkGrid({ studies }: WorkGridProps) {
             onClick={() => setActive(cat)}
             className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all duration-200 ${
               active === cat
-                ? 'bg-[#06B6D4] border-[#06B6D4] text-[#09090B]'
-                : 'border-[#27272A] text-[#71717A] hover:border-[#06B6D4]/50 hover:text-[#A1A1AA]'
+                ? 'bg-[#0ED3CF] border-[#0ED3CF] text-[#09090B]'
+                : 'border-[#2A2826] text-[#78716C] hover:border-[#0ED3CF]/50 hover:text-[#A8A29E]'
             }`}
           >
             {cat}
@@ -75,7 +75,7 @@ export function WorkGrid({ studies }: WorkGridProps) {
                 {/* Top-left: outcome metric pill */}
                 {study.cardMetric && (
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-[#09090B]/85 text-[#FAFAFA] border border-[#3F3F46] backdrop-blur-sm shadow-lg">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-[#09090B]/85 text-[#FAFAFA] border border-[#3D3A37] backdrop-blur-sm shadow-lg">
                       {study.cardMetric}
                     </span>
                   </div>
@@ -84,7 +84,7 @@ export function WorkGrid({ studies }: WorkGridProps) {
                 {/* Bottom-right: UI peek thumbnail (real product screen, layered + tilted) */}
                 {study.screens && study.screens[0] && (
                   <div
-                    className="absolute bottom-3 right-3 z-10 w-[40%] aspect-video rounded-md overflow-hidden border border-[#3F3F46] shadow-2xl shadow-[#06B6D4]/10 transition-transform duration-500 group-hover:rotate-0 group-hover:scale-110"
+                    className="absolute bottom-3 right-3 z-10 w-[40%] aspect-video rounded-md overflow-hidden border border-[#3D3A37] shadow-2xl shadow-[#0ED3CF]/10 transition-transform duration-500 group-hover:rotate-0 group-hover:scale-110"
                     style={{ transform: 'rotate(-3deg)' }}
                   >
                     <Image
@@ -100,7 +100,7 @@ export function WorkGrid({ studies }: WorkGridProps) {
 
                 {/* Bottom-left: category pill */}
                 <div className="absolute inset-0 flex items-end p-4 pointer-events-none">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-[#09090B]/80 text-[#06B6D4] border border-[#06B6D4]/30 backdrop-blur-sm">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-[#09090B]/80 text-[#0ED3CF] border border-[#0ED3CF]/30 backdrop-blur-sm">
                     {study.category}
                   </span>
                 </div>
@@ -108,20 +108,20 @@ export function WorkGrid({ studies }: WorkGridProps) {
 
               {/* Content */}
               <div className="flex flex-col flex-1 p-6 gap-3">
-                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#71717A]">
+                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#78716C]">
                   {study.title}
                 </div>
                 <h3 className="text-[#FAFAFA] font-semibold text-lg leading-snug">
                   {study.posterTitle ?? study.title}
                 </h3>
-                <p className="text-[#71717A] text-sm leading-relaxed">{study.kicker}</p>
+                <p className="text-[#78716C] text-sm leading-relaxed">{study.kicker}</p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mt-auto mb-3">
                   {study.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#27272A] text-[#A1A1AA]"
+                      className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#2A2826] text-[#A8A29E]"
                     >
                       {tag}
                     </span>
@@ -130,7 +130,7 @@ export function WorkGrid({ studies }: WorkGridProps) {
 
                 <Link
                   href={`/work/${study.slug}`}
-                  className="inline-flex items-center gap-1.5 text-[#06B6D4] text-sm font-medium hover:gap-2.5 transition-all duration-200"
+                  className="inline-flex items-center gap-1.5 text-[#0ED3CF] text-sm font-medium hover:gap-2.5 transition-all duration-200"
                 >
                   Read case study <ArrowRight className="w-3.5 h-3.5" />
                 </Link>

@@ -89,10 +89,10 @@ export function ContactContent() {
             <Check className="h-8 w-8 text-[#10B981]" />
           </div>
           <h1 className="text-3xl font-bold text-[#FAFAFA] mb-4">Message Sent!</h1>
-          <p className="text-[#A1A1AA] mb-8">
+          <p className="text-[#A8A29E] mb-8">
             {"Thanks for reaching out. I'll get back to you within 24 hours."}
           </p>
-          <Button asChild className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE]">
+          <Button asChild className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE]">
             <Link href="/">Back to Home</Link>
           </Button>
         </motion.div>
@@ -113,7 +113,7 @@ export function ContactContent() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
             {"Let's Work Together"}
           </h1>
-          <p className="mt-6 text-lg text-[#A1A1AA] max-w-2xl">
+          <p className="mt-6 text-lg text-[#A8A29E] max-w-2xl">
             {"Whether you're hiring or you need something built — I'd love to hear from you."}
           </p>
         </motion.div>
@@ -141,7 +141,7 @@ export function ContactContent() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] placeholder-[#71717A] focus:outline-none focus:border-[#06B6D4] transition-colors"
+                    className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] placeholder-[#78716C] focus:outline-none focus:border-[#0ED3CF] transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -155,7 +155,7 @@ export function ContactContent() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] placeholder-[#71717A] focus:outline-none focus:border-[#06B6D4] transition-colors"
+                    className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] placeholder-[#78716C] focus:outline-none focus:border-[#0ED3CF] transition-colors"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -170,7 +170,7 @@ export function ContactContent() {
                   id="company"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] placeholder-[#71717A] focus:outline-none focus:border-[#06B6D4] transition-colors"
+                  className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] placeholder-[#78716C] focus:outline-none focus:border-[#0ED3CF] transition-colors"
                   placeholder="Your company (optional)"
                 />
               </div>
@@ -184,9 +184,9 @@ export function ContactContent() {
                   required
                   value={formData.inquiryType}
                   onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] focus:outline-none focus:border-[#06B6D4] transition-colors"
+                  className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] focus:outline-none focus:border-[#0ED3CF] transition-colors"
                 >
-                  <option value="" className="text-[#71717A]">Select an option</option>
+                  <option value="" className="text-[#78716C]">Select an option</option>
                   {inquiryTypes.map((type) => (
                     <option key={type.value} value={type.value}>
                       {type.label}
@@ -208,7 +208,7 @@ export function ContactContent() {
                     id="budget"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] focus:outline-none focus:border-[#06B6D4] transition-colors"
+                    className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] focus:outline-none focus:border-[#0ED3CF] transition-colors"
                   >
                     <option value="">Select a range</option>
                     {budgetRanges.map((range) => (
@@ -230,7 +230,7 @@ export function ContactContent() {
                   rows={6}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#18181B] border border-[#27272A] rounded-xl text-[#FAFAFA] placeholder-[#71717A] focus:outline-none focus:border-[#06B6D4] transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-[#1A1917] border border-[#2A2826] rounded-xl text-[#FAFAFA] placeholder-[#78716C] focus:outline-none focus:border-[#0ED3CF] transition-colors resize-none"
                   placeholder="Tell me about your project, role, or question..."
                 />
               </div>
@@ -253,7 +253,7 @@ export function ContactContent() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold py-6 text-lg btn-glow disabled:opacity-50"
+                className="w-full bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold py-6 text-lg btn-glow disabled:opacity-50"
               >
                 {isSubmitting ? (
                   'Sending...'
@@ -265,7 +265,7 @@ export function ContactContent() {
                 )}
               </Button>
 
-              <p className="text-center text-sm text-[#71717A]">
+              <p className="text-center text-sm text-[#78716C]">
                 I typically respond within 24 hours
               </p>
             </form>
@@ -279,11 +279,11 @@ export function ContactContent() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Contact Links */}
-            <div className="p-6 bg-[#18181B] border border-[#27272A] rounded-2xl space-y-4">
+            <div className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl space-y-4">
               <h3 className="font-semibold text-[#FAFAFA] mb-4">Contact Information</h3>
               <Link
                 href="mailto:sage@sageideas.org"
-                className="flex items-center gap-3 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="flex items-center gap-3 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 <Mail className="h-5 w-5" />
                 sage@sageideas.org
@@ -292,7 +292,7 @@ export function ContactContent() {
                 href="https://linkedin.com/in/jason-teixeira"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="flex items-center gap-3 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 <Linkedin className="h-5 w-5" />
                 linkedin.com/in/jason-teixeira
@@ -301,30 +301,30 @@ export function ContactContent() {
                 href="https://github.com/JasonTeixeira"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="flex items-center gap-3 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 <Github className="h-5 w-5" />
                 github.com/JasonTeixeira
               </Link>
-              <div className="flex items-center gap-3 text-[#71717A]">
+              <div className="flex items-center gap-3 text-[#78716C]">
                 <MapPin className="h-5 w-5" />
                 Orlando, FL (Remote-First)
               </div>
             </div>
 
             {/* Availability */}
-            <div className="p-6 bg-[#18181B] border border-[#10B981]/20 rounded-2xl">
+            <div className="p-6 bg-[#1A1917] border border-[#10B981]/20 rounded-2xl">
               <h3 className="font-semibold text-[#FAFAFA] mb-4">Availability</h3>
               <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-sm text-[#A1A1AA]">
+                <li className="flex items-center gap-3 text-sm text-[#A8A29E]">
                   <span className="w-2 h-2 bg-[#10B981] rounded-full" />
                   Open to remote full-time roles
                 </li>
-                <li className="flex items-center gap-3 text-sm text-[#A1A1AA]">
+                <li className="flex items-center gap-3 text-sm text-[#A8A29E]">
                   <span className="w-2 h-2 bg-[#10B981] rounded-full" />
                   Available for consulting projects
                 </li>
-                <li className="flex items-center gap-3 text-sm text-[#A1A1AA]">
+                <li className="flex items-center gap-3 text-sm text-[#A8A29E]">
                   <span className="w-2 h-2 bg-[#10B981] rounded-full" />
                   Open to contract work
                 </li>
@@ -332,16 +332,16 @@ export function ContactContent() {
             </div>
 
             {/* Book a Call */}
-            <div className="p-6 bg-gradient-to-br from-[#06B6D4]/10 to-[#8B5CF6]/10 border border-[#06B6D4]/20 rounded-2xl">
+            <div className="p-6 bg-gradient-to-br from-[#0ED3CF]/10 to-[#E85D3A]/10 border border-[#0ED3CF]/20 rounded-2xl">
               <h3 className="font-semibold text-[#FAFAFA] mb-2">Prefer to Talk?</h3>
-              <p className="text-sm text-[#A1A1AA] mb-4">
+              <p className="text-sm text-[#A8A29E] mb-4">
                 Book a free 30-minute discovery call. No pressure — just a conversation about what you need.
               </p>
               <a
                 href="https://cal.com/jason-teixeira-8elz3z"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full px-4 py-3 bg-[#06B6D4] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors btn-glow"
+                className="inline-flex items-center justify-center w-full px-4 py-3 bg-[#0ED3CF] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors btn-glow"
               >
                 <Calendar className="mr-2 h-4 w-4" />
                 Book a Call
@@ -349,9 +349,9 @@ export function ContactContent() {
             </div>
 
             {/* Response Time */}
-            <div className="p-6 bg-[#18181B] border border-[#27272A] rounded-2xl">
+            <div className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl">
               <h3 className="font-semibold text-[#FAFAFA] mb-2">Response Time</h3>
-              <p className="text-sm text-[#A1A1AA]">
+              <p className="text-sm text-[#A8A29E]">
                 I typically respond within 24 hours during business days.
               </p>
             </div>

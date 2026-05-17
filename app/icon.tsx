@@ -15,13 +15,13 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           background: '#09090B',
-          color: '#06B6D4',
+          color: '#0ED3CF',
           fontSize: 22,
           fontWeight: 800,
           letterSpacing: '-0.02em',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           borderRadius: 6,
-          border: '1.5px solid #27272A',
+          border: '1.5px solid #2A2826',
           boxShadow: 'inset 0 0 0 0.5px rgba(124, 58, 237, 0.4)',
         }}
       >

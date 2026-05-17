@@ -1,0 +1,70 @@
+---
+title: "Building an AI Discord Bot for a Trading Community"
+slug: "building-an-ai-discord-bot-for-a-trading-community"
+date: "2026-04-15"
+category: "AI"
+readTime: "12 min read"
+excerpt: "How I built the Nexural Discord AI Engine — 30+ commands, GPT-4o integration, auto-moderation, and market intelligence. Lessons on AI safety in financial contexts."
+tags:
+  - "Discord.js"
+  - "GPT-4o"
+  - "Node.js"
+  - "Supabase"
+  - "AI Safety"
+  - "Trading"
+coverImage: "/blog/covers/building-an-ai-discord-bot-for-a-trading-community.png"
+id: 7
+---
+
+# Building an AI Discord Bot for a Trading Community
+
+Trading communities have unique needs that generic bots can't handle. Traders need market data, not memes. They need AI that understands financial context, not generic chatbots. They need moderation that catches pump-and-dump schemes, not just spam.
+
+I built the Nexural Discord AI Engine to solve these problems. Here's what went into it.
+
+## The Architecture
+
+The bot runs as a Node.js service with:
+- **Discord.js** for the bot framework
+- **GPT-4o** for natural language interactions
+- **Supabase** for persistent storage (user data, conversation history, moderation logs)
+- **Alpaca API** for real-time market data
+- **Custom middleware** for rate limiting, permission checks, and audit logging
+
+## 30+ Commands, 12 Phases
+
+I built this iteratively across 12 development phases:
+
+- **Phase 0-2:** Core commands, welcome system, basic moderation
+- **Phase 3-5:** Market data integration, AI chat, portfolio tracking
+- **Phase 6-8:** Auto-moderation, community management, role management
+- **Phase 9-12:** Analytics, alerting, performance optimization
+
+Each phase had its own test suite and rollback plan. I never deployed more than one phase at a time.
+
+## AI Safety in Financial Contexts
+
+This is where it gets serious. An AI bot in a trading community can't:
+- Give financial advice (legal liability)
+- Generate trading signals (regulatory issues)
+- Confirm or deny specific trade ideas (responsibility)
+
+My approach:
+
+**Strict system prompts:** GPT-4o receives a 2,000-word system prompt that explicitly defines what it can and cannot discuss. Every response is framed as educational, never advisory.
+
+**Response validation:** Before any AI response is sent to Discord, it passes through a filter that checks for:
+- Price predictions ("will go up/down")
+- Specific trade recommendations ("buy/sell X")
+- Guarantees or promises of returns
+- Inappropriate content
+
+**Disclaimers:** Every AI response includes a footer: "This is educational content, not financial advice."
+
+**Audit logging:** Every AI interaction is logged to Supabase with the prompt, response, and whether any filters triggered.
+
+## Market Data Integration
+
+The Alpaca API provides real-time market data:
+
+\

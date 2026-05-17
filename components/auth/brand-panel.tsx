@@ -15,7 +15,7 @@ export function SageLogo({ className = 'w-9 h-9' }: { className?: string }) {
 
 export function BrandPanel() {
   return (
-    <div className="hidden lg:flex flex-1 relative bg-[#0F0F12] border-r border-[#27272A] overflow-hidden">
+    <div className="hidden lg:flex flex-1 relative bg-[#12110F] border-r border-[#2A2826] overflow-hidden">
       <div
         className="absolute inset-0 opacity-60"
         style={{
@@ -36,7 +36,7 @@ export function BrandPanel() {
           <SageLogo />
           <div>
             <div className="font-semibold text-base tracking-tight">Sage Ideas</div>
-            <div className="text-xs text-[#71717A] uppercase tracking-wider font-mono">
+            <div className="text-xs text-[#78716C] uppercase tracking-wider font-mono">
               The Studio · Client Workspace
             </div>
           </div>
@@ -46,7 +46,7 @@ export function BrandPanel() {
           <h1 className="text-3xl font-semibold leading-tight tracking-tight text-[#FAFAFA]">
             Your private workspace for every engagement.
           </h1>
-          <p className="text-[#A1A1AA] leading-relaxed">
+          <p className="text-[#A8A29E] leading-relaxed">
             Real-time deliverables, signed contracts, threaded conversations, and a direct line to
             the team — all in one place.
           </p>
@@ -59,13 +59,13 @@ export function BrandPanel() {
             ].map(([title, desc]) => (
               <div key={title} className="space-y-1">
                 <div className="text-sm font-medium text-[#FAFAFA]">{title}</div>
-                <div className="text-xs text-[#71717A] leading-relaxed">{desc}</div>
+                <div className="text-xs text-[#78716C] leading-relaxed">{desc}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="text-xs text-[#52525B]">
+        <div className="text-xs text-[#57534E]">
           © {new Date().getFullYear()} Sage Ideas Studio · sageideas.dev
         </div>
       </div>

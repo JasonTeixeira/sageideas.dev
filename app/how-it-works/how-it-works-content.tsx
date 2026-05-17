@@ -50,7 +50,7 @@ export function HowItWorksContent() {
                 visualized stage by stage.
               </span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A1A1AA]">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#A8A29E]">
               No more guessing what you are paying for. Each engagement is mapped
               as an interactive pipeline so you can see what happens on day one,
               what we ship at handoff, and what optional Care looks like after.

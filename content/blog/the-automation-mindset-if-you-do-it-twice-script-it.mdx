@@ -1,0 +1,36 @@
+---
+title: "The Automation Mindset: If You Do It Twice, Script It"
+slug: "the-automation-mindset-if-you-do-it-twice-script-it"
+date: "2025-09-08"
+category: "Engineering"
+readTime: "10 min read"
+excerpt: "I have 47 shell scripts, 6 CI workflows, and a cron job that texts me when my SSL cert is expiring. Here's the mindset behind automating everything."
+tags:
+  - "Automation"
+  - "Scripting"
+  - "DevOps"
+  - "Productivity"
+  - "Bash"
+coverImage: "/blog/covers/the-automation-mindset-if-you-do-it-twice-script-it.png"
+id: 46
+---
+
+# The Automation Mindset: If You Do It Twice, Script It
+
+Last Tuesday, I ran a database migration, tested 3 API endpoints, checked the Stripe webhook logs, verified the CI pipeline was green, and deployed to production. Total time: 4 minutes.
+
+It used to take 45.
+
+The difference isn't that I got faster at clicking buttons. It's that I stopped clicking buttons entirely.
+
+## The Rule
+
+**If I do something manually twice, I automate it the third time.**
+
+Not "when I have time." Not "next sprint." The third time. Because the fourth time is coming, and the fifth, and the hundredth.
+
+## My Automation Stack
+
+### Deploy Script (replaced 12 manual steps)
+
+\\\

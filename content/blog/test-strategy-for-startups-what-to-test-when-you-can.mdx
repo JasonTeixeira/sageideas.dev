@@ -1,0 +1,45 @@
+---
+title: "Test Strategy for Startups: What to Test When You Can't Test Everything"
+slug: "test-strategy-for-startups-what-to-test-when-you-can"
+date: "2026-03-05"
+category: "Testing"
+readTime: "11 min read"
+excerpt: "You have 2 engineers and 100 features. You can't test everything. Here's the risk-based test strategy I use to maximize coverage with minimal investment."
+tags:
+  - "Testing"
+  - "QA"
+  - "Startups"
+  - "pytest"
+  - "Strategy"
+  - "CI/CD"
+coverImage: "/blog/covers/test-strategy-for-startups-what-to-test-when-you-can.png"
+id: 20
+---
+
+# Test Strategy for Startups: What to Test When You Can't Test Everything
+
+At a startup, you don't have a 20-person QA team. You have 2 engineers and a deadline. You can't test everything.
+
+The question isn't "should we test?" — it's "what do we test first?"
+
+## The Risk-Based Testing Pyramid
+
+Forget the traditional testing pyramid (unit > integration > E2E). For startups, I use a risk-based approach:
+
+**Priority 1: Test things that lose money.**
+Payment flows, subscription management, billing calculations. A bug here costs real dollars and real customers.
+
+**Priority 2: Test things that lose data.**
+Database migrations, data exports, backup/restore. A bug here is catastrophic and often irreversible.
+
+**Priority 3: Test things that lose trust.**
+Authentication, authorization, password reset, email delivery. A bug here makes users question your security.
+
+**Priority 4: Test everything else.**
+UI interactions, edge cases, performance, accessibility. Important but not existential.
+
+## The Minimum Viable Test Suite
+
+For a typical SaaS startup, here's what I'd set up in week 1:
+
+\

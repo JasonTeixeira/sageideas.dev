@@ -43,19 +43,19 @@ export function SampleDeliverable({ tabs = DEFAULT_TABS }: { tabs?: SampleTab[] 
 
   return (
     <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+      <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
         Sample deliverables
       </span>
       <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
         See the artifact, not the marketing.
       </h2>
-      <p className="mt-2 text-[#A1A1AA] max-w-2xl">
+      <p className="mt-2 text-[#A8A29E] max-w-2xl">
         Real shape, redacted content. Pick a tab to preview what ships.
       </p>
 
-      <div className="mt-8 rounded-2xl border border-[#27272A] bg-[#0F0F12] overflow-hidden">
+      <div className="mt-8 rounded-2xl border border-[#2A2826] bg-[#12110F] overflow-hidden">
         {/* Tab strip */}
-        <div className="flex flex-wrap border-b border-[#27272A]" role="tablist">
+        <div className="flex flex-wrap border-b border-[#2A2826]" role="tablist">
           {tabs.map((t) => {
             const isActive = t.id === active
             return (
@@ -67,8 +67,8 @@ export function SampleDeliverable({ tabs = DEFAULT_TABS }: { tabs?: SampleTab[] 
                 onClick={() => setActive(t.id)}
                 className={`px-4 py-3 text-xs font-mono uppercase tracking-widest transition-colors border-b-2 ${
                   isActive
-                    ? 'text-[#06B6D4] border-[#06B6D4] bg-[#06B6D4]/5'
-                    : 'text-[#71717A] border-transparent hover:text-[#FAFAFA]'
+                    ? 'text-[#0ED3CF] border-[#0ED3CF] bg-[#0ED3CF]/5'
+                    : 'text-[#78716C] border-transparent hover:text-[#FAFAFA]'
                 }`}
               >
                 {t.label}
@@ -80,39 +80,39 @@ export function SampleDeliverable({ tabs = DEFAULT_TABS }: { tabs?: SampleTab[] 
         {/* Tab body */}
         <div className="p-6 sm:p-8 grid md:grid-cols-[1fr_280px] gap-6 items-start">
           <div>
-            <div className="flex items-center gap-2 mb-3 text-[#06B6D4]">
+            <div className="flex items-center gap-2 mb-3 text-[#0ED3CF]">
               <FileText className="w-4 h-4" />
               <span className="text-sm font-semibold">{tab.label}</span>
             </div>
-            <p className="text-[#A1A1AA] leading-relaxed">{tab.description}</p>
+            <p className="text-[#A8A29E] leading-relaxed">{tab.description}</p>
             <div className="mt-5 flex flex-wrap gap-3">
               {tab.href ? (
                 <a
                   href={tab.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#06B6D4]/40 bg-[#06B6D4]/10 text-[#06B6D4] px-3.5 py-2 text-sm font-medium hover:bg-[#06B6D4]/20 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#0ED3CF]/40 bg-[#0ED3CF]/10 text-[#0ED3CF] px-3.5 py-2 text-sm font-medium hover:bg-[#0ED3CF]/20 transition-colors"
                 >
                   <Download className="w-4 h-4" /> Download preview
                 </a>
               ) : (
                 <a
                   href="mailto:sage@sageideas.dev?subject=Sample%20deliverable%20request"
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#27272A] bg-[#18181B] text-[#FAFAFA] px-3.5 py-2 text-sm font-medium hover:border-[#06B6D4]/50 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#2A2826] bg-[#1A1917] text-[#FAFAFA] px-3.5 py-2 text-sm font-medium hover:border-[#0ED3CF]/50 transition-colors"
                 >
                   <Mail className="w-4 h-4" /> Request after intro call
                 </a>
               )}
             </div>
             {!tab.href && (
-              <p className="mt-3 text-xs font-mono uppercase tracking-widest text-[#52525B]">
+              <p className="mt-3 text-xs font-mono uppercase tracking-widest text-[#57534E]">
                 Sample provided after intro call · ask sage@sageideas.dev
               </p>
             )}
           </div>
 
           {/* Preview thumbnail */}
-          <div className="aspect-[3/4] rounded-lg border border-[#27272A] bg-[#18181B] overflow-hidden flex items-center justify-center">
+          <div className="aspect-[3/4] rounded-lg border border-[#2A2826] bg-[#1A1917] overflow-hidden flex items-center justify-center">
             {tab.preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -145,7 +145,7 @@ function PlaceholderPreview({ label }: { label: string }) {
         </linearGradient>
       </defs>
       <rect width="240" height="320" fill="url(#phPg)" />
-      <g fill="#27272A">
+      <g fill="#2A2826">
         <rect x="20" y="20" width="120" height="10" rx="2" />
         <rect x="20" y="40" width="80" height="6" rx="2" />
         <rect x="20" y="70" width="200" height="4" rx="2" />
@@ -159,8 +159,8 @@ function PlaceholderPreview({ label }: { label: string }) {
         <rect x="20" y="257" width="180" height="4" rx="2" />
         <rect x="20" y="269" width="160" height="4" rx="2" />
       </g>
-      <rect x="20" y="170" width="200" height="60" fill="#06B6D4" opacity="0.08" />
-      <text x="120" y="305" textAnchor="middle" fontSize="9" fill="#52525B" fontFamily="monospace">
+      <rect x="20" y="170" width="200" height="60" fill="#0ED3CF" opacity="0.08" />
+      <text x="120" y="305" textAnchor="middle" fontSize="9" fill="#57534E" fontFamily="monospace">
         SAMPLE · REDACTED
       </text>
     </svg>

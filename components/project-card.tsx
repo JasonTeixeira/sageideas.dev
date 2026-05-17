@@ -8,9 +8,9 @@ import type { Project } from '@/data/projects'
 
 const statusColors = {
   production: 'bg-[#10B981]/10 text-[#10B981] border-[#10B981]/20',
-  active: 'bg-[#06B6D4]/10 text-[#06B6D4] border-[#06B6D4]/20',
-  'open-source': 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20',
-  archived: 'bg-[#71717A]/10 text-[#71717A] border-[#71717A]/20',
+  active: 'bg-[#0ED3CF]/10 text-[#0ED3CF] border-[#0ED3CF]/20',
+  'open-source': 'bg-[#E85D3A]/10 text-[#E85D3A] border-[#E85D3A]/20',
+  archived: 'bg-[#78716C]/10 text-[#78716C] border-[#78716C]/20',
 }
 
 const statusLabels = {
@@ -59,7 +59,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden transition-all duration-300"
+      className="group relative bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden transition-all duration-300"
       whileHover={{ y: -4 }}
     >
       {/* Glow effect following cursor */}
@@ -77,7 +77,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         className={`absolute inset-0 rounded-2xl transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
         style={{
           padding: '1px',
-          background: 'linear-gradient(135deg, #06B6D4, transparent 50%, #8B5CF6)',
+          background: 'linear-gradient(135deg, #0ED3CF, transparent 50%, #E85D3A)',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
           maskComposite: 'exclude'
@@ -85,15 +85,15 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       />
 
       {/* Image Placeholder */}
-      <div className="aspect-video bg-[#27272A] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/5 to-[#8B5CF6]/5" />
+      <div className="aspect-video bg-[#2A2826] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0ED3CF]/5 to-[#E85D3A]/5" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[#71717A] font-mono text-sm">{project.name}</span>
+          <span className="text-[#78716C] font-mono text-sm">{project.name}</span>
         </div>
         
         {/* Category Badge */}
         <div className="absolute top-3 right-3">
-          <span className="text-xs font-mono text-[#A1A1AA] bg-[#09090B]/80 backdrop-blur-sm px-2 py-1 rounded">
+          <span className="text-xs font-mono text-[#A8A29E] bg-[#09090B]/80 backdrop-blur-sm px-2 py-1 rounded">
             {categoryLabels[project.category]}
           </span>
         </div>
@@ -107,7 +107,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-[#18181B] rounded-full text-[#A1A1AA] hover:text-[#06B6D4] hover:bg-[#27272A] transition-all"
+              className="p-3 bg-[#1A1917] rounded-full text-[#A8A29E] hover:text-[#0ED3CF] hover:bg-[#2A2826] transition-all"
             >
               <Github className="h-5 w-5" />
             </Link>
@@ -117,7 +117,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={project.liveUrl}
               target={project.liveUrl.startsWith('http') ? '_blank' : undefined}
               rel={project.liveUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="p-3 bg-[#18181B] rounded-full text-[#A1A1AA] hover:text-[#06B6D4] hover:bg-[#27272A] transition-all"
+              className="p-3 bg-[#1A1917] rounded-full text-[#A8A29E] hover:text-[#0ED3CF] hover:bg-[#2A2826] transition-all"
             >
               <ExternalLink className="h-5 w-5" />
             </Link>
@@ -125,7 +125,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           {project.caseStudy && (
             <Link
               href={project.caseStudy}
-              className="p-3 bg-[#18181B] rounded-full text-[#A1A1AA] hover:text-[#06B6D4] hover:bg-[#27272A] transition-all"
+              className="p-3 bg-[#1A1917] rounded-full text-[#A8A29E] hover:text-[#0ED3CF] hover:bg-[#2A2826] transition-all"
             >
               <FileText className="h-5 w-5" />
             </Link>
@@ -136,15 +136,15 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       {/* Content */}
       <div className="p-6 relative z-10">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="text-lg font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+          <h3 className="text-lg font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
             {project.name}
           </h3>
           {project.isPrivate && (
-            <Lock className="h-4 w-4 text-[#71717A] flex-shrink-0" />
+            <Lock className="h-4 w-4 text-[#78716C] flex-shrink-0" />
           )}
         </div>
 
-        <p className="text-sm text-[#A1A1AA] mb-4 line-clamp-2">
+        <p className="text-sm text-[#A8A29E] mb-4 line-clamp-2">
           {project.description}
         </p>
 
@@ -153,23 +153,23 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           {project.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="text-xs font-mono text-[#71717A] bg-[#27272A] px-2 py-1 rounded hover:bg-[#3F3F46] transition-colors"
+              className="text-xs font-mono text-[#78716C] bg-[#2A2826] px-2 py-1 rounded hover:bg-[#3D3A37] transition-colors"
             >
               {tag}
             </span>
           ))}
           {project.tags.length > 4 && (
-            <span className="text-xs font-mono text-[#71717A]">
+            <span className="text-xs font-mono text-[#78716C]">
               +{project.tags.length - 4}
             </span>
           )}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-[#27272A]">
+        <div className="flex items-center justify-between pt-4 border-t border-[#2A2826]">
           <div className="flex items-center gap-3">
             {project.stars && project.stars > 0 && (
-              <span className="text-xs text-[#71717A] flex items-center gap-1">
+              <span className="text-xs text-[#78716C] flex items-center gap-1">
                 <span className="text-[#F59E0B]">★</span> {project.stars}
               </span>
             )}

@@ -74,18 +74,18 @@ export function AgentArchitectureDiagram({
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
           {title && (
-            <h3 className="text-base font-mono uppercase tracking-widest text-[#A1A1AA]">
+            <h3 className="text-base font-mono uppercase tracking-widest text-[#A8A29E]">
               {title}
             </h3>
           )}
           {subtitle && (
-            <p className="mt-2 text-sm text-[#71717A] max-w-2xl">{subtitle}</p>
+            <p className="mt-2 text-sm text-[#78716C] max-w-2xl">{subtitle}</p>
           )}
         </div>
         <button
           type="button"
           onClick={() => setReplayKey((k) => k + 1)}
-          className="shrink-0 inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-widest text-[#A1A1AA] hover:text-[#FAFAFA] border border-white/10 hover:border-white/30 rounded-full px-3 py-1.5 transition-colors"
+          className="shrink-0 inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-widest text-[#A8A29E] hover:text-[#FAFAFA] border border-white/10 hover:border-white/30 rounded-full px-3 py-1.5 transition-colors"
           aria-label="Replay diagram animation"
         >
           <RotateCw className="w-3 h-3" />
@@ -113,7 +113,7 @@ export function AgentArchitectureDiagram({
             <path d="M0,0 L10,5 L0,10 z" fill={accent} />
           </marker>
           <linearGradient id="nodeFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#18181B" />
+            <stop offset="0%" stopColor="#1A1917" />
             <stop offset="100%" stopColor="#0B0B0F" />
           </linearGradient>
         </defs>
@@ -153,7 +153,7 @@ export function AgentArchitectureDiagram({
                 <text
                   x={midX}
                   y={(fromRight.y + toLeft.y) / 2 - 6}
-                  fill="#71717A"
+                  fill="#78716C"
                   fontSize={10}
                   fontFamily="ui-monospace, SFMono-Regular, monospace"
                   textAnchor="middle"
@@ -214,7 +214,7 @@ export function AgentArchitectureDiagram({
                 <text
                   x={x + 16}
                   y={y + 48}
-                  fill="#71717A"
+                  fill="#78716C"
                   fontSize={10.5}
                   fontFamily="ui-monospace, SFMono-Regular, monospace"
                 >
@@ -227,7 +227,7 @@ export function AgentArchitectureDiagram({
       </svg>
 
       {/* Legend */}
-      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
         {(['input', 'core', 'tool', 'output', 'guard'] as const).map((v) => {
           if (!nodes.some((n) => (n.variant ?? 'core') === v)) return null
           return (

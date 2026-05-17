@@ -48,14 +48,14 @@ export function ProductRotator({ items, intervalMs = 4000 }: ProductRotatorProps
       onMouseLeave={() => setPaused(false)}
     >
       {/* Browser chrome frame */}
-      <div className="relative rounded-2xl overflow-hidden border border-[#27272A] bg-[#18181B] shadow-[0_24px_48px_-24px_rgba(6,182,212,0.25)]">
+      <div className="relative rounded-2xl overflow-hidden border border-[#2A2826] bg-[#1A1917] shadow-[0_24px_48px_-24px_rgba(6,182,212,0.25)]">
         {/* Top bar */}
-        <div className="flex items-center gap-2 px-4 py-3 bg-[#0F0F12] border-b border-[#27272A]">
+        <div className="flex items-center gap-2 px-4 py-3 bg-[#12110F] border-b border-[#2A2826]">
           <span className="w-3 h-3 rounded-full bg-[#EF4444]" />
           <span className="w-3 h-3 rounded-full bg-[#EAB308]" />
           <span className="w-3 h-3 rounded-full bg-[#22C55E]" />
-          <div className="ml-3 flex-1 h-7 rounded-md bg-[#18181B] border border-[#27272A] flex items-center px-3">
-            <span className="text-[11px] font-mono text-[#71717A] truncate">{active.url}</span>
+          <div className="ml-3 flex-1 h-7 rounded-md bg-[#1A1917] border border-[#2A2826] flex items-center px-3">
+            <span className="text-[11px] font-mono text-[#78716C] truncate">{active.url}</span>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export function ProductRotator({ items, intervalMs = 4000 }: ProductRotatorProps
                   onClick={() => setIndex(i)}
                   aria-label={`Show ${it.project}`}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === index ? 'w-6 bg-[#06B6D4]' : 'w-1.5 bg-[#3F3F46] hover:bg-[#52525B]'
+                    i === index ? 'w-6 bg-[#0ED3CF]' : 'w-1.5 bg-[#3D3A37] hover:bg-[#57534E]'
                   }`}
                 />
               ))}
@@ -102,7 +102,7 @@ export function ProductRotator({ items, intervalMs = 4000 }: ProductRotatorProps
 
       {/* Currently showing label */}
       <div className="mt-4 flex items-center justify-between gap-3">
-        <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#71717A]">
+        <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#78716C]">
           Currently showing
         </div>
         <div className="text-sm text-[#FAFAFA] font-medium truncate">{active.project}</div>

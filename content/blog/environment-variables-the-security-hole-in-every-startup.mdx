@@ -1,0 +1,30 @@
+---
+title: "Environment Variables: The Security Hole in Every Startup"
+slug: "environment-variables-the-security-hole-in-every-startup"
+date: "2025-11-15"
+category: "Security"
+readTime: "10 min read"
+excerpt: "Your .env file has your database password, Stripe secret key, and AWS credentials. It's in a Slack message, a developer's laptop, and probably a Docker image somewhere. Let's fix that."
+tags:
+  - "Security"
+  - "Environment Variables"
+  - "AWS"
+  - "DevOps"
+  - "Best Practices"
+coverImage: "/blog/covers/environment-variables-the-security-hole-in-every-startup.png"
+id: 37
+---
+
+# Environment Variables: The Security Hole in Every Startup
+
+Quick audit: where is your database password right now?
+
+If you answered ".env file in the repo root" — you're in the majority. If you answered "also in a Slack message to the new hire, a screenshot in Confluence, and hardcoded in that one Lambda function that Dave wrote before he left" — you're being honest.
+
+Environment variables are the most dangerous infrastructure in most startups because everyone treats them as an afterthought.
+
+## The Common Mistakes
+
+### Mistake 1: .env in Version Control
+
+I've seen it in production repos at real companies. A \\\

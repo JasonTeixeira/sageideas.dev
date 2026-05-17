@@ -1,0 +1,99 @@
+---
+title: "What I Learned Building in Public as a Solo Engineer"
+slug: "what-i-learned-building-in-public-as-a-solo-engineer"
+date: "2026-02-15"
+category: "Career"
+readTime: "11 min read"
+excerpt: "One year of building the Nexural ecosystem, trading futures, writing a book, and documenting everything. The wins, the failures, and what I'd tell someone starting today."
+tags:
+  - "Career"
+  - "Solo Engineering"
+  - "Building in Public"
+  - "Entrepreneurship"
+  - "Reflection"
+coverImage: "/blog/covers/what-i-learned-building-in-public-as-a-solo-engineer.png"
+id: 23
+---
+
+# What I Learned Building in Public as a Solo Engineer
+
+One year ago, I left my role at HighStrike and founded Sage Ideas LLC. Since then, I've built a fintech platform with 185 database tables, an AI-powered Discord bot, an ML trading signal system, a 120,000-word book on trading, and this portfolio site.
+
+Here's what I learned.
+
+## The Loneliness is Real
+
+Solo engineering means:
+- No code reviews (you review your own code)
+- No architecture discussions (you argue with yourself)
+- No one to catch your blind spots (you discover them in production)
+- No one to celebrate wins with (you push to main and move on)
+
+The fix: I started documenting my decisions. Every major architecture decision gets a markdown file explaining what I chose and why. It's a conversation with my future self — and now it's content for my portfolio.
+
+## Ship Weekly, Not Monthly
+
+My first 3 months, I built for 4 weeks before deploying. I'd find bugs, realize I'd built the wrong thing, and waste days refactoring.
+
+Now I ship every week. Sometimes every day. Small deploys mean:
+- Less risk per deploy
+- Faster feedback
+- Easier rollbacks
+- Visible progress (crucial for motivation)
+
+## The 80/20 of Solo Engineering
+
+**20% of the work that produces 80% of the value:**
+- Database schema design (get this right and everything downstream is easier)
+- API contract definition (Zod schemas catch 90% of integration bugs)
+- CI/CD setup (automated deploys = you ship more)
+- Error monitoring (knowing about bugs before users report them)
+
+**80% of the work that produces 20% of the value:**
+- Pixel-perfect UI (users care about function, not font weight)
+- Performance optimization before you have users
+- Writing tests for code that's going to change next week
+- Choosing the "perfect" tech stack
+
+## The Financial Reality
+
+I'm an active futures trader. Trading income funds the building. This is a luxury most solo builders don't have.
+
+Without trading income, I'd have needed:
+- 6 months of savings minimum
+- A clear monetization path before building
+- Paying customers before building features
+
+Building in public without revenue pressure is a privilege. Building in public WITH revenue pressure is entrepreneurship. They require different strategies.
+
+## What Actually Got Me Hired (Interviews and Interest)
+
+After building all of this, here's what hiring managers and potential clients actually care about:
+
+1. **"You built a platform with 185 tables?"** — Scale impresses. Not the number itself, but the fact that I designed and managed it solo.
+
+2. **"You trade the same instruments your software analyzes?"** — Domain expertise is rare. Most fintech developers don't use their own products.
+
+3. **"Where's the live demo?"** — The quality dashboard on my portfolio site has started more conversations than my resume. People can see it working.
+
+4. **"You wrote a 120K-word book?"** — This signals commitment, deep thinking, and communication skills. Nobody writes 120K words casually.
+
+5. **"Show me the GitHub"** — They want to see real code, real commits, real CI pipelines. Not a polished portfolio page — the actual repository.
+
+## What I'd Tell Someone Starting Today
+
+1. **Pick one thing and ship it.** Don't build a "platform." Build a single feature, deploy it, and show it to one person. Then build the next feature.
+
+2. **Document obsessively.** Your documentation is your portfolio. Your commit messages are your work log. Your architecture docs are your case studies.
+
+3. **Build what you use.** I built trading tools because I trade. I built test frameworks because I test. Conviction comes through when you build for yourself.
+
+4. **Don't optimize before you have users.** Ship the ugly version. Get feedback. Then polish.
+
+5. **Your portfolio IS the project.** The meta-project of maintaining a portfolio site with SLOs, incident drills, and evidence artifacts is itself proof of engineering maturity.
+
+## One Year Later
+
+I've built more in one year solo than many teams build in two. Not because I'm faster — because I have no meetings, no planning poker, no sprint ceremonies, and no organizational overhead.
+
+The trade-off is loneliness, self-doubt, and the constant question: "Is this good enough?" The answer is always "ship it and find out."

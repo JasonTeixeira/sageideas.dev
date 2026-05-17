@@ -24,10 +24,10 @@ export function CalculatorShell({
   footnote,
 }: Props) {
   return (
-    <div className="rounded-2xl border border-[#27272A] bg-[#18181B] p-6 sm:p-8">
+    <div className="rounded-2xl border border-[#2A2826] bg-[#1A1917] p-6 sm:p-8">
       <header className="mb-6">
         <h3 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">{title}</h3>
-        <p className="mt-1 text-sm text-[#A1A1AA]">{subtitle}</p>
+        <p className="mt-1 text-sm text-[#A8A29E]">{subtitle}</p>
       </header>
 
       <div className="grid gap-8 lg:grid-cols-2">
@@ -36,13 +36,13 @@ export function CalculatorShell({
 
         {/* Results */}
         <div className="space-y-4">
-          <div className="rounded-lg border border-[#27272A] bg-[#09090B] p-5">
+          <div className="rounded-lg border border-[#2A2826] bg-[#09090B] p-5">
             <div className="space-y-3">
               {results.map((r) => (
                 <div key={r.label} className="flex items-baseline justify-between gap-4">
                   <span
                     className={`text-sm ${
-                      r.emphasis ? 'text-[#FAFAFA] font-medium' : 'text-[#A1A1AA]'
+                      r.emphasis ? 'text-[#FAFAFA] font-medium' : 'text-[#A8A29E]'
                     }`}
                   >
                     {r.label}
@@ -50,7 +50,7 @@ export function CalculatorShell({
                   <span
                     className={`tabular-nums font-mono ${
                       r.emphasis
-                        ? 'text-2xl text-[#06B6D4] font-bold'
+                        ? 'text-2xl text-[#0ED3CF] font-bold'
                         : 'text-base text-[#FAFAFA]'
                     }`}
                   >
@@ -62,12 +62,12 @@ export function CalculatorShell({
           </div>
 
           {footnote && (
-            <p className="text-xs text-[#52525B] leading-relaxed">{footnote}</p>
+            <p className="text-xs text-[#57534E] leading-relaxed">{footnote}</p>
           )}
 
           <Link
             href={`/contact?engagement=${ctaSlug}`}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#06B6D4] px-5 py-3 text-sm font-medium text-[#09090B] transition-all hover:bg-[#0891B2]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#0ED3CF] px-5 py-3 text-sm font-medium text-[#09090B] transition-all hover:bg-[#0AA8A5]"
           >
             {ctaLabel}
             <ArrowRight className="h-4 w-4" />
@@ -104,7 +104,7 @@ export function RangeInput({
   return (
     <div className="space-y-2">
       <div className="flex items-baseline justify-between">
-        <label className="text-sm text-[#A1A1AA]">{label}</label>
+        <label className="text-sm text-[#A8A29E]">{label}</label>
         <span className="text-sm font-mono tabular-nums text-[#FAFAFA]">{display}</span>
       </div>
       <input
@@ -114,7 +114,7 @@ export function RangeInput({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#06B6D4]"
+        className="w-full accent-[#0ED3CF]"
       />
     </div>
   )

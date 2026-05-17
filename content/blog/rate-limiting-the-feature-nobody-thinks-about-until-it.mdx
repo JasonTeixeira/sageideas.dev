@@ -1,0 +1,32 @@
+---
+title: "Rate Limiting: The Feature Nobody Thinks About Until It's Too Late"
+slug: "rate-limiting-the-feature-nobody-thinks-about-until-it"
+date: "2025-12-15"
+category: "Architecture"
+readTime: "9 min read"
+excerpt: "Your API works perfectly at 10 requests per second. At 10,000, it falls over. Here's how I implement rate limiting that protects without annoying legitimate users."
+tags:
+  - "Security"
+  - "API"
+  - "Rate Limiting"
+  - "Architecture"
+  - "AWS"
+coverImage: "/blog/covers/rate-limiting-the-feature-nobody-thinks-about-until-it.png"
+id: 33
+---
+
+# Rate Limiting: The Feature Nobody Thinks About Until It's Too Late
+
+Nobody puts "implement rate limiting" on the sprint board. It's not a user story. It doesn't move a metric. Product never asks for it.
+
+Then one day, someone scripts 50,000 requests to your API in 30 seconds and your database melts. Or worse — a single user's runaway script costs you $800 in AWS Lambda invocations overnight.
+
+Both of these happened to me. Now rate limiting is in my starter template.
+
+## The Three Layers
+
+I implement rate limiting at three layers, because each catches different abuse patterns:
+
+### Layer 1: Edge (CloudFront / Vercel)
+
+\\\

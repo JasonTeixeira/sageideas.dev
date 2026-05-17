@@ -289,7 +289,7 @@ export function TypewriterLines({
             {showCursor && (
               <span
                 aria-hidden
-                className="inline-block ml-0.5 text-[#06B6D4]"
+                className="inline-block ml-0.5 text-[#0ED3CF]"
                 style={{ opacity: cursorOn ? 1 : 0 }}
               >
                 {cursorChar}

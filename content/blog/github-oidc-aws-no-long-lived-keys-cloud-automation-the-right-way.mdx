@@ -1,0 +1,33 @@
+---
+title: "GitHub OIDC → AWS (No Long-Lived Keys): Cloud Automation the Right Way"
+slug: "github-oidc-aws-no-long-lived-keys-cloud-automation-the-right-way"
+date: "2026-01-10"
+category: "Cloud Automation"
+readTime: "10 min read"
+excerpt: "How to use GitHub Actions OIDC to assume an AWS IAM role and deploy/upload artifacts without storing AWS keys. Includes least-privilege IAM, trust policy patterns, and troubleshooting tips."
+tags:
+  - "AWS"
+  - "IAM"
+  - "OIDC"
+  - "GitHub Actions"
+  - "Terraform"
+  - "Security"
+coverImage: "/blog/covers/github-oidc-aws-no-long-lived-keys-cloud-automation-the-right-way.png"
+id: 100
+---
+
+# GitHub OIDC → AWS (No Long-Lived Keys): Cloud Automation the Right Way
+
+Static AWS keys in CI are a footgun.
+
+If you want cloud automation that scales (and passes security review), use **OIDC-based federation**:
+
+- GitHub Actions issues a short-lived identity token (OIDC)
+- AWS STS exchanges it for short-lived AWS credentials
+- Your workflow assumes a least-privilege role and does the work
+
+This portfolio uses the same pattern to support **Cloud telemetry mode** (AWS S3) without ever embedding long-lived credentials.
+
+## The architecture
+
+\

@@ -57,7 +57,7 @@ export default function LegalIndexPage() {
         <div className="mb-12">
           <SectionLabel>Legal</SectionLabel>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA]">Legal Documents</h1>
-          <p className="mt-4 text-lg text-[#A1A1AA] max-w-2xl">
+          <p className="mt-4 text-lg text-[#A8A29E] max-w-2xl">
             All governing documents for Sage Ideas LLC — client contracts, privacy terms, and policy templates. Written
             in plain language where possible.
           </p>
@@ -68,16 +68,16 @@ export default function LegalIndexPage() {
             <Link
               key={doc.slug}
               href={`/legal/${doc.slug}`}
-              className="group p-6 bg-[#0F0F12] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-all duration-200 hover:-translate-y-1"
+              className="group p-6 bg-[#12110F] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-all duration-200 hover:-translate-y-1"
             >
-              <div className="p-3 bg-[#06B6D4]/10 rounded-xl w-fit mb-4">
-                <doc.icon className="h-5 w-5 text-[#06B6D4]" />
+              <div className="p-3 bg-[#0ED3CF]/10 rounded-xl w-fit mb-4">
+                <doc.icon className="h-5 w-5 text-[#0ED3CF]" />
               </div>
-              <h2 className="text-lg font-semibold text-[#FAFAFA] mb-2 group-hover:text-[#06B6D4] transition-colors">
+              <h2 className="text-lg font-semibold text-[#FAFAFA] mb-2 group-hover:text-[#0ED3CF] transition-colors">
                 {doc.title}
               </h2>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed mb-4">{doc.description}</p>
-              <span className="inline-flex items-center text-xs text-[#06B6D4] font-medium group-hover:gap-2 transition-all">
+              <p className="text-sm text-[#A8A29E] leading-relaxed mb-4">{doc.description}</p>
+              <span className="inline-flex items-center text-xs text-[#0ED3CF] font-medium group-hover:gap-2 transition-all">
                 Read document
                 <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
               </span>
@@ -85,11 +85,11 @@ export default function LegalIndexPage() {
           ))}
         </div>
 
-        <div className="mt-16 p-6 bg-[#0F0F12] border border-[#27272A] rounded-xl max-w-2xl">
-          <p className="text-sm text-[#A1A1AA] leading-relaxed">
+        <div className="mt-16 p-6 bg-[#12110F] border border-[#2A2826] rounded-xl max-w-2xl">
+          <p className="text-sm text-[#A8A29E] leading-relaxed">
             <span className="text-[#FAFAFA] font-medium">Questions about any of these documents?</span>{' '}
             Email{' '}
-            <a href="mailto:sage@sageideas.dev" className="text-[#06B6D4] hover:text-[#22D3EE]">
+            <a href="mailto:sage@sageideas.dev" className="text-[#0ED3CF] hover:text-[#22D3EE]">
               sage@sageideas.dev
             </a>
             . We&apos;ll respond in plain English.

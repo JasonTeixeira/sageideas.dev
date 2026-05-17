@@ -21,7 +21,7 @@ const evidenceItems = [
     body: 'Real-time fintech platform with an LLM-backed Discord bot answering portfolio queries. 200+ AI queries per week, 0 billing incidents, 61 test suites covering the AI surface.',
     tags: ['GPT-4', 'Discord API', 'Stripe', '185 DB tables'],
     href: '/lab/nexural',
-    accent: '#06B6D4',
+    accent: '#0ED3CF',
   },
   {
     category: 'Customer-facing AI',
@@ -37,7 +37,7 @@ const evidenceItems = [
     body: 'End-to-end ML signal engine: data ingestion, feature engineering, training, evaluation, and signal output — all automated. The pattern behind our automation-pipeline offers.',
     tags: ['Python', 'ML', 'CI/CD', 'Pipelines'],
     href: '/lab/alphastream',
-    accent: '#8B5CF6',
+    accent: '#E85D3A',
   },
 ] as const
 
@@ -70,40 +70,40 @@ export default function ServicesPage() {
             <SectionLabel>Engagements</SectionLabel>
             <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               Engineering. AI. Automation.{' '}
-              <span className="text-[#06B6D4]">Custom welcome.</span>
+              <span className="text-[#0ED3CF]">Custom welcome.</span>
             </h1>
-            <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               Productized engagements with fixed scope. AI reliability audits, RAG and
               agent ops, automation pipelines, customer-facing AI products, retainers,
               diagnostic on-ramps, and full done-for-you bundles. Or scope something
               custom — free 30-minute call, 48-hour proposal, no asterisks.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#71717A]">
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#78716C]">
               <Link
                 href="#ai-and-automation"
-                className="inline-flex items-center gap-1.5 text-[#06B6D4] hover:text-[#0EA5E9] transition-colors font-medium"
+                className="inline-flex items-center gap-1.5 text-[#0ED3CF] hover:text-[#33EBE8] transition-colors font-medium"
               >
                 Jump to AI & Automation
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <span className="text-[#3F3F46]">·</span>
+              <span className="text-[#3D3A37]">·</span>
               <Link
                 href="/capabilities"
-                className="inline-flex items-center gap-1.5 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 Capability matrix
               </Link>
-              <span className="text-[#3F3F46]">·</span>
+              <span className="text-[#3D3A37]">·</span>
               <Link
                 href="/industries"
-                className="inline-flex items-center gap-1.5 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 Browse by industry
               </Link>
-              <span className="text-[#3F3F46]">·</span>
+              <span className="text-[#3D3A37]">·</span>
               <Link
                 href="/pricing"
-                className="inline-flex items-center gap-1.5 text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
               >
                 Compare every tier
               </Link>
@@ -125,13 +125,13 @@ export default function ServicesPage() {
       {/* Tier Grid — productized engagements with Stripe checkout */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-4 h-4 text-[#06B6D4]" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+          <Sparkles className="w-4 h-4 text-[#0ED3CF]" />
+          <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
             Productized engagements
           </span>
         </div>
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">Engineering & QA</h2>
-        <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+        <p className="text-[#A8A29E] mb-8 max-w-2xl">
           Fixed scope, fixed price, Stripe checkout. The original Sage Ideas catalog —
           strategy audits, marketing-site sprints, brand work, and platform builds.
         </p>
@@ -141,15 +141,15 @@ export default function ServicesPage() {
       {/* AI & Automation — extended catalog */}
       <section id="ai-and-automation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-24">
         <div className="flex items-center gap-2 mb-3">
-          <Layers className="w-4 h-4 text-[#06B6D4]" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+          <Layers className="w-4 h-4 text-[#0ED3CF]" />
+          <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
             AI & Automation
           </span>
         </div>
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
           Twenty-two more ways we can help.
         </h2>
-        <p className="text-[#A1A1AA] mb-6 max-w-2xl">
+        <p className="text-[#A8A29E] mb-6 max-w-2xl">
           Six categories spanning AI reliability, automation pipelines, customer-facing
           AI products, productized retainers, diagnostic on-ramps, and full done-for-you
           bundles. Inquiry-first — every engagement is scoped before you commit.
@@ -163,15 +163,15 @@ export default function ServicesPage() {
       {/* Evidence — real Lab + Work tied to new categories */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="flex items-center gap-2 mb-3">
-          <FlaskConical className="w-4 h-4 text-[#A1A1AA]" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA]">
+          <FlaskConical className="w-4 h-4 text-[#A8A29E]" />
+          <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E]">
             Proof from the Lab
           </span>
         </div>
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
           We ship these patterns ourselves first.
         </h2>
-        <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+        <p className="text-[#A8A29E] mb-8 max-w-2xl">
           Every offer above is built on a pattern already running in production — in our Lab
           or in shipped client work. Three concrete examples:
         </p>
@@ -180,7 +180,7 @@ export default function ServicesPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="group rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6 hover:border-[#3F3F46] transition-colors flex flex-col"
+              className="group rounded-2xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#3D3A37] transition-colors flex flex-col"
             >
               <span
                 className="text-[10px] font-mono uppercase tracking-widest mb-3"
@@ -191,12 +191,12 @@ export default function ServicesPage() {
               <h3 className="text-lg font-semibold text-[#FAFAFA] leading-snug mb-2 group-hover:text-[#FAFAFA]">
                 {item.title}
               </h3>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed mb-4 flex-1">{item.body}</p>
+              <p className="text-sm text-[#A8A29E] leading-relaxed mb-4 flex-1">{item.body}</p>
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {item.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] font-mono uppercase tracking-wider text-[#71717A] bg-[#0A0A0C] border border-[#27272A] rounded px-2 py-1"
+                    className="text-[10px] font-mono uppercase tracking-wider text-[#78716C] bg-[#0B0A09] border border-[#2A2826] rounded px-2 py-1"
                   >
                     {tag}
                   </span>
@@ -211,11 +211,11 @@ export default function ServicesPage() {
             </Link>
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs text-[#71717A]">
-          <Link href="/lab" className="hover:text-[#06B6D4] transition-colors">
+        <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs text-[#78716C]">
+          <Link href="/lab" className="hover:text-[#0ED3CF] transition-colors">
             Browse the full Lab →
           </Link>
-          <Link href="/work" className="hover:text-[#06B6D4] transition-colors">
+          <Link href="/work" className="hover:text-[#0ED3CF] transition-colors">
             Read client case studies →
           </Link>
         </div>
@@ -224,13 +224,13 @@ export default function ServicesPage() {
       {/* Care retainers */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="flex items-center gap-2 mb-3">
-          <RefreshCw className="w-4 h-4 text-[#8B5CF6]" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#8B5CF6]">
+          <RefreshCw className="w-4 h-4 text-[#E85D3A]" />
+          <span className="text-xs font-mono uppercase tracking-widest text-[#E85D3A]">
             Monthly retainers
           </span>
         </div>
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">Care plans</h2>
-        <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+        <p className="text-[#A8A29E] mb-8 max-w-2xl">
           Lightweight monthly retainers for teams who already shipped. Cancel anytime.
         </p>
         <div className="grid md:grid-cols-3 gap-4">
@@ -238,11 +238,11 @@ export default function ServicesPage() {
             <Link
               key={c.slug}
               href={`/services/${c.slug}`}
-              className="group rounded-2xl border border-[#8B5CF6]/20 bg-gradient-to-br from-[#8B5CF6]/[0.04] to-transparent p-6 hover:border-[#8B5CF6]/50 hover:from-[#8B5CF6]/[0.08] transition-colors"
+              className="group rounded-2xl border border-[#E85D3A]/20 bg-gradient-to-br from-[#E85D3A]/[0.04] to-transparent p-6 hover:border-[#E85D3A]/50 hover:from-[#E85D3A]/[0.08] transition-colors"
             >
               <div className="flex items-center gap-2 mb-3">
-                <RefreshCw className="w-4 h-4 text-[#8B5CF6]" />
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8B5CF6]">
+                <RefreshCw className="w-4 h-4 text-[#E85D3A]" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#E85D3A]">
                   Retainer
                 </span>
               </div>
@@ -250,8 +250,8 @@ export default function ServicesPage() {
               <div className="text-sm text-[#FAFAFA]/90 font-medium mb-3">
                 {c.price}/mo
               </div>
-              <p className="text-sm text-[#A1A1AA] leading-snug mb-4">{c.tagline}</p>
-              <span className="inline-flex items-center gap-1 text-xs font-mono text-[#8B5CF6] group-hover:translate-x-0.5 transition-transform">
+              <p className="text-sm text-[#A8A29E] leading-snug mb-4">{c.tagline}</p>
+              <span className="inline-flex items-center gap-1 text-xs font-mono text-[#E85D3A] group-hover:translate-x-0.5 transition-transform">
                 Explore <ArrowRight className="w-3 h-3" />
               </span>
             </Link>
@@ -269,17 +269,17 @@ export default function ServicesPage() {
 
       {/* Custom packages */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-8 sm:p-10">
+        <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-8 sm:p-10">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-4 h-4 text-[#A1A1AA]" />
-            <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA]">
+            <Sparkles className="w-4 h-4 text-[#A8A29E]" />
+            <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E]">
               Custom packages
             </span>
           </div>
           <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
             Or scope something custom.
           </h2>
-          <p className="text-[#A1A1AA] max-w-2xl leading-relaxed mb-6">
+          <p className="text-[#A8A29E] max-w-2xl leading-relaxed mb-6">
             Need a hybrid engagement? A multi-month build? A retainer with specific
             deliverables? Every engagement can be custom-scoped — transparent quote,
             fixed price, no asterisks.
@@ -289,7 +289,7 @@ export default function ServicesPage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-[#27272A] hover:border-[#06B6D4] text-[#FAFAFA]"
+              className="border-[#2A2826] hover:border-[#0ED3CF] text-[#FAFAFA]"
             >
               <Link href="/contact?engagement=custom">
                 Talk to Sage
@@ -300,7 +300,7 @@ export default function ServicesPage() {
               asChild
               size="lg"
               variant="ghost"
-              className="text-[#A1A1AA]"
+              className="text-[#A8A29E]"
             >
               <Link href="/capabilities">See the matrix</Link>
             </Button>
@@ -308,21 +308,21 @@ export default function ServicesPage() {
         </div>
 
         {/* Not sure which? */}
-        <div className="mt-10 rounded-2xl border border-[#27272A] bg-[#0F0F12] p-8 sm:p-12 text-center">
-          <p className="text-[#71717A] text-sm font-mono uppercase tracking-widest mb-3">
+        <div className="mt-10 rounded-2xl border border-[#2A2826] bg-[#12110F] p-8 sm:p-12 text-center">
+          <p className="text-[#78716C] text-sm font-mono uppercase tracking-widest mb-3">
             Not sure which fits?
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-4">
             Start with a conversation.
           </h2>
-          <p className="text-[#A1A1AA] max-w-xl mx-auto mb-8">
+          <p className="text-[#A8A29E] max-w-xl mx-auto mb-8">
             Book a free 30-minute discovery call. We&apos;ll talk through what you&apos;re building,
             what you&apos;ve already tried, and which engagement — if any — is the right fit.
           </p>
           <Button
             asChild
             size="lg"
-            className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold"
+            className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold"
           >
             <Link href="/book">
               Book a Discovery Call

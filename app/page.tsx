@@ -105,7 +105,7 @@ const capabilities = [
     description:
       'SEO-first content engines, programmatic page templates, structured data, and technical audits. Built to compound monthly, not deliver one-time traffic spikes.',
     href: '/services/scale',
-    accent: 'violet',
+    accent: 'coral',
   },
   {
     icon: Terminal,
@@ -113,7 +113,7 @@ const capabilities = [
     description:
       'Monthly retainer for engineering leadership — architecture decisions, code review, technical roadmap. Operator-grade judgment on call without the full-time commitment.',
     href: '/services/operate',
-    accent: 'violet',
+    accent: 'coral',
   },
 ] as const
 
@@ -215,7 +215,7 @@ const aiAutomationCategories = [
     label: 'AI Flagship',
     tagline: 'Custom AI agents, voice agents, lead engines. Built on your business.',
     href: '/services#cat-ai-flagship',
-    accent: '#22D3EE',
+    accent: '#0ED3CF',
     count: 'Featured',
   },
   {
@@ -224,7 +224,7 @@ const aiAutomationCategories = [
     label: 'AI services',
     tagline: 'Reliability audits, RAG, agents, internal copilots.',
     href: '/services#cat-ai-services',
-    accent: '#06B6D4',
+    accent: '#0ED3CF',
     count: '5 offers',
   },
   {
@@ -233,7 +233,7 @@ const aiAutomationCategories = [
     label: 'Automation pipelines',
     tagline: 'Postmortems, release notes, feedback routing, data hygiene.',
     href: '/services#cat-automation-pipelines',
-    accent: '#8B5CF6',
+    accent: '#E85D3A',
     count: '5 offers',
   },
   {
@@ -242,7 +242,7 @@ const aiAutomationCategories = [
     label: 'Customer-facing AI',
     tagline: 'Docs-as-a-product, onboarding concierge, support deflection.',
     href: '/services#cat-ai-products',
-    accent: '#F59E0B',
+    accent: '#E85D3A',
     count: '3 offers',
   },
   {
@@ -251,7 +251,7 @@ const aiAutomationCategories = [
     label: 'Productized retainers',
     tagline: 'AI Quality, Automation, Reliability, Founder partner.',
     href: '/services#cat-retainers',
-    accent: '#10B981',
+    accent: '#A8C633',
     count: '4 plans',
   },
   {
@@ -260,7 +260,7 @@ const aiAutomationCategories = [
     label: 'Diagnostics',
     tagline: '48-hour AI readiness, stack X-ray, hallucination hunt.',
     href: '/services#cat-diagnostics',
-    accent: '#EC4899',
+    accent: '#C7236E',
     count: '3 sprints',
   },
   {
@@ -287,6 +287,8 @@ export default function HomePage() {
       <FloatingOrbs />
 
       {/* HERO */}
+      {/* Hero background image */}
+      <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{ backgroundImage: "url(/images/hero-abstract.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
       <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
         <HeroMotionLayer intensity="medium" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -294,8 +296,8 @@ export default function HomePage() {
             {/* Left: Copy */}
             <motion.div className="lg:col-span-7 space-y-8" {...fadeInUp}>
               <div className="space-y-4">
-                <SectionLabel>Sage Ideas · Studio</SectionLabel>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-[#FAFAFA] leading-[1.05]">
+                <div className="flex items-center gap-3 mb-2"><img src="/brand/sage-mark.svg" alt="" className="w-8 h-8" aria-hidden /><SectionLabel>Sage Ideas · Studio</SectionLabel></div>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tight text-[#FAFAFA] leading-[1.05]">
                   <TypewriterLines
                     lines={[
                       'I build AI systems.',
@@ -307,7 +309,7 @@ export default function HomePage() {
                     lineClassName="block"
                   />
                 </h1>
-                <p className="text-lg lg:text-xl text-[#A1A1AA] leading-relaxed max-w-2xl">
+                <p className="text-lg lg:text-xl text-[#A8A29E] leading-relaxed max-w-2xl">
                   Sage Ideas is a one-person studio for founders who need it built right the
                   first time. Full-stack, AI-native, billing-grade. No agency middleman, no
                   offshore handoff, no swap-in resource on your account.
@@ -318,10 +320,10 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-medium"
+                  className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold shadow-lg shadow-[#0ED3CF]/20 hover:shadow-[#0ED3CF]/30 transition-all"
                 >
-                  <Link href="/work">
-                    See Our Work
+                  <Link href="/book">
+                    Book a Discovery Call
                     <ArrowRight className="w-4 h-4 ml-1.5" />
                   </Link>
                 </Button>
@@ -329,28 +331,14 @@ export default function HomePage() {
                   asChild
                   size="lg"
                   variant="ghost"
-                  className="text-[#FAFAFA] hover:bg-[#18181B] border border-[#27272A]"
+                  className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826] hover:border-[#0ED3CF]/40 transition-all"
                 >
-                  <Link href="/services">View Services</Link>
+                  <Link href="/work">See Our Work</Link>
                 </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="ghost"
-                  className="text-[#FAFAFA] hover:bg-[#18181B] border border-[#27272A]"
-                >
-                  <Link href="/how-it-works">See How It Works</Link>
-                </Button>
-                <Link
-                  href="/book"
-                  className="text-sm text-[#A1A1AA] hover:text-[#06B6D4] transition-colors ml-1 underline-offset-4 hover:underline"
-                >
-                  or book a discovery call →
-                </Link>
               </div>
 
               {/* Trust micro-strip */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#71717A] pt-4 border-t border-[#27272A]">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#78716C] pt-4 border-t border-[#2A2826]">
                 <span>9 certifications</span>
                 <span aria-hidden>·</span>
                 <span>106 public repos</span>
@@ -381,35 +369,35 @@ export default function HomePage() {
           >
             <Link
               href="/pricing#productized"
-              className="group flex items-center justify-between bg-[#0F0F12] border border-[#27272A] hover:border-[#06B6D4]/50 rounded-2xl px-6 py-5 transition-all"
+              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#0ED3CF]/50 rounded-2xl px-6 py-5 transition-all"
             >
               <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#06B6D4] mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-1">
                   Productized
                 </div>
                 <div className="text-sm text-[#FAFAFA]">
                   Fixed-scope engagements from $750 to $9,500+. Stripe checkout.
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#06B6D4] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#0ED3CF] group-hover:translate-x-1 transition-all" />
             </Link>
             <Link
               href="/pricing#care"
-              className="group flex items-center justify-between bg-[#0F0F12] border border-[#27272A] hover:border-[#8B5CF6]/50 rounded-2xl px-6 py-5 transition-all"
+              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#E85D3A]/50 rounded-2xl px-6 py-5 transition-all"
             >
               <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#8B5CF6] mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#E85D3A] mb-1">
                   Care
                 </div>
                 <div className="text-sm text-[#FAFAFA]">
                   Monthly retainers from $300 to $800. Cancel any month.
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#8B5CF6] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#E85D3A] group-hover:translate-x-1 transition-all" />
             </Link>
             <Link
               href="/services/studio-engagement"
-              className="group flex items-center justify-between bg-gradient-to-br from-[#06B6D4]/[0.05] via-[#0F0F12] to-[#8B5CF6]/[0.05] border border-[#27272A] hover:border-[#FAFAFA]/40 rounded-2xl px-6 py-5 transition-all sm:col-span-2 lg:col-span-1"
+              className="group flex items-center justify-between bg-gradient-to-br from-[#0ED3CF]/[0.05] via-[#12110F] to-[#E85D3A]/[0.05] border border-[#2A2826] hover:border-[#C7236E]/50 rounded-2xl px-6 py-5 transition-all sm:col-span-2 lg:col-span-1"
             >
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -422,24 +410,24 @@ export default function HomePage() {
                   From $25k/quarter. By application. 3 slots a year.
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#FAFAFA] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#FAFAFA] group-hover:translate-x-1 transition-all" />
             </Link>
           </motion.div>
         </div>
       </section>
 
       {/* LOGO BAR */}
-      <section className="border-y border-[#27272A] bg-[#0A0A0C]/60 backdrop-blur-sm">
+      <section className="border-y border-[#2A2826] bg-[#0B0A09]/60 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#71717A] shrink-0">
+            <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#78716C] shrink-0">
               Built on
             </span>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               {stackLogos.map((logo) => (
                 <span
                   key={logo}
-                  className="text-sm text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
+                  className="text-sm text-[#A8A29E] hover:text-[#FAFAFA] transition-colors"
                 >
                   {logo}
                 </span>
@@ -460,10 +448,10 @@ export default function HomePage() {
             className="max-w-2xl mb-16"
           >
             <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] mt-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
               Four things, done at depth.
             </h2>
-            <p className="text-[#A1A1AA] mt-4 text-lg">
+            <p className="text-[#A8A29E] mt-4 text-lg">
               We don’t do everything. We do four things — and we do them with the
               architecture discipline of a tight team and the speed of a single operator.
             </p>
@@ -479,23 +467,23 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
                 <Link href={cap.href} className="block group h-full">
-                  <GlowCard glowColor={cap.accent === 'violet' ? 'violet' : 'cyan'} className="h-full p-8">
+                  <GlowCard glowColor={cap.accent === 'coral' ? 'coral' : 'cyan'} className="h-full p-8">
                     <div className="flex items-start gap-4">
                       <div
                         className={`w-12 h-12 rounded-xl border ${
-                          cap.accent === 'violet'
-                            ? 'border-[#8B5CF6]/30 bg-[#8B5CF6]/10 text-[#8B5CF6]'
-                            : 'border-[#06B6D4]/30 bg-[#06B6D4]/10 text-[#06B6D4]'
+                          cap.accent === 'coral'
+                            ? 'border-[#E85D3A]/30 bg-[#E85D3A]/10 text-[#E85D3A]'
+                            : 'border-[#0ED3CF]/30 bg-[#0ED3CF]/10 text-[#0ED3CF]'
                         } flex items-center justify-center shrink-0`}
                       >
                         <cap.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+                        <h3 className="text-xl font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
                           {cap.title}
                         </h3>
-                        <p className="text-[#A1A1AA] mt-3 leading-relaxed">{cap.description}</p>
-                        <div className="flex items-center gap-2 mt-5 text-sm text-[#06B6D4] opacity-0 group-hover:opacity-100 transition-opacity">
+                        <p className="text-[#A8A29E] mt-3 leading-relaxed">{cap.description}</p>
+                        <div className="flex items-center gap-2 mt-5 text-sm text-[#0ED3CF] opacity-0 group-hover:opacity-100 transition-opacity">
                           Learn more <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -516,43 +504,43 @@ export default function HomePage() {
           >
             <Link
               href="/services"
-              className="rounded-xl border border-[#06B6D4]/20 bg-[#06B6D4]/[0.04] hover:border-[#06B6D4]/50 p-5 transition-colors group"
+              className="rounded-xl border border-[#0ED3CF]/20 bg-[#0ED3CF]/[0.04] hover:border-[#0ED3CF]/50 p-5 transition-colors group"
             >
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] mb-1">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] mb-1">
                 Productized tiers
               </div>
               <div className="text-base font-semibold text-[#FAFAFA] mb-1">
                 9 fixed-price engagements
               </div>
-              <div className="text-xs text-[#A1A1AA]">
+              <div className="text-xs text-[#A8A29E]">
                 From $750 audits to $9,500+ builds. Stripe checkout.
               </div>
             </Link>
             <Link
               href="/pricing#care"
-              className="rounded-xl border border-[#8B5CF6]/20 bg-[#8B5CF6]/[0.04] hover:border-[#8B5CF6]/50 p-5 transition-colors group"
+              className="rounded-xl border border-[#E85D3A]/20 bg-[#E85D3A]/[0.04] hover:border-[#E85D3A]/50 p-5 transition-colors group"
             >
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#8B5CF6] mb-1">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#E85D3A] mb-1">
                 Monthly retainers
               </div>
               <div className="text-base font-semibold text-[#FAFAFA] mb-1">
                 Care plans from $300/mo
               </div>
-              <div className="text-xs text-[#A1A1AA]">
+              <div className="text-xs text-[#A8A29E]">
                 Site Care, Brand Care, Content Care. Cancel anytime.
               </div>
             </Link>
             <Link
               href="/contact?engagement=custom"
-              className="rounded-xl border border-[#27272A] bg-[#0F0F12] hover:border-[#A1A1AA]/40 p-5 transition-colors group"
+              className="rounded-xl border border-[#2A2826] bg-[#12110F] hover:border-[#A8A29E]/40 p-5 transition-colors group"
             >
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#A1A1AA] mb-1">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#A8A29E] mb-1">
                 Custom packages
               </div>
               <div className="text-base font-semibold text-[#FAFAFA] mb-1">
                 Or build your own scope
               </div>
-              <div className="text-xs text-[#A1A1AA]">
+              <div className="text-xs text-[#A8A29E]">
                 Hybrid sprints, multi-month builds, custom retainers.
               </div>
             </Link>
@@ -561,7 +549,7 @@ export default function HomePage() {
       </section>
 
       {/* WHAT WE SHIP — AI & Automation expansion */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A] bg-gradient-to-b from-[#0A0A0C] via-[#09090B] to-[#0A0A0C] relative overflow-hidden">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826] bg-gradient-to-b from-[#0B0A09] via-[#09090B] to-[#0B0A09] relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(6,182,212,0.06),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(139,92,246,0.06),transparent_50%)]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -572,16 +560,16 @@ export default function HomePage() {
             className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12"
           >
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#06B6D4]/10 border border-[#06B6D4]/30 mb-5">
-                <Layers className="w-3.5 h-3.5 text-[#06B6D4]" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#06B6D4]">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0ED3CF]/10 border border-[#0ED3CF]/30 mb-5">
+                <Layers className="w-3.5 h-3.5 text-[#0ED3CF]" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#0ED3CF]">
                   AI Flagship + 22 productized offers
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA]">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA]">
                 What we ship.
               </h2>
-              <p className="text-[#A1A1AA] mt-4 text-lg leading-relaxed">
+              <p className="text-[#A8A29E] mt-4 text-lg leading-relaxed">
                 Seven categories on top of our 9 productized tiers and 3 care plans. AI Flagship
                 offers up top — custom agents, voice agents, and lead engines built on your
                 business, with dashboards and approval queues you actually use.
@@ -589,7 +577,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/services"
-              className="text-sm text-[#06B6D4] hover:text-[#0EA5E9] flex items-center gap-1 group whitespace-nowrap"
+              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] flex items-center gap-1 group whitespace-nowrap"
             >
               Browse the menu
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -607,15 +595,15 @@ export default function HomePage() {
               >
                 <Link
                   href={cat.href}
-                  className="group block h-full rounded-2xl border border-[#27272A] bg-[#0F0F12] hover:bg-[#131318] p-6 transition-all"
+                  className="group block h-full rounded-2xl border border-[#2A2826] bg-[#12110F] hover:bg-[#131318] p-6 transition-all"
                   style={{
-                    borderColor: '#27272A',
+                    borderColor: '#2A2826',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = `${cat.accent}66`
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#27272A'
+                    e.currentTarget.style.borderColor = '#2A2826'
                   }}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -639,8 +627,8 @@ export default function HomePage() {
                   <h3 className="text-lg font-semibold text-[#FAFAFA] mt-5 group-hover:text-[#FAFAFA]">
                     {cat.label}
                   </h3>
-                  <p className="text-sm text-[#A1A1AA] mt-2 leading-relaxed">{cat.tagline}</p>
-                  <div className="mt-5 inline-flex items-center gap-1 text-xs text-[#A1A1AA] group-hover:gap-2 transition-all">
+                  <p className="text-sm text-[#A8A29E] mt-2 leading-relaxed">{cat.tagline}</p>
+                  <div className="mt-5 inline-flex items-center gap-1 text-xs text-[#A8A29E] group-hover:gap-2 transition-all">
                     Explore
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
@@ -655,10 +643,10 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#27272A] bg-[#0A0A0C]/60 px-6 py-5"
+            className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#2A2826] bg-[#0B0A09]/60 px-6 py-5"
           >
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-[#71717A]">
-              <span className="text-[#22D3EE]">5 AI Flagship offers</span>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-[#78716C]">
+              <span className="text-[#0ED3CF]">5 AI Flagship offers</span>
               <span aria-hidden>·</span>
               <span>22 AI &amp; automation offers</span>
               <span aria-hidden>·</span>
@@ -666,21 +654,21 @@ export default function HomePage() {
               <span aria-hidden>·</span>
               <span>3 care retainers</span>
               <span aria-hidden>·</span>
-              <span className="text-[#06B6D4]">99+ ways to engage</span>
+              <span className="text-[#0ED3CF]">99+ ways to engage</span>
             </div>
             <div className="flex flex-wrap gap-2">
               <Button
                 asChild
                 size="sm"
                 variant="ghost"
-                className="text-[#FAFAFA] hover:bg-[#18181B] border border-[#27272A]"
+                className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826]"
               >
                 <Link href="/pricing">Full price menu</Link>
               </Button>
               <Button
                 asChild
                 size="sm"
-                className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-medium"
+                className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-medium"
               >
                 <Link href="/contact?engagement=custom">
                   Custom scope
@@ -693,7 +681,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED WORK */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A]">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -704,17 +692,17 @@ export default function HomePage() {
           >
             <div className="max-w-2xl">
               <SectionLabel>Recent work</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] mt-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
                 Six projects. Six problem spaces. All live.
               </h2>
-              <p className="text-[#A1A1AA] mt-4 text-lg">
+              <p className="text-[#A8A29E] mt-4 text-lg">
                 These aren’t concept pieces. Every project shipped production code, served
                 real users, and went through the full engineering process.
               </p>
             </div>
             <Link
               href="/work"
-              className="text-sm text-[#06B6D4] hover:text-[#0EA5E9] flex items-center gap-1 group whitespace-nowrap"
+              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] flex items-center gap-1 group whitespace-nowrap"
             >
               All case studies
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -727,20 +715,20 @@ export default function HomePage() {
                 <HoverGlow className="h-full rounded-2xl">
                 <Link href={`/work/${work.slug}`} className="group block h-full">
                   <GlowCard className="h-full p-6">
-                    <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#06B6D4]">
+                    <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF]">
                       {work.category}
                     </div>
-                    <h3 className="text-xl font-semibold text-[#FAFAFA] mt-2 group-hover:text-[#06B6D4] transition-colors">
+                    <h3 className="text-xl font-semibold text-[#FAFAFA] mt-2 group-hover:text-[#0ED3CF] transition-colors">
                       {work.name}
                     </h3>
-                    <p className="text-sm text-[#A1A1AA] mt-3 leading-relaxed">
+                    <p className="text-sm text-[#A8A29E] mt-3 leading-relaxed">
                       {work.kicker}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-5">
                       {work.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-mono uppercase tracking-wider text-[#71717A] bg-[#0A0A0C] border border-[#27272A] rounded px-2 py-1"
+                          className="text-[10px] font-mono uppercase tracking-wider text-[#78716C] bg-[#0B0A09] border border-[#2A2826] rounded px-2 py-1"
                         >
                           {tag}
                         </span>
@@ -756,7 +744,7 @@ export default function HomePage() {
       </section>
 
       {/* THE LAB */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A] bg-gradient-to-b from-[#0A0A0C] to-[#09090B]">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826] bg-gradient-to-b from-[#0B0A09] to-[#09090B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -767,10 +755,10 @@ export default function HomePage() {
           >
             <div>
               <SectionLabel color="violet">The Lab</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] mt-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
                 Products we build and operate ourselves.
               </h2>
-              <p className="text-[#A1A1AA] mt-4 text-lg leading-relaxed">
+              <p className="text-[#A8A29E] mt-4 text-lg leading-relaxed">
                 The Lab is where we validate everything we offer clients. Every framework,
                 every AI integration, every infrastructure pattern — it runs here first. Six
                 active products, all shipping code.
@@ -778,7 +766,7 @@ export default function HomePage() {
               <div className="mt-8">
                 <Button
                   asChild
-                  className="bg-[#0F0F12] hover:bg-[#18181B] text-[#FAFAFA] border border-[#27272A] hover:border-[#8B5CF6]/50"
+                  className="bg-[#12110F] hover:bg-[#1A1917] text-[#FAFAFA] border border-[#2A2826] hover:border-[#E85D3A]/50"
                 >
                   <Link href="/lab">
                     Explore the Lab <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -791,10 +779,10 @@ export default function HomePage() {
                 <Link
                   key={p.slug}
                   href={`/lab/${p.slug}`}
-                  className="group bg-[#0F0F12] border border-[#27272A] hover:border-[#8B5CF6]/40 rounded-xl px-5 py-4 transition-all flex items-center justify-between"
+                  className="group bg-[#12110F] border border-[#2A2826] hover:border-[#E85D3A]/40 rounded-xl px-5 py-4 transition-all flex items-center justify-between"
                 >
                   <span className="text-sm text-[#FAFAFA]">{p.name}</span>
-                  <ArrowRight className="w-4 h-4 text-[#71717A] group-hover:text-[#8B5CF6] group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="w-4 h-4 text-[#78716C] group-hover:text-[#E85D3A] group-hover:translate-x-0.5 transition-all" />
                 </Link>
               ))}
             </div>
@@ -803,7 +791,7 @@ export default function HomePage() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A]">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -813,7 +801,7 @@ export default function HomePage() {
             className="max-w-2xl mb-12"
           >
             <SectionLabel>Process</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] mt-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
               Four steps. No surprises.
             </h2>
           </motion.div>
@@ -826,11 +814,11 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="bg-[#0F0F12] border border-[#27272A] rounded-2xl p-6 hover:border-[#06B6D4]/30 transition-colors"
+                className="bg-[#12110F] border border-[#2A2826] rounded-2xl p-6 hover:border-[#0ED3CF]/30 transition-colors"
               >
-                <div className="text-xs font-mono text-[#06B6D4]">{step.n}</div>
+                <div className="text-xs font-mono text-[#0ED3CF]">{step.n}</div>
                 <h3 className="text-lg font-semibold text-[#FAFAFA] mt-2">{step.title}</h3>
-                <p className="text-sm text-[#A1A1AA] mt-3 leading-relaxed">{step.body}</p>
+                <p className="text-sm text-[#A8A29E] mt-3 leading-relaxed">{step.body}</p>
               </motion.div>
             ))}
           </div>
@@ -838,7 +826,7 @@ export default function HomePage() {
           <div className="mt-10 flex justify-center">
             <Link
               href="/process"
-              className="text-sm text-[#06B6D4] hover:text-[#0EA5E9] flex items-center gap-1 group"
+              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] flex items-center gap-1 group"
             >
               See the full process
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -848,7 +836,7 @@ export default function HomePage() {
       </section>
 
       {/* TRUST STRIP */}
-      <section className="py-20 border-t border-[#27272A] bg-[#0A0A0C]/60">
+      <section className="py-20 border-t border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -865,9 +853,9 @@ export default function HomePage() {
                 {trustChips.map((chip) => (
                   <span
                     key={chip}
-                    className="inline-flex items-center gap-1.5 text-xs text-[#A1A1AA] bg-[#0F0F12] border border-[#27272A] rounded-full px-3 py-1.5"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#A8A29E] bg-[#12110F] border border-[#2A2826] rounded-full px-3 py-1.5"
                   >
-                    <CheckCircle2 className="w-3 h-3 text-[#06B6D4]" />
+                    <CheckCircle2 className="w-3 h-3 text-[#0ED3CF]" />
                     {chip}
                   </span>
                 ))}
@@ -891,11 +879,11 @@ export default function HomePage() {
               className="max-w-2xl mb-8"
             >
               <SectionLabel>References</SectionLabel>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FAFAFA] mt-3">
-                Talk to people I&apos;ve built things with.
+              <h2 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#FAFAFA] mt-3">
+                Talk to people I&apos;ve shipped with.
               </h2>
-              <p className="text-sm text-[#A1A1AA] mt-3 leading-relaxed">
-                No cherry-picked quotes, no stock photos. Until clients sign off on attributed testimonials, every prospective engagement gets the option to talk directly to past collaborators — engineers, founders, ops leads.
+              <p className="text-sm text-[#A8A29E] mt-3 leading-relaxed">
+                Every prospective client gets the option to talk directly to past collaborators — engineers, founders, ops leads. No stock photos. No invented quotes. Real conversations with real people.
               </p>
             </motion.div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -906,7 +894,7 @@ export default function HomePage() {
             <div className="mt-6">
               <Link
                 href="/trust#references"
-                className="text-sm text-[#06B6D4] hover:text-[#0EA5E9] inline-flex items-center gap-1 group"
+                className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] inline-flex items-center gap-1 group"
               >
                 See full reference roster
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -917,7 +905,7 @@ export default function HomePage() {
       </section>
 
       {/* STATS */}
-      <section className="py-20 border-t border-[#27272A]">
+      <section className="py-20 border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {homepageStats.map((stat) => (
@@ -928,7 +916,7 @@ export default function HomePage() {
       </section>
 
       {/* TESTIMONIAL CAROUSEL */}
-      <section className="py-20 border-t border-[#27272A]">
+      <section className="py-20 border-t border-[#2A2826]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <SectionLabel>What clients say</SectionLabel>
@@ -938,7 +926,7 @@ export default function HomePage() {
       </section>
 
       {/* FOUNDER SPOTLIGHT */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A]">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <motion.div
@@ -949,26 +937,26 @@ export default function HomePage() {
               className="lg:col-span-7 space-y-6"
             >
               <SectionLabel>Founder</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] leading-tight">
                 One operator. Five years
                 <br className="hidden sm:block" /> of production fintech. Built
                 <br className="hidden sm:block" /> like a team of six.
               </h2>
-              <p className="text-[#A1A1AA] text-lg leading-relaxed">
+              <p className="text-[#A8A29E] text-lg leading-relaxed">
                 Jason Teixeira spent five years inside fintech engineering — the kind of
                 environment where a webhook retry loop or an off-by-one rounding error gets
                 a phone call from compliance. He left to build the studio that fintech
                 taught him should exist: one person, full-stack, accountable end-to-end, with
                 the architecture discipline of a team and the speed of a single keyboard.
               </p>
-              <p className="text-[#A1A1AA] text-lg leading-relaxed">
+              <p className="text-[#A8A29E] text-lg leading-relaxed">
                 The studio is small on purpose. The math is simple — one focused operator
                 with a tight process and AI-native tooling outships a six-person agency with
                 a project manager and three handoffs. You hire Sage Ideas because the person
                 pitching the work is the person typing the code. That’s not a constraint.
                 That’s the offer.
               </p>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-[#71717A] pt-2">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-[#78716C] pt-2">
                 <span>5 years experience</span>
                 <span aria-hidden>·</span>
                 <span>9 certs</span>
@@ -980,14 +968,14 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-3 pt-2">
                 <Button
                   asChild
-                  className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-medium"
+                  className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-medium"
                 >
                   <Link href="/studio">Meet the studio</Link>
                 </Button>
                 <Button
                   asChild
                   variant="ghost"
-                  className="text-[#FAFAFA] hover:bg-[#18181B] border border-[#27272A]"
+                  className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826]"
                 >
                   <Link href="/founder">
                     Meet the founder <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -1005,16 +993,16 @@ export default function HomePage() {
               <div className="relative">
                 <FounderPortrait size="xl" caption={false} />
                 <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8 z-10">
-                  <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#06B6D4] mb-2">
+                  <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#0ED3CF] mb-2">
                     Sage Ideas LLC
                   </div>
                   <div className="text-2xl lg:text-3xl font-bold text-[#FAFAFA] tracking-tight">
                     Jason Teixeira
                   </div>
-                  <div className="text-sm text-[#A1A1AA] mt-1">
+                  <div className="text-sm text-[#A8A29E] mt-1">
                     Founder &amp; Principal Engineer
                   </div>
-                  <div className="text-xs text-[#71717A] mt-2">
+                  <div className="text-xs text-[#78716C] mt-2">
                     Orlando, FL · Remote-first
                   </div>
                 </div>
@@ -1025,7 +1013,7 @@ export default function HomePage() {
       </section>
 
       {/* LATEST WRITING */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A] bg-[#0A0A0C]/40">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826] bg-[#0B0A09]/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1036,16 +1024,16 @@ export default function HomePage() {
           >
             <div className="max-w-2xl">
               <SectionLabel>Latest writing</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#FAFAFA] mt-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
                 Field notes from the keyboard.
               </h2>
-              <p className="text-[#A1A1AA] text-base mt-3 leading-relaxed">
+              <p className="text-[#A8A29E] text-base mt-3 leading-relaxed">
                 Engineering and architecture writing — the same patterns we ship for clients, written up while they’re fresh.
               </p>
             </div>
             <Link
               href="/blog"
-              className="text-sm text-[#06B6D4] hover:text-[#0EA5E9] inline-flex items-center gap-1 group shrink-0"
+              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] inline-flex items-center gap-1 group shrink-0"
             >
               All posts
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -1057,24 +1045,24 @@ export default function HomePage() {
                 <HoverGlow className="rounded-xl">
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group block h-full rounded-xl border border-[#27272A] bg-[#0F0F12] p-6 hover:border-[#06B6D4]/40 transition-colors"
+                  className="group block h-full rounded-xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#0ED3CF]/40 transition-colors"
                 >
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] mb-3">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] mb-3">
                     {new Date(post.date).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
                     })}
                   </div>
-                  <h3 className="text-[#FAFAFA] font-semibold leading-snug group-hover:text-[#06B6D4] transition-colors">
+                  <h3 className="text-[#FAFAFA] font-semibold leading-snug group-hover:text-[#0ED3CF] transition-colors">
                     {post.title}
                   </h3>
                   {post.excerpt && (
-                    <p className="text-sm text-[#A1A1AA] mt-3 leading-relaxed line-clamp-3">
+                    <p className="text-sm text-[#A8A29E] mt-3 leading-relaxed line-clamp-3">
                       {post.excerpt}
                     </p>
                   )}
-                  <div className="text-sm text-[#06B6D4] mt-5 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  <div className="text-sm text-[#0ED3CF] mt-5 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                     Read →
                   </div>
                 </Link>
@@ -1086,7 +1074,7 @@ export default function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-24 lg:py-32 border-t border-[#27272A] relative overflow-hidden">
+      <section className="py-24 lg:py-32 border-t border-[#2A2826] relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.08),transparent_70%)]" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -1096,10 +1084,10 @@ export default function HomePage() {
             transition={{ duration: 0.5 }}
           >
             <SectionLabel>Ready to ship?</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-[#FAFAFA] mt-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-normal tracking-tight text-[#FAFAFA] mt-4 leading-tight">
               Three lanes. Three slots this quarter.
             </h2>
-            <p className="text-[#A1A1AA] text-lg lg:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[#A8A29E] text-lg lg:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
               Productized engagements with Stripe checkout. Monthly care plans. Or a quarter-long
               Studio Engagement, by application only.
             </p>
@@ -1107,7 +1095,7 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-medium"
+                className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-medium"
               >
                 <TrackedLink
                   href="/book"
@@ -1122,7 +1110,7 @@ export default function HomePage() {
                 asChild
                 size="lg"
                 variant="ghost"
-                className="text-[#FAFAFA] hover:bg-[#18181B] border border-[#27272A]"
+                className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826]"
               >
                 <TrackedLink
                   href="/pricing"

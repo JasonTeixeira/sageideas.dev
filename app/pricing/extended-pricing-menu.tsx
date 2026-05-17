@@ -57,7 +57,7 @@ function MenuColumn({
   rows: Row[]
 }) {
   return (
-    <div className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6 flex flex-col">
+    <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-2">
         <Icon className="w-4 h-4" style={{ color: accent }} aria-hidden />
         <span
@@ -67,17 +67,17 @@ function MenuColumn({
           {label}
         </span>
       </div>
-      <p className="text-sm text-[#A1A1AA] mb-5 leading-snug">{blurb}</p>
+      <p className="text-sm text-[#A8A29E] mb-5 leading-snug">{blurb}</p>
       <ul className="space-y-3 flex-1">
         {rows.map((r) => (
           <li key={r.slug}>
             <Link
               href={r.href}
-              className="group flex items-start justify-between gap-3 text-sm text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors py-1"
+              className="group flex items-start justify-between gap-3 text-sm text-[#A8A29E] hover:text-[#FAFAFA] transition-colors py-1"
             >
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-[#FAFAFA] mb-0.5 truncate">{r.name}</div>
-                <div className="text-xs text-[#71717A] leading-snug">{r.timeline}</div>
+                <div className="text-xs text-[#78716C] leading-snug">{r.timeline}</div>
               </div>
               <span
                 className="shrink-0 text-xs font-mono px-2 py-0.5 rounded border"
@@ -119,13 +119,13 @@ export function ExtendedPricingMenu({
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="mb-10">
-        <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+        <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
           Full menu
         </span>
         <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-3">
           Every engagement, in one place.
         </h2>
-        <p className="text-[#A1A1AA] max-w-2xl">
+        <p className="text-[#A8A29E] max-w-2xl">
           Diagnostics on-ramp into productized work. Productized work hands off to a retainer.
           The bundle wraps it all into one contract. Or scope something bespoke.
         </p>
@@ -133,7 +133,7 @@ export function ExtendedPricingMenu({
 
       {/* Flagship row — premium tier featured first */}
       {flagship.length > 0 && (
-        <div className="mb-6 rounded-2xl border border-[#22D3EE]/30 bg-gradient-to-br from-[#22D3EE]/10 via-[#0F0F12] to-[#0F0F12] p-6 relative overflow-hidden">
+        <div className="mb-6 rounded-2xl border border-[#22D3EE]/30 bg-gradient-to-br from-[#22D3EE]/10 via-[#12110F] to-[#12110F] p-6 relative overflow-hidden">
           <div
             className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full blur-3xl opacity-15 pointer-events-none"
             style={{ backgroundColor: '#22D3EE' }}
@@ -152,7 +152,7 @@ export function ExtendedPricingMenu({
             <h3 className="text-2xl font-bold text-[#FAFAFA] mb-1">
               Custom AI agents, voice agents, and lead engines
             </h3>
-            <p className="text-sm text-[#A1A1AA] mb-5 max-w-2xl">
+            <p className="text-sm text-[#A8A29E] mb-5 max-w-2xl">
               Built on your business. Cloud-hosted, eval-driven, human-in-the-loop. Custom pricing
               available on every flagship tier — the listed price is the floor.
             </p>
@@ -169,7 +169,7 @@ export function ExtendedPricingMenu({
                         {r.price}
                       </span>
                     </div>
-                    <div className="text-xs text-[#71717A] leading-snug">{r.timeline}</div>
+                    <div className="text-xs text-[#78716C] leading-snug">{r.timeline}</div>
                   </Link>
                 </li>
               ))}
@@ -189,14 +189,14 @@ export function ExtendedPricingMenu({
         <MenuColumn
           label="Productized · AI"
           icon={Sparkles}
-          accent="#06B6D4"
+          accent="#0ED3CF"
           blurb="Fixed-scope AI engineering — eval-driven, observable, deployable."
           rows={aiServices}
         />
         <MenuColumn
           label="Productized · Automation"
           icon={Briefcase}
-          accent="#8B5CF6"
+          accent="#E85D3A"
           blurb="Boring, reliable workflows that replace manual handoffs."
           rows={automation}
         />
@@ -225,19 +225,19 @@ export function ExtendedPricingMenu({
           {bundle && (
             <Link
               href={`/services/${bundle.slug}`}
-              className="group rounded-2xl border border-[#06B6D4]/40 bg-gradient-to-br from-[#06B6D4]/10 via-[#0F0F12] to-[#0F0F12] p-8 hover:border-[#06B6D4] transition-colors flex flex-col"
+              className="group rounded-2xl border border-[#0ED3CF]/40 bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#12110F] p-8 hover:border-[#0ED3CF] transition-colors flex flex-col"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Package className="w-4 h-4 text-[#06B6D4]" aria-hidden />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+                <Package className="w-4 h-4 text-[#0ED3CF]" aria-hidden />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
                   Done-For-You bundle
                 </span>
               </div>
               <h3 className="text-2xl font-bold text-[#FAFAFA] mb-2">{bundle.name}</h3>
-              <p className="text-[#A1A1AA] mb-4 flex-1">{bundle.tagline}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-[#27272A]">
+              <p className="text-[#A8A29E] mb-4 flex-1">{bundle.tagline}</p>
+              <div className="flex items-center justify-between pt-4 border-t border-[#2A2826]">
                 <span className="text-xl font-bold text-[#FAFAFA]">{bundle.price}</span>
-                <span className="text-xs font-mono text-[#06B6D4] inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                <span className="text-xs font-mono text-[#0ED3CF] inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
                   See what&apos;s inside <ArrowRight className="w-3 h-3" />
                 </span>
               </div>
@@ -246,19 +246,19 @@ export function ExtendedPricingMenu({
           {bespoke && (
             <Link
               href={`/services/${bespoke.slug}`}
-              className="group rounded-2xl border border-[#27272A] bg-[#0F0F12] p-8 hover:border-[#3F3F46] transition-colors flex flex-col"
+              className="group rounded-2xl border border-[#2A2826] bg-[#12110F] p-8 hover:border-[#3D3A37] transition-colors flex flex-col"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Briefcase className="w-4 h-4 text-[#A1A1AA]" aria-hidden />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA]">
+                <Briefcase className="w-4 h-4 text-[#A8A29E]" aria-hidden />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E]">
                   Bespoke
                 </span>
               </div>
               <h3 className="text-2xl font-bold text-[#FAFAFA] mb-2">{bespoke.name}</h3>
-              <p className="text-[#A1A1AA] mb-4 flex-1">{bespoke.tagline}</p>
-              <div className="flex items-center justify-between pt-4 border-t border-[#27272A]">
+              <p className="text-[#A8A29E] mb-4 flex-1">{bespoke.tagline}</p>
+              <div className="flex items-center justify-between pt-4 border-t border-[#2A2826]">
                 <span className="text-xl font-bold text-[#FAFAFA]">Custom-priced</span>
-                <span className="text-xs font-mono text-[#A1A1AA] inline-flex items-center gap-1 group-hover:translate-x-0.5 group-hover:text-[#FAFAFA] transition-all">
+                <span className="text-xs font-mono text-[#A8A29E] inline-flex items-center gap-1 group-hover:translate-x-0.5 group-hover:text-[#FAFAFA] transition-all">
                   Book a scoping call <ArrowRight className="w-3 h-3" />
                 </span>
               </div>

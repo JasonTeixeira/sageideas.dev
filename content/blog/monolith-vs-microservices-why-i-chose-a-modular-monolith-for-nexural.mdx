@@ -1,0 +1,38 @@
+---
+title: "Monolith vs Microservices: Why I Chose a Modular Monolith for Nexural"
+slug: "monolith-vs-microservices-why-i-chose-a-modular-monolith-for-nexural"
+date: "2026-04-08"
+category: "Architecture"
+readTime: "10 min read"
+excerpt: "The Nexural platform has 7 systems but runs as a modular monolith, not microservices. Here's why that was the right call for a solo engineer, and when I'd split."
+tags:
+  - "Architecture"
+  - "Microservices"
+  - "Monolith"
+  - "TypeScript"
+  - "System Design"
+coverImage: "/blog/covers/monolith-vs-microservices-why-i-chose-a-modular-monolith-for-nexural.png"
+id: 13
+---
+
+# Monolith vs Microservices: Why I Chose a Modular Monolith for Nexural
+
+The Nexural ecosystem has 7 interconnected systems: trading dashboard, Discord bot, research engine, alert system, newsletter studio, strategy tracker, and automation suite.
+
+It would be natural to assume this is a microservices architecture. It's not. It's a modular monolith — and that was deliberate.
+
+## The Decision Framework
+
+I asked three questions:
+
+1. **How many engineers?** One (me). Microservices multiply operational overhead. With one engineer, every new service means another deployment pipeline, another monitoring setup, another failure mode to debug at 2am.
+
+2. **Do the modules need independent scaling?** Not yet. The trading dashboard and research engine both run on Vercel. They don't have different scaling profiles that would justify separate infrastructure.
+
+3. **Do the modules need different tech stacks?** Partially — the Discord bot is Node.js, the alert system is .NET. Those are separate services by necessity. But the web apps are all Next.js/TypeScript and share types, utilities, and database access.
+
+## What "Modular Monolith" Means in Practice
+
+The codebase is organized as one repo with clear domain boundaries:
+
+\

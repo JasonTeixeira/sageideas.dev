@@ -213,20 +213,20 @@ export function CarePageContent({ care }: { care: CareTier }) {
             className="max-w-3xl"
           >
             <div className="flex items-center gap-3 mb-4">
-              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 text-[#8B5CF6] text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#E85D3A]/10 border border-[#E85D3A]/30 text-[#E85D3A] text-xs font-mono">
                 <RefreshCw className="w-3 h-3" /> Monthly retainer
               </span>
-              <span className="text-xs font-mono text-[#71717A]">
+              <span className="text-xs font-mono text-[#78716C]">
                 Cancel anytime
               </span>
             </div>
             <h1 className="text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               {care.name}
             </h1>
-            <p className="mt-4 text-2xl text-[#A1A1AA] leading-snug">
+            <p className="mt-4 text-2xl text-[#A8A29E] leading-snug">
               {care.tagline}
             </p>
-            <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               {care.description}
             </p>
 
@@ -234,17 +234,17 @@ export function CarePageContent({ care }: { care: CareTier }) {
               <CareCheckoutButton care={care} />
               <Link
                 href="/book"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#A8A29E] hover:text-[#FAFAFA] transition-colors"
               >
                 <Calendar className="w-4 h-4" /> Book a call first
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-2 text-xs font-mono text-[#71717A]">
-              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#0F0F12] border border-[#27272A]">
-                <ShieldCheck className="w-3 h-3 text-[#06B6D4]" /> Secure Stripe checkout
+            <div className="mt-8 flex flex-wrap gap-2 text-xs font-mono text-[#78716C]">
+              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#12110F] border border-[#2A2826]">
+                <ShieldCheck className="w-3 h-3 text-[#0ED3CF]" /> Secure Stripe checkout
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#0F0F12] border border-[#27272A]">
+              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-[#12110F] border border-[#2A2826]">
                 {care.price}/mo · billed monthly
               </span>
             </div>
@@ -255,7 +255,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-20">
         {/* What's included / out of scope */}
         <motion.section {...fadeUp} className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6">
+          <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6">
             <SectionLabel>What&apos;s included</SectionLabel>
             <h2 className="mt-3 text-2xl font-bold text-[#FAFAFA] mb-5">
               Every month
@@ -263,13 +263,13 @@ export function CarePageContent({ care }: { care: CareTier }) {
             <ul className="space-y-3">
               {(detail?.included ?? care.outcomes).map((line) => (
                 <li key={line} className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#06B6D4] mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-[#0ED3CF] mt-0.5 shrink-0" />
                   <span className="text-sm text-[#FAFAFA]/90 leading-snug">{line}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6">
+          <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6">
             <SectionLabel>Not included</SectionLabel>
             <h2 className="mt-3 text-2xl font-bold text-[#FAFAFA] mb-5">
               When this isn&apos;t the right fit
@@ -277,16 +277,16 @@ export function CarePageContent({ care }: { care: CareTier }) {
             <ul className="space-y-3">
               {(detail?.outOfScope ?? []).map((line) => (
                 <li key={line} className="flex items-start gap-2.5">
-                  <Sparkles className="w-4 h-4 text-[#A1A1AA] mt-0.5 shrink-0" />
-                  <span className="text-sm text-[#A1A1AA] leading-snug">{line}</span>
+                  <Sparkles className="w-4 h-4 text-[#A8A29E] mt-0.5 shrink-0" />
+                  <span className="text-sm text-[#A8A29E] leading-snug">{line}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-5 text-sm text-[#71717A] leading-snug">
+            <p className="mt-5 text-sm text-[#78716C] leading-snug">
               Need something bigger? Scope a custom engagement —{' '}
               <Link
                 href="/contact?engagement=custom"
-                className="text-[#06B6D4] hover:underline"
+                className="text-[#0ED3CF] hover:underline"
               >
                 talk to Sage
               </Link>
@@ -305,7 +305,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
               <h2 className="mt-3 text-2xl font-bold text-[#FAFAFA] mb-3">
                 How {care.shortName} actually runs
               </h2>
-              <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+              <p className="text-[#A8A29E] mb-8 max-w-2xl">
                 A monthly retainer that runs on a calm cadence. Click any stage to see
                 what you do, what I do, and what you walk away with.
               </p>
@@ -326,7 +326,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
                 <GlowCard key={t.title} glowColor="violet">
                   <div className="p-6">
                     <h3 className="font-semibold text-[#FAFAFA] mb-2">{t.title}</h3>
-                    <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                    <p className="text-sm text-[#A8A29E] leading-relaxed">
                       {t.description}
                     </p>
                   </div>
@@ -347,10 +347,10 @@ export function CarePageContent({ care }: { care: CareTier }) {
               {detail.faqs.map((f) => (
                 <div
                   key={f.q}
-                  className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5"
+                  className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5"
                 >
                   <h3 className="font-semibold text-[#FAFAFA] mb-2">{f.q}</h3>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed">{f.a}</p>
+                  <p className="text-sm text-[#A8A29E] leading-relaxed">{f.a}</p>
                 </div>
               ))}
             </div>
@@ -360,12 +360,12 @@ export function CarePageContent({ care }: { care: CareTier }) {
         {/* CTA */}
         <motion.div
           {...fadeUp}
-          className="rounded-2xl bg-gradient-to-br from-[#8B5CF6]/10 via-[#0F0F12] to-[#06B6D4]/10 border border-[#8B5CF6]/20 p-8 sm:p-12 text-center"
+          className="rounded-2xl bg-gradient-to-br from-[#E85D3A]/10 via-[#12110F] to-[#0ED3CF]/10 border border-[#E85D3A]/20 p-8 sm:p-12 text-center"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
             Ready for steady upkeep?
           </h2>
-          <p className="text-[#A1A1AA] mb-8 max-w-lg mx-auto">
+          <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">
             {care.price}/mo. Cancel anytime. Or book a call to talk through a custom
             scope first.
           </p>
@@ -373,7 +373,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
             <CareCheckoutButton care={care} />
             <Link
               href="/contact?engagement=custom"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#A8A29E] hover:text-[#FAFAFA] transition-colors"
             >
               Talk to Sage <ArrowRight className="w-4 h-4" />
             </Link>

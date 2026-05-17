@@ -46,11 +46,11 @@ export function FounderPortrait({
   return (
     <div className={cn('relative', wrapperLayout, className)}>
       {framed && (
-        <div className="absolute -top-3 -left-3 right-3 -bottom-3 border border-[#27272A] rounded-3xl pointer-events-none" />
+        <div className="absolute -top-3 -left-3 right-3 -bottom-3 border border-[#2A2826] rounded-3xl pointer-events-none" />
       )}
       <div
         className={cn(
-          'relative overflow-hidden rounded-2xl bg-[#0F0F12] border border-[#27272A] group',
+          'relative overflow-hidden rounded-2xl bg-[#12110F] border border-[#2A2826] group',
           dim,
         )}
       >
@@ -98,8 +98,8 @@ export function FounderPortrait({
       </div>
       {caption && (
         <div className="mt-4 flex items-center gap-3">
-          <span className="block w-6 h-px bg-[#06B6D4]" />
-          <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#71717A]">
+          <span className="block w-6 h-px bg-[#0ED3CF]" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#78716C]">
             Founder · Principal Engineer
           </span>
         </div>

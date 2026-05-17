@@ -1,9 +1,9 @@
-import { blogPosts } from '@/lib/blogData'
+import { getAllBlogPosts } from '@/lib/blog-server'
 
 export async function GET() {
   const baseUrl = 'https://www.sageideas.dev'
 
-  const items = blogPosts
+  const items = getAllBlogPosts()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .map(post => `
     <item>

@@ -33,21 +33,21 @@ export default function FintechPage() {
     <div className="min-h-screen pt-24 pb-20">
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <span className="text-xs font-mono text-[#8B5CF6] bg-[#8B5CF6]/10 px-3 py-1 rounded-full">FinTech Development</span>
+        <span className="text-xs font-mono text-[#E85D3A] bg-[#E85D3A]/10 px-3 py-1 rounded-full">FinTech Development</span>
         <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
           Trading Platforms & Financial Systems
         </h1>
-        <p className="mt-6 text-lg text-[#A1A1AA] max-w-3xl">
+        <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
           {"I build fintech software as someone who uses it daily. I trade ES, NQ, CL, and GC futures every morning before I write code. When I build a trading platform, I'm building for myself — not just for a spec."}
         </p>
-        <p className="mt-4 text-sm text-[#71717A] max-w-2xl">
+        <p className="mt-4 text-sm text-[#78716C] max-w-2xl">
           {"Most fintech developers know the code. I know the code AND the domain. That means fewer misunderstandings, fewer iterations, and software that traders actually want to use."}
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
-          <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-6 py-3 bg-[#06B6D4] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
+          <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-6 py-3 bg-[#0ED3CF] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
             Book a Discovery Call <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
-          <Link href="/case-studies/nexural-ecosystem" className="inline-flex items-center px-6 py-3 border border-[#3F3F46] text-[#A1A1AA] rounded-xl hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors">
+          <Link href="/case-studies/nexural-ecosystem" className="inline-flex items-center px-6 py-3 border border-[#3D3A37] text-[#A8A29E] rounded-xl hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors">
             See the Nexural Case Study <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
@@ -57,10 +57,10 @@ export default function FintechPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {proofPoints.map(point => (
-            <div key={point.label} className="p-5 bg-[#18181B] border border-[#27272A] rounded-2xl text-center">
+            <div key={point.label} className="p-5 bg-[#1A1917] border border-[#2A2826] rounded-2xl text-center">
               <p className="text-3xl font-bold text-[#FAFAFA]">{point.metric}</p>
-              <p className="text-sm text-[#A1A1AA] mt-1">{point.label}</p>
-              <p className="text-xs text-[#71717A] mt-1">{point.detail}</p>
+              <p className="text-sm text-[#A8A29E] mt-1">{point.label}</p>
+              <p className="text-xs text-[#78716C] mt-1">{point.detail}</p>
             </div>
           ))}
         </div>
@@ -71,10 +71,10 @@ export default function FintechPage() {
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">What I Build for FinTech</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {capabilities.map(cap => (
-            <div key={cap.title} className="p-6 bg-[#18181B] border border-[#27272A] rounded-2xl hover:border-[#06B6D4]/30 transition-colors">
-              <cap.icon className="h-8 w-8 text-[#06B6D4] mb-4" />
+            <div key={cap.title} className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#0ED3CF]/30 transition-colors">
+              <cap.icon className="h-8 w-8 text-[#0ED3CF] mb-4" />
               <h3 className="text-lg font-semibold text-[#FAFAFA] mb-2">{cap.title}</h3>
-              <p className="text-sm text-[#A1A1AA]">{cap.description}</p>
+              <p className="text-sm text-[#A8A29E]">{cap.description}</p>
             </div>
           ))}
         </div>
@@ -82,9 +82,9 @@ export default function FintechPage() {
 
       {/* Domain Expertise */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="p-8 bg-gradient-to-r from-[#06B6D4]/10 to-[#8B5CF6]/10 border border-[#06B6D4]/20 rounded-2xl">
+        <div className="p-8 bg-gradient-to-r from-[#0ED3CF]/10 to-[#E85D3A]/10 border border-[#0ED3CF]/20 rounded-2xl">
           <h2 className="text-2xl font-bold text-[#FAFAFA] mb-4">Why Domain Expertise Matters</h2>
-          <div className="grid md:grid-cols-2 gap-6 text-sm text-[#A1A1AA]">
+          <div className="grid md:grid-cols-2 gap-6 text-sm text-[#A8A29E]">
             <div>
               <p className="mb-3">{"A developer who doesn't trade will build you a \"chart with buttons.\" A developer who trades daily will build you:"}</p>
               <ul className="space-y-2">
@@ -97,10 +97,10 @@ export default function FintechPage() {
             <div>
               <p className="mb-3">My trading experience:</p>
               <ul className="space-y-2">
-                <li className="flex items-start gap-2"><span className="text-[#06B6D4]">-</span> 8 futures symbols daily (ES, NQ, CL, GC, and more)</li>
-                <li className="flex items-start gap-2"><span className="text-[#06B6D4]">-</span> NinjaTrader 8 + Sierra Chart (C# strategy development)</li>
-                <li className="flex items-start gap-2"><span className="text-[#06B6D4]">-</span> 120,000+ word book on trading (24 chapters, editorial phase)</li>
-                <li className="flex items-start gap-2"><span className="text-[#06B6D4]">-</span> Built AlphaStream ML signal system with 200+ indicators</li>
+                <li className="flex items-start gap-2"><span className="text-[#0ED3CF]">-</span> 8 futures symbols daily (ES, NQ, CL, GC, and more)</li>
+                <li className="flex items-start gap-2"><span className="text-[#0ED3CF]">-</span> NinjaTrader 8 + Sierra Chart (C# strategy development)</li>
+                <li className="flex items-start gap-2"><span className="text-[#0ED3CF]">-</span> 120,000+ word book on trading (24 chapters, editorial phase)</li>
+                <li className="flex items-start gap-2"><span className="text-[#0ED3CF]">-</span> Built AlphaStream ML signal system with 200+ indicators</li>
               </ul>
             </div>
           </div>
@@ -109,14 +109,14 @@ export default function FintechPage() {
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 bg-[#18181B] border border-[#27272A] rounded-2xl text-center">
+        <div className="p-8 bg-[#1A1917] border border-[#2A2826] rounded-2xl text-center">
           <h2 className="text-2xl font-bold text-[#FAFAFA] mb-3">Ready to Build Your Trading System?</h2>
-          <p className="text-[#A1A1AA] mb-6">{"30-minute discovery call. We'll discuss your platform needs, timeline, and budget."}</p>
+          <p className="text-[#A8A29E] mb-6">{"30-minute discovery call. We'll discuss your platform needs, timeline, and budget."}</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-8 py-3 bg-[#06B6D4] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
+            <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-8 py-3 bg-[#0ED3CF] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
               Book a Call <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-            <Link href="/services" className="inline-flex items-center px-8 py-3 border border-[#3F3F46] text-[#A1A1AA] rounded-xl hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors">
+            <Link href="/services" className="inline-flex items-center px-8 py-3 border border-[#3D3A37] text-[#A8A29E] rounded-xl hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors">
               All Services
             </Link>
           </div>

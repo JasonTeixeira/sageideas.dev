@@ -30,8 +30,8 @@ const kindLabel: Record<Artifact['kind'], string> = {
 }
 
 const kindAccent: Record<Artifact['kind'], string> = {
-  diagram: 'text-[#06B6D4] border-[#06B6D4]/30',
-  screenshot: 'text-[#8B5CF6] border-[#8B5CF6]/30',
+  diagram: 'text-[#0ED3CF] border-[#0ED3CF]/30',
+  screenshot: 'text-[#E85D3A] border-[#E85D3A]/30',
   terminal: 'text-[#10B981] border-[#10B981]/30',
   dashboard: 'text-[#F59E0B] border-[#F59E0B]/30',
   report: 'text-[#EC4899] border-[#EC4899]/30',
@@ -79,7 +79,7 @@ export function ArtifactGallery({
       {(eyebrow || title || description) && (
         <div className="mb-8">
           {eyebrow && (
-            <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#06B6D4] mb-3">
+            <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#0ED3CF] mb-3">
               {eyebrow}
             </div>
           )}
@@ -89,7 +89,7 @@ export function ArtifactGallery({
             </h3>
           )}
           {description && (
-            <p className="text-[#A1A1AA] text-base leading-relaxed mt-3 max-w-2xl">
+            <p className="text-[#A8A29E] text-base leading-relaxed mt-3 max-w-2xl">
               {description}
             </p>
           )}
@@ -106,9 +106,9 @@ export function ArtifactGallery({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="group relative bg-[#0F0F12] border border-[#27272A] rounded-2xl overflow-hidden hover:border-[#3F3F46] transition-colors"
+              className="group relative bg-[#12110F] border border-[#2A2826] rounded-2xl overflow-hidden hover:border-[#3D3A37] transition-colors"
             >
-              <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[#27272A]">
+              <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[#2A2826]">
                 <span
                   className={cn(
                     'text-[10px] font-mono uppercase tracking-[0.22em] px-2 py-1 rounded border bg-[#09090B]',
@@ -118,7 +118,7 @@ export function ArtifactGallery({
                   {kindLabel[a.kind]}
                 </span>
                 {a.label && (
-                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#71717A]">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#78716C]">
                     {a.label}
                   </span>
                 )}
@@ -137,7 +137,7 @@ export function ArtifactGallery({
                   className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                 />
               </div>
-              <figcaption className="px-5 py-4 text-sm text-[#A1A1AA] leading-relaxed border-t border-[#27272A]">
+              <figcaption className="px-5 py-4 text-sm text-[#A8A29E] leading-relaxed border-t border-[#2A2826]">
                 {a.caption}
               </figcaption>
             </motion.figure>

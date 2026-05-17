@@ -46,22 +46,22 @@ export default async function PendingApprovalPage() {
           <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA] mb-4">
             You’re in the queue.
           </h2>
-          <p className="text-sm text-[#A1A1AA] leading-relaxed">
+          <p className="text-sm text-[#A8A29E] leading-relaxed">
             Your account is signed in but hasn’t been approved yet. We review every request
             manually within 24 hours and will email{' '}
             <span className="font-medium text-[#FAFAFA]">{email}</span> as soon as the workspace is
             ready for you.
           </p>
 
-          <div className="mt-6 rounded-xl border border-[#27272A] bg-[#0F0F12] p-4 space-y-2">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="mt-6 rounded-xl border border-[#2A2826] bg-[#12110F] p-4 space-y-2">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
               Need it sooner?
             </div>
-            <p className="text-sm text-[#A1A1AA]">
+            <p className="text-sm text-[#A8A29E]">
               Email{' '}
               <a
                 href="mailto:sage@sageideas.dev"
-                className="text-[#06B6D4] hover:text-[#22D3EE]"
+                className="text-[#0ED3CF] hover:text-[#22D3EE]"
               >
                 sage@sageideas.dev
               </a>{' '}
@@ -72,14 +72,14 @@ export default async function PendingApprovalPage() {
           <div className="mt-8 flex items-center justify-between gap-3">
             <Link
               href="/"
-              className="text-xs font-mono uppercase tracking-widest text-[#71717A] hover:text-[#FAFAFA]"
+              className="text-xs font-mono uppercase tracking-widest text-[#78716C] hover:text-[#FAFAFA]"
             >
               ← Back to home
             </Link>
             <form action={signOut}>
               <button
                 type="submit"
-                className="rounded-lg border border-[#27272A] px-3 py-1.5 text-xs font-mono uppercase tracking-widest text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors"
+                className="rounded-lg border border-[#2A2826] px-3 py-1.5 text-xs font-mono uppercase tracking-widest text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors"
               >
                 Sign out
               </button>

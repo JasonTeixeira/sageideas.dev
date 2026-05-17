@@ -35,12 +35,12 @@ export function InlineNewsletterCTA() {
   }
 
   return (
-    <aside className="my-12 rounded-2xl border border-[#06B6D4]/40 bg-gradient-to-br from-[#06B6D4]/[0.05] via-[#0F0F12] to-[#8B5CF6]/[0.05] p-6 sm:p-8">
-      <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#06B6D4] mb-2">
+    <aside className="my-12 rounded-2xl border border-[#0ED3CF]/40 bg-gradient-to-br from-[#0ED3CF]/[0.05] via-[#12110F] to-[#E85D3A]/[0.05] p-6 sm:p-8">
+      <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#0ED3CF] mb-2">
         Field notes from the keyboard
       </div>
       <h3 className="text-2xl font-bold text-[#FAFAFA]">Get more like this.</h3>
-      <p className="text-sm text-[#A1A1AA] mt-2 leading-relaxed">
+      <p className="text-sm text-[#A8A29E] mt-2 leading-relaxed">
         Production engineering, AI systems, and architecture writing — once or twice a month, no fluff.
       </p>
       {status === 'success' ? (
@@ -56,13 +56,13 @@ export function InlineNewsletterCTA() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
-            className="flex-1 px-4 py-2.5 bg-[#09090B] border border-[#27272A] rounded-lg text-[#FAFAFA] text-sm placeholder:text-[#52525B] focus:outline-none focus:border-[#06B6D4]/60 focus:ring-1 focus:ring-[#06B6D4]/30 transition-colors"
+            className="flex-1 px-4 py-2.5 bg-[#09090B] border border-[#2A2826] rounded-lg text-[#FAFAFA] text-sm placeholder:text-[#57534E] focus:outline-none focus:border-[#0ED3CF]/60 focus:ring-1 focus:ring-[#0ED3CF]/30 transition-colors"
             aria-label="Email address"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#06B6D4] hover:bg-[#0891B2] disabled:opacity-60 disabled:cursor-not-allowed text-[#09090B] text-sm font-semibold transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#0ED3CF] hover:bg-[#0AA8A5] disabled:opacity-60 disabled:cursor-not-allowed text-[#09090B] text-sm font-semibold transition-colors"
           >
             {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
             <ArrowRight className="w-4 h-4" />

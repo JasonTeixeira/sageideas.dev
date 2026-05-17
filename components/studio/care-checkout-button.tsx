@@ -47,7 +47,7 @@ export function CareCheckoutButton({
         onClick={onClick}
         className={
           variant === 'primary'
-            ? 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-[#FAFAFA] font-medium'
+            ? 'bg-[#E85D3A] hover:bg-[#7C3AED] text-[#FAFAFA] font-medium'
             : ''
         }
       >

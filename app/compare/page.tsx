@@ -26,10 +26,10 @@ export default function CompareIndexPage() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight">
             Sage Ideas vs the alternatives.
           </h1>
-          <p className="mt-4 text-xl text-[#A1A1AA] max-w-2xl">
+          <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">
             We are not the right fit for everyone. Here is who is.
           </p>
-          <p className="mt-4 text-[#71717A] max-w-2xl leading-relaxed">
+          <p className="mt-4 text-[#78716C] max-w-2xl leading-relaxed">
             Three honest comparisons against the alternatives most teams actually evaluate. Where
             the other side wins, we say so. The goal is not to convince you — it is to make sure
             you pick the right shape of help for your problem.
@@ -41,16 +41,16 @@ export default function CompareIndexPage() {
             <Link
               key={c.slug}
               href={`/compare/${c.slug}`}
-              className="group flex flex-col rounded-2xl border border-[#27272A] bg-[#18181B] p-6 transition-all hover:border-[#06B6D4]/50 hover:bg-[#06B6D4]/5"
+              className="group flex flex-col rounded-2xl border border-[#2A2826] bg-[#1A1917] p-6 transition-all hover:border-[#0ED3CF]/50 hover:bg-[#0ED3CF]/5"
             >
-              <span className="text-xs font-mono uppercase tracking-wider text-[#06B6D4]">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#0ED3CF]">
                 vs
               </span>
               <h2 className="mt-3 text-lg font-semibold text-[#FAFAFA] leading-snug">
                 {c.competitorShort}
               </h2>
-              <p className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">{c.tagline}</p>
-              <div className="mt-auto pt-4 flex items-center gap-2 text-sm text-[#06B6D4]">
+              <p className="mt-2 text-sm text-[#A8A29E] leading-relaxed">{c.tagline}</p>
+              <div className="mt-auto pt-4 flex items-center gap-2 text-sm text-[#0ED3CF]">
                 Read comparison
                 <ArrowRight className="h-3.5 w-3.5 transition-all group-hover:translate-x-1" />
               </div>

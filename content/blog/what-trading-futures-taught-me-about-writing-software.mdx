@@ -1,0 +1,81 @@
+---
+title: "What Trading Futures Taught Me About Writing Software"
+slug: "what-trading-futures-taught-me-about-writing-software"
+date: "2026-01-12"
+category: "Trading"
+readTime: "10 min read"
+excerpt: "I trade ES, NQ, and CL futures every morning before I write code. The parallels between risk management in trading and risk management in software are uncomfortably similar."
+tags:
+  - "Trading"
+  - "Futures"
+  - "Risk Management"
+  - "Software Engineering"
+  - "Lessons"
+coverImage: "/blog/covers/what-trading-futures-taught-me-about-writing-software.png"
+id: 29
+---
+
+# What Trading Futures Taught Me About Writing Software
+
+Every morning at 6am, before I write a single line of code, I'm staring at futures charts. ES (S&P 500), NQ (Nasdaq), CL (Crude Oil), GC (Gold) — 8 symbols on NinjaTrader, looking for setups.
+
+I've been trading for years. And the more I do both — trading and building software — the more I realize they're the same discipline wearing different clothes.
+
+## Lesson 1: Risk Management > Being Right
+
+In trading, you can be wrong 60% of the time and still make money. Sounds impossible, but the math is simple: if your winners are 2x the size of your losers, you only need to win 34% of the time to break even.
+
+The same is true in software. You don't need every architectural decision to be perfect. You need the failures to be small and the successes to compound.
+
+This is why I:
+- Deploy small changes (small losing trades)
+- Feature flag risky changes (stop losses)
+- Have rollback procedures (exit strategy)
+- Never deploy on Friday (never hold through the weekend)
+
+A trader who risks their entire account on one trade will blow up. A developer who deploys a massive untested change to production will blow up. Same energy.
+
+## Lesson 2: The Setup Matters More Than the Entry
+
+New traders obsess over entry timing. "Should I buy at 4,521.25 or 4,521.50?" It doesn't matter. What matters is the setup: Is the trend in your favor? Is there a clear invalidation point? Is the risk/reward at least 2:1?
+
+New developers obsess over technology choice. "Should I use Prisma or Drizzle?" It doesn't matter. What matters is the architecture: Is your data model sound? Are your APIs well-designed? Can you change your mind later without rewriting everything?
+
+The specific tool is the entry. The architecture is the setup. Nail the setup and the tool choice becomes a rounding error.
+
+## Lesson 3: Journal Everything
+
+I keep a trading journal. Every trade: entry, exit, reasoning, emotions, market context, outcome, lessons. After 6 months, patterns emerge. I overtrade on Mondays. I hold losers too long when I'm tired. I size up too aggressively after a winning streak.
+
+I now keep the engineering equivalent: architecture decision records (ADRs). Every major decision: what I chose, what I rejected, why, what I'd change. After a year of Nexural development, the patterns are clear. I under-invest in error handling early. I over-engineer authentication. I consistently underestimate database migration complexity.
+
+Self-awareness through documentation. Same practice, different domain.
+
+## Lesson 4: Survivors Are Boring
+
+The most successful traders I know are boring. They trade the same 2-3 setups, day after day, with the same risk parameters. No YOLO plays. No "I feel lucky today." Just consistent execution of a proven edge.
+
+The best codebases I've worked in are boring too. Consistent patterns. Predictable file structures. Standard naming conventions. No clever hacks. No "I found a cool way to do this." Just reliable, maintainable code that does what it says.
+
+Boring is underrated in both disciplines.
+
+## Lesson 5: You're Trading Against Yourself
+
+Markets don't care about you. They're not out to get you. Every loss is a consequence of your decisions, not the market's malice.
+
+Software doesn't care about you either. Bugs aren't personal. Production outages aren't the universe punishing you. They're consequences of decisions — usually made weeks ago under different constraints.
+
+Taking ownership (in trading, they call it "being accountable for your P&L") is what separates professionals from amateurs in both fields.
+
+## The Meta-Lesson
+
+Both trading and software engineering are disciplines of managing complexity under uncertainty. In trading, the uncertainty is market direction. In software, the uncertainty is user behavior, system load, and edge cases.
+
+The tools are different. The principles are identical:
+- Manage risk first, seek reward second
+- Have a plan before you execute
+- Document what happened and learn from it
+- Be consistent, not clever
+- Survive long enough to compound your edge
+
+I build better software because I trade. And I trade better because I build software. The cross-pollination is real.

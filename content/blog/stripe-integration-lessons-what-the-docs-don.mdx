@@ -1,0 +1,29 @@
+---
+title: "Stripe Integration Lessons: What the Docs Don't Tell You"
+slug: "stripe-integration-lessons-what-the-docs-don"
+date: "2026-04-12"
+category: "Architecture"
+readTime: "13 min read"
+excerpt: "Webhook idempotency, subscription state machines, dunning strategies, and the edge cases that will break your billing system if you don't handle them."
+tags:
+  - "Stripe"
+  - "Payments"
+  - "Webhooks"
+  - "SaaS"
+  - "TypeScript"
+  - "FinTech"
+coverImage: "/blog/covers/stripe-integration-lessons-what-the-docs-don.png"
+id: 12
+---
+
+# Stripe Integration Lessons: What the Docs Don't Tell You
+
+Stripe's documentation is excellent — for the happy path. But production billing has edge cases that will break your system if you're not prepared.
+
+Here's what I learned integrating Stripe into the Nexural trading platform.
+
+## The Webhook State Machine
+
+Stripe sends webhooks for everything. Your job is to handle them idempotently — because Stripe will retry failed webhooks, and you'll get duplicates.
+
+\

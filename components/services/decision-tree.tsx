@@ -129,10 +129,10 @@ export function DecisionTree() {
   }
 
   return (
-    <div className="rounded-2xl border border-[#27272A] bg-gradient-to-br from-[#0F0F12] via-[#0F0F12] to-[#06B6D4]/[0.03] p-6 sm:p-8">
+    <div className="rounded-2xl border border-[#2A2826] bg-gradient-to-br from-[#12110F] via-[#12110F] to-[#0ED3CF]/[0.03] p-6 sm:p-8">
       <div className="flex items-center gap-2 mb-2">
-        <Compass className="w-4 h-4 text-[#06B6D4]" />
-        <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">
+        <Compass className="w-4 h-4 text-[#0ED3CF]" />
+        <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
           Find the right engagement
         </span>
       </div>
@@ -144,7 +144,7 @@ export function DecisionTree() {
           <button
             type="button"
             onClick={reset}
-            className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-[#71717A] hover:text-[#FAFAFA] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-[#78716C] hover:text-[#FAFAFA] transition-colors"
           >
             <RotateCcw className="w-3 h-3" /> Reset
           </button>
@@ -154,8 +154,8 @@ export function DecisionTree() {
       <AnimatePresence mode="wait">
         {!stage && (
           <motion.div key="stage" {...fadeIn}>
-            <p className="text-sm text-[#A1A1AA] mb-4">
-              <span className="text-[#06B6D4]">1 / 2</span> · What stage are you in?
+            <p className="text-sm text-[#A8A29E] mb-4">
+              <span className="text-[#0ED3CF]">1 / 2</span> · What stage are you in?
             </p>
             <motion.div
               className="grid sm:grid-cols-2 gap-3"
@@ -172,10 +172,10 @@ export function DecisionTree() {
                   type="button"
                   variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
                   onClick={() => setStage(opt.value)}
-                  className="text-left rounded-xl border border-[#27272A] bg-[#18181B] p-4 hover:border-[#06B6D4]/40 hover:bg-[#06B6D4]/5 transition-colors"
+                  className="text-left rounded-xl border border-[#2A2826] bg-[#1A1917] p-4 hover:border-[#0ED3CF]/40 hover:bg-[#0ED3CF]/5 transition-colors"
                 >
                   <span className="text-base font-semibold text-[#FAFAFA] block">{opt.label}</span>
-                  <span className="text-xs text-[#A1A1AA] mt-1 block">{opt.sub}</span>
+                  <span className="text-xs text-[#A8A29E] mt-1 block">{opt.sub}</span>
                 </motion.button>
               ))}
             </motion.div>
@@ -184,8 +184,8 @@ export function DecisionTree() {
 
         {stage && !pain && (
           <motion.div key="pain" {...fadeIn}>
-            <p className="text-sm text-[#A1A1AA] mb-4">
-              <span className="text-[#06B6D4]">2 / 2</span> · Biggest pain right now?
+            <p className="text-sm text-[#A8A29E] mb-4">
+              <span className="text-[#0ED3CF]">2 / 2</span> · Biggest pain right now?
             </p>
             <motion.div
               className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3"
@@ -202,10 +202,10 @@ export function DecisionTree() {
                   type="button"
                   variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
                   onClick={() => setPain(opt.value)}
-                  className="text-left rounded-xl border border-[#27272A] bg-[#18181B] p-4 hover:border-[#06B6D4]/40 hover:bg-[#06B6D4]/5 transition-colors"
+                  className="text-left rounded-xl border border-[#2A2826] bg-[#1A1917] p-4 hover:border-[#0ED3CF]/40 hover:bg-[#0ED3CF]/5 transition-colors"
                 >
                   <span className="text-base font-semibold text-[#FAFAFA] block">{opt.label}</span>
-                  <span className="text-xs text-[#A1A1AA] mt-1 block">{opt.sub}</span>
+                  <span className="text-xs text-[#A8A29E] mt-1 block">{opt.sub}</span>
                 </motion.button>
               ))}
             </motion.div>
@@ -222,7 +222,7 @@ export function DecisionTree() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <p className="text-sm text-[#A1A1AA] mb-4">
+            <p className="text-sm text-[#A8A29E] mb-4">
               Based on{' '}
               <span className="text-[#FAFAFA] font-semibold">
                 {STAGE_OPTS.find((s) => s.value === stage)?.label.toLowerCase()}
@@ -249,16 +249,16 @@ export function DecisionTree() {
                 >
                   <Link
                     href={`/services/${r.slug}`}
-                    className="group block rounded-xl border border-[#06B6D4]/20 bg-[#06B6D4]/[0.03] p-5 hover:border-[#06B6D4]/50 hover:bg-[#06B6D4]/[0.06] transition-colors h-full"
+                    className="group block rounded-xl border border-[#0ED3CF]/20 bg-[#0ED3CF]/[0.03] p-5 hover:border-[#0ED3CF]/50 hover:bg-[#0ED3CF]/[0.06] transition-colors h-full"
                   >
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                       Recommended
                     </span>
-                    <h3 className="mt-2 text-lg font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+                    <h3 className="mt-2 text-lg font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
                       {r.name}
                     </h3>
-                    <p className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">{r.why}</p>
-                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-mono text-[#06B6D4] group-hover:translate-x-0.5 transition-transform">
+                    <p className="mt-2 text-sm text-[#A8A29E] leading-relaxed">{r.why}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-mono text-[#0ED3CF] group-hover:translate-x-0.5 transition-transform">
                       View <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>

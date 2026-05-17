@@ -59,8 +59,8 @@ const connect = [
 export function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="bg-[#09090B] border-t border-[#27272A] relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-[#06B6D4]/5 via-transparent to-transparent pointer-events-none" />
+    <footer className="bg-[#09090B] border-t border-[#2A2826] relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0ED3CF]/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 lg:gap-8">
@@ -74,17 +74,18 @@ export function Footer() {
           >
             <Link
               href="/"
-              className="inline-block text-xl font-bold text-[#FAFAFA] tracking-tight hover:text-[#06B6D4] transition-colors"
+              className="inline-flex items-center gap-2.5 text-xl font-bold text-[#FAFAFA] tracking-tight hover:text-[#0ED3CF] transition-colors group"
             >
-              SAGE IDEAS
+              <img src="/brand/sage-mark.svg" alt="" className="w-8 h-8 group-hover:scale-110 transition-transform duration-200" aria-hidden />
+              <span className="tracking-[0.08em] text-[17px] font-semibold">SAGE IDEAS</span>
             </Link>
-            <p className="text-sm text-[#A1A1AA] leading-relaxed max-w-sm">
+            <p className="text-sm text-[#A8A29E] leading-relaxed max-w-sm">
               AI-native studio that builds, automates, and scales B2B businesses. We ship
               the same stack we run our own products on.
             </p>
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#06B6D4] text-[#09090B] text-sm font-semibold hover:bg-[#0891B2] transition-colors group"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0ED3CF] text-[#09090B] text-sm font-semibold hover:bg-[#0AA8A5] transition-colors group"
             >
               Book a strategy call
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -97,7 +98,7 @@ export function Footer() {
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   aria-label={item.label}
-                  className="p-2 text-[#A1A1AA] hover:text-[#06B6D4] hover:bg-[#18181B] rounded-lg transition-colors"
+                  className="p-2 text-[#A8A29E] hover:text-[#0ED3CF] hover:bg-[#1A1917] rounded-lg transition-colors"
                 >
                   <item.icon className="w-4 h-4" />
                 </Link>
@@ -115,14 +116,14 @@ export function Footer() {
           <FooterColumn title="Studio" links={studio} className="lg:col-span-2" />
         </div>
 
-        <div className="mt-16 pt-8 border-t border-[#27272A] flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs text-[#71717A]">
+        <div className="mt-16 pt-8 border-t border-[#2A2826] flex flex-col md:flex-row md:items-center justify-between gap-6 text-xs text-[#78716C]">
           <p>© {year} Sage Ideas LLC · Orlando, FL · All rights reserved.</p>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {legal.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="hover:text-[#06B6D4] transition-colors"
+                  className="hover:text-[#0ED3CF] transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -160,7 +161,7 @@ function FooterColumn({
           <li key={link.href}>
             <Link
               href={link.href}
-              className="text-sm text-[#A1A1AA] hover:text-[#06B6D4] transition-colors"
+              className="text-sm text-[#A8A29E] hover:text-[#0ED3CF] transition-colors"
             >
               {link.label}
             </Link>

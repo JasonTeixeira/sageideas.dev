@@ -1,0 +1,24 @@
+---
+title: "The Bug That Taught Me More Than Any Course Ever Did"
+slug: "the-bug-that-taught-me-more-than-any-course-ever-did"
+date: "2026-02-01"
+category: "Engineering"
+readTime: "9 min read"
+excerpt: "A race condition in a payment webhook handler sat undetected for 3 weeks. When it fired, it double-charged 4 customers. Here's the full postmortem and why I now test billing code differently."
+tags:
+  - "Debugging"
+  - "Stripe"
+  - "Webhooks"
+  - "Postmortem"
+  - "Lessons Learned"
+coverImage: "/blog/covers/the-bug-that-taught-me-more-than-any-course-ever-did.png"
+id: 25
+---
+
+# The Bug That Taught Me More Than Any Course Ever Did
+
+I want to tell you about a bug. Not a fun one. Not a clever one. The kind that makes your stomach drop when you get the Slack notification at 11pm on a Thursday.
+
+## What Happened
+
+I was building subscription billing for Nexural. Stripe webhook comes in — \\\

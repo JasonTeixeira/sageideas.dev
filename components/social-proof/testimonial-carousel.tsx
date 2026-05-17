@@ -40,12 +40,12 @@ export function TestimonialCarousel({
 
   return (
     <div
-      className={`relative rounded-2xl border border-[#27272A] bg-[#0F0F12] p-8 sm:p-10 ${className}`}
+      className={`relative rounded-2xl border border-[#2A2826] bg-[#12110F] p-8 sm:p-10 ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <Quote
-        className="absolute top-6 left-6 w-8 h-8 text-[#06B6D4]/30"
+        className="absolute top-6 left-6 w-8 h-8 text-[#0ED3CF]/30"
         aria-hidden
       />
       <div className="relative pl-12 min-h-[140px]">
@@ -62,7 +62,7 @@ export function TestimonialCarousel({
             </blockquote>
             <figcaption className="mt-5 flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
               <span className="text-sm font-semibold text-[#FAFAFA]">{t.name}</span>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#78716C]">
                 {t.role} · {t.company}
               </span>
             </figcaption>
@@ -80,7 +80,7 @@ export function TestimonialCarousel({
                 aria-label={`Show testimonial ${i + 1}`}
                 onClick={() => setIndex(i)}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === index ? 'w-8 bg-[#06B6D4]' : 'w-1.5 bg-[#3F3F46] hover:bg-[#52525B]'
+                  i === index ? 'w-8 bg-[#0ED3CF]' : 'w-1.5 bg-[#3D3A37] hover:bg-[#57534E]'
                 }`}
               />
             ))}
@@ -90,7 +90,7 @@ export function TestimonialCarousel({
               type="button"
               aria-label="Previous testimonial"
               onClick={prev}
-              className="w-8 h-8 inline-flex items-center justify-center rounded-md border border-[#27272A] bg-[#18181B] text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-[#3F3F46] transition-colors"
+              className="w-8 h-8 inline-flex items-center justify-center rounded-md border border-[#2A2826] bg-[#1A1917] text-[#A8A29E] hover:text-[#FAFAFA] hover:border-[#3D3A37] transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -98,7 +98,7 @@ export function TestimonialCarousel({
               type="button"
               aria-label="Next testimonial"
               onClick={next}
-              className="w-8 h-8 inline-flex items-center justify-center rounded-md border border-[#27272A] bg-[#18181B] text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-[#3F3F46] transition-colors"
+              className="w-8 h-8 inline-flex items-center justify-center rounded-md border border-[#2A2826] bg-[#1A1917] text-[#A8A29E] hover:text-[#FAFAFA] hover:border-[#3D3A37] transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

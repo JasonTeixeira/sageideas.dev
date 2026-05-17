@@ -98,7 +98,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
             className="max-w-3xl"
           >
-            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#78716C]">
               <Link
                 href="/services"
                 className="hover:text-[#FAFAFA] transition-colors"
@@ -108,7 +108,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
               <span>·</span>
               <span style={{ color: accent }}>AI Flagship</span>
               <span>·</span>
-              <span className="text-[#A1A1AA]">{modeLabel[tier.mode]}</span>
+              <span className="text-[#A8A29E]">{modeLabel[tier.mode]}</span>
             </div>
 
             <div
@@ -132,7 +132,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             >
               {tier.tagline}
             </p>
-            <p className="mt-5 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-5 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               {tier.description}
             </p>
 
@@ -143,14 +143,14 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   {tier.price}
                 </span>
                 {tier.cadence === 'monthly' && (
-                  <span className="text-[#71717A] text-base">/mo</span>
+                  <span className="text-[#78716C] text-base">/mo</span>
                 )}
               </div>
-              <span className="inline-flex items-center gap-1.5 text-sm font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-3 py-1 rounded-full">
+              <span className="inline-flex items-center gap-1.5 text-sm font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-3 py-1 rounded-full">
                 <Clock className="w-3.5 h-3.5" style={{ color: accent }} />
                 {tier.timeline}
               </span>
-              <span className="text-xs font-mono text-[#71717A] bg-[#27272A] px-3 py-1 rounded-full">
+              <span className="text-xs font-mono text-[#78716C] bg-[#2A2826] px-3 py-1 rounded-full">
                 {cadenceLabel[tier.cadence]}
               </span>
               <span
@@ -181,7 +181,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#FAFAFA] hover:text-[#FAFAFA] bg-transparent"
+                className="border-[#3D3A37] text-[#A8A29E] hover:border-[#FAFAFA] hover:text-[#FAFAFA] bg-transparent"
               >
                 <Link href={`/contact?engagement=${tier.slug}&mode=custom`}>
                   Request custom scope
@@ -195,7 +195,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 {tier.stackChips.map((chip) => (
                   <span
                     key={chip}
-                    className="text-[10.5px] font-mono uppercase tracking-widest text-[#71717A] bg-[#0F0F12] border border-[#27272A] px-2.5 py-1 rounded"
+                    className="text-[10.5px] font-mono uppercase tracking-widest text-[#78716C] bg-[#12110F] border border-[#2A2826] px-2.5 py-1 rounded"
                   >
                     {chip}
                   </span>
@@ -228,7 +228,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             >
               {visuals.story.eyebrow}
             </p>
-            <p className="mt-5 text-lg text-[#A1A1AA] leading-relaxed max-w-3xl">
+            <p className="mt-5 text-lg text-[#A8A29E] leading-relaxed max-w-3xl">
               {visuals.story.body}
             </p>
 
@@ -239,7 +239,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 return (
                   <div
                     key={badge.label}
-                    className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-4 hover:border-white/15 transition-colors"
+                    className="rounded-xl bg-[#12110F] border border-[#2A2826] p-4 hover:border-white/15 transition-colors"
                   >
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
@@ -250,7 +250,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                     <div className="text-[#FAFAFA] font-semibold text-sm">
                       {badge.label}
                     </div>
-                    <div className="text-[12px] text-[#71717A] mt-0.5 leading-snug">
+                    <div className="text-[12px] text-[#78716C] mt-0.5 leading-snug">
                       {badge.sub}
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               The architecture, end to end
             </h2>
-            <p className="text-[#A1A1AA] mb-6 max-w-2xl">
+            <p className="text-[#A8A29E] mb-6 max-w-2xl">
               No black boxes. Here\u2019s the actual shape of the system you get \u2014
               with the guardrails, eval loops, and human approvals where they
               belong.
@@ -299,7 +299,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               A real call, scripted from a real deployment
             </h2>
-            <p className="text-[#A1A1AA] mb-6 max-w-2xl">
+            <p className="text-[#A8A29E] mb-6 max-w-2xl">
               No recording, no marketing voice-over. A line-by-line walk-through
               of how the agent handles a typical inbound — including the moment
               the caller asks if they’re talking to AI.
@@ -328,7 +328,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 hover:border-white/20 transition-colors"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-5 hover:border-white/20 transition-colors"
                 >
                   <div className="flex items-start gap-2.5">
                     <div
@@ -341,7 +341,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                       <h3 className="font-semibold text-[#FAFAFA] mb-1.5 leading-snug">
                         {uc.title}
                       </h3>
-                      <p className="text-[13.5px] text-[#A1A1AA] leading-snug">
+                      <p className="text-[13.5px] text-[#A8A29E] leading-snug">
                         {uc.description}
                       </p>
                     </div>
@@ -364,7 +364,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               The dashboard you actually use
             </h2>
-            <p className="text-[#A1A1AA] mb-6 max-w-2xl">
+            <p className="text-[#A8A29E] mb-6 max-w-2xl">
               Every flagship engagement ships with a stylized control panel \u2014
               live activity, eval pass rate, spend cap, and an approval queue you
               can act on from your phone.
@@ -430,7 +430,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-3 p-4 rounded-xl bg-[#0F0F12] border border-[#27272A]"
+                className="flex items-start gap-3 p-4 rounded-xl bg-[#12110F] border border-[#2A2826]"
               >
                 <div
                   className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5"
@@ -438,7 +438,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 >
                   <Check className="w-3.5 h-3.5" style={{ color: accent }} />
                 </div>
-                <span className="text-[#A1A1AA] leading-snug">{outcome}</span>
+                <span className="text-[#A8A29E] leading-snug">{outcome}</span>
               </motion.div>
             ))}
           </div>
@@ -456,11 +456,11 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               How the agent thinks
             </h2>
-            <p className="text-[#A1A1AA] mb-6 max-w-2xl">
+            <p className="text-[#A8A29E] mb-6 max-w-2xl">
               The decision graph behind the engagement. Inputs, branches, and the
               point where a human stays in the loop.
             </p>
-            <div className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-4 sm:p-6 overflow-hidden">
+            <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-4 sm:p-6 overflow-hidden">
               {(() => {
                 const Flow = AgentFlowDiagrams[tier.slug]
                 return Flow ? <Flow /> : null
@@ -481,7 +481,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               How we run this engagement
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl">
               Concrete phases, concrete artifacts. You always know where we are
               and what comes next.
             </p>
@@ -499,21 +499,21 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                     <div
                       className="absolute left-[27px] top-14 bottom-[-24px] w-px"
                       style={{
-                        background: `linear-gradient(to bottom, ${accent}66, #27272A)`,
+                        background: `linear-gradient(to bottom, ${accent}66, #2A2826)`,
                       }}
                     />
                   )}
                   <div className="flex gap-4 sm:gap-6">
                     <div
-                      className="shrink-0 w-14 h-14 rounded-xl bg-[#0F0F12] border flex flex-col items-center justify-center"
+                      className="shrink-0 w-14 h-14 rounded-xl bg-[#12110F] border flex flex-col items-center justify-center"
                       style={{ borderColor: `${accent}4D` }}
                     >
                       <Calendar className="w-4 h-4 mb-0.5" style={{ color: accent }} />
-                      <span className="text-[9px] font-mono text-[#71717A] uppercase tracking-tight">
+                      <span className="text-[9px] font-mono text-[#78716C] uppercase tracking-tight">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
-                    <div className="flex-1 rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 sm:p-6">
+                    <div className="flex-1 rounded-xl bg-[#12110F] border border-[#2A2826] p-5 sm:p-6">
                       <div className="flex flex-wrap items-center gap-3 mb-2">
                         <span
                           className="text-xs font-mono uppercase tracking-widest px-2 py-0.5 rounded"
@@ -528,15 +528,15 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                           {phase.title}
                         </h3>
                       </div>
-                      <p className="text-[#A1A1AA] text-sm leading-relaxed mb-3">
+                      <p className="text-[#A8A29E] text-sm leading-relaxed mb-3">
                         {phase.description}
                       </p>
                       {phase.artifacts && phase.artifacts.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#27272A]">
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#2A2826]">
                           {phase.artifacts.map((a) => (
                             <span
                               key={a}
-                              className="inline-flex items-center gap-1 text-xs font-mono text-[#71717A] bg-[#18181B] border border-[#27272A] px-2 py-0.5 rounded"
+                              className="inline-flex items-center gap-1 text-xs font-mono text-[#78716C] bg-[#1A1917] border border-[#2A2826] px-2 py-0.5 rounded"
                             >
                               <FileText className="w-3 h-3" />
                               {a}
@@ -572,12 +572,12 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-6"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-6"
                   style={{
                     boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)',
                   }}
                 >
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
                     {m.context ?? 'Result'}
                   </div>
                   <div
@@ -586,7 +586,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   >
                     {m.value}
                   </div>
-                  <div className="text-sm text-[#A1A1AA] mt-1">{m.label}</div>
+                  <div className="text-sm text-[#A8A29E] mt-1">{m.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -610,7 +610,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
               {tier.deliverables.map((d) => (
                 <li
                   key={d}
-                  className="flex items-start gap-2.5 text-[#A1A1AA] text-[15px] leading-snug"
+                  className="flex items-start gap-2.5 text-[#A8A29E] text-[15px] leading-snug"
                 >
                   <Check
                     className="w-4 h-4 mt-1 shrink-0"
@@ -631,9 +631,9 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 {tier.notIncluded.map((d) => (
                   <li
                     key={d}
-                    className="flex items-start gap-2.5 text-[#71717A] text-[15px] leading-snug"
+                    className="flex items-start gap-2.5 text-[#78716C] text-[15px] leading-snug"
                   >
-                    <X className="w-4 h-4 mt-1 shrink-0 text-[#52525B]" />
+                    <X className="w-4 h-4 mt-1 shrink-0 text-[#57534E]" />
                     <span>{d}</span>
                   </li>
                 ))}
@@ -662,7 +662,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-5"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-5"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h3 className="font-semibold text-[#FAFAFA]">{a.name}</h3>
@@ -673,7 +673,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                       {a.price}
                     </span>
                   </div>
-                  <p className="text-sm text-[#A1A1AA] leading-snug">
+                  <p className="text-sm text-[#A8A29E] leading-snug">
                     {a.description}
                   </p>
                 </motion.div>
@@ -708,13 +708,13 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
-                  className="group rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 open:border-[#3F3F46]"
+                  className="group rounded-xl bg-[#12110F] border border-[#2A2826] p-5 open:border-[#3D3A37]"
                 >
                   <summary className="flex items-center justify-between gap-3 cursor-pointer list-none">
                     <span className="font-semibold text-[#FAFAFA]">{q.q}</span>
-                    <Plus className="w-4 h-4 text-[#71717A] shrink-0 transition-transform group-open:rotate-45" />
+                    <Plus className="w-4 h-4 text-[#78716C] shrink-0 transition-transform group-open:rotate-45" />
                   </summary>
-                  <p className="mt-3 text-[#A1A1AA] text-[15px] leading-relaxed">
+                  <p className="mt-3 text-[#A8A29E] text-[15px] leading-relaxed">
                     {q.a}
                   </p>
                 </motion.details>
@@ -745,7 +745,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
               <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] max-w-2xl mx-auto leading-tight">
                 Ready to scope this for your business?
               </h2>
-              <p className="mt-4 text-[#A1A1AA] max-w-xl mx-auto">
+              <p className="mt-4 text-[#A8A29E] max-w-xl mx-auto">
                 Book a 30-minute discovery call. No pitch deck. We&apos;ll either
                 confirm fit and send a proposal, or tell you straight that this
                 isn&apos;t the right move.
@@ -766,7 +766,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#FAFAFA] hover:text-[#FAFAFA] bg-transparent"
+                  className="border-[#3D3A37] text-[#A8A29E] hover:border-[#FAFAFA] hover:text-[#FAFAFA] bg-transparent"
                 >
                   <Link href={`/contact?engagement=${tier.slug}&mode=custom`}>
                     Request custom pricing

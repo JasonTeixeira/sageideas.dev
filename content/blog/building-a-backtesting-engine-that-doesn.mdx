@@ -1,0 +1,33 @@
+---
+title: "Building a Backtesting Engine That Doesn't Lie to You"
+slug: "building-a-backtesting-engine-that-doesn"
+date: "2026-03-28"
+category: "Trading"
+readTime: "12 min read"
+excerpt: "Most backtesting engines produce results that look great but fall apart in live trading. Here's how I built QuantumTrader's backtesting engine to be honest about performance."
+tags:
+  - "Python"
+  - "Backtesting"
+  - "Trading"
+  - "Quantitative"
+  - "Risk Management"
+coverImage: "/blog/covers/building-a-backtesting-engine-that-doesn.png"
+id: 15
+---
+
+# Building a Backtesting Engine That Doesn't Lie to You
+
+Every quantitative trader has had this experience: backtest shows 200% annual returns. Live trading shows -15%.
+
+The problem is almost never the strategy. It's the backtest. Most backtesting engines lie through optimistic assumptions.
+
+## The 5 Lies Most Backtests Tell
+
+### Lie 1: Perfect Fills
+Most engines assume your order fills at the exact price you see. In reality:
+- Market orders fill at the ask (buying) or bid (selling), not the mid-price
+- Large orders move the market (slippage)
+- During volatility, fills can be 5-10 ticks worse than expected
+
+My engine models this:
+\

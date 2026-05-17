@@ -37,7 +37,7 @@ export function EvidenceStrip({ items, heading, blurb, linkArtifacts = false }: 
             </h3>
           )}
           {blurb && (
-            <p className="mt-3 text-[#A1A1AA] text-sm leading-relaxed">
+            <p className="mt-3 text-[#A8A29E] text-sm leading-relaxed">
               {blurb}
             </p>
           )}
@@ -51,9 +51,9 @@ export function EvidenceStrip({ items, heading, blurb, linkArtifacts = false }: 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group rounded-xl border border-[#27272A] bg-[#0F0F12] overflow-hidden hover:border-[#06B6D4]/30 transition-colors"
+              className="group rounded-xl border border-[#2A2826] bg-[#12110F] overflow-hidden hover:border-[#0ED3CF]/30 transition-colors"
             >
-              <div className="aspect-[16/10] bg-[#0A0A0C] border-b border-[#27272A] relative overflow-hidden">
+              <div className="aspect-[16/10] bg-[#0B0A09] border-b border-[#2A2826] relative overflow-hidden">
                 <Image
                   src={item.src}
                   alt={item.caption}
@@ -64,14 +64,14 @@ export function EvidenceStrip({ items, heading, blurb, linkArtifacts = false }: 
               </div>
               <div className="p-4">
                 {item.label && (
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] mb-1.5">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] mb-1.5">
                     {item.label}
                   </div>
                 )}
                 <div className="text-sm text-[#E4E4E7] leading-snug flex items-start gap-1.5">
                   <span className="flex-1">{item.caption}</span>
                   {linkArtifacts && (
-                    <ExternalLink className="h-3.5 w-3.5 text-[#71717A] shrink-0 mt-0.5" aria-hidden />
+                    <ExternalLink className="h-3.5 w-3.5 text-[#78716C] shrink-0 mt-0.5" aria-hidden />
                   )}
                 </div>
               </div>

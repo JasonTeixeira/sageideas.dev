@@ -1,0 +1,50 @@
+---
+title: "How I Debug Production Issues (A Real Framework, Not Guessing)"
+slug: "how-i-debug-production-issues-a-real-framework-not-guessing"
+date: "2026-01-05"
+category: "Engineering"
+readTime: "10 min read"
+excerpt: "Most developers debug by changing things until the error goes away. I debug by narrowing the blast radius systematically. Here's my actual framework."
+tags:
+  - "Debugging"
+  - "Production"
+  - "Incident Response"
+  - "Engineering"
+  - "Framework"
+coverImage: "/blog/covers/how-i-debug-production-issues-a-real-framework-not-guessing.png"
+id: 30
+---
+
+# How I Debug Production Issues (A Real Framework, Not Guessing)
+
+Early in my career, I debugged by vibes. Something broke, I'd stare at the code, change something, redeploy, hope. Sometimes it worked. Often it made things worse.
+
+When you are building systems that people depend on, you cannot afford to guess. I developed a framework for debugging systematically. It's not glamorous, but it works every time.
+
+## The Framework: ISOLATE
+
+**I** — Identify the symptom (not the cause)
+**S** — Scope the blast radius
+**O** — Observe the data (logs, metrics, traces)
+**L** — List hypotheses (minimum 3)
+**A** — Assess each hypothesis with evidence
+**T** — Test the fix in isolation
+**E** — Explain what happened (postmortem)
+
+Let me walk through a real example.
+
+## Real Case: Dashboard Loading 30 Seconds
+
+**I — Identify the symptom.**
+Users report the quality dashboard takes 30+ seconds to load. Locally it loads in 2 seconds. Production only.
+
+Don't jump to "it's a database problem" or "it's a network issue" yet. Just describe what you see.
+
+**S — Scope the blast radius.**
+Is it all users or specific ones? All browsers? Started when? Correlated with a deploy?
+
+In this case: all users, started 3 days ago, no deploy in that window. That eliminates "we shipped broken code" as the cause.
+
+**O — Observe the data.**
+
+\\\

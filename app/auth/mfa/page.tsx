@@ -46,13 +46,13 @@ export default async function MfaStepUpPage({ searchParams }: Props) {
             </div>
 
             <div className="space-y-2 mb-8">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                 Two-factor verification
               </div>
               <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
                 Confirm it&apos;s you
               </h2>
-              <p className="text-sm text-[#71717A]">
+              <p className="text-sm text-[#78716C]">
                 Enter the 6-digit code from your authenticator app to continue
                 to the admin dashboard.
               </p>

@@ -289,8 +289,8 @@ function MegaDropdown({
         className={cn(
           'whitespace-nowrap inline-flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors',
           isOpen
-            ? 'text-[#FAFAFA] bg-[#18181B]'
-            : 'text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#18181B]'
+            ? 'text-[#FAFAFA] bg-[#1A1917]'
+            : 'text-[#A8A29E] hover:text-[#FAFAFA] hover:bg-[#1A1917]'
         )}
       >
         {label}
@@ -312,13 +312,13 @@ function MegaDropdown({
             className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
           >
             <div
-              className="rounded-2xl bg-[#0A0A0C] border border-[#27272A] shadow-2xl shadow-black/40 overflow-hidden"
+              className="rounded-2xl bg-[#0B0A09] border border-[#2A2826] shadow-2xl shadow-black/40 overflow-hidden"
               style={{ width: 'min(880px, 92vw)' }}
             >
-              <div className="grid grid-cols-3 divide-x divide-[#18181B]">
+              <div className="grid grid-cols-3 divide-x divide-[#1A1917]">
                 {sections.map((section) => (
                   <div key={section.title} className="p-5">
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#52525B] mb-3">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#57534E] mb-3">
                       {section.title}
                     </p>
                     <ul className="space-y-1">
@@ -333,24 +333,24 @@ function MegaDropdown({
                             >
                               {Icon && (
                                 <span
-                                  className="shrink-0 w-7 h-7 rounded-md bg-[#18181B] border border-[#27272A] flex items-center justify-center group-hover:border-[#06B6D4]/40 transition-colors"
+                                  className="shrink-0 w-7 h-7 rounded-md bg-[#1A1917] border border-[#2A2826] flex items-center justify-center group-hover:border-[#0ED3CF]/40 transition-colors"
                                 >
-                                  <Icon className="w-3.5 h-3.5 text-[#A1A1AA] group-hover:text-[#06B6D4] transition-colors" />
+                                  <Icon className="w-3.5 h-3.5 text-[#A8A29E] group-hover:text-[#0ED3CF] transition-colors" />
                                 </span>
                               )}
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[13.5px] font-medium text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors whitespace-nowrap">
+                                  <span className="text-[13.5px] font-medium text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors whitespace-nowrap">
                                     {item.label}
                                   </span>
                                   {item.badge && (
-                                    <span className="text-[9px] font-mono tracking-widest px-1.5 py-0.5 rounded bg-[#06B6D4]/15 text-[#06B6D4] border border-[#06B6D4]/30">
+                                    <span className="text-[9px] font-mono tracking-widest px-1.5 py-0.5 rounded bg-[#0ED3CF]/15 text-[#0ED3CF] border border-[#0ED3CF]/30">
                                       {item.badge}
                                     </span>
                                   )}
                                 </div>
                                 {item.description && (
-                                  <p className="text-[11.5px] text-[#71717A] mt-0.5 leading-snug">
+                                  <p className="text-[11.5px] text-[#78716C] mt-0.5 leading-snug">
                                     {item.description}
                                   </p>
                                 )}
@@ -363,14 +363,14 @@ function MegaDropdown({
                   </div>
                 ))}
               </div>
-              <div className="border-t border-[#18181B] px-5 py-3 flex items-center justify-between gap-3 bg-[#06070A]">
-                <p className="text-[11px] text-[#71717A]">
+              <div className="border-t border-[#1A1917] px-5 py-3 flex items-center justify-between gap-3 bg-[#06070A]">
+                <p className="text-[11px] text-[#78716C]">
                   Not sure where to start? Book a free 30-min call.
                 </p>
                 <Link
                   href="/book"
                   onClick={onClose}
-                  className="text-[11px] font-mono uppercase tracking-widest text-[#06B6D4] hover:text-[#FAFAFA] transition-colors whitespace-nowrap"
+                  className="text-[11px] font-mono uppercase tracking-widest text-[#0ED3CF] hover:text-[#FAFAFA] transition-colors whitespace-nowrap"
                 >
                   Book a Call →
                 </Link>
@@ -452,7 +452,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled || openMenu
-          ? 'bg-[#09090B]/92 backdrop-blur-md border-b border-[#27272A] shadow-lg shadow-black/10'
+          ? 'bg-[#09090B]/92 backdrop-blur-md border-b border-[#2A2826] shadow-lg shadow-black/10'
           : 'bg-transparent border-b border-transparent'
       )}
     >
@@ -461,7 +461,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
           {/* Wordmark — left */}
           <Link
             href="/"
-            className="shrink-0 text-lg font-bold tracking-tight text-[#FAFAFA] hover:text-[#06B6D4] transition-colors whitespace-nowrap"
+            className="shrink-0 text-lg font-bold tracking-tight text-[#FAFAFA] hover:text-[#0ED3CF] transition-colors whitespace-nowrap"
             aria-label="Sage Ideas — Home"
           >
             SAGE IDEAS
@@ -481,8 +481,8 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
               className={cn(
                 'whitespace-nowrap px-3 py-2 text-sm rounded-lg transition-colors',
                 isActive('/work')
-                  ? 'text-[#06B6D4] bg-[#18181B]'
-                  : 'text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#18181B]'
+                  ? 'text-[#0ED3CF] bg-[#1A1917]'
+                  : 'text-[#A8A29E] hover:text-[#FAFAFA] hover:bg-[#1A1917]'
               )}
             >
               Work
@@ -492,8 +492,8 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
               className={cn(
                 'whitespace-nowrap px-3 py-2 text-sm rounded-lg transition-colors',
                 isActive('/pricing')
-                  ? 'text-[#06B6D4] bg-[#18181B]'
-                  : 'text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#18181B]'
+                  ? 'text-[#0ED3CF] bg-[#1A1917]'
+                  : 'text-[#A8A29E] hover:text-[#FAFAFA] hover:bg-[#1A1917]'
               )}
             >
               Pricing
@@ -514,10 +514,10 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
               type="button"
               onClick={triggerCommandPalette}
               aria-label="Open search"
-              className="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[#71717A] hover:text-[#FAFAFA] hover:bg-[#18181B] transition-colors"
+              className="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[#78716C] hover:text-[#FAFAFA] hover:bg-[#1A1917] transition-colors"
             >
               <Search className="w-4 h-4" />
-              <kbd className="hidden xl:flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-[#18181B] border border-[#27272A] rounded text-[#71717A] group-hover:text-[#A1A1AA]">
+              <kbd className="hidden xl:flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-[#1A1917] border border-[#2A2826] rounded text-[#78716C] group-hover:text-[#A8A29E]">
                 {isMac ? <Command className="h-2.5 w-2.5" /> : 'Ctrl'}
                 <span>K</span>
               </kbd>
@@ -528,7 +528,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                 asChild
                 variant="outline"
                 size="sm"
-                className="whitespace-nowrap border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                className="whitespace-nowrap border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
               >
                 <Link href="/auth/redirect">
                   <LayoutDashboard className="h-4 w-4 mr-1.5" />
@@ -540,7 +540,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                 asChild
                 variant="outline"
                 size="sm"
-                className="whitespace-nowrap border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                className="whitespace-nowrap border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
               >
                 <Link href="/login">
                   <LogIn className="h-4 w-4 mr-1.5" />
@@ -552,7 +552,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
             <Button
               asChild
               size="sm"
-              className="whitespace-nowrap bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold"
+              className="whitespace-nowrap bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold"
             >
               <Link href="/book">Book a Call</Link>
             </Button>
@@ -561,7 +561,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
           {/* Mobile toggle */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="lg:hidden p-2 text-[#FAFAFA] hover:bg-[#18181B] rounded-lg transition-colors"
+            className="lg:hidden p-2 text-[#FAFAFA] hover:bg-[#1A1917] rounded-lg transition-colors"
             aria-label="Toggle menu"
             aria-expanded={isMobileOpen}
           >
@@ -577,12 +577,12 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden overflow-hidden bg-[#09090B] border-t border-[#27272A]"
+              className="lg:hidden overflow-hidden bg-[#09090B] border-t border-[#2A2826]"
             >
               <div className="py-4 px-2 space-y-4 max-h-[80vh] overflow-y-auto">
                 {(['PRIMARY', 'RESOURCES', 'COMPANY'] as const).map((sec) => (
                   <div key={sec}>
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#52525B] px-4 mb-1">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#57534E] px-4 mb-1">
                       {sec === 'PRIMARY' ? 'Explore' : sec.charAt(0) + sec.slice(1).toLowerCase()}
                     </p>
                     <div className="space-y-0.5">
@@ -600,8 +600,8 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                               className={cn(
                                 'flex items-center justify-between px-4 py-2.5 text-sm rounded-lg transition-colors',
                                 active
-                                  ? 'text-[#06B6D4] bg-[#18181B]'
-                                  : 'text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#18181B]'
+                                  ? 'text-[#0ED3CF] bg-[#1A1917]'
+                                  : 'text-[#A8A29E] hover:text-[#FAFAFA] hover:bg-[#1A1917]'
                               )}
                             >
                               <span>{link.label}</span>
@@ -611,12 +611,12 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                     </div>
                   </div>
                 ))}
-                <div className="pt-3 border-t border-[#27272A] mt-3 flex items-center gap-3 px-2">
+                <div className="pt-3 border-t border-[#2A2826] mt-3 flex items-center gap-3 px-2">
                   <Link
                     href="https://github.com/JasonTeixeira"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-[#A1A1AA] hover:text-[#FAFAFA]"
+                    className="p-2 text-[#A8A29E] hover:text-[#FAFAFA]"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
@@ -625,7 +625,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                     href="https://linkedin.com/in/jason-teixeira"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-[#A1A1AA] hover:text-[#FAFAFA]"
+                    className="p-2 text-[#A8A29E] hover:text-[#FAFAFA]"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />
@@ -635,7 +635,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                       asChild
                       variant="outline"
                       size="sm"
-                      className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                      className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
                     >
                       <Link href="/auth/redirect">
                         <LayoutDashboard className="h-4 w-4 mr-1" />
@@ -647,7 +647,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                       asChild
                       variant="outline"
                       size="sm"
-                      className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                      className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
                     >
                       <Link href="/login">
                         <LogIn className="h-4 w-4 mr-1" />
@@ -658,7 +658,7 @@ export function Navigation({ isSignedIn = false }: { isSignedIn?: boolean } = {}
                   <Button
                     asChild
                     size="sm"
-                    className="ml-auto bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold"
+                    className="ml-auto bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold"
                   >
                     <Link href="/book">Book a Call</Link>
                   </Button>

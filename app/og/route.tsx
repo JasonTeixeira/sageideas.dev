@@ -22,123 +22,208 @@ export async function GET(req: NextRequest) {
           display: 'flex',
           flexDirection: 'column',
           background: '#09090B',
-          padding: '64px 72px',
+          padding: '56px 72px',
           position: 'relative',
-          fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
+          fontFamily: '"Plus Jakarta Sans", system-ui, sans-serif',
+          overflow: 'hidden',
         }}
       >
-        {/* Top-left wordmark */}
+        {/* Ambient brand gradient — teal top-left */}
+        <div
+          style={{
+            position: 'absolute',
+            top: -180,
+            left: -100,
+            width: 500,
+            height: 500,
+            background:
+              'radial-gradient(circle at center, rgba(14,211,207,0.14), transparent 65%)',
+            display: 'flex',
+          }}
+        />
+
+        {/* Ambient brand gradient — coral bottom-right */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: -180,
+            right: -100,
+            width: 450,
+            height: 450,
+            background:
+              'radial-gradient(circle at center, rgba(232,93,58,0.08), transparent 65%)',
+            display: 'flex',
+          }}
+        />
+
+        {/* Dot grid texture */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.04,
+            backgroundImage:
+              'radial-gradient(circle, #0ED3CF 0.6px, transparent 0.6px)',
+            backgroundSize: '32px 32px',
+            display: 'flex',
+          }}
+        />
+
+        {/* Top-left wordmark with logomark */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 16,
-            color: '#FAFAFA',
-            fontSize: 24,
-            letterSpacing: '0.18em',
-            fontWeight: 700,
-            textTransform: 'uppercase',
+            gap: 14,
+            position: 'relative',
           }}
         >
+          {/* Logomark — multicolor S indicator */}
           <div
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: 8,
-              background: 'linear-gradient(135deg, #06B6D4, #0EA5E9)',
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              background: 'linear-gradient(135deg, #E85D3A, #0ED3CF)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#09090B',
               fontWeight: 800,
-              fontSize: 22,
+              fontSize: 24,
+              fontFamily: 'Georgia, serif',
+              fontStyle: 'italic',
             }}
           >
             S
           </div>
-          Sage Ideas
+          <span
+            style={{
+              color: '#FAFAFA',
+              fontSize: 22,
+              letterSpacing: '0.12em',
+              fontWeight: 700,
+            }}
+          >
+            SAGE IDEAS
+          </span>
         </div>
 
-        {/* Main copy block — centered vertically */}
+        {/* Main copy block */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             flex: 1,
-            marginTop: 40,
+            marginTop: 28,
+            position: 'relative',
           }}
         >
+          {/* Eyebrow */}
           <div
             style={{
               display: 'flex',
-              fontSize: 18,
-              color: '#06B6D4',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
+              fontSize: 16,
+              color: '#0ED3CF',
+              letterSpacing: '0.2em',
               fontFamily: 'monospace',
-              marginBottom: 24,
+              marginBottom: 20,
             }}
           >
             {eyebrow}
           </div>
+
+          {/* Title — editorial serif feel */}
           <div
             style={{
               display: 'flex',
-              fontSize: 76,
-              color: '#FAFAFA',
-              fontWeight: 700,
-              lineHeight: 1.04,
-              letterSpacing: '-0.02em',
-              marginBottom: 28,
+              fontSize: 72,
+              color: '#F4F2EF',
+              fontWeight: 400,
+              lineHeight: 1.06,
+              letterSpacing: '-0.025em',
+              fontFamily: 'Georgia, serif',
+              marginBottom: 24,
+              maxWidth: 1000,
             }}
           >
             {title}
           </div>
+
+          {/* Subtitle */}
           <div
             style={{
               display: 'flex',
-              fontSize: 32,
-              color: '#A1A1AA',
+              fontSize: 28,
+              color: '#A8A29E',
               fontWeight: 400,
-              lineHeight: 1.3,
-              maxWidth: 980,
+              lineHeight: 1.35,
+              maxWidth: 900,
             }}
           >
             {subtitle}
           </div>
         </div>
 
-        {/* Bottom strip */}
+        {/* Bottom strip — brand bar */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            color: '#71717A',
-            fontSize: 22,
+            color: '#78716C',
+            fontSize: 18,
             fontFamily: 'monospace',
-            paddingTop: 28,
-            borderTop: '1px solid #27272A',
+            paddingTop: 24,
+            borderTop: '1px solid #2A2826',
+            position: 'relative',
           }}
         >
           <span>sageideas.dev</span>
-          <span style={{ color: '#06B6D4' }}>{'>'} solo studio · agency rigor</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {/* Brand color dots — logo palette */}
+            <div style={{ display: 'flex', gap: 6 }}>
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#0ED3CF',
+                  display: 'flex',
+                }}
+              />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#E85D3A',
+                  display: 'flex',
+                }}
+              />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#A8C633',
+                  display: 'flex',
+                }}
+              />
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#C7236E',
+                  display: 'flex',
+                }}
+              />
+            </div>
+            <span style={{ color: '#0ED3CF' }}>solo studio · agency rigor</span>
+          </div>
         </div>
-
-        {/* Decorative gradient orb */}
-        <div
-          style={{
-            position: 'absolute',
-            top: -200,
-            right: -200,
-            width: 600,
-            height: 600,
-            background:
-              'radial-gradient(circle at center, rgba(6,182,212,0.18), transparent 60%)',
-            display: 'flex',
-          }}
-        />
       </div>
     ),
     SIZE,

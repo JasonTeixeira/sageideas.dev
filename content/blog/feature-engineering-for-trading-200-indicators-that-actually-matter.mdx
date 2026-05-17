@@ -1,0 +1,45 @@
+---
+title: "Feature Engineering for Trading: 200+ Indicators That Actually Matter"
+slug: "feature-engineering-for-trading-200-indicators-that-actually-matter"
+date: "2026-04-01"
+category: "Trading"
+readTime: "14 min read"
+excerpt: "How I built AlphaStream's feature engineering pipeline — which indicators predict price movement, which are noise, and how to select features that generalize."
+tags:
+  - "Python"
+  - "ML/AI"
+  - "Trading"
+  - "Feature Engineering"
+  - "pandas"
+  - "scikit-learn"
+coverImage: "/blog/covers/feature-engineering-for-trading-200-indicators-that-actually-matter.png"
+id: 14
+---
+
+# Feature Engineering for Trading: 200+ Indicators That Actually Matter
+
+AlphaStream computes 200+ technical indicators for every security it analyzes. But most of them are noise. The hard part isn't computing indicators — it's selecting the ones that actually predict future price movement.
+
+## The Indicator Categories
+
+I organize indicators into 6 groups:
+
+**Trend Indicators (40+):** Moving averages (SMA, EMA, WMA, DEMA, TEMA), ADX, Aroon, Ichimoku, Parabolic SAR, SuperTrend. These tell you the direction.
+
+**Momentum Indicators (35+):** RSI, MACD, Stochastic, Williams %R, CCI, ROC, MFI, Ultimate Oscillator. These tell you the strength.
+
+**Volatility Indicators (25+):** Bollinger Bands, ATR, Keltner Channels, Donchian Channels, Standard Deviation, Historical Volatility. These tell you the risk.
+
+**Volume Indicators (20+):** OBV, VWAP, A/D Line, CMF, Force Index, Volume Profile. These tell you the conviction.
+
+**Statistical Indicators (30+):** Z-Score, Skewness, Kurtosis, Hurst Exponent, Autocorrelation, Cointegration scores. These tell you the regime.
+
+**Custom/Engineered (50+):** Cross-timeframe features, lag features, rolling statistics, regime indicators. These are where the alpha lives.
+
+## The Feature Selection Problem
+
+200+ features with daily data creates a classic p >> n problem. More features than useful data points means overfitting.
+
+My approach:
+
+\

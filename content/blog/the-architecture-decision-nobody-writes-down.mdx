@@ -1,0 +1,37 @@
+---
+title: "The Architecture Decision Nobody Writes Down"
+slug: "the-architecture-decision-nobody-writes-down"
+date: "2025-12-20"
+category: "Architecture"
+readTime: "9 min read"
+excerpt: "We spend weeks choosing between Kafka and RabbitMQ but never document why. ADRs take 15 minutes and save months of 'why did we do this?' conversations."
+tags:
+  - "Architecture"
+  - "Documentation"
+  - "ADR"
+  - "Decision Making"
+  - "Best Practices"
+coverImage: "/blog/covers/the-architecture-decision-nobody-writes-down.png"
+id: 32
+---
+
+# The Architecture Decision Nobody Writes Down
+
+Six months ago, I chose Supabase over Firebase for Nexural. I had good reasons — PostgreSQL, row-level security, self-hostable. But I almost forgot those reasons. The only thing that saved me from re-evaluating the same decision (and wasting a week) was a markdown file I wrote in 15 minutes.
+
+## The Problem
+
+Every engineering team has this conversation:
+
+"Why do we use RabbitMQ instead of Kafka?"
+"I think Dave chose it. Dave left 8 months ago."
+"..."
+"Should we switch to Kafka?"
+
+And now you're spending a sprint re-evaluating a decision that was already evaluated. The institutional knowledge walked out the door.
+
+## Architecture Decision Records (ADRs)
+
+An ADR is a short document that captures a significant decision. Mine are dead simple:
+
+\\\

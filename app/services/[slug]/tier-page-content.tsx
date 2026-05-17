@@ -61,25 +61,25 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             className="max-w-3xl"
           >
             {/* Capability + Mode breadcrumb */}
-            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#78716C]">
               <Link
                 href="/capabilities"
-                className="hover:text-[#06B6D4] transition-colors"
+                className="hover:text-[#0ED3CF] transition-colors"
               >
                 Capabilities
               </Link>
               <span>·</span>
-              <span className="text-[#A1A1AA] capitalize">{tier.capability}</span>
+              <span className="text-[#A8A29E] capitalize">{tier.capability}</span>
               <span>·</span>
-              <span className="text-[#06B6D4]">{modeLabel[tier.mode]}</span>
+              <span className="text-[#0ED3CF]">{modeLabel[tier.mode]}</span>
             </div>
 
             <SectionLabel>Service</SectionLabel>
             <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               {tier.name}
             </h1>
-            <p className="mt-3 text-xl text-[#06B6D4] font-medium">{tier.tagline}</p>
-            <p className="mt-4 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-3 text-xl text-[#0ED3CF] font-medium">{tier.tagline}</p>
+            <p className="mt-4 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               {tier.description}
             </p>
 
@@ -88,14 +88,14 @@ export function TierPageContent({ tier }: { tier: Tier }) {
               <div className="flex items-baseline gap-1">
                 <span className="text-4xl font-bold text-[#FAFAFA]">{tier.price}</span>
                 {tier.cadence === 'monthly' && (
-                  <span className="text-[#71717A] text-base">/mo</span>
+                  <span className="text-[#78716C] text-base">/mo</span>
                 )}
               </div>
-              <span className="inline-flex items-center gap-1.5 text-sm font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-3 py-1 rounded-full">
-                <Clock className="w-3.5 h-3.5 text-[#06B6D4]" />
+              <span className="inline-flex items-center gap-1.5 text-sm font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-3 py-1 rounded-full">
+                <Clock className="w-3.5 h-3.5 text-[#0ED3CF]" />
                 {tier.timeline}
               </span>
-              <span className="text-xs font-mono text-[#71717A] bg-[#27272A] px-3 py-1 rounded-full">
+              <span className="text-xs font-mono text-[#78716C] bg-[#2A2826] px-3 py-1 rounded-full">
                 {cadenceLabel[tier.cadence]}
               </span>
             </div>
@@ -106,7 +106,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
               >
                 <Link href={`/book?tier=${tier.slug}`}>
                   Book a discovery call
@@ -139,18 +139,18 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-6 hover:border-[#06B6D4]/30 transition-colors"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-6 hover:border-[#0ED3CF]/30 transition-colors"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-[#06B6D4]" />
-                    <span className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
+                    <TrendingUp className="w-4 h-4 text-[#0ED3CF]" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#78716C]">
                       {m.context ?? 'Result'}
                     </span>
                   </div>
                   <div className="text-3xl font-bold text-[#FAFAFA] tabular-nums">
                     {m.value}
                   </div>
-                  <div className="text-sm text-[#A1A1AA] mt-1">{m.label}</div>
+                  <div className="text-sm text-[#A8A29E] mt-1">{m.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -174,12 +174,12 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="flex items-start gap-3 p-4 rounded-xl bg-[#0F0F12] border border-[#27272A]"
+                className="flex items-start gap-3 p-4 rounded-xl bg-[#12110F] border border-[#2A2826]"
               >
-                <div className="w-6 h-6 rounded-full bg-[#06B6D4]/15 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
+                <div className="w-6 h-6 rounded-full bg-[#0ED3CF]/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 text-[#0ED3CF]" />
                 </div>
-                <span className="text-[#A1A1AA] leading-snug">{outcome}</span>
+                <span className="text-[#A8A29E] leading-snug">{outcome}</span>
               </motion.div>
             ))}
           </div>
@@ -200,7 +200,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
               <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-3">
                 How {tier.name} actually runs
               </h2>
-              <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+              <p className="text-[#A8A29E] mb-8 max-w-2xl">
                 Every Sage Ideas engagement follows the same five-act story — free
                 intro chat, scope, focused build, clean handoff, and optional Care.
                 Click any stage to see what you do, what I do, and what you walk away with.
@@ -222,7 +222,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               How we run this
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl">
               Phase-by-phase breakdown of the engagement. Every milestone produces a
               concrete artifact you can see, share, or hand off.
             </p>
@@ -240,37 +240,37 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                 >
                   {/* Connector line */}
                   {i < tier.phases.length - 1 && (
-                    <div className="absolute left-[27px] top-14 bottom-[-24px] w-px bg-gradient-to-b from-[#06B6D4]/40 to-[#27272A]" />
+                    <div className="absolute left-[27px] top-14 bottom-[-24px] w-px bg-gradient-to-b from-[#0ED3CF]/40 to-[#2A2826]" />
                   )}
 
                   <div className="flex gap-4 sm:gap-6">
                     {/* Index badge */}
-                    <div className="shrink-0 w-14 h-14 rounded-xl bg-[#0F0F12] border border-[#06B6D4]/30 flex flex-col items-center justify-center">
-                      <Calendar className="w-4 h-4 text-[#06B6D4] mb-0.5" />
-                      <span className="text-[9px] font-mono text-[#71717A] uppercase tracking-tight">
+                    <div className="shrink-0 w-14 h-14 rounded-xl bg-[#12110F] border border-[#0ED3CF]/30 flex flex-col items-center justify-center">
+                      <Calendar className="w-4 h-4 text-[#0ED3CF] mb-0.5" />
+                      <span className="text-[9px] font-mono text-[#78716C] uppercase tracking-tight">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
 
                     {/* Body */}
-                    <div className="flex-1 rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 sm:p-6">
+                    <div className="flex-1 rounded-xl bg-[#12110F] border border-[#2A2826] p-5 sm:p-6">
                       <div className="flex flex-wrap items-center gap-3 mb-2">
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded">
+                        <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF] bg-[#0ED3CF]/10 px-2 py-0.5 rounded">
                           {phase.label}
                         </span>
                         <h3 className="text-lg font-semibold text-[#FAFAFA]">
                           {phase.title}
                         </h3>
                       </div>
-                      <p className="text-[#A1A1AA] text-sm leading-relaxed mb-3">
+                      <p className="text-[#A8A29E] text-sm leading-relaxed mb-3">
                         {phase.description}
                       </p>
                       {phase.artifacts && phase.artifacts.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#27272A]">
+                        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#2A2826]">
                           {phase.artifacts.map((a) => (
                             <span
                               key={a}
-                              className="inline-flex items-center gap-1 text-xs font-mono text-[#71717A] bg-[#18181B] border border-[#27272A] px-2 py-0.5 rounded"
+                              className="inline-flex items-center gap-1 text-xs font-mono text-[#78716C] bg-[#1A1917] border border-[#2A2826] px-2 py-0.5 rounded"
                             >
                               <FileText className="w-3 h-3" />
                               {a}
@@ -305,9 +305,9 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: i * 0.06 }}
-                    className="flex items-start gap-3 text-[#A1A1AA]"
+                    className="flex items-start gap-3 text-[#A8A29E]"
                   >
-                    <Zap className="w-4 h-4 text-[#06B6D4] shrink-0 mt-1" />
+                    <Zap className="w-4 h-4 text-[#0ED3CF] shrink-0 mt-1" />
                     {item}
                   </motion.li>
                 ))}
@@ -328,27 +328,27 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
               See what you&apos;ll get
             </h2>
-            <div className="rounded-2xl bg-gradient-to-br from-[#0F0F12] via-[#0F0F12] to-[#06B6D4]/5 border border-[#27272A] p-6 sm:p-8">
+            <div className="rounded-2xl bg-gradient-to-br from-[#12110F] via-[#12110F] to-[#0ED3CF]/5 border border-[#2A2826] p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-                <div className="shrink-0 w-16 h-20 rounded-lg bg-[#06B6D4]/10 border border-[#06B6D4]/30 flex items-center justify-center">
-                  <FileText className="w-7 h-7 text-[#06B6D4]" />
+                <div className="shrink-0 w-16 h-20 rounded-lg bg-[#0ED3CF]/10 border border-[#0ED3CF]/30 flex items-center justify-center">
+                  <FileText className="w-7 h-7 text-[#0ED3CF]" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-[#FAFAFA] mb-2">
                     {tier.sampleArtifact.title}
                   </h3>
-                  <p className="text-[#A1A1AA] text-sm leading-relaxed mb-4">
+                  <p className="text-[#A8A29E] text-sm leading-relaxed mb-4">
                     {tier.sampleArtifact.description}
                   </p>
                   {tier.sampleArtifact.comingSoon ? (
-                    <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#71717A] bg-[#18181B] border border-[#27272A] px-3 py-1.5 rounded">
+                    <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#78716C] bg-[#1A1917] border border-[#2A2826] px-3 py-1.5 rounded">
                       <Clock className="w-3.5 h-3.5" />
                       Sample available on request
                     </span>
                   ) : tier.sampleArtifact.href ? (
                     <Link
                       href={tier.sampleArtifact.href}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[#06B6D4] hover:text-[#0EA5E9] transition-colors"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-[#0ED3CF] hover:text-[#33EBE8] transition-colors"
                     >
                       <Download className="w-4 h-4" />
                       Download sample (PDF)
@@ -372,7 +372,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               Extend the engagement
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl">
               Optional add-ons priced separately. Bundle at checkout or scope into a
               follow-on engagement.
             </p>
@@ -384,18 +384,18 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 hover:border-[#8B5CF6]/30 transition-colors"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-5 hover:border-[#E85D3A]/30 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-2">
-                      <Plus className="w-4 h-4 text-[#8B5CF6]" />
+                      <Plus className="w-4 h-4 text-[#E85D3A]" />
                       <h3 className="font-semibold text-[#FAFAFA]">{addOn.name}</h3>
                     </div>
-                    <span className="text-xs font-mono text-[#8B5CF6] bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 px-2 py-0.5 rounded shrink-0">
+                    <span className="text-xs font-mono text-[#E85D3A] bg-[#E85D3A]/10 border border-[#E85D3A]/20 px-2 py-0.5 rounded shrink-0">
                       {addOn.price}
                     </span>
                   </div>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                  <p className="text-sm text-[#A8A29E] leading-relaxed">
                     {addOn.description}
                   </p>
                 </motion.div>
@@ -414,14 +414,14 @@ export function TierPageContent({ tier }: { tier: Tier }) {
           >
             <SectionLabel>Scope</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">Not included</h2>
-            <div className="rounded-xl border border-[#27272A]/60 bg-[#0F0F12]/50 p-6">
+            <div className="rounded-xl border border-[#2A2826]/60 bg-[#12110F]/50 p-6">
               <ul className="space-y-2.5">
                 {tier.notIncluded.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-3 text-[#71717A] text-sm"
+                    className="flex items-start gap-3 text-[#78716C] text-sm"
                   >
-                    <X className="w-4 h-4 text-[#3F3F46] shrink-0 mt-0.5" />
+                    <X className="w-4 h-4 text-[#3D3A37] shrink-0 mt-0.5" />
                     {item}
                   </li>
                 ))}
@@ -453,25 +453,25 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                 >
                   <Link
                     href={`/work/${cs.slug}`}
-                    className="block h-full rounded-xl bg-[#0F0F12] border border-[#27272A] p-6 hover:border-[#06B6D4]/40 transition-all group"
+                    className="block h-full rounded-xl bg-[#12110F] border border-[#2A2826] p-6 hover:border-[#0ED3CF]/40 transition-all group"
                   >
                     <div className="flex items-start gap-3 mb-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center shrink-0">
-                        <Briefcase className="w-4 h-4 text-[#06B6D4]" />
+                      <div className="w-9 h-9 rounded-lg bg-[#0ED3CF]/10 border border-[#0ED3CF]/20 flex items-center justify-center shrink-0">
+                        <Briefcase className="w-4 h-4 text-[#0ED3CF]" />
                       </div>
                       <div className="flex-1">
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
+                        <span className="text-xs font-mono uppercase tracking-widest text-[#78716C]">
                           {cs.category}
                         </span>
-                        <h3 className="font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors mt-0.5 leading-tight">
+                        <h3 className="font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors mt-0.5 leading-tight">
                           {cs.title}
                         </h3>
                       </div>
                     </div>
-                    <p className="text-sm text-[#A1A1AA] leading-relaxed mb-3">
+                    <p className="text-sm text-[#A8A29E] leading-relaxed mb-3">
                       {cs.tagline}
                     </p>
-                    <span className="inline-flex items-center gap-1 text-xs font-mono text-[#06B6D4]">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono text-[#0ED3CF]">
                       Read case study
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
@@ -500,10 +500,10 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-6"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-6"
                 >
                   <h3 className="text-[#FAFAFA] font-semibold mb-2">{item.q}</h3>
-                  <p className="text-[#A1A1AA] leading-relaxed text-sm">{item.a}</p>
+                  <p className="text-[#A8A29E] leading-relaxed text-sm">{item.a}</p>
                 </motion.div>
               ))}
             </div>
@@ -516,12 +516,12 @@ export function TierPageContent({ tier }: { tier: Tier }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="rounded-2xl bg-gradient-to-br from-[#06B6D4]/10 via-[#0F0F12] to-[#8B5CF6]/10 border border-[#06B6D4]/20 p-8 sm:p-12 text-center"
+          className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
             Ready to get started?
           </h2>
-          <p className="text-[#A1A1AA] mb-8 max-w-lg mx-auto">
+          <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">
             {tier.price} · {tier.timeline}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -530,7 +530,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
               asChild
               variant="outline"
               size="lg"
-              className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+              className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
             >
               <Link href={`/book?tier=${tier.slug}`}>
                 Book a discovery call

@@ -42,9 +42,9 @@ export function IndustriesIndexContent({
             <SectionLabel>Industries</SectionLabel>
             <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               Five verticals.{' '}
-              <span className="text-[#06B6D4]">Operator-grade execution.</span>
+              <span className="text-[#0ED3CF]">Operator-grade execution.</span>
             </h1>
-            <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               {
                 'Sage Ideas works deepest where we have shipped real software — fintech, SaaS, ecommerce, healthcare, and AI-native startups. Each industry page maps our productized tiers to the operational realities of the vertical: compliance, integration depth, regulatory edges, and the specific failure modes we have already debugged.'
               }
@@ -82,24 +82,24 @@ export function IndustriesIndexContent({
                       className="block p-6 h-full flex flex-col group"
                     >
                       <div className="flex items-start gap-3 mb-4">
-                        <div className="w-11 h-11 rounded-lg bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center shrink-0">
-                          <Icon className="w-5 h-5 text-[#06B6D4]" />
+                        <div className="w-11 h-11 rounded-lg bg-[#0ED3CF]/10 border border-[#0ED3CF]/20 flex items-center justify-center shrink-0">
+                          <Icon className="w-5 h-5 text-[#0ED3CF]" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-lg font-bold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors leading-tight">
+                          <h3 className="text-lg font-bold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors leading-tight">
                             {v.name}
                           </h3>
-                          <p className="text-sm text-[#06B6D4]/80 mt-0.5">
+                          <p className="text-sm text-[#0ED3CF]/80 mt-0.5">
                             {v.tagline}
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm text-[#A1A1AA] leading-relaxed mb-4 flex-1">
+                      <p className="text-sm text-[#A8A29E] leading-relaxed mb-4 flex-1">
                         {v.intro.length > 220
                           ? v.intro.slice(0, 220).trimEnd() + '…'
                           : v.intro}
                       </p>
-                      <span className="inline-flex items-center gap-1.5 text-sm text-[#06B6D4] font-medium mt-auto">
+                      <span className="inline-flex items-center gap-1.5 text-sm text-[#0ED3CF] font-medium mt-auto">
                         Explore {v.shortName}
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </span>
@@ -117,18 +117,18 @@ export function IndustriesIndexContent({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="rounded-2xl bg-gradient-to-br from-[#06B6D4]/10 via-[#0F0F12] to-[#8B5CF6]/10 border border-[#06B6D4]/20 p-8 sm:p-12 text-center"
+          className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
             Industry not listed?
           </h2>
-          <p className="text-[#A1A1AA] mb-8 max-w-lg mx-auto">
+          <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">
             Sage Ideas works with most B2B verticals. Book a 30-minute call and we
             will tell you directly whether we&apos;re the right fit — or who is.
           </p>
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold py-2.5 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold py-2.5 px-6 rounded-lg transition-colors"
           >
             Book a Discovery Call
             <ArrowRight className="w-4 h-4" />

@@ -37,15 +37,15 @@ export function TestimonialCard({ reference: r, index = 0 }: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.4, delay: index * 0.06 }}
-        className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-6 hover:border-[#06B6D4]/30 transition-colors"
+        className="rounded-xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#0ED3CF]/30 transition-colors"
       >
-        <Quote className="h-5 w-5 text-[#06B6D4] mb-3" aria-hidden />
-        <blockquote className="text-[#E4E4E7] text-sm leading-relaxed mb-5">
+        <Quote className="h-5 w-5 text-[#0ED3CF] mb-3" aria-hidden />
+        <blockquote className="text-[#F4F2EF] text-sm leading-relaxed mb-5">
           &ldquo;{r.quote}&rdquo;
         </blockquote>
-        <figcaption className="flex items-center gap-3 pt-4 border-t border-[#27272A]">
+        <figcaption className="flex items-center gap-3 pt-4 border-t border-[#2A2826]">
           <div
-            className="h-9 w-9 rounded-md border border-[#27272A] bg-[#0A0A0C] flex items-center justify-center text-[11px] font-mono font-semibold text-[#06B6D4] shrink-0"
+            className="h-9 w-9 rounded-md border border-[#2A2826] bg-[#0B0A09] flex items-center justify-center text-[11px] font-mono font-semibold text-[#0ED3CF] shrink-0"
             aria-hidden
           >
             {initials}
@@ -54,7 +54,7 @@ export function TestimonialCard({ reference: r, index = 0 }: Props) {
             <div className="text-sm font-semibold text-[#FAFAFA] truncate">
               {r.name}
             </div>
-            <div className="text-xs text-[#A1A1AA] truncate">
+            <div className="text-xs text-[#A8A29E] truncate">
               {r.title}
               {r.company ? ` · ${r.company}` : ''}
             </div>
@@ -71,25 +71,25 @@ export function TestimonialCard({ reference: r, index = 0 }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-6 hover:border-[#06B6D4]/30 transition-colors flex flex-col"
+      className="rounded-xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#0ED3CF]/30 transition-colors flex flex-col"
     >
       <div className="flex items-center gap-2 mb-3">
-        <CheckCircle2 className="h-4 w-4 text-[#06B6D4]" aria-hidden />
-        <span className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+        <CheckCircle2 className="h-4 w-4 text-[#0ED3CF]" aria-hidden />
+        <span className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
           Reference available
         </span>
       </div>
       <h3 className="font-semibold text-[#FAFAFA] mb-1">{r.role}</h3>
-      <div className="text-[11px] font-mono uppercase tracking-wider text-[#71717A] mb-3">
+      <div className="text-[11px] font-mono uppercase tracking-wider text-[#78716C] mb-3">
         {r.industry}
         {r.duration ? ` · ${r.duration}` : ''}
       </div>
-      <p className="text-sm text-[#A1A1AA] leading-relaxed flex-1">
+      <p className="text-sm text-[#A8A29E] leading-relaxed flex-1">
         {r.context}
       </p>
       {r.callAvailable && (
-        <div className="mt-4 pt-4 border-t border-[#27272A] flex items-center gap-2 text-xs text-[#71717A]">
-          <Phone className="h-3.5 w-3.5 text-[#06B6D4]/70" aria-hidden />
+        <div className="mt-4 pt-4 border-t border-[#2A2826] flex items-center gap-2 text-xs text-[#78716C]">
+          <Phone className="h-3.5 w-3.5 text-[#0ED3CF]/70" aria-hidden />
           <span>Reference call shared during discovery, both consenting.</span>
         </div>
       )}

@@ -41,7 +41,7 @@ function LinkedInIcon() {
 
 export function OAuthButtons({ next = '/auth/redirect' }: { next?: string }) {
   const baseClass =
-    'group flex items-center justify-center gap-2.5 w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-4 py-2.5 text-sm font-medium text-[#FAFAFA] hover:border-[#06B6D4]/50 hover:bg-[#131316] transition-colors';
+    'group flex items-center justify-center gap-2.5 w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-4 py-2.5 text-sm font-medium text-[#FAFAFA] hover:border-[#0ED3CF]/50 hover:bg-[#131316] transition-colors';
   return (
     <div className="space-y-2.5">
       <form action={signInWithProvider}>

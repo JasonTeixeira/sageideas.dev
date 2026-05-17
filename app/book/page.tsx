@@ -31,17 +31,17 @@ export default function BookPage() {
             <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               Book a 30-minute
               <br />
-              <span className="text-[#06B6D4]">discovery call.</span>
+              <span className="text-[#0ED3CF]">discovery call.</span>
             </h1>
-            <p className="mt-5 text-lg text-[#A1A1AA] leading-relaxed">
+            <p className="mt-5 text-lg text-[#A8A29E] leading-relaxed">
               30 minutes. No pitch deck. No obligation. Just a direct conversation.
             </p>
           </div>
 
           {/* What to expect */}
           <div className="mt-8 grid sm:grid-cols-2 gap-4 max-w-2xl">
-            <div className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-4">
-              <p className="text-xs font-mono text-[#06B6D4] uppercase tracking-widest mb-2">
+            <div className="rounded-xl bg-[#12110F] border border-[#2A2826] p-4">
+              <p className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest mb-2">
                 We&apos;ll cover
               </p>
               <ul className="space-y-1.5">
@@ -51,15 +51,15 @@ export default function BookPage() {
                   "Your timeline and constraints",
                   "Whether a tier is the right fit",
                 ].map((item) => (
-                  <li key={item} className="text-sm text-[#A1A1AA] flex items-start gap-2">
-                    <span className="w-1 h-1 rounded-full bg-[#06B6D4] mt-2 shrink-0" />
+                  <li key={item} className="text-sm text-[#A8A29E] flex items-start gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[#0ED3CF] mt-2 shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-4">
-              <p className="text-xs font-mono text-[#06B6D4] uppercase tracking-widest mb-2">
+            <div className="rounded-xl bg-[#12110F] border border-[#2A2826] p-4">
+              <p className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest mb-2">
                 Come prepared with
               </p>
               <ul className="space-y-1.5">
@@ -69,8 +69,8 @@ export default function BookPage() {
                   "Your timeline (any hard deadlines?)",
                   "A few sentences about your project",
                 ].map((item) => (
-                  <li key={item} className="text-sm text-[#A1A1AA] flex items-start gap-2">
-                    <span className="w-1 h-1 rounded-full bg-[#71717A] mt-2 shrink-0" />
+                  <li key={item} className="text-sm text-[#A8A29E] flex items-start gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[#78716C] mt-2 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -82,15 +82,15 @@ export default function BookPage() {
 
       {/* Direct intake — no third-party embed */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="rounded-2xl border border-[#27272A] bg-gradient-to-br from-[#0F0F12] to-[#18181B] p-8 sm:p-12">
+        <div className="rounded-2xl border border-[#2A2826] bg-gradient-to-br from-[#12110F] to-[#1A1917] p-8 sm:p-12">
           <div className="max-w-2xl">
-            <p className="text-xs font-mono text-[#06B6D4] uppercase tracking-widest mb-3">
+            <p className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest mb-3">
               Two ways to start
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
               Pick what feels lighter.
             </h2>
-            <p className="mt-3 text-[#A1A1AA] leading-relaxed">
+            <p className="mt-3 text-[#A8A29E] leading-relaxed">
               Both go to the same inbox. The structured intake is faster — you get a written reply within 24 hours with concrete next steps.
             </p>
           </div>
@@ -98,38 +98,38 @@ export default function BookPage() {
           <div className="mt-8 grid sm:grid-cols-2 gap-4">
             <Link
               href="/contact?type=consult&source=book"
-              className="group rounded-xl border border-[#27272A] bg-[#0A0A0C] p-6 hover:border-[#06B6D4] transition-colors"
+              className="group rounded-xl border border-[#2A2826] bg-[#0B0A09] p-6 hover:border-[#0ED3CF] transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#06B6D4]/10 border border-[#06B6D4]/30 flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-[#06B6D4]" />
+                <div className="w-10 h-10 rounded-lg bg-[#0ED3CF]/10 border border-[#0ED3CF]/30 flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-[#0ED3CF]" />
                 </div>
-                <span className="text-xs font-mono text-[#06B6D4] uppercase tracking-widest">Recommended</span>
+                <span className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest">Recommended</span>
               </div>
               <h3 className="mt-4 text-xl font-bold text-[#FAFAFA]">Structured intake</h3>
-              <p className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">
+              <p className="mt-2 text-sm text-[#A8A29E] leading-relaxed">
                 A 5-minute form. You get a written reply within 24 hours with a recommended path, scope, and ballpark price. No call required to start.
               </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#06B6D4] group-hover:text-[#22D3EE] transition-colors">
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#0ED3CF] group-hover:text-[#22D3EE] transition-colors">
                 Start intake <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </Link>
 
             <a
               href="mailto:sage@sageideas.dev?subject=Discovery%20call%20request&body=Hi%20Sage%2C%0A%0AI%27d%20like%20to%20schedule%20a%2030-minute%20discovery%20call.%0A%0AProject%20overview%3A%0A%0ATimeline%3A%0A%0ABudget%20range%3A%0A%0ASome%20times%20that%20work%20for%20me%3A%0A%0AThanks%2C%0A"
-              className="group rounded-xl border border-[#27272A] bg-[#0A0A0C] p-6 hover:border-[#06B6D4] transition-colors"
+              className="group rounded-xl border border-[#2A2826] bg-[#0B0A09] p-6 hover:border-[#0ED3CF] transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-[#8B5CF6]" />
+                <div className="w-10 h-10 rounded-lg bg-[#E85D3A]/10 border border-[#E85D3A]/30 flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-[#E85D3A]" />
                 </div>
-                <span className="text-xs font-mono text-[#8B5CF6] uppercase tracking-widest">Direct</span>
+                <span className="text-xs font-mono text-[#E85D3A] uppercase tracking-widest">Direct</span>
               </div>
               <h3 className="mt-4 text-xl font-bold text-[#FAFAFA]">Email Sage directly</h3>
-              <p className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">
+              <p className="mt-2 text-sm text-[#A8A29E] leading-relaxed">
                 Prefer to skip the form? Reply with project overview, timeline, budget range, and times that work — you&apos;ll get scheduling options back same day.
               </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#8B5CF6] group-hover:text-[#A78BFA] transition-colors">
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#E85D3A] group-hover:text-[#A78BFA] transition-colors">
                 sage@sageideas.dev <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -157,13 +157,13 @@ export default function BookPage() {
           ].map((item) => (
             <div
               key={item.step}
-              className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-6"
+              className="rounded-xl border border-[#2A2826] bg-[#12110F] p-6"
             >
-              <span className="text-xs font-mono text-[#06B6D4] uppercase tracking-widest">
+              <span className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest">
                 {item.step}
               </span>
               <h3 className="mt-2 text-lg font-semibold text-[#FAFAFA]">{item.label}</h3>
-              <p className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">{item.desc}</p>
+              <p className="mt-2 text-sm text-[#A8A29E] leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

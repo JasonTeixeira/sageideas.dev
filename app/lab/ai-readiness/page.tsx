@@ -24,7 +24,7 @@ export default function AiReadinessPage() {
         {/* Back link */}
         <Link
           href="/lab"
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#71717A] hover:text-[#FAFAFA] transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#78716C] hover:text-[#FAFAFA] transition-colors mb-8"
         >
           <ArrowLeft className="h-3 w-3" />
           The Lab
@@ -36,10 +36,10 @@ export default function AiReadinessPage() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight">
             AI Readiness Score.
           </h1>
-          <p className="mt-4 text-xl text-[#A1A1AA] max-w-2xl">
+          <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">
             10 questions. An honest answer about where to start.
           </p>
-          <p className="mt-4 text-[#71717A] max-w-2xl leading-relaxed">
+          <p className="mt-4 text-[#78716C] max-w-2xl leading-relaxed">
             Most teams skip readiness and burn budget on agents they cannot operate. This
             diagnostic scores your team across data, infrastructure, process, talent, and ROI
             clarity — and tells you whether to pilot, scale, or fix the foundation first. Free,

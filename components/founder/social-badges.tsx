@@ -50,7 +50,7 @@ export function SocialBadges({ className = '' }: { className?: string }) {
         href={`https://github.com/${GITHUB_USER}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[#27272A] bg-[#18181B] px-3.5 py-1.5 text-xs font-mono text-[#A1A1AA] hover:border-[#06B6D4]/40 hover:text-[#FAFAFA] transition-colors"
+        className="inline-flex items-center gap-2 rounded-full border border-[#2A2826] bg-[#1A1917] px-3.5 py-1.5 text-xs font-mono text-[#A8A29E] hover:border-[#0ED3CF]/40 hover:text-[#FAFAFA] transition-colors"
       >
         <Github className="w-3.5 h-3.5" />
         <Star className="w-3 h-3 text-[#F59E0B]" />
@@ -61,7 +61,7 @@ export function SocialBadges({ className = '' }: { className?: string }) {
         href={`https://github.com/${GITHUB_USER}?tab=repositories`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[#27272A] bg-[#18181B] px-3.5 py-1.5 text-xs font-mono text-[#A1A1AA] hover:border-[#06B6D4]/40 hover:text-[#FAFAFA] transition-colors"
+        className="inline-flex items-center gap-2 rounded-full border border-[#2A2826] bg-[#1A1917] px-3.5 py-1.5 text-xs font-mono text-[#A8A29E] hover:border-[#0ED3CF]/40 hover:text-[#FAFAFA] transition-colors"
       >
         <GitFork className="w-3.5 h-3.5" />
         <span className="text-[#FAFAFA]">{fmtRepos}</span>
@@ -71,7 +71,7 @@ export function SocialBadges({ className = '' }: { className?: string }) {
         href="https://www.linkedin.com/in/jason-teixeira/"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-[#27272A] bg-[#18181B] px-3.5 py-1.5 text-xs font-mono text-[#A1A1AA] hover:border-[#06B6D4]/40 hover:text-[#FAFAFA] transition-colors"
+        className="inline-flex items-center gap-2 rounded-full border border-[#2A2826] bg-[#1A1917] px-3.5 py-1.5 text-xs font-mono text-[#A8A29E] hover:border-[#0ED3CF]/40 hover:text-[#FAFAFA] transition-colors"
       >
         <Linkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
         <span className="text-[#FAFAFA]">5k+</span>

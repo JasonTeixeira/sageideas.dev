@@ -150,50 +150,50 @@ function studioEngagementContent() {
   return (
     <div className="min-h-screen bg-[#09090B]">
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-[#27272A]">
+      <section className="relative overflow-hidden border-b border-[#2A2826]">
         <HeroMotionLayer intensity="low" />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#06B6D4]/30 bg-[#06B6D4]/[0.06] px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-[#06B6D4] mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#0ED3CF]/30 bg-[#0ED3CF]/[0.06] px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-6">
             <Lock className="w-3 h-3" /> By application only
           </div>
           <SectionLabel>Studio Engagement</SectionLabel>
           <h1 className="mt-3 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight leading-[1.05]">
             One quarter. One keyboard.
             <br />
-            <span className="text-[#06B6D4]">Production-grade software</span>
+            <span className="text-[#0ED3CF]">Production-grade software</span>
             <br /> shipped end-to-end.
           </h1>
-          <p className="mt-6 text-lg lg:text-xl text-[#A1A1AA] leading-relaxed max-w-2xl">
+          <p className="mt-6 text-lg lg:text-xl text-[#A8A29E] leading-relaxed max-w-2xl">
             For founders who don&rsquo;t want a vendor &mdash; they want the
             studio embedded for a quarter. Productized tiers exist for the work
             that fits a checkbox. This is for the work that doesn&rsquo;t.
           </p>
 
           <div className="mt-10 grid sm:grid-cols-3 gap-3">
-            <div className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5">
-              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#71717A] mb-2">
+            <div className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5">
+              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#78716C] mb-2">
                 Investment
               </div>
               <div className="text-2xl font-bold text-[#FAFAFA]">Starts at $25k / quarter</div>
-              <div className="text-xs text-[#71717A] mt-1.5">
+              <div className="text-xs text-[#78716C] mt-1.5">
                 Custom-quoted after scoping. No surprises after sign-off.
               </div>
             </div>
-            <div className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5">
-              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#71717A] mb-2">
+            <div className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5">
+              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#78716C] mb-2">
                 Cadence
               </div>
               <div className="text-2xl font-bold text-[#FAFAFA]">12 weeks minimum</div>
-              <div className="text-xs text-[#71717A] mt-1.5">
+              <div className="text-xs text-[#78716C] mt-1.5">
                 Weekly changelog. Fortnightly architecture review.
               </div>
             </div>
-            <div className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5">
-              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#71717A] mb-2">
+            <div className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5">
+              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#78716C] mb-2">
                 Capacity
               </div>
               <div className="text-2xl font-bold text-[#FAFAFA]">3 slots / year</div>
-              <div className="text-xs text-[#71717A] mt-1.5">
+              <div className="text-xs text-[#78716C] mt-1.5">
                 One operator. The math is the constraint.
               </div>
             </div>
@@ -202,18 +202,18 @@ function studioEngagementContent() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
               href="/contact?type=studio&source=studio-engagement"
-              className="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               Apply for a quarter
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 border border-[#27272A] hover:border-[#06B6D4]/50 text-[#FAFAFA] px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 border border-[#2A2826] hover:border-[#0ED3CF]/50 text-[#FAFAFA] px-6 py-3 rounded-lg transition-colors"
             >
               Book a discovery call first
             </Link>
-            <span className="text-xs font-mono text-[#71717A] ml-1">
+            <span className="text-xs font-mono text-[#78716C] ml-1">
               Replies within 48 business hours
             </span>
           </div>
@@ -234,7 +234,7 @@ function studioEngagementContent() {
                   key={line}
                   className="flex items-start gap-3 text-[#D4D4D8] leading-relaxed"
                 >
-                  <Check className="w-4 h-4 text-[#06B6D4] mt-1 shrink-0" />
+                  <Check className="w-4 h-4 text-[#0ED3CF] mt-1 shrink-0" />
                   <span>{line}</span>
                 </li>
               ))}
@@ -249,20 +249,20 @@ function studioEngagementContent() {
               {notFitFor.map((line) => (
                 <li
                   key={line}
-                  className="flex items-start gap-3 text-[#A1A1AA] leading-relaxed"
+                  className="flex items-start gap-3 text-[#A8A29E] leading-relaxed"
                 >
-                  <span className="font-mono text-[#71717A] text-sm pt-0.5 shrink-0">
+                  <span className="font-mono text-[#78716C] text-sm pt-0.5 shrink-0">
                     &mdash;
                   </span>
                   <span>{line}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm text-[#71717A]">
+            <p className="mt-6 text-sm text-[#78716C]">
               For one-shot work, see the{' '}
               <Link
                 href="/pricing"
-                className="text-[#06B6D4] hover:text-[#22D3EE] underline-offset-4 hover:underline"
+                className="text-[#0ED3CF] hover:text-[#22D3EE] underline-offset-4 hover:underline"
               >
                 productized tiers
               </Link>
@@ -273,7 +273,7 @@ function studioEngagementContent() {
       </section>
 
       {/* What it includes */}
-      <section className="border-y border-[#27272A] bg-[#0A0A0C]/60">
+      <section className="border-y border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <SectionLabel>What it includes</SectionLabel>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-12 leading-tight max-w-3xl">
@@ -283,12 +283,12 @@ function studioEngagementContent() {
             {includes.map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6 hover:border-[#06B6D4]/30 transition-colors"
+                className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#0ED3CF]/30 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-[#FAFAFA] mb-2">
                   {item.title}
                 </h3>
-                <p className="text-[#A1A1AA] leading-relaxed text-sm">
+                <p className="text-[#A8A29E] leading-relaxed text-sm">
                   {item.body}
                 </p>
               </div>
@@ -307,19 +307,19 @@ function studioEngagementContent() {
           {cadence.map((p, i) => (
             <div
               key={p.title}
-              className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6 grid md:grid-cols-[180px_1fr] gap-4 items-start"
+              className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6 grid md:grid-cols-[180px_1fr] gap-4 items-start"
             >
               <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-1">
-                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#06B6D4]">
+                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#0ED3CF]">
                   Phase {String(i + 1).padStart(2, '0')}
                 </div>
-                <div className="text-sm font-mono text-[#A1A1AA]">{p.label}</div>
+                <div className="text-sm font-mono text-[#A8A29E]">{p.label}</div>
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-[#FAFAFA] mb-1.5">
                   {p.title}
                 </h3>
-                <p className="text-[#A1A1AA] leading-relaxed">{p.body}</p>
+                <p className="text-[#A8A29E] leading-relaxed">{p.body}</p>
               </div>
             </div>
           ))}
@@ -327,7 +327,7 @@ function studioEngagementContent() {
       </section>
 
       {/* How application works */}
-      <section className="border-y border-[#27272A] bg-[#0A0A0C]/60">
+      <section className="border-y border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <SectionLabel>How the application works</SectionLabel>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10 leading-tight max-w-3xl">
@@ -366,16 +366,16 @@ function studioEngagementContent() {
             ].map((step) => (
               <div
                 key={step.n}
-                className="rounded-2xl border border-[#27272A] bg-[#0F0F12] p-6"
+                className="rounded-2xl border border-[#2A2826] bg-[#12110F] p-6"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="text-xs font-mono text-[#06B6D4]">{step.n}</div>
-                  <step.icon className="w-4 h-4 text-[#A1A1AA]" />
+                  <div className="text-xs font-mono text-[#0ED3CF]">{step.n}</div>
+                  <step.icon className="w-4 h-4 text-[#A8A29E]" />
                 </div>
                 <h3 className="text-base font-semibold text-[#FAFAFA] mb-2">
                   {step.title}
                 </h3>
-                <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                <p className="text-sm text-[#A8A29E] leading-relaxed">
                   {step.body}
                 </p>
               </div>
@@ -392,7 +392,7 @@ function studioEngagementContent() {
           <h2 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA] tracking-tight leading-tight">
             Apply if it&rsquo;s the right shape.
           </h2>
-          <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-xl mx-auto">
+          <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-xl mx-auto">
             One brief. Forty-eight-hour reply. The studio takes engagements that
             fit and turns down the ones that don&rsquo;t. Both outcomes are
             fine.
@@ -400,13 +400,13 @@ function studioEngagementContent() {
           <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/contact?type=studio&source=studio-engagement"
-              className="inline-flex items-center justify-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               Apply for a quarter <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/pov"
-              className="inline-flex items-center justify-center gap-2 border border-[#27272A] hover:border-[#8B5CF6]/50 text-[#FAFAFA] px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 border border-[#2A2826] hover:border-[#E85D3A]/50 text-[#FAFAFA] px-6 py-3 rounded-lg transition-colors"
             >
               Read the POV first
             </Link>

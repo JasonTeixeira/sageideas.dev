@@ -1,0 +1,62 @@
+---
+title: "Building a Fintech Platform Solo: 185 Tables, 69 APIs, 7 Systems"
+slug: "building-a-fintech-platform-solo-185-tables-69-apis-7-systems"
+date: "2026-04-20"
+category: "Architecture"
+readTime: "14 min read"
+excerpt: "The full story of architecting and building the Nexural ecosystem from scratch — database design, API architecture, Stripe integration, and lessons from being the sole engineer on a production fintech platform."
+tags:
+  - "Next.js"
+  - "Supabase"
+  - "Stripe"
+  - "Architecture"
+  - "Database Design"
+  - "FinTech"
+coverImage: "/blog/covers/building-a-fintech-platform-solo-185-tables-69-apis-7-systems.png"
+id: 6
+---
+
+# Building a Fintech Platform Solo: 185 Tables, 69 APIs, 7 Systems
+
+Most engineers work on one service at a time. I built an entire ecosystem.
+
+The Nexural platform started as a simple idea: a dashboard for my trading community. It became a full fintech platform with 185 database tables, 69 API endpoints, Stripe billing, an AI-powered Discord bot, a research engine, a newsletter studio, and a real-time alert system.
+
+I designed and built all of it. Here's what I learned.
+
+## The Scope
+
+Seven interconnected systems:
+1. **Trading Dashboard** — real-time market data, charts, portfolio tracking
+2. **Discord AI Engine** — 30+ commands, GPT-4o integration, auto-moderation
+3. **Research Engine** — 71+ metrics, strategy analysis, CSV import
+4. **Alert System** — NinjaTrader 8 integration, .NET backend, real-time notifications
+5. **Newsletter Studio** — automated content generation and distribution
+6. **Strategy Tracker** — performance monitoring across trading systems
+7. **Automation Suite** — 61 test suites, CI/CD, quality gates
+
+## Database Design at Scale
+
+185 tables sounds intimidating. The key was phased design:
+
+- **Phase 1 (Core):** Users, auth, subscriptions — 20 tables
+- **Phase 2 (Trading):** Instruments, positions, signals — 35 tables
+- **Phase 3 (Community):** Discord integration, moderation logs — 25 tables
+- **Phase 4 (Analytics):** Metrics, reports, telemetry — 30 tables
+- **Phase 5-7:** Research, alerts, newsletter — 75 tables
+
+Each phase had its own migration, its own test suite, and its own rollback plan. I never modified more than one domain at a time.
+
+### Schema Decisions That Mattered
+
+**Normalized where it counts:** User → Subscription → Plan is fully normalized. No denormalization shortcuts that would create billing bugs.
+
+**Denormalized where speed matters:** Trading dashboards query denormalized views. A trader doesn't care about 3NF — they care about sub-50ms load times.
+
+**Row-level security everywhere:** Supabase RLS policies on every table. A user can never see another user's data, even if the API has a bug.
+
+## API Architecture
+
+69 endpoints following consistent patterns:
+
+\

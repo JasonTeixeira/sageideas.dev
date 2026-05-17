@@ -71,24 +71,24 @@ export function AgentCostEstimator({
     <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#0B0B0F] to-[#0F1014] p-6 sm:p-8">
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#78716C]">
             <Calculator className="w-3.5 h-3.5" style={{ color: accent }} />
             Cost estimator
           </div>
           <h3 className="mt-2 text-xl font-semibold text-[#FAFAFA]">{title}</h3>
-          <p className="mt-1.5 text-sm text-[#A1A1AA] max-w-xl">{subtitle}</p>
+          <p className="mt-1.5 text-sm text-[#A8A29E] max-w-xl">{subtitle}</p>
         </div>
       </div>
 
       {/* Slider */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between text-[12px] text-[#A1A1AA]">
-          <span className="font-mono uppercase tracking-widest text-[10px] text-[#71717A]">
+        <div className="flex items-center justify-between text-[12px] text-[#A8A29E]">
+          <span className="font-mono uppercase tracking-widest text-[10px] text-[#78716C]">
             Volume
           </span>
           <span className="text-[#FAFAFA] font-semibold">
             {formatNumber(value)}{' '}
-            <span className="text-[#71717A] font-normal">{unitLabel}</span>
+            <span className="text-[#78716C] font-normal">{unitLabel}</span>
           </span>
         </div>
 
@@ -119,7 +119,7 @@ export function AgentCostEstimator({
               background: `linear-gradient(90deg, ${accent} 0%, ${accent} ${pct}%, rgba(255,255,255,0.08) ${pct}%, rgba(255,255,255,0.08) 100%)`,
             }}
           />
-          <div className="flex justify-between text-[10px] font-mono text-[#52525B] mt-1.5">
+          <div className="flex justify-between text-[10px] font-mono text-[#57534E] mt-1.5">
             <span>{formatNumber(min)}</span>
             <span>{formatNumber(max)}</span>
           </div>
@@ -129,27 +129,27 @@ export function AgentCostEstimator({
       {/* Cost breakdown */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
             Base infra
           </div>
-          <div className="mt-1 text-lg font-semibold text-[#A1A1AA]">
+          <div className="mt-1 text-lg font-semibold text-[#A8A29E]">
             {formatUSD(baseCost)}
-            <span className="text-[11px] text-[#52525B] font-normal"> / mo</span>
+            <span className="text-[11px] text-[#57534E] font-normal"> / mo</span>
           </div>
-          <div className="mt-1 text-[10.5px] text-[#71717A]">
+          <div className="mt-1 text-[10.5px] text-[#78716C]">
             Hosting · observability · evals
           </div>
         </div>
 
         <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
             Variable (LLM + tools)
           </div>
-          <div className="mt-1 text-lg font-semibold text-[#A1A1AA]">
+          <div className="mt-1 text-lg font-semibold text-[#A8A29E]">
             {formatUSD(variableCost)}
-            <span className="text-[11px] text-[#52525B] font-normal"> / mo</span>
+            <span className="text-[11px] text-[#57534E] font-normal"> / mo</span>
           </div>
-          <div className="mt-1 text-[10.5px] text-[#71717A]">
+          <div className="mt-1 text-[10.5px] text-[#78716C]">
             ≈ ${costPerUnit.toFixed(2)} per {unitLabel.split(' ')[0]}
           </div>
         </div>
@@ -164,14 +164,14 @@ export function AgentCostEstimator({
             background: `linear-gradient(135deg, ${accent}1A, transparent)`,
           }}
         >
-          <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
             Total monthly
           </div>
           <div className="mt-1 text-2xl font-bold tabular-nums" style={{ color: '#FAFAFA' }}>
             <motion.span>{totalRounded}</motion.span>
-            <span className="text-[11px] text-[#71717A] font-normal"> / mo</span>
+            <span className="text-[11px] text-[#78716C] font-normal"> / mo</span>
           </div>
-          <div className="mt-1 text-[10.5px] text-[#71717A]">
+          <div className="mt-1 text-[10.5px] text-[#78716C]">
             Forecast — actual capped in prod
           </div>
         </motion.div>
@@ -186,20 +186,20 @@ export function AgentCostEstimator({
         }}
       >
         <ShieldCheck className="w-4 h-4 mt-0.5 shrink-0" style={{ color: accent }} />
-        <div className="flex-1 text-[12px] text-[#A1A1AA] leading-snug">
+        <div className="flex-1 text-[12px] text-[#A8A29E] leading-snug">
           <span className="text-[#FAFAFA] font-semibold">
             Recommended monthly cap: {formatUSD(suggestedCap)}
           </span>{' '}
           — we set this hard ceiling in production. Agent auto-pauses when hit, with a Slack
           alert at 80%. You raise it only if you want to.
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
           <BellRing className="w-3 h-3" />
           80% alert
         </span>
       </div>
 
-      <div className="mt-5 flex items-start gap-2 text-[11.5px] text-[#71717A]">
+      <div className="mt-5 flex items-start gap-2 text-[11.5px] text-[#78716C]">
         <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
         <span>
           Estimate uses average token costs and observed agent behavior in similar

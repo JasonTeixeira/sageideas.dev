@@ -33,7 +33,7 @@ export function RelatedPosts({ currentSlug, posts }: RelatedPostsProps) {
         <h3 className="text-xl font-bold text-[#FAFAFA]">Related reading</h3>
         <Link
           href="/blog"
-          className="text-sm text-[#06B6D4] hover:text-[#22D3EE] transition-colors"
+          className="text-sm text-[#0ED3CF] hover:text-[#22D3EE] transition-colors"
         >
           All posts →
         </Link>
@@ -43,7 +43,7 @@ export function RelatedPosts({ currentSlug, posts }: RelatedPostsProps) {
           <Link
             key={p.slug}
             href={`/blog/${p.slug}`}
-            className="group block rounded-xl overflow-hidden border border-[#27272A] bg-[#18181B] hover:border-[#06B6D4]/50 transition-all"
+            className="group block rounded-xl overflow-hidden border border-[#2A2826] bg-[#1A1917] hover:border-[#0ED3CF]/50 transition-all"
           >
             <PostCover
               src={p.coverImage}
@@ -53,13 +53,13 @@ export function RelatedPosts({ currentSlug, posts }: RelatedPostsProps) {
               sizes="(max-width: 640px) 100vw, 33vw"
             />
             <div className="p-4">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                 {p.category}
               </span>
-              <h4 className="text-sm font-semibold text-[#FAFAFA] mt-2 line-clamp-2 group-hover:text-[#06B6D4] transition-colors">
+              <h4 className="text-sm font-semibold text-[#FAFAFA] mt-2 line-clamp-2 group-hover:text-[#0ED3CF] transition-colors">
                 {p.title}
               </h4>
-              <div className="flex items-center gap-1 text-[11px] text-[#71717A] mt-3">
+              <div className="flex items-center gap-1 text-[11px] text-[#78716C] mt-3">
                 <Clock className="h-3 w-3" />
                 {p.readTime}
               </div>

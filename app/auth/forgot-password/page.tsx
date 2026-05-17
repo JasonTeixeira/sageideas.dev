@@ -34,13 +34,13 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
             </div>
 
             <div className="space-y-2 mb-8">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                 Account recovery
               </div>
               <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
                 Reset your password
               </h2>
-              <p className="text-sm text-[#A1A1AA]">
+              <p className="text-sm text-[#A8A29E]">
                 Enter the email tied to your account and we&apos;ll send you a reset link.
               </p>
             </div>
@@ -60,20 +60,20 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
               <div
                 role="status"
                 aria-live="polite"
-                className="rounded-xl border border-[#06B6D4]/30 bg-[#06B6D4]/5 px-5 py-6 space-y-3"
+                className="rounded-xl border border-[#0ED3CF]/30 bg-[#0ED3CF]/5 px-5 py-6 space-y-3"
               >
-                <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                   Check your inbox
                 </div>
                 <p className="text-sm text-[#FAFAFA]">
                   If an account exists for{' '}
                   <span className="font-medium">{sentEmail}</span>, we&apos;ve sent a reset link.
                 </p>
-                <p className="text-xs text-[#71717A]">
+                <p className="text-xs text-[#78716C]">
                   The link expires in 1 hour. Didn&apos;t get it? Check spam, then{' '}
                   <Link
                     href="/auth/forgot-password"
-                    className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+                    className="text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
                   >
                     request a new one
                   </Link>
@@ -85,7 +85,7 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A] mb-2"
+                    className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C] mb-2"
                   >
                     Work email
                   </label>
@@ -96,22 +96,22 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
                     required
                     autoComplete="email"
                     placeholder="you@company.com"
-                    className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+                    className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+                  className="w-full rounded-lg bg-[#0ED3CF] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0AA8A5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
                 >
                   Send reset link
                 </button>
               </form>
             )}
 
-            <p className="mt-8 text-center text-sm text-[#A1A1AA]">
+            <p className="mt-8 text-center text-sm text-[#A8A29E]">
               <Link
                 href="/login"
-                className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+                className="text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
               >
                 ← Back to sign in
               </Link>

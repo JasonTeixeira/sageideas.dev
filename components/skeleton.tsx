@@ -12,7 +12,7 @@ export function Skeleton({ className }: SkeletonProps) {
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden">
+    <div className="bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden">
       <Skeleton className="h-48 w-full rounded-none" />
       <div className="p-6 space-y-4">
         <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export function ProjectCardSkeleton() {
 
 export function CaseStudyCardSkeleton() {
   return (
-    <div className="bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden">
+    <div className="bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden">
       <Skeleton className="h-56 w-full rounded-none" />
       <div className="p-8 space-y-4">
         <div className="flex gap-4">

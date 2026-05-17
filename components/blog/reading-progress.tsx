@@ -41,7 +41,7 @@ export function ReadingProgress({ targetSelector = '#article-body' }: ReadingPro
       className="fixed top-0 left-0 right-0 h-0.5 bg-transparent z-[60]"
     >
       <div
-        className="h-full bg-[#06B6D4] origin-left transition-transform duration-100"
+        className="h-full bg-[#0ED3CF] origin-left transition-transform duration-100"
         style={{ transform: `scaleX(${progress})`, transformOrigin: 'left' }}
       />
     </div>

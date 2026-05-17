@@ -54,7 +54,7 @@ export function NewsletterSignup({
 
   const containerClass =
     variant === 'card'
-      ? 'rounded-2xl border border-[#27272A] bg-[#18181B] p-6 sm:p-8'
+      ? 'rounded-2xl border border-[#2A2826] bg-[#1A1917] p-6 sm:p-8'
       : ''
 
   return (
@@ -62,13 +62,13 @@ export function NewsletterSignup({
       {variant === 'card' && (
         <>
           <h3 className="text-2xl font-bold text-[#FAFAFA] tracking-tight">{headline}</h3>
-          <p className="mt-2 text-[#A1A1AA] leading-relaxed">{blurb}</p>
+          <p className="mt-2 text-[#A8A29E] leading-relaxed">{blurb}</p>
         </>
       )}
 
       {status === 'success' ? (
-        <div className="flex items-center gap-3 rounded-lg border border-[#06B6D4]/30 bg-[#06B6D4]/10 px-4 py-3 mt-4 text-sm text-[#FAFAFA]">
-          <Check className="h-4 w-4 text-[#06B6D4]" />
+        <div className="flex items-center gap-3 rounded-lg border border-[#0ED3CF]/30 bg-[#0ED3CF]/10 px-4 py-3 mt-4 text-sm text-[#FAFAFA]">
+          <Check className="h-4 w-4 text-[#0ED3CF]" />
           You are in. First note hits your inbox soon.
         </div>
       ) : (
@@ -85,12 +85,12 @@ export function NewsletterSignup({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@company.com"
-              className="flex-1 rounded-lg border border-[#27272A] bg-[#09090B] px-4 py-3 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus:ring-1 focus:ring-[#06B6D4]"
+              className="flex-1 rounded-lg border border-[#2A2826] bg-[#09090B] px-4 py-3 text-sm text-[#FAFAFA] placeholder:text-[#57534E] focus:border-[#0ED3CF] focus:outline-none focus:ring-1 focus:ring-[#0ED3CF]"
             />
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#06B6D4] px-5 py-3 text-sm font-medium text-[#09090B] transition-all hover:bg-[#0891B2] disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0ED3CF] px-5 py-3 text-sm font-medium text-[#09090B] transition-all hover:bg-[#0AA8A5] disabled:opacity-50"
             >
               {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
               {status !== 'submitting' && <ArrowRight className="h-4 w-4" />}
@@ -99,7 +99,7 @@ export function NewsletterSignup({
           {status === 'error' && errorMsg && (
             <p className="mt-3 text-sm text-red-400">{errorMsg}</p>
           )}
-          <p className="mt-3 text-xs text-[#52525B]">
+          <p className="mt-3 text-xs text-[#57534E]">
             No spam. Unsubscribe in one click. We never share your email.
           </p>
         </form>

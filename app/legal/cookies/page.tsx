@@ -13,18 +13,18 @@ export default async function LegalDocPage() {
   const { frontmatter, body } = await readLegalDoc('cookies')
   return (
     <>
-      <header className="mb-12 pb-8 border-b border-[#27272A]">
-        <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#06B6D4] mb-3">
+      <header className="mb-12 pb-8 border-b border-[#2A2826]">
+        <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-3">
           Legal Document
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#FAFAFA] leading-tight">
           {frontmatter.title ?? 'Cookie Policy'}
         </h1>
         {frontmatter.summary ? (
-          <p className="mt-4 text-[#A1A1AA] leading-relaxed">{frontmatter.summary}</p>
+          <p className="mt-4 text-[#A8A29E] leading-relaxed">{frontmatter.summary}</p>
         ) : null}
         {frontmatter.lastUpdated ? (
-          <p className="mt-4 text-xs font-mono text-[#71717A]">
+          <p className="mt-4 text-xs font-mono text-[#78716C]">
             Last updated · {frontmatter.lastUpdated}
           </p>
         ) : null}

@@ -32,17 +32,17 @@ export function ProfessionalAvatar({ size = 'lg', showGlow = true }: Professiona
     >
       {/* Glow effect */}
       {showGlow && (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/30 to-[#8B5CF6]/30 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0ED3CF]/30 to-[#E85D3A]/30 rounded-full blur-2xl animate-pulse" />
       )}
 
       {/* Avatar container */}
       <div
         className={`
           relative ${sizeClasses[size]} rounded-full
-          bg-gradient-to-br from-[#06B6D4] to-[#8B5CF6]
+          bg-gradient-to-br from-[#0ED3CF] to-[#E85D3A]
           flex items-center justify-center
-          ring-4 ring-[#27272A]
-          shadow-xl shadow-[#06B6D4]/20
+          ring-4 ring-[#2A2826]
+          shadow-xl shadow-[#0ED3CF]/20
           overflow-hidden
         `}
       >

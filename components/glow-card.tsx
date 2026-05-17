@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 interface GlowCardProps {
   children: ReactNode
   className?: string
-  glowColor?: 'cyan' | 'violet' | 'gradient'
+  glowColor?: 'cyan' | 'coral' | 'violet' | 'gradient'
 }
 
 export function GlowCard({ children, className, glowColor = 'cyan' }: GlowCardProps) {
@@ -25,9 +25,10 @@ export function GlowCard({ children, className, glowColor = 'cyan' }: GlowCardPr
   }
 
   const glowColors = {
-    cyan: 'rgba(6, 182, 212, 0.15)',
-    violet: 'rgba(139, 92, 246, 0.15)',
-    gradient: 'rgba(6, 182, 212, 0.15)'
+    cyan: 'rgba(14, 211, 207, 0.15)',
+    coral: 'rgba(232, 93, 58, 0.15)',
+    violet: 'rgba(199, 35, 110, 0.15)',
+    gradient: 'rgba(14, 211, 207, 0.12)'
   }
 
   return (
@@ -37,8 +38,8 @@ export function GlowCard({ children, className, glowColor = 'cyan' }: GlowCardPr
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        'relative bg-[#18181B] border border-[#27272A] rounded-2xl overflow-hidden transition-all duration-300',
-        isHovered && 'border-[#06B6D4]/50',
+        'relative bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden transition-all duration-300',
+        isHovered && 'border-[#0ED3CF]/50',
         className
       )}
       whileHover={{ y: -4 }}
@@ -62,9 +63,11 @@ export function GlowCard({ children, className, glowColor = 'cyan' }: GlowCardPr
         )}
         style={{
           padding: '1px',
-          background: glowColor === 'violet' 
-            ? 'linear-gradient(135deg, #8B5CF6, transparent, #8B5CF6)'
-            : 'linear-gradient(135deg, #06B6D4, transparent, #8B5CF6)',
+          background: glowColor === 'coral'
+            ? 'linear-gradient(135deg, #E85D3A, transparent, #E85D3A)'
+            : glowColor === 'violet'
+            ? 'linear-gradient(135deg, #C7236E, transparent, #C7236E)'
+            : 'linear-gradient(135deg, #0ED3CF, transparent, #E85D3A)',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
           maskComposite: 'exclude'

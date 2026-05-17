@@ -29,11 +29,11 @@ export default function POVPage() {
             Why we refuse to ship anything that can&rsquo;t be rolled back in
             30 seconds.
           </h1>
-          <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed">
+          <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">
             One rule. It changes what you build, what you charge, and who hires
             you. Worth writing down.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-[#71717A]">
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-[#78716C]">
             <span>Sage Ideas Studio</span>
             <span aria-hidden>·</span>
             <span>~7 min read</span>
@@ -88,7 +88,7 @@ export default function POVPage() {
               'No release happens without a one-line undo in the runbook. If the undo isn\u2019t obvious, the change isn\u2019t ready.',
             ].map((line, i) => (
               <li key={i} className="flex gap-3">
-                <span className="text-[#06B6D4] font-mono text-sm pt-1 shrink-0">
+                <span className="text-[#0ED3CF] font-mono text-sm pt-1 shrink-0">
                   0{i + 1}
                 </span>
                 <span>{line}</span>
@@ -188,22 +188,22 @@ export default function POVPage() {
         </div>
 
         {/* Sign-off */}
-        <div className="mt-16 pt-10 border-t border-[#27272A]">
+        <div className="mt-16 pt-10 border-t border-[#2A2826]">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
             <div>
-              <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#71717A] mb-2">
+              <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#78716C] mb-2">
                 Written by
               </div>
               <div className="text-base text-[#FAFAFA] font-medium">
                 Jason Teixeira
               </div>
-              <div className="text-sm text-[#A1A1AA]">
+              <div className="text-sm text-[#A8A29E]">
                 Founder, Sage Ideas Studio
               </div>
             </div>
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 text-[#06B6D4] hover:text-[#22D3EE] text-sm font-medium group"
+              className="inline-flex items-center gap-2 text-[#0ED3CF] hover:text-[#22D3EE] text-sm font-medium group"
             >
               Bring this rule to your next engagement
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -213,16 +213,16 @@ export default function POVPage() {
       </article>
 
       {/* Related */}
-      <section className="border-t border-[#27272A] bg-[#0A0A0C]/60">
+      <section className="border-t border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <SectionLabel>Where this rule shows up in the work</SectionLabel>
           <div className="grid sm:grid-cols-2 gap-4 mt-6">
             <Link
               href="/work/nexural"
-              className="group flex items-center justify-between bg-[#0F0F12] border border-[#27272A] hover:border-[#06B6D4]/50 rounded-2xl px-6 py-5 transition-all"
+              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#0ED3CF]/50 rounded-2xl px-6 py-5 transition-all"
             >
               <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#06B6D4] mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-1">
                   Case study
                 </div>
                 <div className="text-sm text-[#FAFAFA]">
@@ -230,21 +230,21 @@ export default function POVPage() {
                   webhooks.
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#06B6D4] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#0ED3CF] group-hover:translate-x-1 transition-all" />
             </Link>
             <Link
               href="/work/aws-landing-zone"
-              className="group flex items-center justify-between bg-[#0F0F12] border border-[#27272A] hover:border-[#06B6D4]/50 rounded-2xl px-6 py-5 transition-all"
+              className="group flex items-center justify-between bg-[#12110F] border border-[#2A2826] hover:border-[#0ED3CF]/50 rounded-2xl px-6 py-5 transition-all"
             >
               <div>
-                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#06B6D4] mb-1">
+                <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-1">
                   Case study
                 </div>
                 <div className="text-sm text-[#FAFAFA]">
                   AWS Landing Zone — every change reversible by Terraform plan.
                 </div>
               </div>
-              <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#06B6D4] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="w-5 h-5 text-[#78716C] group-hover:text-[#0ED3CF] group-hover:translate-x-1 transition-all" />
             </Link>
           </div>
         </div>

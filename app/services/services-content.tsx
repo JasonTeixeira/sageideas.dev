@@ -168,20 +168,20 @@ export function ServicesContent() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
             What I Build For You
           </h1>
-          <p className="mt-6 text-lg text-[#A1A1AA]">
+          <p className="mt-6 text-lg text-[#A8A29E]">
             {"I help businesses, startups, and trading firms build production-grade software. From web applications to trading systems to test automation — you get working software, not slide decks."}
           </p>
-          <p className="mt-3 text-sm text-[#71717A] italic">
+          <p className="mt-3 text-sm text-[#78716C] italic">
             {"Sage Ideas operates as a productized studio with custom packages, monthly retainers, and bespoke engagements available on request."}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Button asChild className="bg-[#8B5CF6] text-white hover:bg-[#A78BFA] btn-glow">
+            <Button asChild className="bg-[#E85D3A] text-white hover:bg-[#A78BFA] btn-glow">
               <Link href="/contact">
                 <Sparkles className="mr-2 h-4 w-4" />
                 Start a Project
               </Link>
             </Button>
-            <Button asChild variant="outline" className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent">
+            <Button asChild variant="outline" className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent">
               <a href="https://cal.com/jason-teixeira-8elz3z" target="_blank" rel="noopener noreferrer">
                 <CalendarClock className="mr-2 h-4 w-4" />
                 Book a Call
@@ -204,18 +204,18 @@ export function ServicesContent() {
             >
             <GlowCard glowColor="violet" className="h-full">
               <div className="p-8 flex items-start gap-6">
-                <div className="p-3 bg-[#8B5CF6]/10 rounded-xl shrink-0">
-                  <service.icon className="h-8 w-8 text-[#8B5CF6]" />
+                <div className="p-3 bg-[#E85D3A]/10 rounded-xl shrink-0">
+                  <service.icon className="h-8 w-8 text-[#E85D3A]" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#FAFAFA] mb-2">{service.title}</h3>
-                  <p className="text-[#A1A1AA] mb-6">{service.description}</p>
+                  <p className="text-[#A8A29E] mb-6">{service.description}</p>
                   
                   <div className="mb-4">
-                    <p className="text-sm font-medium text-[#71717A] mb-2">Deliverables:</p>
+                    <p className="text-sm font-medium text-[#78716C] mb-2">Deliverables:</p>
                     <div className="grid grid-cols-2 gap-2">
                       {service.deliverables.map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-sm text-[#A1A1AA]">
+                        <div key={item} className="flex items-center gap-2 text-sm text-[#A8A29E]">
                           <Check className="h-3 w-3 text-[#10B981]" />
                           {item}
                         </div>
@@ -223,9 +223,9 @@ export function ServicesContent() {
                     </div>
                   </div>
                   
-                  <div className="pt-4 border-t border-[#27272A]">
-                    <p className="text-xs text-[#71717A]">
-                      <span className="text-[#06B6D4]">Examples:</span> {service.examples}
+                  <div className="pt-4 border-t border-[#2A2826]">
+                    <p className="text-xs text-[#78716C]">
+                      <span className="text-[#0ED3CF]">Examples:</span> {service.examples}
                     </p>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export function ServicesContent() {
       </section>
 
       {/* Process */}
-      <section className="py-24 bg-[#18181B]">
+      <section className="py-24 bg-[#1A1917]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -260,14 +260,14 @@ export function ServicesContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="relative p-6 bg-[#09090B] border border-[#27272A] rounded-2xl"
+                className="relative p-6 bg-[#09090B] border border-[#2A2826] rounded-2xl"
               >
-                <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#06B6D4] rounded-full flex items-center justify-center text-sm font-bold text-[#09090B]">
+                <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#0ED3CF] rounded-full flex items-center justify-center text-sm font-bold text-[#09090B]">
                   {step.step}
                 </div>
-                <step.icon className="h-8 w-8 text-[#06B6D4] mb-4 mt-2" />
+                <step.icon className="h-8 w-8 text-[#0ED3CF] mb-4 mt-2" />
                 <h3 className="text-lg font-semibold text-[#FAFAFA] mb-2">{step.title}</h3>
-                <p className="text-sm text-[#A1A1AA]">{step.description}</p>
+                <p className="text-sm text-[#A8A29E]">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -301,12 +301,12 @@ export function ServicesContent() {
               >
                 <AccordionItem
                   value={`faq-${index}`}
-                  className="bg-[#18181B] border border-[#27272A] rounded-xl px-6"
+                  className="bg-[#1A1917] border border-[#2A2826] rounded-xl px-6"
                 >
-                  <AccordionTrigger className="text-left text-[#FAFAFA] hover:text-[#06B6D4]">
+                  <AccordionTrigger className="text-left text-[#FAFAFA] hover:text-[#0ED3CF]">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-[#A1A1AA]">
+                  <AccordionContent className="text-[#A8A29E]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -317,7 +317,7 @@ export function ServicesContent() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-[#18181B]">
+      <section className="py-24 bg-[#1A1917]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -329,35 +329,35 @@ export function ServicesContent() {
             <div className="mb-16 max-w-3xl mx-auto">
               <h3 className="text-xl font-semibold text-[#FAFAFA] mb-6 text-center">Specialized Services</h3>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Link href="/services/fintech" className="p-4 bg-[#18181B] border border-[#8B5CF6]/20 rounded-xl hover:border-[#8B5CF6]/50 transition-colors group">
-                  <span className="text-xs font-mono text-[#8B5CF6]">FinTech</span>
-                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#8B5CF6] transition-colors">Trading Platforms & Financial Systems</p>
-                  <p className="text-xs text-[#71717A] mt-1">Built by an active futures trader</p>
+                <Link href="/services/fintech" className="p-4 bg-[#1A1917] border border-[#E85D3A]/20 rounded-xl hover:border-[#E85D3A]/50 transition-colors group">
+                  <span className="text-xs font-mono text-[#E85D3A]">FinTech</span>
+                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#E85D3A] transition-colors">Trading Platforms & Financial Systems</p>
+                  <p className="text-xs text-[#78716C] mt-1">Built by an active futures trader</p>
                 </Link>
-                <Link href="/services/enterprise-qa" className="p-4 bg-[#18181B] border border-[#10B981]/20 rounded-xl hover:border-[#10B981]/50 transition-colors group">
+                <Link href="/services/enterprise-qa" className="p-4 bg-[#1A1917] border border-[#10B981]/20 rounded-xl hover:border-[#10B981]/50 transition-colors group">
                   <span className="text-xs font-mono text-[#10B981]">Enterprise QA</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#10B981] transition-colors">Test Automation & Quality Engineering</p>
-                  <p className="text-xs text-[#71717A] mt-1">13 frameworks, ISTQB certified</p>
+                  <p className="text-xs text-[#78716C] mt-1">13 frameworks, ISTQB certified</p>
                 </Link>
-                <Link href="/services/cloud-infrastructure" className="p-4 bg-[#18181B] border border-[#F59E0B]/20 rounded-xl hover:border-[#F59E0B]/50 transition-colors group">
+                <Link href="/services/cloud-infrastructure" className="p-4 bg-[#1A1917] border border-[#F59E0B]/20 rounded-xl hover:border-[#F59E0B]/50 transition-colors group">
                   <span className="text-xs font-mono text-[#F59E0B]">Cloud & DevOps</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#F59E0B] transition-colors">AWS, Terraform, CI/CD Pipelines</p>
-                  <p className="text-xs text-[#71717A] mt-1">5 AWS + Cisco certified</p>
+                  <p className="text-xs text-[#78716C] mt-1">5 AWS + Cisco certified</p>
                 </Link>
-                <Link href="/services/trading-systems" className="p-4 bg-[#18181B] border border-[#06B6D4]/20 rounded-xl hover:border-[#06B6D4]/50 transition-colors group">
-                  <span className="text-xs font-mono text-[#06B6D4]">Trading Systems</span>
-                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#06B6D4] transition-colors">Algorithmic Trading & Signal Engines</p>
-                  <p className="text-xs text-[#71717A] mt-1">NinjaTrader, Python, ML</p>
+                <Link href="/services/trading-systems" className="p-4 bg-[#1A1917] border border-[#0ED3CF]/20 rounded-xl hover:border-[#0ED3CF]/50 transition-colors group">
+                  <span className="text-xs font-mono text-[#0ED3CF]">Trading Systems</span>
+                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#0ED3CF] transition-colors">Algorithmic Trading & Signal Engines</p>
+                  <p className="text-xs text-[#78716C] mt-1">NinjaTrader, Python, ML</p>
                 </Link>
-                <Link href="/services/ai-development" className="p-4 bg-[#18181B] border border-[#8B5CF6]/20 rounded-xl hover:border-[#8B5CF6]/50 transition-colors group">
-                  <span className="text-xs font-mono text-[#8B5CF6]">AI / LLM</span>
-                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#8B5CF6] transition-colors">AI Application Development</p>
-                  <p className="text-xs text-[#71717A] mt-1">GPT-4o, Claude, bots, ML</p>
+                <Link href="/services/ai-development" className="p-4 bg-[#1A1917] border border-[#E85D3A]/20 rounded-xl hover:border-[#E85D3A]/50 transition-colors group">
+                  <span className="text-xs font-mono text-[#E85D3A]">AI / LLM</span>
+                  <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#E85D3A] transition-colors">AI Application Development</p>
+                  <p className="text-xs text-[#78716C] mt-1">GPT-4o, Claude, bots, ML</p>
                 </Link>
-                <Link href="/services/technical-consulting" className="p-4 bg-[#18181B] border border-[#F59E0B]/20 rounded-xl hover:border-[#F59E0B]/50 transition-colors group">
+                <Link href="/services/technical-consulting" className="p-4 bg-[#1A1917] border border-[#F59E0B]/20 rounded-xl hover:border-[#F59E0B]/50 transition-colors group">
                   <span className="text-xs font-mono text-[#F59E0B]">Consulting</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium group-hover:text-[#F59E0B] transition-colors">Architecture Reviews & Technical Advisory</p>
-                  <p className="text-xs text-[#71717A] mt-1">Code audits, strategy, reviews</p>
+                  <p className="text-xs text-[#78716C] mt-1">Code audits, strategy, reviews</p>
                 </Link>
               </div>
             </div>
@@ -366,9 +366,9 @@ export function ServicesContent() {
             <div className="mb-16 max-w-3xl mx-auto">
               <h3 className="text-xl font-semibold text-[#FAFAFA] mb-6 text-center">Why a Solo Architect, Not an Agency</h3>
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-5 bg-[#06B6D4]/5 border border-[#06B6D4]/20 rounded-xl">
-                  <p className="text-sm font-semibold text-[#06B6D4] mb-3">Working With Me</p>
-                  <ul className="space-y-2 text-sm text-[#A1A1AA]">
+                <div className="p-5 bg-[#0ED3CF]/5 border border-[#0ED3CF]/20 rounded-xl">
+                  <p className="text-sm font-semibold text-[#0ED3CF] mb-3">Working With Me</p>
+                  <ul className="space-y-2 text-sm text-[#A8A29E]">
                     <li className="flex items-start gap-2"><span className="text-[#10B981] mt-0.5">+</span>One person designs, builds, and deploys — no handoff delays</li>
                     <li className="flex items-start gap-2"><span className="text-[#10B981] mt-0.5">+</span>$150/hr — no account managers, no project coordinators billing you</li>
                     <li className="flex items-start gap-2"><span className="text-[#10B981] mt-0.5">+</span>Direct communication — you talk to the person writing the code</li>
@@ -376,14 +376,14 @@ export function ServicesContent() {
                     <li className="flex items-start gap-2"><span className="text-[#10B981] mt-0.5">+</span>Domain expertise — I trade the same markets my software serves</li>
                   </ul>
                 </div>
-                <div className="p-5 bg-[#18181B] border border-[#27272A] rounded-xl">
-                  <p className="text-sm font-semibold text-[#71717A] mb-3">Typical Agency</p>
-                  <ul className="space-y-2 text-sm text-[#71717A]">
-                    <li className="flex items-start gap-2"><span className="text-[#71717A] mt-0.5">-</span>Sales team sells, handoff team builds — knowledge gaps</li>
-                    <li className="flex items-start gap-2"><span className="text-[#71717A] mt-0.5">-</span>$200-400/hr blended rate — layers of overhead</li>
-                    <li className="flex items-start gap-2"><span className="text-[#71717A] mt-0.5">-</span>Communication through project managers — telephone game</li>
-                    <li className="flex items-start gap-2"><span className="text-[#71717A] mt-0.5">-</span>Decisions need stakeholder alignment — weeks of meetings</li>
-                    <li className="flex items-start gap-2"><span className="text-[#71717A] mt-0.5">-</span>Generalists — no domain depth in trading or fintech</li>
+                <div className="p-5 bg-[#1A1917] border border-[#2A2826] rounded-xl">
+                  <p className="text-sm font-semibold text-[#78716C] mb-3">Typical Agency</p>
+                  <ul className="space-y-2 text-sm text-[#78716C]">
+                    <li className="flex items-start gap-2"><span className="text-[#78716C] mt-0.5">-</span>Sales team sells, handoff team builds — knowledge gaps</li>
+                    <li className="flex items-start gap-2"><span className="text-[#78716C] mt-0.5">-</span>$200-400/hr blended rate — layers of overhead</li>
+                    <li className="flex items-start gap-2"><span className="text-[#78716C] mt-0.5">-</span>Communication through project managers — telephone game</li>
+                    <li className="flex items-start gap-2"><span className="text-[#78716C] mt-0.5">-</span>Decisions need stakeholder alignment — weeks of meetings</li>
+                    <li className="flex items-start gap-2"><span className="text-[#78716C] mt-0.5">-</span>Generalists — no domain depth in trading or fintech</li>
                   </ul>
                 </div>
               </div>
@@ -392,10 +392,10 @@ export function ServicesContent() {
             {/* Not For Section */}
             <div className="mb-16 max-w-2xl mx-auto text-left">
               <h3 className="text-xl font-semibold text-[#FAFAFA] mb-4">Who This Is Not For</h3>
-              <p className="text-sm text-[#A1A1AA] mb-4">
+              <p className="text-sm text-[#A8A29E] mb-4">
                 {"I'm selective about projects to ensure quality. I'm probably not the right fit if you need:"}
               </p>
-              <ul className="space-y-2 text-sm text-[#71717A]">
+              <ul className="space-y-2 text-sm text-[#78716C]">
                 <li className="flex items-start gap-2">
                   <span className="text-[#EF4444] mt-1">✕</span>
                   WordPress sites, Shopify themes, or no-code customizations
@@ -419,25 +419,25 @@ export function ServicesContent() {
             <div className="mb-16 max-w-3xl mx-auto">
               <h3 className="text-xl font-semibold text-[#FAFAFA] mb-6 text-center">Proof, Not Promises</h3>
               <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                <Link href="/case-studies/nexural-ecosystem" className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-colors">
-                  <span className="text-[#06B6D4] font-mono text-xs">Custom Software →</span>
+                <Link href="/case-studies/nexural-ecosystem" className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-colors">
+                  <span className="text-[#0ED3CF] font-mono text-xs">Custom Software →</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium">Nexural Platform</p>
-                  <p className="text-[#71717A] mt-1">185 tables, 69 APIs, Stripe billing, 7 phases</p>
+                  <p className="text-[#78716C] mt-1">185 tables, 69 APIs, Stripe billing, 7 phases</p>
                 </Link>
-                <Link href="/case-studies/testing-frameworks" className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-colors">
-                  <span className="text-[#06B6D4] font-mono text-xs">Test Automation →</span>
+                <Link href="/case-studies/testing-frameworks" className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-colors">
+                  <span className="text-[#0ED3CF] font-mono text-xs">Test Automation →</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium">13 Testing Frameworks</p>
-                  <p className="text-[#71717A] mt-1">500+ tests, 82% faster pipelines, {"<1%"} flaky</p>
+                  <p className="text-[#78716C] mt-1">500+ tests, 82% faster pipelines, {"<1%"} flaky</p>
                 </Link>
-                <Link href="/case-studies/aws-landing-zone" className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-colors">
-                  <span className="text-[#06B6D4] font-mono text-xs">Cloud Infrastructure →</span>
+                <Link href="/case-studies/aws-landing-zone" className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-colors">
+                  <span className="text-[#0ED3CF] font-mono text-xs">Cloud Infrastructure →</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium">AWS Landing Zone</p>
-                  <p className="text-[#71717A] mt-1">Multi-account, Terraform, SCPs, CI gates</p>
+                  <p className="text-[#78716C] mt-1">Multi-account, Terraform, SCPs, CI gates</p>
                 </Link>
-                <Link href="/case-studies/alphastream" className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-colors">
-                  <span className="text-[#06B6D4] font-mono text-xs">Trading Systems →</span>
+                <Link href="/case-studies/alphastream" className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-colors">
+                  <span className="text-[#0ED3CF] font-mono text-xs">Trading Systems →</span>
                   <p className="text-[#FAFAFA] mt-1 font-medium">AlphaStream ML</p>
-                  <p className="text-[#71717A] mt-1">200+ indicators, 5 ML models, real-time signals</p>
+                  <p className="text-[#78716C] mt-1">200+ indicators, 5 ML models, real-time signals</p>
                 </Link>
               </div>
             </div>
@@ -445,17 +445,17 @@ export function ServicesContent() {
             <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
               Ready to Build Something?
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl mx-auto">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl mx-auto">
               {"Start with a 30-minute discovery call. We'll discuss your project, timeline, and budget. No pressure, just clarity on whether we're a good fit."}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button asChild className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] btn-glow px-8 font-semibold">
+              <Button asChild className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] btn-glow px-8 font-semibold">
                 <a href="https://cal.com/jason-teixeira-8elz3z" target="_blank" rel="noopener noreferrer">
                   Book a Discovery Call
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <Button asChild variant="outline" className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent px-8">
+              <Button asChild variant="outline" className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent px-8">
                 <Link href="/contact">
                   Send a Message
                   <ArrowRight className="ml-2 h-4 w-4" />

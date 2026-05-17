@@ -1,0 +1,30 @@
+---
+title: "Supabase in Production: What I Wish I Knew Before 185 Tables"
+slug: "supabase-in-production-what-i-wish-i-knew-before-185-tables"
+date: "2025-11-22"
+category: "Architecture"
+readTime: "12 min read"
+excerpt: "After a year of running Supabase in production with 185 tables, here's the honest review — what's incredible, what's frustrating, and what almost made me switch."
+tags:
+  - "Supabase"
+  - "PostgreSQL"
+  - "Database"
+  - "Production"
+  - "Review"
+coverImage: "/blog/covers/supabase-in-production-what-i-wish-i-knew-before-185-tables.png"
+id: 36
+---
+
+# Supabase in Production: What I Wish I Knew Before 185 Tables
+
+I've been running Supabase in production for over a year. 185 tables. 69 API endpoints. Stripe webhooks. Real-time subscriptions. Discord bot data. Trading analytics.
+
+This isn't a "getting started" tutorial. This is the honest review after living with it at scale.
+
+## What's Genuinely Incredible
+
+### Row-Level Security Changes Everything
+
+RLS is Supabase's killer feature, and most people underuse it. Instead of writing authorization checks in every API endpoint, the database enforces access:
+
+\\\

@@ -43,23 +43,23 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
             className="max-w-3xl"
           >
-            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-[#78716C]">
               <Link
                 href="/industries"
-                className="hover:text-[#06B6D4] transition-colors"
+                className="hover:text-[#0ED3CF] transition-colors"
               >
                 Industries
               </Link>
               <span>·</span>
-              <span className="text-[#06B6D4]">{v.shortName}</span>
+              <span className="text-[#0ED3CF]">{v.shortName}</span>
             </div>
 
             <SectionLabel>Industry</SectionLabel>
             <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
               {v.heroH1}
             </h1>
-            <p className="mt-3 text-xl text-[#06B6D4] font-medium">{v.tagline}</p>
-            <p className="mt-4 text-lg text-[#A1A1AA] leading-relaxed max-w-2xl">
+            <p className="mt-3 text-xl text-[#0ED3CF] font-medium">{v.tagline}</p>
+            <p className="mt-4 text-lg text-[#A8A29E] leading-relaxed max-w-2xl">
               {v.intro}
             </p>
 
@@ -67,7 +67,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
               <Button
                 asChild
                 size="lg"
-                className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold"
+                className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold"
               >
                 <Link href={`/book?industry=${v.slug}`}>
                   Book a Discovery Call
@@ -78,7 +78,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
               >
                 <Link href="/services">
                   Browse all services
@@ -110,12 +110,12 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-3 p-5 rounded-xl bg-[#0F0F12] border border-[#27272A]"
+                className="flex items-start gap-3 p-5 rounded-xl bg-[#12110F] border border-[#2A2826]"
               >
-                <div className="w-6 h-6 rounded-full bg-[#06B6D4]/15 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3.5 h-3.5 text-[#06B6D4]" />
+                <div className="w-6 h-6 rounded-full bg-[#0ED3CF]/15 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3.5 h-3.5 text-[#0ED3CF]" />
                 </div>
-                <span className="text-[#A1A1AA] leading-relaxed text-sm">
+                <span className="text-[#A8A29E] leading-relaxed text-sm">
                   {bullet}
                 </span>
               </motion.div>
@@ -135,7 +135,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               What we solve
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl">
               The specific operational challenges we&apos;ve already debugged in the{' '}
               {stackPhrase} stack.
             </p>
@@ -147,17 +147,17 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-5 hover:border-[#8B5CF6]/30 transition-colors"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-5 hover:border-[#E85D3A]/30 transition-colors"
                 >
                   <div className="flex items-start gap-3 mb-2">
-                    <div className="w-9 h-9 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center shrink-0">
-                      <AlertTriangle className="w-4 h-4 text-[#8B5CF6]" />
+                    <div className="w-9 h-9 rounded-lg bg-[#E85D3A]/10 border border-[#E85D3A]/20 flex items-center justify-center shrink-0">
+                      <AlertTriangle className="w-4 h-4 text-[#E85D3A]" />
                     </div>
                     <h3 className="font-semibold text-[#FAFAFA] leading-tight pt-1">
                       {c.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                  <p className="text-sm text-[#A8A29E] leading-relaxed">
                     {c.description}
                   </p>
                 </motion.div>
@@ -178,7 +178,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
               Recommended tiers
             </h2>
-            <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+            <p className="text-[#A8A29E] mb-8 max-w-2xl">
               Productized engagements ordered by relevance to{' '}
               {v.shortName.toLowerCase()} workloads.
             </p>
@@ -200,16 +200,16 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                       className="block p-5 h-full flex flex-col group"
                     >
                       <div className="flex items-start justify-between mb-2 gap-2">
-                        <h3 className="font-bold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+                        <h3 className="font-bold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
                           {tier.name}
                         </h3>
                         {tier.highlight && (
-                          <span className="text-[10px] font-mono text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20 px-1.5 py-0.5 rounded shrink-0">
+                          <span className="text-[10px] font-mono text-[#0ED3CF] bg-[#0ED3CF]/10 border border-[#0ED3CF]/20 px-1.5 py-0.5 rounded shrink-0">
                             POPULAR
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-[#A1A1AA] leading-snug mb-4 flex-1">
+                      <p className="text-sm text-[#A8A29E] leading-snug mb-4 flex-1">
                         {tier.tagline}
                       </p>
                       <div className="flex items-baseline gap-2 mb-1">
@@ -217,13 +217,13 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                           {tier.price}
                         </span>
                         {tier.cadence === 'monthly' && (
-                          <span className="text-[#71717A] text-xs">/mo</span>
+                          <span className="text-[#78716C] text-xs">/mo</span>
                         )}
                       </div>
-                      <div className="text-xs font-mono text-[#71717A] mb-3">
+                      <div className="text-xs font-mono text-[#78716C] mb-3">
                         {tier.timeline}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-[#06B6D4] mt-auto">
+                      <span className="inline-flex items-center gap-1 text-xs font-medium text-[#0ED3CF] mt-auto">
                         View tier
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </span>
@@ -258,25 +258,25 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                 >
                   <Link
                     href={`/work/${cs.slug}`}
-                    className="block h-full rounded-xl bg-[#0F0F12] border border-[#27272A] p-6 hover:border-[#06B6D4]/40 transition-all group"
+                    className="block h-full rounded-xl bg-[#12110F] border border-[#2A2826] p-6 hover:border-[#0ED3CF]/40 transition-all group"
                   >
                     <div className="flex items-start gap-3 mb-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#06B6D4]/10 border border-[#06B6D4]/20 flex items-center justify-center shrink-0">
-                        <Briefcase className="w-4 h-4 text-[#06B6D4]" />
+                      <div className="w-9 h-9 rounded-lg bg-[#0ED3CF]/10 border border-[#0ED3CF]/20 flex items-center justify-center shrink-0">
+                        <Briefcase className="w-4 h-4 text-[#0ED3CF]" />
                       </div>
                       <div className="flex-1">
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
+                        <span className="text-xs font-mono uppercase tracking-widest text-[#78716C]">
                           {cs.category}
                         </span>
-                        <h3 className="font-semibold text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors mt-0.5 leading-tight">
+                        <h3 className="font-semibold text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors mt-0.5 leading-tight">
                           {cs.title}
                         </h3>
                       </div>
                     </div>
-                    <p className="text-sm text-[#A1A1AA] leading-relaxed mb-3">
+                    <p className="text-sm text-[#A8A29E] leading-relaxed mb-3">
                       {cs.tagline}
                     </p>
-                    <span className="inline-flex items-center gap-1 text-xs font-mono text-[#06B6D4]">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono text-[#0ED3CF]">
                       Read case study
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
@@ -307,10 +307,10 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="rounded-xl bg-[#0F0F12] border border-[#27272A] p-6"
+                  className="rounded-xl bg-[#12110F] border border-[#2A2826] p-6"
                 >
                   <h3 className="text-[#FAFAFA] font-semibold mb-2">{item.q}</h3>
-                  <p className="text-[#A1A1AA] leading-relaxed text-sm">
+                  <p className="text-[#A8A29E] leading-relaxed text-sm">
                     {item.a}
                   </p>
                 </motion.div>
@@ -328,14 +328,14 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
           >
             <div className="flex flex-wrap items-center gap-2">
-              <Tag className="w-3.5 h-3.5 text-[#71717A]" />
-              <span className="text-xs font-mono uppercase tracking-widest text-[#71717A] mr-2">
+              <Tag className="w-3.5 h-3.5 text-[#78716C]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#78716C] mr-2">
                 Topics
               </span>
               {v.keywords.map((kw) => (
                 <span
                   key={kw}
-                  className="text-xs font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-2 py-0.5 rounded"
+                  className="text-xs font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-2 py-0.5 rounded"
                 >
                   {kw}
                 </span>
@@ -350,19 +350,19 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="rounded-2xl bg-gradient-to-br from-[#06B6D4]/10 via-[#0F0F12] to-[#8B5CF6]/10 border border-[#06B6D4]/20 p-8 sm:p-12 text-center"
+          className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
             {v.ctaLine}
           </h2>
-          <p className="text-[#A1A1AA] mb-8 max-w-lg mx-auto">
+          <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">
             Book a 30-minute discovery call. We&apos;ll talk through your{' '}
             {stackPhrase} stack and tell you directly which engagement
             — if any — is the right fit.
           </p>
           <Link
             href={`/book?industry=${v.slug}`}
-            className="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold py-2.5 px-6 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold py-2.5 px-6 rounded-lg transition-colors"
           >
             Book a Discovery Call
             <ArrowRight className="w-4 h-4" />

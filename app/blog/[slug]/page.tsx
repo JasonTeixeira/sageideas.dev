@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { Clock, Calendar, Tag } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SectionLabel } from '@/components/section-label'
-import { blogPosts } from '@/lib/blogData'
+import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog-server'
 import { renderMarkdownToHtml } from '@/lib/blogMarkdown'
 import { StickyCta } from '@/components/sticky-cta'
 import { ShareRow } from '@/components/blog/share-row'
@@ -21,9 +21,7 @@ const SITE = 'https://www.sageideas.dev'
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const post =
-    blogPosts.find((p) => p.slug === slug) ||
-    blogPosts.find((p) => String(p.id) === slug)
+  const post = getBlogPostBySlug(slug)
   if (!post) return { title: 'Post not found' }
   return {
     title: post.title,
@@ -43,9 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
-  const post =
-    blogPosts.find((p) => p.slug === slug) ||
-    blogPosts.find((p) => String(p.id) === slug)
+  const post = getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()
@@ -92,16 +88,16 @@ export default async function BlogPostPage({ params }: PageProps) {
       <div className="min-h-screen pt-24 pb-20">
         {/* Breadcrumb */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-[#71717A]">
-            <Link href="/" className="hover:text-[#06B6D4] transition-colors">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-[#78716C]">
+            <Link href="/" className="hover:text-[#0ED3CF] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-[#06B6D4] transition-colors">
+            <Link href="/blog" className="hover:text-[#0ED3CF] transition-colors">
               Blog
             </Link>
             <span>/</span>
-            <span className="text-[#A1A1AA] truncate max-w-xs">{post.title}</span>
+            <span className="text-[#A8A29E] truncate max-w-xs">{post.title}</span>
           </nav>
         </section>
 
@@ -112,7 +108,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.title}
           </h1>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#71717A]">
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-[#78716C]">
             <span className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4" />
               {new Date(post.date).toLocaleDateString('en-US', {
@@ -131,7 +127,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1 text-xs font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-2.5 py-1 rounded-lg"
+                className="inline-flex items-center gap-1 text-xs font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-2.5 py-1 rounded-lg"
               >
                 <Tag className="h-3 w-3" />
                 {tag}
@@ -149,7 +145,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Related */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RelatedPosts currentSlug={post.slug} posts={blogPosts} />
+          <RelatedPosts currentSlug={post.slug} posts={getAllBlogPosts()} />
         </section>
 
         {/* Author byline */}
@@ -165,24 +161,24 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Bottom CTA */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          <div className="p-8 bg-[#18181B] border border-[#27272A] rounded-2xl text-center">
+          <div className="p-8 bg-[#1A1917] border border-[#2A2826] rounded-2xl text-center">
             <h3 className="text-2xl font-bold text-[#FAFAFA] mb-3">
               Want to see this in action?
             </h3>
-            <p className="text-[#A1A1AA] mb-6">
+            <p className="text-[#A8A29E] mb-6">
               Check out the projects and case studies behind these articles.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 asChild
-                className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
+                className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
               >
                 <Link href="/work">View Projects</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+                className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
               >
                 <Link href="/work">Read Case Studies</Link>
               </Button>

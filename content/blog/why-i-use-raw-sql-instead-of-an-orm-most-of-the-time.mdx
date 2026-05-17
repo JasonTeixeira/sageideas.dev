@@ -1,0 +1,29 @@
+---
+title: "Why I Use Raw SQL Instead of an ORM (Most of the Time)"
+slug: "why-i-use-raw-sql-instead-of-an-orm-most-of-the-time"
+date: "2026-01-18"
+category: "Architecture"
+readTime: "10 min read"
+excerpt: "ORMs are great until they're not. After debugging generated queries that took 30 seconds on a 185-table database, I switched to raw SQL for the hot paths. Here's when each makes sense."
+tags:
+  - "SQL"
+  - "PostgreSQL"
+  - "ORM"
+  - "Prisma"
+  - "Database"
+  - "Performance"
+coverImage: "/blog/covers/why-i-use-raw-sql-instead-of-an-orm-most-of-the-time.png"
+id: 28
+---
+
+# Why I Use Raw SQL Instead of an ORM (Most of the Time)
+
+This is going to be controversial, so let me start with the disclaimer: ORMs are fine. Prisma, SQLAlchemy, Drizzle — they're all good tools built by smart people. I use them.
+
+But for the Nexural platform — 185 tables, complex joins, materialized views, row-level security — raw SQL was the right call for the critical paths. Here's why.
+
+## The Moment I Switched
+
+I was using Prisma. The dashboard loaded in 200ms locally. In production with real data, it took 4.2 seconds.
+
+I ran \\\

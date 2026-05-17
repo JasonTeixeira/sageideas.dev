@@ -44,7 +44,7 @@ function ServiceCard({ tier, accent }: { tier: ExtendedTier; accent: string }) {
   return (
     <Link
       href={`/services/${tier.slug}`}
-      className="group rounded-2xl border border-[#27272A] bg-[#0F0F12] p-5 hover:border-[#3F3F46] transition-colors flex flex-col"
+      className="group rounded-2xl border border-[#2A2826] bg-[#12110F] p-5 hover:border-[#3D3A37] transition-colors flex flex-col"
       style={{ ['--accent' as string]: accent }}
     >
       <div className="flex items-center gap-2 mb-2">
@@ -78,8 +78,8 @@ function ServiceCard({ tier, accent }: { tier: ExtendedTier; accent: string }) {
           {tier.price}
         </span>
       </div>
-      <p className="text-sm text-[#A1A1AA] leading-snug mb-4 flex-1">{tier.tagline}</p>
-      <div className="flex items-center justify-between text-xs font-mono text-[#71717A] pt-3 border-t border-[#27272A]">
+      <p className="text-sm text-[#A8A29E] leading-snug mb-4 flex-1">{tier.tagline}</p>
+      <div className="flex items-center justify-between text-xs font-mono text-[#78716C] pt-3 border-t border-[#2A2826]">
         <span className="inline-flex items-center gap-1">
           <Clock className="w-3 h-3" />
           {tier.timeline}
@@ -158,7 +158,7 @@ export function ExtendedCatalog() {
                 {isFlagship ? 'AI Flagship Suite' : cat.label}
               </h2>
               <p
-                className={`text-[#A1A1AA] mb-8 max-w-2xl ${
+                className={`text-[#A8A29E] mb-8 max-w-2xl ${
                   isFlagship ? 'text-lg' : ''
                 }`}
               >
@@ -187,7 +187,7 @@ export function ExtendedCategoryNav() {
         <a
           key={cat.key}
           href={`#cat-${cat.key}`}
-          className="px-3 py-1.5 rounded-full border border-[#27272A] bg-[#0F0F12] text-[#A1A1AA] hover:text-[#FAFAFA] hover:border-[#3F3F46] transition-colors"
+          className="px-3 py-1.5 rounded-full border border-[#2A2826] bg-[#12110F] text-[#A8A29E] hover:text-[#FAFAFA] hover:border-[#3D3A37] transition-colors"
         >
           {cat.label}
         </a>

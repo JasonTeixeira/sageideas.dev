@@ -36,12 +36,12 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
         />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div {...fadeUp}>
-            <div className="flex items-center gap-2 mb-5 text-xs font-mono uppercase tracking-widest text-[#71717A]">
-              <Link href="/services" className="hover:text-[#06B6D4] transition-colors">
+            <div className="flex items-center gap-2 mb-5 text-xs font-mono uppercase tracking-widest text-[#78716C]">
+              <Link href="/services" className="hover:text-[#0ED3CF] transition-colors">
                 Services
               </Link>
               <span>·</span>
-              <span className="text-[#A1A1AA] capitalize">{tier.capability}</span>
+              <span className="text-[#A8A29E] capitalize">{tier.capability}</span>
             </div>
 
             <div className="flex items-center gap-4 mb-6">
@@ -55,16 +55,16 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
               {tier.name}
             </h1>
             <p className={`mt-3 text-lg ${accent.text} font-medium`}>{tier.tagline}</p>
-            <p className="mt-5 text-[#A1A1AA] leading-relaxed max-w-2xl">{tier.description}</p>
+            <p className="mt-5 text-[#A8A29E] leading-relaxed max-w-2xl">{tier.description}</p>
 
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-bold text-[#FAFAFA]">{tier.price}</span>
                 {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
-                  <span className="text-[#71717A] text-sm">/mo</span>
+                  <span className="text-[#78716C] text-sm">/mo</span>
                 )}
               </div>
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#A1A1AA]">
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#A8A29E]">
                 <Clock className="w-4 h-4" />
                 {tier.timeline}
               </span>
@@ -75,7 +75,7 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
                 {stack.slice(0, 6).map((chip) => (
                   <span
                     key={chip}
-                    className="text-xs font-mono text-[#A1A1AA] bg-[#18181B] border border-[#27272A] px-2.5 py-1 rounded-full"
+                    className="text-xs font-mono text-[#A8A29E] bg-[#1A1917] border border-[#2A2826] px-2.5 py-1 rounded-full"
                   >
                     {chip}
                   </span>
@@ -84,13 +84,13 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
             )}
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B]">
+              <Button asChild className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B]">
                 <Link href={tier.ctaHref}>
                   {tier.cta}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="border-[#27272A] text-[#FAFAFA] hover:bg-[#18181B]">
+              <Button asChild variant="outline" className="border-[#2A2826] text-[#FAFAFA] hover:bg-[#1A1917]">
                 <Link href="/services">All services</Link>
               </Button>
             </div>
@@ -110,7 +110,7 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="rounded-xl border border-[#27272A] bg-[#18181B] p-5"
+              className="rounded-xl border border-[#2A2826] bg-[#1A1917] p-5"
             >
               <span
                 className={`inline-flex w-7 h-7 rounded-md ${accent.iconBg} items-center justify-center mb-3`}
@@ -131,7 +131,7 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
           {tier.outcomes.slice(0, 3).map((o) => (
             <li
               key={o}
-              className="flex items-start gap-3 p-4 rounded-xl border border-[#27272A] bg-[#0F0F12]"
+              className="flex items-start gap-3 p-4 rounded-xl border border-[#2A2826] bg-[#12110F]"
             >
               <Check className={`w-4 h-4 ${accent.text} shrink-0 mt-1`} />
               <span className="text-sm text-[#FAFAFA] leading-relaxed">{o}</span>
@@ -153,10 +153,10 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
             {tier.faq.slice(0, 2).map((f) => (
               <div
                 key={f.q}
-                className="rounded-xl border border-[#27272A] bg-[#18181B] p-5"
+                className="rounded-xl border border-[#2A2826] bg-[#1A1917] p-5"
               >
                 <dt className="text-base font-semibold text-[#FAFAFA]">{f.q}</dt>
-                <dd className="mt-2 text-sm text-[#A1A1AA] leading-relaxed">{f.a}</dd>
+                <dd className="mt-2 text-sm text-[#A8A29E] leading-relaxed">{f.a}</dd>
               </div>
             ))}
           </dl>
@@ -166,11 +166,11 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
       {/* CTA */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h2 className="text-3xl font-bold text-[#FAFAFA]">Want to scope {tier.shortName}?</h2>
-        <p className="mt-3 text-[#A1A1AA]">
+        <p className="mt-3 text-[#A8A29E]">
           A short call to confirm fit and timeline.
         </p>
         <div className="mt-6">
-          <Button asChild size="lg" className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B]">
+          <Button asChild size="lg" className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B]">
             <Link href={tier.ctaHref}>
               {tier.cta}
               <ArrowRight className="w-4 h-4 ml-2" />

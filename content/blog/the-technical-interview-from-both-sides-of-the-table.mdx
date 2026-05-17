@@ -1,0 +1,74 @@
+---
+title: "The Technical Interview From Both Sides of the Table"
+slug: "the-technical-interview-from-both-sides-of-the-table"
+date: "2025-09-15"
+category: "Career"
+readTime: "10 min read"
+excerpt: "I've been the candidate sweating through system design questions and the interviewer evaluating them. The gap between what interviewers look for and what candidates prepare is enormous."
+tags:
+  - "Interviewing"
+  - "Career"
+  - "System Design"
+  - "Technical Interview"
+coverImage: "/blog/covers/the-technical-interview-from-both-sides-of-the-table.png"
+id: 45
+---
+
+# The Technical Interview From Both Sides of the Table
+
+I've sat on both sides. I've whiteboarded system designs while an interviewer nodded silently. I've also been the one nodding, watching a candidate design a notification system on a whiteboard.
+
+The gap between what candidates prepare and what interviewers actually evaluate is staggering.
+
+## What Candidates Prepare For
+
+- LeetCode hard problems
+- Obscure algorithm trivia
+- "Tell me about a time when..."
+- Memorized system design answers
+
+## What Interviewers Actually Evaluate
+
+- **How you handle ambiguity.** The first thing I do when given a system design problem is ask clarifying questions. "How many users? What's the latency requirement? What's the budget?" Candidates who start drawing boxes before asking questions are a red flag. They build without understanding requirements — and they'll do the same on the job.
+
+- **Trade-off awareness.** There's no perfect architecture. Every choice has a cost. When a candidate says "we should use Kafka for the message queue," I ask "why not SQS?" If they can articulate the trade-off (Kafka: higher throughput, more operational overhead, better replay; SQS: simpler, managed, good enough for most cases), they understand engineering. If they say "Kafka is industry standard," they're cargo culting.
+
+- **Failure mode thinking.** "What happens when this service goes down?" If the answer is "it won't go down," I know they've never operated a system in production. Everything goes down. The question is whether you've designed for it.
+
+- **Communication clarity.** Can you explain your design to a non-technical person in the room? Senior roles involve communicating with product managers, designers, and executives. If you can only explain your system to other engineers, you've hit your ceiling.
+
+## The Questions I Ask (and What I'm Really Testing)
+
+**"Walk me through a recent project you're proud of."**
+
+I'm testing: Can you tell a coherent story? Do you mention constraints, not just technology? Do you credit your team or take all the credit? Do you mention what you'd do differently?
+
+**"You're getting 500 errors in production. Walk me through your debugging process."**
+
+I'm testing: Do you have a systematic approach, or do you guess? Do you check logs and metrics first, or do you start changing code? Do you think about blast radius?
+
+**"Design a system for [X]. You have 45 minutes."**
+
+I'm testing: Do you ask questions first? Do you start with requirements or with technology? Do you mention monitoring, error handling, and scaling — or just the happy path?
+
+## What Changed When I Started Interviewing
+
+As a candidate, I thought the interviewer wanted the "right answer." As an interviewer, I learned there is no right answer. I'm evaluating your thought process.
+
+The candidate who designs a simple system, acknowledges its limitations, and explains when they'd add complexity is stronger than the candidate who designs a complex system they can't explain.
+
+## My Advice (From Both Sides)
+
+**For candidates:**
+1. Ask 3-5 clarifying questions before designing anything
+2. Start simple and add complexity when asked
+3. Mention failure modes unprompted ("if this service goes down, here's what happens")
+4. Explain trade-offs for every major decision
+5. Be honest about what you don't know — "I haven't used Kafka at scale, but I understand the throughput benefits. For this use case, I'd start with SQS and migrate if we need replay"
+
+**For interviewers:**
+1. Don't test for specific technology knowledge — test for engineering judgment
+2. Ask "what would you do differently?" — the best engineers have strong opinions about their own work
+3. Give candidates room to recover from mistakes — how they handle being wrong tells you more than getting it right
+
+The best interviews feel like working sessions. The worst feel like interrogations. Design for the former.

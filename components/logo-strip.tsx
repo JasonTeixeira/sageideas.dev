@@ -27,12 +27,12 @@ export function LogoStrip({ entries, label, blurb }: Props) {
       {(label || blurb) && (
         <div className="mb-6 flex flex-col sm:flex-row sm:items-baseline gap-x-4 gap-y-2">
           {label && (
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] shrink-0">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] shrink-0">
               {label}
             </span>
           )}
           {blurb && (
-            <p className="text-xs text-[#71717A] leading-relaxed">{blurb}</p>
+            <p className="text-xs text-[#78716C] leading-relaxed">{blurb}</p>
           )}
         </div>
       )}
@@ -45,7 +45,7 @@ export function LogoStrip({ entries, label, blurb }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.35, delay: i * 0.04 }}
-            className="group relative rounded-xl border border-[#27272A] bg-[#0F0F12] p-4 hover:border-[#27272A]/80 transition-colors"
+            className="group relative rounded-xl border border-[#2A2826] bg-[#12110F] p-4 hover:border-[#2A2826]/80 transition-colors"
             title={e.anonymous ? 'Under NDA — name withheld' : e.label}
           >
             {/* Logo or monogram tile */}
@@ -61,7 +61,7 @@ export function LogoStrip({ entries, label, blurb }: Props) {
               ) : (
                 <div
                   className={`text-2xl font-mono font-semibold tracking-tight ${
-                    e.accent ?? 'text-[#06B6D4]'
+                    e.accent ?? 'text-[#0ED3CF]'
                   } opacity-90`}
                   aria-hidden
                 >
@@ -82,13 +82,13 @@ export function LogoStrip({ entries, label, blurb }: Props) {
                 <div className="text-xs font-medium text-[#E4E4E7] truncate">
                   {e.label}
                 </div>
-                <div className="text-[10px] text-[#71717A] truncate">
+                <div className="text-[10px] text-[#78716C] truncate">
                   {e.industry}
                 </div>
               </div>
               {e.anonymous && (
                 <Lock
-                  className="h-3 w-3 text-[#71717A] shrink-0"
+                  className="h-3 w-3 text-[#78716C] shrink-0"
                   aria-label="Under NDA"
                 />
               )}
@@ -97,7 +97,7 @@ export function LogoStrip({ entries, label, blurb }: Props) {
         ))}
       </div>
 
-      <p className="mt-5 text-[11px] text-[#71717A] leading-relaxed max-w-2xl">
+      <p className="mt-5 text-[11px] text-[#78716C] leading-relaxed max-w-2xl">
         Most engagements operate under NDA. Real names + logos appear here only
         with written permission, replacing the monogram tile in place.
       </p>

@@ -1,0 +1,45 @@
+---
+title: "Designing a 185-Table Database Schema: Lessons from Building Nexural"
+slug: "designing-a-185-table-database-schema-lessons-from-building-nexural"
+date: "2026-04-22"
+category: "Architecture"
+readTime: "12 min read"
+excerpt: "How I designed a normalized database schema for a fintech platform with 7 interconnected systems. Schema phases, RLS policies, denormalization trade-offs, and migration strategies."
+tags:
+  - "PostgreSQL"
+  - "Database Design"
+  - "Supabase"
+  - "Schema"
+  - "FinTech"
+  - "Migrations"
+coverImage: "/blog/covers/designing-a-185-table-database-schema-lessons-from-building-nexural.png"
+id: 10
+---
+
+# Designing a 185-Table Database Schema: Lessons from Building Nexural
+
+When people hear "185 database tables," they assume complexity for complexity's sake. But every table exists because a business requirement demanded it.
+
+Here's how I designed the Nexural schema — the decisions that worked, the ones I'd change, and the patterns that scale.
+
+## Phase-Based Schema Design
+
+I didn't design 185 tables on day one. The schema grew across 7 phases, each adding a domain:
+
+| Phase | Domain | Tables | Key Decision |
+|-------|--------|--------|-------------|
+| 1 | Auth & Users | 12 | Supabase Auth + custom profiles |
+| 2 | Subscriptions | 8 | Stripe webhook-driven state machine |
+| 3 | Trading | 35 | Instruments, positions, signals, watchlists |
+| 4 | Community | 25 | Discord sync, moderation logs, reputation |
+| 5 | Analytics | 30 | Metrics, reports, telemetry events |
+| 6 | Research | 40 | Strategies, indicators, backtest results |
+| 7 | Operations | 35 | Alerts, newsletters, audit logs |
+
+Each phase had its own migration batch. I never modified tables from a previous phase during a new phase's development. This kept deployments safe.
+
+## The Three Rules I Followed
+
+### Rule 1: Normalize Everything Except Hot Paths
+
+The canonical data is always normalized. \

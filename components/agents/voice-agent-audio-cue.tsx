@@ -106,12 +106,12 @@ export function VoiceAgentAudioCue({
     <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#0B0B0F] to-[#0F1014] p-6 sm:p-8">
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
-          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#78716C]">
             <Phone className="w-3.5 h-3.5" style={{ color: accent }} />
             Voice Agent demo
           </div>
           <h3 className="mt-2 text-xl font-semibold text-[#FAFAFA]">{title}</h3>
-          <p className="mt-1.5 text-sm text-[#A1A1AA] max-w-xl">{subtitle}</p>
+          <p className="mt-1.5 text-sm text-[#A8A29E] max-w-xl">{subtitle}</p>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ export function VoiceAgentAudioCue({
 
           <div className="flex-1 min-w-0">
             <Waveform active={playing} accent={accent} speaker={activeSpeaker} />
-            <div className="mt-2 flex items-center justify-between text-[10.5px] font-mono text-[#71717A]">
+            <div className="mt-2 flex items-center justify-between text-[10.5px] font-mono text-[#78716C]">
               <span>{elapsedLabel}</span>
               <span>{totalLabel}</span>
             </div>
@@ -155,7 +155,7 @@ export function VoiceAgentAudioCue({
           <button
             type="button"
             onClick={reset}
-            className="shrink-0 w-9 h-9 rounded-full border border-white/10 hover:border-white/30 flex items-center justify-center text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
+            className="shrink-0 w-9 h-9 rounded-full border border-white/10 hover:border-white/30 flex items-center justify-center text-[#A8A29E] hover:text-[#FAFAFA] transition-colors"
             aria-label="Reset"
             disabled={elapsed === 0 && !playing}
           >
@@ -167,10 +167,10 @@ export function VoiceAgentAudioCue({
       {/* Transcript */}
       <div className="rounded-xl border border-white/10 bg-black/30">
         <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-[#A1A1AA]">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-[#A8A29E]">
             Transcript
           </span>
-          <span className="text-[10px] font-mono text-[#52525B]">
+          <span className="text-[10px] font-mono text-[#57534E]">
             {visibleLines.length} / {SCRIPT.length}
           </span>
         </div>
@@ -194,7 +194,7 @@ export function VoiceAgentAudioCue({
                         ? `${accent}22`
                         : 'rgba(255,255,255,0.06)',
                     color:
-                      line.speaker === 'agent' ? accent : '#A1A1AA',
+                      line.speaker === 'agent' ? accent : '#A8A29E',
                   }}
                 >
                   {line.speaker === 'agent' ? (
@@ -204,7 +204,7 @@ export function VoiceAgentAudioCue({
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A] mb-0.5">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C] mb-0.5">
                     {line.speaker === 'agent' ? 'Agent' : 'Caller'}
                   </div>
                   <div className="text-[13.5px] text-[#D4D4D8] leading-snug">
@@ -217,7 +217,7 @@ export function VoiceAgentAudioCue({
         </ul>
       </div>
 
-      <p className="mt-4 text-[11.5px] text-[#71717A]">
+      <p className="mt-4 text-[11.5px] text-[#78716C]">
         Notice line 6 \u2014 if a caller asks &ldquo;are you a real person?&rdquo;,
         the agent identifies as AI and offers a transfer. That guardrail ships
         on every voice deployment.
@@ -242,7 +242,7 @@ function Waveform({
       {bars.map((h, i) => {
         const isAgent = speaker === 'agent'
         const isCaller = speaker === 'caller'
-        const color = isAgent ? accent : isCaller ? '#FAFAFA' : '#3F3F46'
+        const color = isAgent ? accent : isCaller ? '#FAFAFA' : '#3D3A37'
         const animate = active && speaker !== null
         return (
           <motion.span

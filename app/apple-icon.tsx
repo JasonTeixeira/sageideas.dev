@@ -34,7 +34,7 @@ export default function AppleIcon() {
               fontSize: 110,
               fontWeight: 800,
               letterSpacing: '-0.04em',
-              color: '#06B6D4',
+              color: '#0ED3CF',
               lineHeight: 1,
             }}
           >
@@ -45,7 +45,7 @@ export default function AppleIcon() {
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: '0.32em',
-              color: '#A1A1AA',
+              color: '#A8A29E',
               fontFamily: 'ui-monospace, "SF Mono", monospace',
             }}
           >

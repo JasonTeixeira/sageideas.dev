@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+const LOGO_MARK = '/brand/sage-mark.svg'
+
 const HELPFUL_LINKS = [
   { href: '/work', label: 'Recent work', desc: 'Five case studies, real artifacts' },
   { href: '/services/studio-engagement', label: 'Studio Engagement', desc: 'Embedded delivery, by application' },
@@ -29,23 +31,27 @@ export default function NotFound() {
                 Status 404 · route not found
               </span>
             </div>
-            <h1 className="text-7xl sm:text-8xl font-bold text-[#FAFAFA] leading-none tracking-tight">
+            <div className="flex items-center gap-4 mb-2">
+              <img src={LOGO_MARK} alt="" className="w-10 h-10 opacity-60" aria-hidden />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#57534E]">Sage Ideas</span>
+            </div>
+            <h1 className="text-7xl sm:text-8xl font-normal text-[#FAFAFA] leading-none tracking-tight">
               404.
             </h1>
-            <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed max-w-md">
+            <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-md">
               This page either moved, never existed, or failed its own smoke test. Either way — not your fault. Here are the routes that do work.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#22D3EE] text-[#09090B] font-semibold px-5 py-2.5 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 bg-[#0ED3CF] hover:bg-[#22D3EE] text-[#09090B] font-semibold px-5 py-2.5 rounded-lg transition-colors"
               >
                 <Home className="h-4 w-4" />
                 Back home
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 border border-[#27272A] hover:border-[#3F3F46] text-[#FAFAFA] font-medium px-5 py-2.5 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 border border-[#2A2826] hover:border-[#3D3A37] text-[#FAFAFA] font-medium px-5 py-2.5 rounded-lg transition-colors"
               >
                 Report a broken link
                 <ArrowRight className="h-4 w-4" />
@@ -54,7 +60,7 @@ export default function NotFound() {
           </div>
 
           <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-[#71717A] mb-4">
+            <div className="text-xs font-mono uppercase tracking-widest text-[#78716C] mb-4">
               Try one of these
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
@@ -62,13 +68,13 @@ export default function NotFound() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group rounded-xl border border-[#27272A] bg-[#0F0F12] hover:border-[#06B6D4]/60 hover:bg-[#0F0F12]/80 p-4 transition-colors"
+                  className="group rounded-xl border border-[#2A2826] bg-[#12110F] hover:border-[#0ED3CF]/60 hover:bg-[#12110F]/80 p-4 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="text-sm font-semibold text-[#FAFAFA]">{l.label}</div>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#52525B] group-hover:text-[#06B6D4] group-hover:translate-x-0.5 transition" />
+                    <ArrowRight className="h-3.5 w-3.5 text-[#57534E] group-hover:text-[#0ED3CF] group-hover:translate-x-0.5 transition" />
                   </div>
-                  <div className="text-xs text-[#A1A1AA]">{l.desc}</div>
+                  <div className="text-xs text-[#A8A29E]">{l.desc}</div>
                 </Link>
               ))}
             </div>

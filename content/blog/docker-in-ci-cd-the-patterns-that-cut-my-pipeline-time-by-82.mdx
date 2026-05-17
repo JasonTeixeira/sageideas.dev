@@ -1,0 +1,38 @@
+---
+title: "Docker in CI/CD: The Patterns That Cut My Pipeline Time by 82%"
+slug: "docker-in-ci-cd-the-patterns-that-cut-my-pipeline-time-by-82"
+date: "2026-03-12"
+category: "DevOps"
+readTime: "9 min read"
+excerpt: "Layer caching, multi-stage builds, BuildKit, and the Docker patterns that took my CI pipeline from 45 minutes to 8 minutes."
+tags:
+  - "Docker"
+  - "CI/CD"
+  - "GitHub Actions"
+  - "DevOps"
+  - "Performance"
+  - "Kubernetes"
+coverImage: "/blog/covers/docker-in-ci-cd-the-patterns-that-cut-my-pipeline-time-by-82.png"
+id: 18
+---
+
+# Docker in CI/CD: The Patterns That Cut My Pipeline Time by 82%
+
+My CI pipeline used to take 45 minutes. It now takes 8. The biggest wins came from Docker optimization — not faster hardware.
+
+## The Problem
+
+Every CI run was:
+1. Pull base image (2 min)
+2. Install OS dependencies (5 min)
+3. Install Python packages (8 min)
+4. Install Node packages (6 min)
+5. Build application (4 min)
+6. Run tests (15 min)
+7. Build production image (5 min)
+
+Total: ~45 minutes. Developers stopped running the full pipeline. Bugs slipped through.
+
+## Fix 1: Multi-Stage Builds (45 → 30 min)
+
+\

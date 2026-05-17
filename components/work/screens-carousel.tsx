@@ -61,7 +61,7 @@ export function ScreensCarousel({ screens }: ScreensCarouselProps) {
     <div className="w-full">
       {/* Stage */}
       <div
-        className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#27272A] bg-[#0F0F12]"
+        className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#2A2826] bg-[#12110F]"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         role="region"
@@ -95,7 +95,7 @@ export function ScreensCarousel({ screens }: ScreensCarouselProps) {
               type="button"
               onClick={prev}
               aria-label="Previous screen"
-              className="absolute left-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full border border-[#3F3F46] bg-[#09090B]/70 text-[#FAFAFA] hover:bg-[#18181B] hover:border-[#06B6D4]/60 backdrop-blur-sm transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full border border-[#3F3F46] bg-[#09090B]/70 text-[#FAFAFA] hover:bg-[#1A1917] hover:border-[#0ED3CF]/60 backdrop-blur-sm transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -103,7 +103,7 @@ export function ScreensCarousel({ screens }: ScreensCarouselProps) {
               type="button"
               onClick={next}
               aria-label="Next screen"
-              className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full border border-[#3F3F46] bg-[#09090B]/70 text-[#FAFAFA] hover:bg-[#18181B] hover:border-[#06B6D4]/60 backdrop-blur-sm transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-10 h-10 rounded-full border border-[#3F3F46] bg-[#09090B]/70 text-[#FAFAFA] hover:bg-[#1A1917] hover:border-[#0ED3CF]/60 backdrop-blur-sm transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -111,14 +111,14 @@ export function ScreensCarousel({ screens }: ScreensCarouselProps) {
         )}
 
         {/* Counter */}
-        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-mono tracking-widest bg-[#09090B]/80 text-[#A1A1AA] border border-[#27272A] backdrop-blur-sm">
+        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-mono tracking-widest bg-[#09090B]/80 text-[#A8A29E] border border-[#2A2826] backdrop-blur-sm">
           {index + 1} / {total}
         </div>
       </div>
 
       {/* Caption */}
       {active.caption && (
-        <p className="mt-4 text-sm text-[#A1A1AA] leading-relaxed max-w-3xl">{active.caption}</p>
+        <p className="mt-4 text-sm text-[#A8A29E] leading-relaxed max-w-3xl">{active.caption}</p>
       )}
 
       {/* Thumbnail strip */}
@@ -133,8 +133,8 @@ export function ScreensCarousel({ screens }: ScreensCarouselProps) {
               aria-current={i === index}
               className={`relative shrink-0 w-32 aspect-video rounded-md overflow-hidden border transition-all duration-200 ${
                 i === index
-                  ? 'border-[#06B6D4] ring-2 ring-[#06B6D4]/40'
-                  : 'border-[#27272A] hover:border-[#3F3F46] opacity-70 hover:opacity-100'
+                  ? 'border-[#0ED3CF] ring-2 ring-[#0ED3CF]/40'
+                  : 'border-[#2A2826] hover:border-[#3F3F46] opacity-70 hover:opacity-100'
               }`}
             >
               <Image

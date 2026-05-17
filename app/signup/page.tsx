@@ -50,10 +50,10 @@ function Stepper({ step }: { step: 1 | 2 | 3 }) {
               aria-current={active ? 'step' : undefined}
               className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-mono border ${
                 done
-                  ? 'bg-[#06B6D4] border-[#06B6D4] text-[#09090B]'
+                  ? 'bg-[#0ED3CF] border-[#0ED3CF] text-[#09090B]'
                   : active
-                    ? 'border-[#06B6D4] text-[#06B6D4]'
-                    : 'border-[#27272A] text-[#52525B]'
+                    ? 'border-[#0ED3CF] text-[#0ED3CF]'
+                    : 'border-[#2A2826] text-[#52525B]'
               }`}
             >
               {idx}
@@ -65,7 +65,7 @@ function Stepper({ step }: { step: 1 | 2 | 3 }) {
             >
               {label}
             </span>
-            {idx < 3 && <span className="w-6 h-px bg-[#27272A]" />}
+            {idx < 3 && <span className="w-6 h-px bg-[#2A2826]" />}
           </li>
         );
       })}
@@ -137,11 +137,11 @@ export default async function SignupPage({ searchParams }: Props) {
               />
             )}
 
-            <p className="mt-8 text-xs text-[#71717A] text-center">
+            <p className="mt-8 text-xs text-[#78716C] text-center">
               Already have an account?{' '}
               <Link
                 href="/login"
-                className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+                className="text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
               >
                 Sign in →
               </Link>
@@ -157,13 +157,13 @@ function StepAccount({ email }: { email: string }) {
   return (
     <>
       <div className="space-y-2 mb-6">
-        <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+        <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
           Studio access. Built for clients and craft.
         </div>
         <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
           Create your account
         </h2>
-        <p className="text-sm text-[#A1A1AA]">
+        <p className="text-sm text-[#A8A29E]">
           New accounts are reviewed manually within 24 hours.
         </p>
       </div>
@@ -174,7 +174,7 @@ function StepAccount({ email }: { email: string }) {
         <div className="space-y-1.5">
           <label
             htmlFor="email"
-            className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+            className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C]"
           >
             Email
           </label>
@@ -186,14 +186,14 @@ function StepAccount({ email }: { email: string }) {
             defaultValue={email}
             autoComplete="email"
             placeholder="you@company.com"
-            className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+            className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
           />
         </div>
 
         <div className="space-y-1.5">
           <label
             htmlFor="password"
-            className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+            className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C]"
           >
             Password (min 8 chars)
           </label>
@@ -205,24 +205,24 @@ function StepAccount({ email }: { email: string }) {
             minLength={8}
             autoComplete="new-password"
             placeholder="••••••••"
-            className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+            className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+          className="w-full rounded-lg bg-[#0ED3CF] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0AA8A5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
         >
           Continue
         </button>
       </form>
 
       <div className="my-6 flex items-center gap-3" role="separator" aria-hidden>
-        <div className="flex-1 h-px bg-[#27272A]" />
+        <div className="flex-1 h-px bg-[#2A2826]" />
         <span className="text-[10px] font-mono uppercase tracking-widest text-[#52525B]">
           or continue with
         </span>
-        <div className="flex-1 h-px bg-[#27272A]" />
+        <div className="flex-1 h-px bg-[#2A2826]" />
       </div>
 
       <OAuthButtons next="/onboarding" />
@@ -249,7 +249,7 @@ function StepIntake({
         <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
           Tell us about you
         </h2>
-        <p className="text-sm text-[#A1A1AA]">
+        <p className="text-sm text-[#A8A29E]">
           Two minutes — promise. We use this to triage faster.
         </p>
       </div>
@@ -262,7 +262,7 @@ function StepIntake({
         <div className="space-y-1.5">
           <label
             htmlFor="full_name"
-            className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+            className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C]"
           >
             Full name
           </label>
@@ -273,19 +273,19 @@ function StepIntake({
             required
             defaultValue={fullName}
             placeholder="Jane Operator"
-            className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+            className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
           />
         </div>
 
         <fieldset className="space-y-1.5">
-          <legend className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A] mb-1.5">
+          <legend className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C] mb-1.5">
             Your role
           </legend>
           <div className="space-y-2">
             {ROLE_OPTIONS.map((opt) => (
               <label
                 key={opt.value}
-                className="flex items-center gap-3 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] hover:border-[#06B6D4]/40 cursor-pointer has-[:checked]:border-[#06B6D4] has-[:checked]:bg-[#06B6D4]/5"
+                className="flex items-center gap-3 rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] hover:border-[#0ED3CF]/40 cursor-pointer has-[:checked]:border-[#0ED3CF] has-[:checked]:bg-[#0ED3CF]/5"
               >
                 <input
                   type="radio"
@@ -293,7 +293,7 @@ function StepIntake({
                   value={opt.value}
                   required
                   defaultChecked={role === opt.value}
-                  className="accent-[#06B6D4] h-4 w-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
+                  className="accent-[#0ED3CF] h-4 w-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60"
                 />
                 <span>{opt.label}</span>
               </label>
@@ -304,7 +304,7 @@ function StepIntake({
         <div className="space-y-1.5">
           <label
             htmlFor="company"
-            className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+            className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C]"
           >
             Company (optional)
           </label>
@@ -314,20 +314,20 @@ function StepIntake({
             type="text"
             defaultValue={company}
             placeholder="Acme Inc."
-            className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+            className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
           />
         </div>
 
         <div className="flex gap-2 pt-2">
           <Link
             href={`/signup?step=1&email=${encodeURIComponent(email)}`}
-            className="flex-1 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
+            className="flex-1 rounded-lg border border-[#2A2826] bg-[#0B0A09] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60"
           >
             Back
           </Link>
           <button
             type="submit"
-            className="flex-[2] rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+            className="flex-[2] rounded-lg bg-[#0ED3CF] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0AA8A5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
           >
             Continue
           </button>
@@ -356,7 +356,7 @@ function StepGoals({
         <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
           What brings you here?
         </h2>
-        <p className="text-sm text-[#A1A1AA]">Pick everything that fits — we’ll route accordingly.</p>
+        <p className="text-sm text-[#A8A29E]">Pick everything that fits — we’ll route accordingly.</p>
       </div>
 
       <form action={signUpWithPassword} className="space-y-4">
@@ -371,13 +371,13 @@ function StepGoals({
           {GOAL_OPTIONS.map((opt) => (
             <label
               key={opt.value}
-              className="flex items-center gap-3 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-3 text-sm text-[#FAFAFA] hover:border-[#06B6D4]/40 cursor-pointer has-[:checked]:border-[#06B6D4] has-[:checked]:bg-[#06B6D4]/5"
+              className="flex items-center gap-3 rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-3 text-sm text-[#FAFAFA] hover:border-[#0ED3CF]/40 cursor-pointer has-[:checked]:border-[#0ED3CF] has-[:checked]:bg-[#0ED3CF]/5"
             >
               <input
                 type="checkbox"
                 name="goals"
                 value={opt.value}
-                className="accent-[#06B6D4] h-4 w-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
+                className="accent-[#0ED3CF] h-4 w-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60"
               />
               <span>{opt.label}</span>
             </label>
@@ -387,19 +387,19 @@ function StepGoals({
         <div className="flex gap-2 pt-2">
           <Link
             href={`/signup?step=2&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&full_name=${encodeURIComponent(fullName)}&role=${encodeURIComponent(role)}&company=${encodeURIComponent(company)}`}
-            className="flex-1 rounded-lg border border-[#27272A] bg-[#0A0A0C] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60"
+            className="flex-1 rounded-lg border border-[#2A2826] bg-[#0B0A09] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60"
           >
             Back
           </Link>
           <button
             type="submit"
-            className="flex-[2] rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+            className="flex-[2] rounded-lg bg-[#0ED3CF] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0AA8A5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
           >
             Create account
           </button>
         </div>
 
-        <p className="text-xs text-[#71717A] leading-relaxed pt-1">
+        <p className="text-xs text-[#78716C] leading-relaxed pt-1">
           We’ll email <span className="text-[#FAFAFA] font-medium">{email}</span> to verify, then queue your access for review.
         </p>
       </form>

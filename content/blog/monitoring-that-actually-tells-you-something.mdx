@@ -1,0 +1,53 @@
+---
+title: "Monitoring That Actually Tells You Something"
+slug: "monitoring-that-actually-tells-you-something"
+date: "2025-11-01"
+category: "DevOps"
+readTime: "10 min read"
+excerpt: "Dashboards with 47 panels where everything is green aren't monitoring. They're decoration. Here's what I actually monitor and why most alerting is useless noise."
+tags:
+  - "Monitoring"
+  - "SRE"
+  - "Alerting"
+  - "DevOps"
+  - "Production"
+  - "Observability"
+coverImage: "/blog/covers/monitoring-that-actually-tells-you-something.png"
+id: 39
+---
+
+# Monitoring That Actually Tells You Something
+
+I once inherited a Grafana instance with 47 dashboard panels. CPU utilization, memory usage, disk I/O, network bytes, JVM heap — every metric you could imagine. Everything was green. All the time.
+
+Two days later, the API went down for 4 hours. Not a single alert fired.
+
+Why? Because CPU was at 22%, memory at 45%, and disk at 30%. All "healthy." The actual problem was a connection pool exhaustion — a metric nobody was watching.
+
+## The Four Golden Signals (and Nothing Else)
+
+Google's SRE book nailed this. You need exactly four signals:
+
+**1. Latency** — How long do requests take?
+Not average latency — that hides problems. Track P50, P95, and P99:
+
+- P50 = 200ms means half your users get responses in 200ms (good)
+- P95 = 800ms means 1 in 20 users waits 800ms (acceptable)
+- P99 = 5000ms means 1 in 100 users waits 5 seconds (problem)
+
+Your P99 is your real performance. The average lies.
+
+**2. Traffic** — How many requests are you handling?
+This is your baseline. If traffic drops 80% at 2pm on a Tuesday, something is wrong even if all other metrics are green.
+
+**3. Errors** — What percentage of requests fail?
+Track error rate, not error count. 100 errors out of 1 million requests (0.01%) is fine. 100 errors out of 200 requests (50%) is an outage.
+
+**4. Saturation** — How full is your system?
+Database connections, memory, queue depth, thread pools. When any resource hits 80% utilization, you need to act — not because it's broken, but because you've lost your headroom.
+
+## My Actual Monitoring Setup
+
+For the Nexural platform:
+
+\\\

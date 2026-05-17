@@ -31,10 +31,10 @@ export default function WorkPage() {
             <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
               The work speaks.
             </h1>
-            <p className="mt-6 text-xl text-[#A1A1AA] max-w-2xl">
+            <p className="mt-6 text-xl text-[#A8A29E] max-w-2xl">
               Selected engagements across fintech, trades tech, edtech, developer tooling, and cloud infrastructure. Each project shipped production code, served real users, and went through a complete engineering lifecycle.
             </p>
-            <p className="mt-4 text-[#71717A] max-w-2xl">
+            <p className="mt-4 text-[#78716C] max-w-2xl">
               These aren&apos;t redesigns or MVPs handed off to another team. These are products the studio built, launched, and continues to operate. The architecture decisions, the test suites, the CI pipelines, the deployment playbooks — all of it is in here.
             </p>
           </div>
@@ -50,19 +50,19 @@ export default function WorkPage() {
           <GlowCard className="p-8 sm:p-10">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div className="flex items-start gap-4">
-                <div className="mt-1 p-2.5 rounded-lg bg-[#27272A]">
-                  <Archive className="w-5 h-5 text-[#A1A1AA]" />
+                <div className="mt-1 p-2.5 rounded-lg bg-[#2A2826]">
+                  <Archive className="w-5 h-5 text-[#A8A29E]" />
                 </div>
                 <div>
                   <h3 className="text-[#FAFAFA] font-semibold text-lg">More projects in the archive</h3>
-                  <p className="mt-1 text-[#71717A] text-sm max-w-md">
+                  <p className="mt-1 text-[#78716C] text-sm max-w-md">
                     Explore the full 23-project catalog — open-source tooling, infrastructure modules, product experiments, and client work.
                   </p>
                 </div>
               </div>
               <Link
                 href="/work"
-                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[#27272A] text-[#A1A1AA] text-sm font-medium hover:border-[#06B6D4]/50 hover:text-[#FAFAFA] transition-all duration-200"
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[#2A2826] text-[#A8A29E] text-sm font-medium hover:border-[#0ED3CF]/50 hover:text-[#FAFAFA] transition-all duration-200"
               >
                 Browse the archive <ArrowRight className="w-4 h-4" />
               </Link>

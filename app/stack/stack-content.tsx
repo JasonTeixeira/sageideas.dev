@@ -126,9 +126,9 @@ const proficiencyWidth: Record<Proficiency, string> = {
 }
 
 const proficiencyColor: Record<Proficiency, string> = {
-  Expert: 'bg-[#06B6D4]',
-  Advanced: 'bg-[#06B6D4]/70',
-  Intermediate: 'bg-[#06B6D4]/40',
+  Expert: 'bg-[#0ED3CF]',
+  Advanced: 'bg-[#0ED3CF]/70',
+  Intermediate: 'bg-[#0ED3CF]/40',
 }
 
 export function StackContent() {
@@ -145,7 +145,7 @@ export function StackContent() {
           <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
             Technologies I Work With
           </h1>
-          <p className="mt-6 text-lg text-[#A1A1AA] max-w-2xl">
+          <p className="mt-6 text-lg text-[#A8A29E] max-w-2xl">
             50+ technologies across the full stack — from frontend to infrastructure to trading systems.
           </p>
         </motion.div>
@@ -171,15 +171,15 @@ export function StackContent() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: techIndex * 0.05 }}
-                    className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl hover:border-[#06B6D4]/50 transition-colors group"
+                    className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl hover:border-[#0ED3CF]/50 transition-colors group"
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-medium text-[#FAFAFA] group-hover:text-[#06B6D4] transition-colors">
+                      <span className="font-medium text-[#FAFAFA] group-hover:text-[#0ED3CF] transition-colors">
                         {tech.name}
                       </span>
-                      <span className="text-xs text-[#71717A]">{tech.proficiency}</span>
+                      <span className="text-xs text-[#78716C]">{tech.proficiency}</span>
                     </div>
-                    <div className="h-1.5 bg-[#27272A] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#2A2826] rounded-full overflow-hidden">
                       <div
                         className={`h-full ${proficiencyWidth[tech.proficiency]} ${proficiencyColor[tech.proficiency]} rounded-full transition-all duration-500`}
                       />

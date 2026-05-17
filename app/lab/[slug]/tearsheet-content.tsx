@@ -39,7 +39,7 @@ export function TearsheetContent({ product }: Props) {
         <div className="mb-10">
           <Link
             href="/lab"
-            className="inline-flex items-center gap-2 text-[#71717A] text-sm hover:text-[#A1A1AA] transition-colors"
+            className="inline-flex items-center gap-2 text-[#78716C] text-sm hover:text-[#A8A29E] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> The Lab
           </Link>
@@ -56,14 +56,14 @@ export function TearsheetContent({ product }: Props) {
               <span className={`w-1.5 h-1.5 rounded-full ${statusDot[product.status] ?? statusDot['Pre-launch']}`} />
               {product.status_note ?? product.status}
             </span>
-            <span className="text-xs font-mono text-[#71717A] uppercase tracking-wide">{product.category}</span>
+            <span className="text-xs font-mono text-[#78716C] uppercase tracking-wide">{product.category}</span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
             {product.name}
           </h1>
-          <p className="mt-4 text-xl text-[#A1A1AA] max-w-2xl">{product.tagline}</p>
-          <p className="mt-4 text-[#71717A] max-w-2xl leading-relaxed">{product.description}</p>
+          <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">{product.tagline}</p>
+          <p className="mt-4 text-[#78716C] max-w-2xl leading-relaxed">{product.description}</p>
 
           {/* Links */}
           {product.links && (
@@ -73,7 +73,7 @@ export function TearsheetContent({ product }: Props) {
                   href={product.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#27272A] text-[#A1A1AA] text-sm hover:border-[#06B6D4]/50 hover:text-[#FAFAFA] transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#2A2826] text-[#A8A29E] text-sm hover:border-[#0ED3CF]/50 hover:text-[#FAFAFA] transition-all duration-200"
                 >
                   <Github className="w-4 h-4" /> GitHub
                 </a>
@@ -83,7 +83,7 @@ export function TearsheetContent({ product }: Props) {
                   href={product.links.site}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#27272A] text-[#A1A1AA] text-sm hover:border-[#06B6D4]/50 hover:text-[#FAFAFA] transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#2A2826] text-[#A8A29E] text-sm hover:border-[#0ED3CF]/50 hover:text-[#FAFAFA] transition-all duration-200"
                 >
                   <ExternalLink className="w-4 h-4" /> Live site
                 </a>
@@ -103,10 +103,10 @@ export function TearsheetContent({ product }: Props) {
             {product.metrics.map((m) => (
               <div
                 key={m.label}
-                className="p-5 rounded-xl bg-[#0F0F12] border border-[#27272A] text-center"
+                className="p-5 rounded-xl bg-[#12110F] border border-[#2A2826] text-center"
               >
-                <div className="text-2xl font-bold text-[#06B6D4]">{m.value}</div>
-                <div className="text-xs text-[#71717A] mt-1 font-mono uppercase tracking-wide">{m.label}</div>
+                <div className="text-2xl font-bold text-[#0ED3CF]">{m.value}</div>
+                <div className="text-xs text-[#78716C] mt-1 font-mono uppercase tracking-wide">{m.label}</div>
               </div>
             ))}
           </div>
@@ -115,7 +115,7 @@ export function TearsheetContent({ product }: Props) {
         {/* Thesis */}
         <motion.section {...fadeIn} transition={{ duration: 0.5, delay: 0.15 }} className="mb-14">
           <SectionLabel>Why we built it</SectionLabel>
-          <p className="mt-4 text-[#A1A1AA] leading-relaxed max-w-3xl">{product.thesis}</p>
+          <p className="mt-4 text-[#A8A29E] leading-relaxed max-w-3xl">{product.thesis}</p>
         </motion.section>
 
         {/* What it does */}
@@ -124,8 +124,8 @@ export function TearsheetContent({ product }: Props) {
           <ul className="mt-4 space-y-3">
             {product.whatItDoes.map((item, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#06B6D4] shrink-0" />
-                <span className="text-[#A1A1AA] leading-relaxed">{item}</span>
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#0ED3CF] shrink-0" />
+                <span className="text-[#A8A29E] leading-relaxed">{item}</span>
               </li>
             ))}
           </ul>
@@ -138,7 +138,7 @@ export function TearsheetContent({ product }: Props) {
             {product.stack.map((s) => (
               <span
                 key={s}
-                className="px-3 py-1.5 rounded-lg text-sm font-mono bg-[#0F0F12] border border-[#27272A] text-[#A1A1AA]"
+                className="px-3 py-1.5 rounded-lg text-sm font-mono bg-[#12110F] border border-[#2A2826] text-[#A8A29E]"
               >
                 {s}
               </span>
@@ -153,14 +153,14 @@ export function TearsheetContent({ product }: Props) {
             <div className="mt-4">
               <Link
                 href={`/work/${product.relatedWork}`}
-                className="group inline-flex items-center gap-3 p-5 rounded-xl bg-[#0F0F12] border border-[#27272A] hover:border-[#06B6D4]/50 transition-all duration-200"
+                className="group inline-flex items-center gap-3 p-5 rounded-xl bg-[#12110F] border border-[#2A2826] hover:border-[#0ED3CF]/50 transition-all duration-200"
               >
-                <Briefcase className="w-5 h-5 text-[#06B6D4]" />
+                <Briefcase className="w-5 h-5 text-[#0ED3CF]" />
                 <div>
-                  <div className="text-[#71717A] text-xs font-mono uppercase tracking-widest">Case study</div>
+                  <div className="text-[#78716C] text-xs font-mono uppercase tracking-widest">Case study</div>
                   <div className="text-[#FAFAFA] font-medium mt-0.5">Read the full case study</div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#06B6D4] ml-auto group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-[#0ED3CF] ml-auto group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </motion.section>
@@ -170,18 +170,18 @@ export function TearsheetContent({ product }: Props) {
         <motion.section
           {...fadeIn}
           transition={{ duration: 0.5, delay: 0.35 }}
-          className="pt-12 border-t border-[#27272A]"
+          className="pt-12 border-t border-[#2A2826]"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
               <SectionLabel>Build with us</SectionLabel>
-              <p className="mt-2 text-[#A1A1AA] max-w-md">
+              <p className="mt-2 text-[#A8A29E] max-w-md">
                 Interested in building something like this? Tell us about your project.
               </p>
             </div>
             <Link
               href="/contact?type=project&source=lab"
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#06B6D4] text-[#09090B] font-semibold text-sm hover:bg-[#06B6D4]/90 transition-colors"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0ED3CF] text-[#09090B] font-semibold text-sm hover:bg-[#0ED3CF]/90 transition-colors"
             >
               Start a project <ArrowRight className="w-4 h-4" />
             </Link>

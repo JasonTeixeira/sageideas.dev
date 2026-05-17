@@ -81,8 +81,8 @@ const certifications = [
 
 const categoryColors: Record<string, string> = {
   testing: 'text-[#10B981] bg-[#10B981]/10 border-[#10B981]/20',
-  cloud: 'text-[#06B6D4] bg-[#06B6D4]/10 border-[#06B6D4]/20',
-  networking: 'text-[#8B5CF6] bg-[#8B5CF6]/10 border-[#8B5CF6]/20',
+  cloud: 'text-[#0ED3CF] bg-[#0ED3CF]/10 border-[#0ED3CF]/20',
+  networking: 'text-[#E85D3A] bg-[#E85D3A]/10 border-[#E85D3A]/20',
 }
 
 const codeQualityStandards = [
@@ -279,8 +279,8 @@ export function TrustContent() {
           <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
             Why teams trust<br />the studio.
           </h1>
-          <p className="mt-6 text-xl text-[#A1A1AA] font-medium">We don&apos;t ask you to take our word for it. Here&apos;s the evidence.</p>
-          <p className="mt-4 text-lg text-[#A1A1AA] leading-relaxed">
+          <p className="mt-6 text-xl text-[#A8A29E] font-medium">We don&apos;t ask you to take our word for it. Here&apos;s the evidence.</p>
+          <p className="mt-4 text-lg text-[#A8A29E] leading-relaxed">
             Trust in a software engagement comes from verifiable evidence, not assertions. Every claim on this page is
             backed by something you can check: a public GitHub repo, a certification verification link, a methodology
             document, a test suite count.
@@ -299,7 +299,7 @@ export function TrustContent() {
             <a
               key={s.id}
               href={`#${s.id}`}
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-[#A1A1AA] bg-[#0F0F12] border border-[#27272A] rounded-full px-3 py-1.5 hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-[#A8A29E] bg-[#12110F] border border-[#2A2826] rounded-full px-3 py-1.5 hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors"
             >
               <s.icon className="h-3 w-3" />
               {s.label}
@@ -313,13 +313,13 @@ export function TrustContent() {
       <section id="receipts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <Activity className="h-5 w-5 text-[#06B6D4]" />
+            <Activity className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Live receipts</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
             What we promise, in numbers.
           </h2>
-          <p className="text-[#A1A1AA] text-base leading-relaxed max-w-3xl">
+          <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
             Operational facts that should be true before you send a deposit. Each one is something you can verify
             today.
           </p>
@@ -334,18 +334,18 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5 hover:border-[#06B6D4]/40 transition-colors"
+                className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5 hover:border-[#0ED3CF]/40 transition-colors"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-[#06B6D4]/10">
-                    <Icon className="h-4 w-4 text-[#06B6D4]" />
+                  <div className="p-2 rounded-lg bg-[#0ED3CF]/10">
+                    <Icon className="h-4 w-4 text-[#0ED3CF]" />
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
                     {r.metric}
                   </span>
                 </div>
                 <div className="text-xl font-bold text-[#FAFAFA] mb-2 leading-tight">{r.value}</div>
-                <p className="text-xs text-[#A1A1AA] leading-relaxed">{r.detail}</p>
+                <p className="text-xs text-[#A8A29E] leading-relaxed">{r.detail}</p>
               </motion.div>
             )
           })}
@@ -365,17 +365,17 @@ export function TrustContent() {
         />
       </section>
 
-      <section id="certifications" className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section id="certifications" className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <div className="flex items-center gap-3 mb-2">
-              <Shield className="h-5 w-5 text-[#06B6D4]" />
+              <Shield className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Certifications</SectionLabel>
             </div>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-3">
               9 active certifications across testing, cloud, and networking.
             </h2>
-            <p className="text-[#71717A] text-sm mb-2">
+            <p className="text-[#78716C] text-sm mb-2">
               All certifications are active. Verification links available on request — just ask during a discovery call.
             </p>
           </motion.div>
@@ -387,14 +387,14 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-3 p-4 bg-[#09090B] border border-[#27272A] rounded-xl"
+                className="flex items-start gap-3 p-4 bg-[#09090B] border border-[#2A2826] rounded-xl"
               >
                 <div className={`mt-0.5 px-2 py-0.5 text-xs font-mono rounded border flex-shrink-0 ${categoryColors[cert.category]}`}>
                   {cert.provider}
                 </div>
                 <div>
                   <p className="text-sm font-medium text-[#FAFAFA]">{cert.name}</p>
-                  <p className="text-xs text-[#71717A] mt-0.5">Active</p>
+                  <p className="text-xs text-[#78716C] mt-0.5">Active</p>
                 </div>
               </motion.div>
             ))}
@@ -406,7 +406,7 @@ export function TrustContent() {
       <section id="quality" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <FileCheck className="h-5 w-5 text-[#06B6D4]" />
+            <FileCheck className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Code Quality</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
@@ -421,29 +421,29 @@ export function TrustContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="flex items-start gap-3 p-4 bg-[#0F0F12] border border-[#27272A] rounded-xl"
+              className="flex items-start gap-3 p-4 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
               <CheckCircle2 className="h-4 w-4 text-[#10B981] mt-0.5 flex-shrink-0" />
-              <span className="text-[#A1A1AA] text-sm">{std}</span>
+              <span className="text-[#A8A29E] text-sm">{std}</span>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Testing Infrastructure */}
-      <section id="testing" className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section id="testing" className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <div className="flex items-center gap-3 mb-2">
-              <TestTube className="h-5 w-5 text-[#06B6D4]" />
+              <TestTube className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Testing Infrastructure</SectionLabel>
             </div>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
               13 testing frameworks. Every layer covered.
             </h2>
-            <p className="text-[#A1A1AA] mb-3">
+            <p className="text-[#A8A29E] mb-3">
               See the{' '}
-              <Link href="/work/quality-telemetry" className="text-[#06B6D4] hover:text-[#22D3EE]">
+              <Link href="/work/quality-telemetry" className="text-[#0ED3CF] hover:text-[#22D3EE]">
                 Quality Telemetry case study
               </Link>{' '}
               for the full architecture.
@@ -457,10 +457,10 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="p-4 bg-[#09090B] border border-[#27272A] rounded-xl"
+                className="p-4 bg-[#09090B] border border-[#2A2826] rounded-xl"
               >
-                <p className="text-xs font-mono uppercase tracking-widest text-[#06B6D4] mb-2">{fw.layer}</p>
-                <p className="text-sm text-[#A1A1AA]">{fw.frameworks}</p>
+                <p className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF] mb-2">{fw.layer}</p>
+                <p className="text-sm text-[#A8A29E]">{fw.frameworks}</p>
               </motion.div>
             ))}
           </div>
@@ -471,7 +471,7 @@ export function TrustContent() {
       <section id="cicd" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <GitBranch className="h-5 w-5 text-[#06B6D4]" />
+            <GitBranch className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>CI/CD Standards</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
@@ -486,27 +486,27 @@ export function TrustContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="flex items-start gap-3 p-3 bg-[#0F0F12] border border-[#27272A] rounded-xl"
+              className="flex items-start gap-3 p-3 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
               <CheckCircle2 className="h-4 w-4 text-[#10B981] mt-0.5 flex-shrink-0" />
-              <span className="text-[#A1A1AA] text-sm">{std}</span>
+              <span className="text-[#A8A29E] text-sm">{std}</span>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Infrastructure Standards */}
-      <section id="infra" className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section id="infra" className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <div className="flex items-center gap-3 mb-2">
-              <Cloud className="h-5 w-5 text-[#06B6D4]" />
+              <Cloud className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Infrastructure</SectionLabel>
             </div>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
               Terraform-managed. Security-scanned. Auditable.
             </h2>
-            <p className="text-[#A1A1AA] mb-8">All infrastructure provisioned via Terraform.</p>
+            <p className="text-[#A8A29E] mb-8">All infrastructure provisioned via Terraform.</p>
           </motion.div>
           <div className="grid sm:grid-cols-2 gap-3 max-w-3xl">
             {infraStandards.map((std, i) => (
@@ -516,10 +516,10 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-3 p-3 bg-[#09090B] border border-[#27272A] rounded-xl"
+                className="flex items-start gap-3 p-3 bg-[#09090B] border border-[#2A2826] rounded-xl"
               >
-                <Lock className="h-4 w-4 text-[#06B6D4] mt-0.5 flex-shrink-0" />
-                <span className="text-[#A1A1AA] text-sm">{std}</span>
+                <Lock className="h-4 w-4 text-[#0ED3CF] mt-0.5 flex-shrink-0" />
+                <span className="text-[#A8A29E] text-sm">{std}</span>
               </motion.div>
             ))}
           </div>
@@ -530,13 +530,13 @@ export function TrustContent() {
       <section id="oss" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <Lock className="h-5 w-5 text-[#06B6D4]" />
+            <Lock className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Open-Source Record</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
             106 public repositories. 1,438 commits in the last year.
           </h2>
-          <p className="text-[#A1A1AA] mb-8 max-w-2xl">
+          <p className="text-[#A8A29E] mb-8 max-w-2xl">
             All open-source projects are publicly available and maintained. The commit history is not curated for
             appearances — it&apos;s the actual development record.
           </p>
@@ -549,10 +549,10 @@ export function TrustContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="text-center p-4 bg-[#0F0F12] border border-[#27272A] rounded-xl"
+              className="text-center p-4 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
               <p className="text-3xl font-bold text-[#FAFAFA] font-mono">{stat.value}</p>
-              <p className="text-xs text-[#71717A] mt-1">{stat.label}</p>
+              <p className="text-xs text-[#78716C] mt-1">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -564,7 +564,7 @@ export function TrustContent() {
         >
           <Button
             asChild
-            className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
+            className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
           >
             <a href="https://github.com/JasonTeixeira" target="_blank" rel="noopener noreferrer">
               View GitHub profile
@@ -575,17 +575,17 @@ export function TrustContent() {
       </section>
 
       {/* Data handling */}
-      <section id="data-handling" className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section id="data-handling" className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <div className="flex items-center gap-3 mb-2">
-              <Database className="h-5 w-5 text-[#06B6D4]" />
+              <Database className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Data handling</SectionLabel>
             </div>
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
               Where your data lives, who can read it, and how long.
             </h2>
-            <p className="text-[#A1A1AA] text-base leading-relaxed max-w-3xl">
+            <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
               The facts. No SOC-2 certificate yet — the studio is too young to have one. Here’s the operational
               equivalent: a plain-English description of how the studio handles client data, sub-processors, and
               incidents.
@@ -599,9 +599,9 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="rounded-xl border border-[#27272A] bg-[#0A0A0C] p-5"
+                className="rounded-xl border border-[#2A2826] bg-[#0B0A09] p-5"
               >
-                <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4] mb-2">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] mb-2">
                   {d.label}
                 </div>
                 <p className="text-sm text-[#D4D4D8] leading-relaxed">{d.body}</p>
@@ -615,13 +615,13 @@ export function TrustContent() {
       <section id="guarantees" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <ScrollText className="h-5 w-5 text-[#06B6D4]" />
+            <ScrollText className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Engagement guarantees</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
             What we put in writing.
           </h2>
-          <p className="text-[#A1A1AA] text-base leading-relaxed max-w-3xl">
+          <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
             Every engagement signs an MSA + SOW. These five guarantees show up in every one of them — not as
             marketing copy, as contractual terms.
           </p>
@@ -634,20 +634,20 @@ export function TrustContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-5 hover:border-[#10B981]/40 transition-colors"
+              className="rounded-xl border border-[#2A2826] bg-[#12110F] p-5 hover:border-[#10B981]/40 transition-colors"
             >
               <div className="flex items-center gap-2 mb-3">
                 <CheckCircle2 className="h-4 w-4 text-[#10B981]" />
                 <h3 className="text-sm font-semibold text-[#FAFAFA]">{g.title}</h3>
               </div>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed">{g.body}</p>
+              <p className="text-sm text-[#A8A29E] leading-relaxed">{g.body}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Honesty / what could go wrong */}
-      <section id="honesty" className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section id="honesty" className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <div className="flex items-center gap-3 mb-2">
@@ -657,7 +657,7 @@ export function TrustContent() {
             <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
               Here’s when we are the wrong fit.
             </h2>
-            <p className="text-[#A1A1AA] text-base leading-relaxed max-w-3xl">
+            <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
               The fastest way to lose your time and ours is pretending we’re right for every situation. We aren’t.
               These are the most common mismatches — if you see yourself here, save us both a discovery call.
             </p>
@@ -670,7 +670,7 @@ export function TrustContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="rounded-xl border border-[#27272A] bg-[#0A0A0C] p-5"
+                className="rounded-xl border border-[#2A2826] bg-[#0B0A09] p-5"
               >
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 p-1.5 rounded-md bg-[#F59E0B]/10">
@@ -678,7 +678,7 @@ export function TrustContent() {
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-[#FAFAFA] mb-2">If — {h.risk}</div>
-                    <p className="text-sm text-[#A1A1AA] leading-relaxed">{h.truth}</p>
+                    <p className="text-sm text-[#A8A29E] leading-relaxed">{h.truth}</p>
                   </div>
                 </div>
               </motion.div>
@@ -691,13 +691,13 @@ export function TrustContent() {
       <section id="references" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <div className="flex items-center gap-3 mb-2">
-            <MessageSquareQuote className="h-5 w-5 text-[#06B6D4]" />
+            <MessageSquareQuote className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>References</SectionLabel>
           </div>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
             Talk to past collaborators directly.
           </h2>
-          <p className="text-[#A1A1AA] text-base leading-relaxed max-w-3xl">
+          <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
             Sage Ideas is a young studio. Rather than ship cherry-picked
             testimonials, every prospective client gets the option to talk
             directly to people I&apos;ve built things with — fintech engineers,
@@ -723,7 +723,7 @@ export function TrustContent() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-sm text-[#71717A] mt-8 max-w-3xl"
+          className="text-sm text-[#78716C] mt-8 max-w-3xl"
         >
           Reference contact details are shared with prospective clients during
           discovery, with both parties&apos; consent. As the client roster grows,
@@ -732,7 +732,7 @@ export function TrustContent() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#0F0F12] border-t border-[#27272A]">
+      <section className="bg-[#12110F] border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -744,7 +744,7 @@ export function TrustContent() {
             <Button
               asChild
               variant="outline"
-              className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent"
+              className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent"
             >
               <Link href="/process">
                 See our process
@@ -753,7 +753,7 @@ export function TrustContent() {
             </Button>
             <Button
               asChild
-              className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
+              className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold"
             >
               <Link href="/book">
                 Book a call

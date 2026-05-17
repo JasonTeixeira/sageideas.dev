@@ -1,0 +1,29 @@
+---
+title: "Eliminating Flaky Tests: A Systematic Approach"
+slug: "eliminating-flaky-tests-a-systematic-approach"
+date: "2026-02-28"
+category: "Testing"
+readTime: "12 min read"
+excerpt: "How I took a test suite from 10% flaky rate to under 1% — retry logic, test isolation, deterministic data, and the patterns that make tests reliable."
+tags:
+  - "Testing"
+  - "QA"
+  - "Flaky Tests"
+  - "pytest"
+  - "CI/CD"
+  - "Selenium"
+coverImage: "/blog/covers/eliminating-flaky-tests-a-systematic-approach.png"
+id: 21
+---
+
+# Eliminating Flaky Tests: A Systematic Approach
+
+A flaky test is a test that sometimes passes and sometimes fails without any code changes. At 10% flaky rate, developers stop trusting the test suite. At 20%, they stop running it.
+
+I've taken suites from 10% flaky to under 1%. Here's the systematic approach.
+
+## Step 1: Measure the Flake Rate
+
+You can't fix what you don't measure. Track flakiness over time:
+
+\

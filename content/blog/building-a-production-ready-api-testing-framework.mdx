@@ -1,0 +1,35 @@
+---
+title: "Building a Production-Ready API Testing Framework"
+slug: "building-a-production-ready-api-testing-framework"
+date: "2024-01-15"
+category: "API Testing"
+readTime: "12 min read"
+excerpt: "Learn how I built an API testing framework that reduced flaky tests from 10% to <1% using intelligent retry logic, Pydantic validation, and session pooling."
+tags:
+  - "Python"
+  - "API Testing"
+  - "pytest"
+  - "Pydantic"
+coverImage: "/blog/covers/building-a-production-ready-api-testing-framework.png"
+id: 1
+---
+
+# Building a Production-Ready API Testing Framework
+
+After years of battling flaky API tests in CI/CD pipelines, I finally cracked the code. Here's how I built a framework that reduced our flaky test rate from 10% to less than 1%.
+
+## The Problem
+
+When I joined the team, our API test suite was a nightmare:
+- **10% flaky test rate** - Tests randomly failed in CI
+- **Network issues** caused false positives
+- **Rate limiting** (429 errors) killed entire test runs
+- **No schema validation** - API changes broke silently
+- **45-minute execution time** - Blocked deployments
+- **Secrets leaked** in CI logs (security nightmare)
+
+## The Solution: Layered Architecture
+
+I designed a three-layer architecture that separated concerns and made tests maintainable:
+
+\

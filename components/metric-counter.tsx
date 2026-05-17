@@ -83,14 +83,14 @@ export function MetricCounter({ value, label }: MetricCounterProps) {
         {/* Subtle glow on complete */}
         {hasAnimated && (
           <motion.div
-            className="absolute inset-0 bg-[#06B6D4]/10 blur-xl rounded-full"
+            className="absolute inset-0 bg-[#0ED3CF]/10 blur-xl rounded-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0.5, 0] }}
             transition={{ duration: 0.6 }}
           />
         )}
       </div>
-      <div className="text-sm text-[#71717A] group-hover:text-[#A1A1AA] transition-colors">
+      <div className="text-sm text-[#78716C] group-hover:text-[#A8A29E] transition-colors">
         {label}
       </div>
     </motion.div>

@@ -85,7 +85,7 @@ export default function GlobalError({
           <p
             style={{
               marginTop: 16,
-              color: '#A1A1AA',
+              color: '#A8A29E',
               fontSize: 16,
               lineHeight: 1.6,
             }}
@@ -99,7 +99,7 @@ export default function GlobalError({
                 marginTop: 16,
                 fontFamily: 'ui-monospace, SFMono-Regular, monospace',
                 fontSize: 12,
-                color: '#71717A',
+                color: '#78716C',
               }}
             >
               digest: {error.digest}
@@ -117,7 +117,7 @@ export default function GlobalError({
             <button
               onClick={reset}
               style={{
-                background: '#06B6D4',
+                background: '#0ED3CF',
                 color: '#09090B',
                 fontWeight: 600,
                 padding: '10px 20px',
@@ -137,7 +137,7 @@ export default function GlobalError({
                 textDecoration: 'none',
                 padding: '10px 20px',
                 borderRadius: 8,
-                border: '1px solid #27272A',
+                border: '1px solid #2A2826',
                 fontSize: 14,
                 fontWeight: 500,
               }}

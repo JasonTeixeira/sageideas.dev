@@ -1,0 +1,32 @@
+---
+title: "Git Workflows That Don't Make You Want to Quit"
+slug: "git-workflows-that-don"
+date: "2025-10-25"
+category: "Engineering"
+readTime: "9 min read"
+excerpt: "Trunk-based vs GitFlow vs GitHub Flow — I've used all three. Here's what actually works for solo developers and small teams, and why most Git workflows are over-complicated."
+tags:
+  - "Git"
+  - "Version Control"
+  - "Workflow"
+  - "DevOps"
+  - "Best Practices"
+coverImage: "/blog/covers/git-workflows-that-don.png"
+id: 40
+---
+
+# Git Workflows That Don't Make You Want to Quit
+
+I've worked with GitFlow on larger projects. Feature branches, develop branches, release branches, hotfix branches. The branch graph looked like a subway map. Merging a feature required a PhD in conflict resolution.
+
+Now I use trunk-based development. One branch. Ship from main. My deploy frequency went from weekly to daily.
+
+## Why Most Git Workflows Are Over-Complicated
+
+GitFlow was designed for software that ships quarterly on physical media. If your deployment process involves burning a CD, you need release branches.
+
+If you deploy by merging to main and Vercel/GitHub Actions handles the rest, you don't need 90% of GitFlow.
+
+## What I Actually Do
+
+\\\

@@ -31,12 +31,12 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center gap-2 mb-5 text-xs font-mono uppercase tracking-widest text-[#71717A]">
-              <Link href="/services" className="hover:text-[#06B6D4] transition-colors">
+            <div className="flex items-center gap-2 mb-5 text-xs font-mono uppercase tracking-widest text-[#78716C]">
+              <Link href="/services" className="hover:text-[#0ED3CF] transition-colors">
                 Services
               </Link>
               <span>·</span>
-              <span className="text-[#A1A1AA] capitalize">{tier.capability}</span>
+              <span className="text-[#A8A29E] capitalize">{tier.capability}</span>
             </div>
 
             <SectionLabel>Productized</SectionLabel>
@@ -59,18 +59,18 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className={`mt-8 rounded-2xl border ${accent.borderStrong} bg-[#18181B] p-6 sm:p-8 ${accent.glow}`}
+            className={`mt-8 rounded-2xl border ${accent.borderStrong} bg-[#1A1917] p-6 sm:p-8 ${accent.glow}`}
           >
-            <p className="text-[#A1A1AA] leading-relaxed">{tier.description}</p>
+            <p className="text-[#A8A29E] leading-relaxed">{tier.description}</p>
 
             <div className="mt-6 flex items-baseline gap-1">
               <span className="text-4xl font-bold text-[#FAFAFA]">{tier.price}</span>
               {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
-                <span className="text-[#71717A] text-sm">/mo</span>
+                <span className="text-[#78716C] text-sm">/mo</span>
               )}
             </div>
 
-            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#78716C]">
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5" />
                 {tier.timeline}
@@ -79,8 +79,8 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
               {tier.cadence === 'one-time' && <span>· One-time</span>}
             </div>
 
-            <div className="mt-6 border-t border-[#27272A] pt-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA]">
+            <div className="mt-6 border-t border-[#2A2826] pt-6">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E]">
                 What&apos;s included
               </span>
               <ul className="mt-4 space-y-3">
@@ -94,13 +94,13 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B]">
+              <Button asChild size="lg" className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B]">
                 <Link href={tier.ctaHref}>
                   {ctaLabel}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-[#27272A] text-[#FAFAFA] hover:bg-[#18181B]">
+              <Button asChild size="lg" variant="outline" className="border-[#2A2826] text-[#FAFAFA] hover:bg-[#1A1917]">
                 <Link href="/services">All services</Link>
               </Button>
             </div>
@@ -114,10 +114,10 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
                 {tier.faq.slice(0, 2).map((f) => (
                   <div
                     key={f.q}
-                    className="rounded-xl border border-[#27272A] bg-[#0F0F12] p-4"
+                    className="rounded-xl border border-[#2A2826] bg-[#12110F] p-4"
                   >
                     <dt className="text-sm font-semibold text-[#FAFAFA]">{f.q}</dt>
-                    <dd className="mt-1.5 text-sm text-[#A1A1AA] leading-relaxed">{f.a}</dd>
+                    <dd className="mt-1.5 text-sm text-[#A8A29E] leading-relaxed">{f.a}</dd>
                   </div>
                 ))}
               </dl>

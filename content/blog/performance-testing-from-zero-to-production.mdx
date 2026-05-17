@@ -1,0 +1,35 @@
+---
+title: "Performance Testing: From Zero to Production"
+slug: "performance-testing-from-zero-to-production"
+date: "2023-12-28"
+category: "Performance"
+readTime: "14 min read"
+excerpt: "How I built a performance testing suite that identified 3 critical bottlenecks before production and improved API response times by 40%."
+tags:
+  - "Locust"
+  - "JMeter"
+  - "Performance Testing"
+  - "Python"
+coverImage: "/blog/covers/performance-testing-from-zero-to-production.png"
+id: 4
+---
+
+# Performance Testing: From Zero to Production
+
+When I started building performance tests for a trading platform, there was zero load testing in place. Here's how I built a comprehensive load testing suite designed to catch production-breaking issues before they happen.
+
+## The Wake-Up Call
+
+Three months into production, our trading platform crashed during market open:
+- **500+ users** hit the API simultaneously
+- **Response times: 200ms → 45 seconds**
+- **Database connections maxed out**
+- **$2M in potential trades lost**
+
+We had no idea what our capacity limits were. I was tasked with fixing this.
+
+## Phase 1: Establishing Baselines
+
+Before load testing, you need to know normal behavior:
+
+\

@@ -3,58 +3,55 @@
 import { motion } from 'framer-motion'
 
 /**
- * Subtle motion + texture layer for hero sections.
+ * Sage Ideas Hero Motion Layer
  *
  * Sits absolutely-positioned inside a `relative overflow-hidden` parent.
- * Layers, top to bottom:
- *   - slow-pan radial wash (cyan/violet)
- *   - faint grid
- *   - SVG grain
- *   - horizontal scanline
- *
- * No bouncing. No spinning. The motion is barely perceptible — just enough
- * to make the surface feel alive instead of a screenshot.
+ * Brand-aligned layers:
+ *   - slow-pan teal/coral radial washes (logo palette)
+ *   - architectural dot grid (precision engineering feel)
+ *   - film grain texture (editorial, premium)
+ *   - subtle scanline (tech/terminal aesthetic)
  */
 export function HeroMotionLayer({
   intensity = 'medium',
 }: {
   intensity?: 'low' | 'medium' | 'high'
 }) {
-  const grainOpacity = intensity === 'low' ? 0.04 : intensity === 'high' ? 0.1 : 0.06
-  const scanlineOpacity = intensity === 'low' ? 0.03 : intensity === 'high' ? 0.07 : 0.05
+  const grainOpacity = intensity === 'low' ? 0.03 : intensity === 'high' ? 0.08 : 0.05
+  const scanlineOpacity = intensity === 'low' ? 0.02 : intensity === 'high' ? 0.05 : 0.03
 
   return (
     <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Slow-pan cyan wash */}
+      {/* Slow-pan sage teal wash */}
       <motion.div
         className="absolute -inset-[10%]"
         style={{
           background:
-            'radial-gradient(circle at 20% 30%, rgba(6,182,212,0.12), transparent 50%)',
+            'radial-gradient(ellipse at 25% 20%, rgba(14,211,207,0.10), transparent 55%)',
         }}
         animate={{ x: ['0%', '3%', '0%'], y: ['0%', '-2%', '0%'] }}
         transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
       />
-      {/* Slow-pan violet wash */}
+      {/* Slow-pan sage coral wash */}
       <motion.div
         className="absolute -inset-[10%]"
         style={{
           background:
-            'radial-gradient(circle at 80% 70%, rgba(139,92,246,0.10), transparent 50%)',
+            'radial-gradient(ellipse at 75% 75%, rgba(232,93,58,0.06), transparent 55%)',
         }}
         animate={{ x: ['0%', '-3%', '0%'], y: ['0%', '2%', '0%'] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
       />
-      {/* Grid */}
+      {/* Architectural dot grid */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.025]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(250,250,250,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(250,250,250,0.6) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
+            'radial-gradient(circle, rgba(244,242,239,0.8) 0.5px, transparent 0.5px)',
+          backgroundSize: '32px 32px',
         }}
       />
-      {/* Grain */}
+      {/* Film grain */}
       <div
         className="absolute inset-0 mix-blend-overlay"
         style={{
@@ -63,13 +60,13 @@ export function HeroMotionLayer({
             "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}
       />
-      {/* Scanline */}
+      {/* Terminal scanline — very subtle */}
       <div
         className="absolute inset-0"
         style={{
           opacity: scanlineOpacity,
           backgroundImage:
-            'repeating-linear-gradient(0deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 4px)',
+            'repeating-linear-gradient(0deg, rgba(244,242,239,0.4) 0px, rgba(244,242,239,0.4) 1px, transparent 1px, transparent 4px)',
         }}
       />
     </div>

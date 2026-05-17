@@ -39,13 +39,13 @@ export default async function LoginPage({ searchParams }: Props) {
             </div>
 
             <div className="space-y-2 mb-8">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
                 Studio access. Built for clients and craft.
               </div>
               <h2 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
                 Sign in to the studio
               </h2>
-              <p className="text-sm text-[#A1A1AA]">
+              <p className="text-sm text-[#A8A29E]">
                 Use the email and password tied to your engagement, or continue with a connected
                 account.
               </p>
@@ -67,7 +67,7 @@ export default async function LoginPage({ searchParams }: Props) {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-[10px] font-mono uppercase tracking-widest text-[#71717A] mb-2"
+                  className="block text-[10px] font-mono uppercase tracking-widest text-[#78716C] mb-2"
                 >
                   Work email
                 </label>
@@ -78,20 +78,20 @@ export default async function LoginPage({ searchParams }: Props) {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+                  className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
                 />
               </div>
               <div>
                 <div className="flex items-baseline justify-between mb-2">
                   <label
                     htmlFor="password"
-                    className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]"
+                    className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]"
                   >
                     Password
                   </label>
                   <Link
                     href="/auth/forgot-password"
-                    className="text-xs text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+                    className="text-xs text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
                   >
                     Forgot password?
                   </Link>
@@ -103,32 +103,32 @@ export default async function LoginPage({ searchParams }: Props) {
                   required
                   minLength={8}
                   autoComplete="current-password"
-                  className="w-full rounded-lg border border-[#27272A] bg-[#0A0A0C] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#06B6D4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/40"
+                  className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#0ED3CF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/40"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-[#06B6D4] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0891B2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
+                className="w-full rounded-lg bg-[#0ED3CF] px-4 py-2.5 text-sm font-semibold text-[#09090B] hover:bg-[#0AA8A5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] transition-colors"
               >
                 Sign in
               </button>
             </form>
 
             <div className="my-6 flex items-center gap-3" role="separator" aria-hidden>
-              <div className="flex-1 h-px bg-[#27272A]" />
+              <div className="flex-1 h-px bg-[#2A2826]" />
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#52525B]">
                 or continue with
               </span>
-              <div className="flex-1 h-px bg-[#27272A]" />
+              <div className="flex-1 h-px bg-[#2A2826]" />
             </div>
 
             <OAuthButtons next={next} />
 
-            <p className="mt-8 text-center text-sm text-[#A1A1AA]">
+            <p className="mt-8 text-center text-sm text-[#A8A29E]">
               New here?{' '}
               <Link
                 href={signupHref}
-                className="text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+                className="text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
               >
                 Create an account →
               </Link>

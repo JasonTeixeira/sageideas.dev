@@ -50,14 +50,14 @@ export function CookieBanner() {
         aria-label="Cookie consent"
         className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[40] pointer-events-none"
       >
-        <div className="bg-[#0F0F12] border border-[#27272A] rounded-2xl p-5 shadow-2xl shadow-black/40 backdrop-blur-md pointer-events-auto">
+        <div className="bg-[#12110F] border border-[#2A2826] rounded-2xl p-5 shadow-2xl shadow-black/40 backdrop-blur-md pointer-events-auto">
           <h2 className="text-sm font-semibold text-[#FAFAFA] mb-1">We use a few cookies.</h2>
-          <p className="text-xs text-[#A1A1AA] leading-relaxed">
+          <p className="text-xs text-[#A8A29E] leading-relaxed">
             Essential cookies keep the site working. Analytics cookies help us understand which
             content is useful. You can change your mind anytime in our{' '}
             <Link
               href="/legal/cookies"
-              className="text-[#06B6D4] hover:text-[#0EA5E9] underline underline-offset-2"
+              className="text-[#0ED3CF] hover:text-[#33EBE8] underline underline-offset-2"
             >
               Cookie Policy
             </Link>
@@ -67,14 +67,14 @@ export function CookieBanner() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#18181B]"
+              className="text-[#A8A29E] hover:text-[#FAFAFA] hover:bg-[#1A1917]"
               onClick={() => persist('essential')}
             >
               Essential only
             </Button>
             <Button
               size="sm"
-              className="bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-medium"
+              className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-medium"
               onClick={() => persist('accepted')}
             >
               Accept all

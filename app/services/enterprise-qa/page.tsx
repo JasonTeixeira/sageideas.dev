@@ -37,17 +37,17 @@ export default function EnterpriseQAPage() {
         <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
           QA Automation That Ships Confidence
         </h1>
-        <p className="mt-6 text-lg text-[#A1A1AA] max-w-3xl">
+        <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
           {"I've built multiple testing frameworks across API, E2E, performance, security, and visual regression testing. 5 years of hands-on fintech development at HighStrike. ISTQB certified across 3 disciplines (CTFL, TAE, CT-AI)."}
         </p>
-        <p className="mt-4 text-sm text-[#71717A] max-w-2xl">
+        <p className="mt-4 text-sm text-[#78716C] max-w-2xl">
           {"Most QA consultants set up Selenium and leave. I build quality engineering systems — CI/CD integration, telemetry dashboards, incident playbooks, and the automation culture that makes testing stick."}
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
-          <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-6 py-3 bg-[#06B6D4] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
+          <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-6 py-3 bg-[#0ED3CF] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
             Book a Discovery Call <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
-          <Link href="/case-studies/testing-frameworks" className="inline-flex items-center px-6 py-3 border border-[#3F3F46] text-[#A1A1AA] rounded-xl hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors">
+          <Link href="/case-studies/testing-frameworks" className="inline-flex items-center px-6 py-3 border border-[#3D3A37] text-[#A8A29E] rounded-xl hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors">
             Read the Testing Case Study <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
@@ -58,10 +58,10 @@ export default function EnterpriseQAPage() {
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">Proven Results</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {results.map(r => (
-            <div key={r.label} className="p-5 bg-[#18181B] border border-[#27272A] rounded-2xl">
-              <p className="text-3xl font-bold text-[#06B6D4]">{r.metric}</p>
+            <div key={r.label} className="p-5 bg-[#1A1917] border border-[#2A2826] rounded-2xl">
+              <p className="text-3xl font-bold text-[#0ED3CF]">{r.metric}</p>
               <p className="text-sm font-medium text-[#FAFAFA] mt-1">{r.label}</p>
-              <p className="text-xs text-[#71717A] mt-2">{r.context}</p>
+              <p className="text-xs text-[#78716C] mt-2">{r.context}</p>
             </div>
           ))}
         </div>
@@ -72,10 +72,10 @@ export default function EnterpriseQAPage() {
         <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">Testing Frameworks I Build</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {frameworks.map(fw => (
-            <Link key={fw.title} href={fw.link} className="block p-6 bg-[#18181B] border border-[#27272A] rounded-2xl hover:border-[#06B6D4]/30 transition-colors group">
+            <Link key={fw.title} href={fw.link} className="block p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#0ED3CF]/30 transition-colors group">
               <fw.icon className="h-8 w-8 text-[#10B981] mb-4" />
-              <h3 className="text-lg font-semibold text-[#FAFAFA] mb-2 group-hover:text-[#06B6D4] transition-colors">{fw.title}</h3>
-              <p className="text-sm text-[#A1A1AA]">{fw.description}</p>
+              <h3 className="text-lg font-semibold text-[#FAFAFA] mb-2 group-hover:text-[#0ED3CF] transition-colors">{fw.title}</h3>
+              <p className="text-sm text-[#A8A29E]">{fw.description}</p>
             </Link>
           ))}
         </div>
@@ -83,20 +83,20 @@ export default function EnterpriseQAPage() {
 
       {/* Certifications */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="p-8 bg-gradient-to-r from-[#10B981]/10 to-[#06B6D4]/10 border border-[#10B981]/20 rounded-2xl">
+        <div className="p-8 bg-gradient-to-r from-[#10B981]/10 to-[#0ED3CF]/10 border border-[#10B981]/20 rounded-2xl">
           <h2 className="text-2xl font-bold text-[#FAFAFA] mb-4">ISTQB Certified</h2>
           <div className="grid sm:grid-cols-3 gap-4">
-            <div className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl">
+            <div className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl">
               <p className="text-sm font-semibold text-[#FAFAFA]">CTFL</p>
-              <p className="text-xs text-[#71717A]">Certified Tester Foundation Level</p>
+              <p className="text-xs text-[#78716C]">Certified Tester Foundation Level</p>
             </div>
-            <div className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl">
+            <div className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl">
               <p className="text-sm font-semibold text-[#FAFAFA]">TAE</p>
-              <p className="text-xs text-[#71717A]">Test Automation Engineer</p>
+              <p className="text-xs text-[#78716C]">Test Automation Engineer</p>
             </div>
-            <div className="p-4 bg-[#18181B] border border-[#27272A] rounded-xl">
+            <div className="p-4 bg-[#1A1917] border border-[#2A2826] rounded-xl">
               <p className="text-sm font-semibold text-[#FAFAFA]">CT-AI</p>
-              <p className="text-xs text-[#71717A]">AI Testing Specialist</p>
+              <p className="text-xs text-[#78716C]">AI Testing Specialist</p>
             </div>
           </div>
         </div>
@@ -104,14 +104,14 @@ export default function EnterpriseQAPage() {
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 bg-[#18181B] border border-[#27272A] rounded-2xl text-center">
+        <div className="p-8 bg-[#1A1917] border border-[#2A2826] rounded-2xl text-center">
           <h2 className="text-2xl font-bold text-[#FAFAFA] mb-3">Ready to Fix Your Testing?</h2>
-          <p className="text-[#A1A1AA] mb-6">{"Whether you need a framework built from scratch or an existing suite optimized — let's talk."}</p>
+          <p className="text-[#A8A29E] mb-6">{"Whether you need a framework built from scratch or an existing suite optimized — let's talk."}</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-8 py-3 bg-[#06B6D4] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
+            <Link href="https://cal.com/jason-teixeira-8elz3z" target="_blank" className="inline-flex items-center px-8 py-3 bg-[#0ED3CF] text-[#09090B] font-semibold rounded-xl hover:bg-[#22D3EE] transition-colors">
               Book a Call <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-            <Link href="/services" className="inline-flex items-center px-8 py-3 border border-[#3F3F46] text-[#A1A1AA] rounded-xl hover:border-[#06B6D4] hover:text-[#06B6D4] transition-colors">
+            <Link href="/services" className="inline-flex items-center px-8 py-3 border border-[#3D3A37] text-[#A8A29E] rounded-xl hover:border-[#0ED3CF] hover:text-[#0ED3CF] transition-colors">
               All Services
             </Link>
           </div>

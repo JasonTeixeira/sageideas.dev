@@ -1,0 +1,36 @@
+---
+title: "Portfolio Risk Math Explained: VaR, CVaR, and Why Covariance Estimation Matters"
+slug: "portfolio-risk-math-explained-var-cvar-and-why-covariance-estimation-matters"
+date: "2026-03-22"
+category: "Trading"
+readTime: "15 min read"
+excerpt: "The math behind RiskRadar — Value at Risk, Conditional VaR, Ledoit-Wolf shrinkage, and Monte Carlo simulation explained for engineers who aren't quants."
+tags:
+  - "Python"
+  - "Risk Management"
+  - "Trading"
+  - "Mathematics"
+  - "Portfolio"
+  - "scipy"
+coverImage: "/blog/covers/portfolio-risk-math-explained-var-cvar-and-why-covariance-estimation-matters.png"
+id: 16
+---
+
+# Portfolio Risk Math Explained: VaR, CVaR, and Why Covariance Estimation Matters
+
+When I built RiskRadar, I needed to implement institutional-grade risk calculations. Most risk management tutorials either oversimplify ("just calculate standard deviation") or assume PhD-level math.
+
+Here's the middle ground — the math you actually need to implement portfolio risk, explained for engineers.
+
+## Value at Risk (VaR): What's the Worst That Could Happen?
+
+VaR answers: "What's the maximum I could lose in a day, with 95% confidence?"
+
+If your portfolio's 1-day 95% VaR is $10,000, that means: on 95% of days, your losses won't exceed $10,000. On the other 5% of days... they might.
+
+**Three ways to calculate VaR:**
+
+### Historical VaR (simplest)
+Sort your historical daily returns. The 5th percentile is your 95% VaR.
+
+\

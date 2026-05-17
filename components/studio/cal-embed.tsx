@@ -19,7 +19,7 @@ export function CalEmbed({ calLink = CAL_LINK }: { calLink?: string }) {
         const cal = await getCalApi()
         cal('ui', {
           theme: 'dark',
-          styles: { branding: { brandColor: '#06B6D4' } },
+          styles: { branding: { brandColor: '#0ED3CF' } },
           hideEventTypeDetails: false,
         })
 
@@ -69,10 +69,10 @@ export function CalEmbed({ calLink = CAL_LINK }: { calLink?: string }) {
 
 function EmbedSkeleton() {
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#0F0F12] pointer-events-none">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#12110F] pointer-events-none">
       <div className="flex flex-col items-center gap-3">
-        <div className="h-10 w-10 rounded-full border-2 border-[#27272A] border-t-[#06B6D4] animate-spin" />
-        <p className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
+        <div className="h-10 w-10 rounded-full border-2 border-[#2A2826] border-t-[#0ED3CF] animate-spin" />
+        <p className="text-xs font-mono uppercase tracking-widest text-[#78716C]">
           Loading scheduler
         </p>
       </div>
@@ -83,13 +83,13 @@ function EmbedSkeleton() {
 function ManualBookingFallback() {
   return (
     <div className="px-6 py-12 sm:py-16 text-center">
-      <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-[#06B6D4]/10 border border-[#06B6D4]/30 mb-5">
-        <Calendar className="h-5 w-5 text-[#06B6D4]" />
+      <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-[#0ED3CF]/10 border border-[#0ED3CF]/30 mb-5">
+        <Calendar className="h-5 w-5 text-[#0ED3CF]" />
       </div>
       <h3 className="text-2xl font-bold text-[#FAFAFA]">
         Schedule directly with the founder
       </h3>
-      <p className="mt-3 text-[#A1A1AA] text-sm leading-relaxed max-w-md mx-auto">
+      <p className="mt-3 text-[#A8A29E] text-sm leading-relaxed max-w-md mx-auto">
         Fill out a short structured inquiry — project, timeline, preferred days.
         You&apos;ll have three call options within{' '}
         <span className="text-[#FAFAFA] font-semibold">2 business hours</span>.
@@ -97,7 +97,7 @@ function ManualBookingFallback() {
       <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
         <Link
           href="/contact?type=consult&source=cal-embed"
-          className="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-[#09090B] font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="inline-flex items-center gap-2 bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-semibold py-3 px-6 rounded-lg transition-colors"
         >
           <Mail className="h-4 w-4" />
           Request a call
@@ -105,12 +105,12 @@ function ManualBookingFallback() {
         </Link>
         <Link
           href="/contact"
-          className="inline-flex items-center gap-2 border border-[#3F3F46] text-[#FAFAFA] hover:border-[#06B6D4] hover:text-[#06B6D4] font-medium py-3 px-6 rounded-lg transition-colors"
+          className="inline-flex items-center gap-2 border border-[#3D3A37] text-[#FAFAFA] hover:border-[#0ED3CF] hover:text-[#0ED3CF] font-medium py-3 px-6 rounded-lg transition-colors"
         >
           Use the contact form
         </Link>
       </div>
-      <p className="mt-6 text-xs font-mono text-[#71717A]">
+      <p className="mt-6 text-xs font-mono text-[#78716C]">
         Response within 2 business hours · 9am–6pm ET, Mon–Fri
       </p>
     </div>

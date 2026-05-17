@@ -29,13 +29,13 @@ export default function LabPage() {
           <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
             The Lab.
           </h1>
-          <p className="mt-4 text-xl text-[#A1A1AA] max-w-2xl">
+          <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">
             Where we build the things we&apos;d want to use.
           </p>
-          <p className="mt-4 text-[#71717A] max-w-2xl leading-relaxed">
+          <p className="mt-4 text-[#78716C] max-w-2xl leading-relaxed">
             The Lab is Sage Ideas&apos; product portfolio — not client work, not concept pieces, but live software built, maintained, and operated by the studio. Every product here started as a genuine itch. Every one of them has influenced a service offering or infrastructure pattern.
           </p>
-          <p className="mt-3 text-[#71717A] max-w-2xl leading-relaxed">
+          <p className="mt-3 text-[#78716C] max-w-2xl leading-relaxed">
             When we say &ldquo;we build what we operate,&rdquo; the Lab is the proof.
           </p>
         </section>
@@ -49,18 +49,18 @@ export default function LabPage() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <Link
               href="/lab/ai-readiness"
-              className="group rounded-2xl border border-[#27272A] bg-[#18181B] p-6 transition-all hover:border-[#06B6D4]/50 hover:bg-[#06B6D4]/5"
+              className="group rounded-2xl border border-[#2A2826] bg-[#1A1917] p-6 transition-all hover:border-[#0ED3CF]/50 hover:bg-[#0ED3CF]/5"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#06B6D4]/10 text-[#06B6D4]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0ED3CF]/10 text-[#0ED3CF]">
                   <Gauge className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-[#FAFAFA]">AI Readiness Score</h3>
-                    <ArrowRight className="h-4 w-4 text-[#52525B] transition-all group-hover:translate-x-1 group-hover:text-[#06B6D4]" />
+                    <ArrowRight className="h-4 w-4 text-[#57534E] transition-all group-hover:translate-x-1 group-hover:text-[#0ED3CF]" />
                   </div>
-                  <p className="mt-1 text-sm text-[#A1A1AA]">
+                  <p className="mt-1 text-sm text-[#A8A29E]">
                     10-question diagnostic across data, infra, process, talent, and ROI clarity. Personalized next step.
                   </p>
                 </div>
@@ -68,18 +68,18 @@ export default function LabPage() {
             </Link>
             <Link
               href="/lab/calculators"
-              className="group rounded-2xl border border-[#27272A] bg-[#18181B] p-6 transition-all hover:border-[#06B6D4]/50 hover:bg-[#06B6D4]/5"
+              className="group rounded-2xl border border-[#2A2826] bg-[#1A1917] p-6 transition-all hover:border-[#0ED3CF]/50 hover:bg-[#0ED3CF]/5"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#06B6D4]/10 text-[#06B6D4]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0ED3CF]/10 text-[#0ED3CF]">
                   <Calculator className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-[#FAFAFA]">ROI calculators</h3>
-                    <ArrowRight className="h-4 w-4 text-[#52525B] transition-all group-hover:translate-x-1 group-hover:text-[#06B6D4]" />
+                    <ArrowRight className="h-4 w-4 text-[#57534E] transition-all group-hover:translate-x-1 group-hover:text-[#0ED3CF]" />
                   </div>
-                  <p className="mt-1 text-sm text-[#A1A1AA]">
+                  <p className="mt-1 text-sm text-[#A8A29E]">
                     Five interactive estimates: AI SDR, support agent, RAG, voice, churn prediction.
                   </p>
                 </div>

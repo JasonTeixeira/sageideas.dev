@@ -247,16 +247,16 @@ export function CommandPalette() {
             transition={{ duration: 0.15 }}
             className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-lg z-[101] px-4"
           >
-            <div className="bg-[#18181B] border border-[#3F3F46] rounded-xl shadow-2xl overflow-hidden">
+            <div className="bg-[#1A1917] border border-[#3D3A37] rounded-xl shadow-2xl overflow-hidden">
               {/* Search Input */}
-              <div className="flex items-center gap-3 px-4 border-b border-[#27272A]">
-                <Search className="h-5 w-5 text-[#71717A]" />
+              <div className="flex items-center gap-3 px-4 border-b border-[#2A2826]">
+                <Search className="h-5 w-5 text-[#78716C]" />
                 <input
                   type="text"
                   placeholder="Search commands..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="flex-1 py-4 bg-transparent text-[#FAFAFA] placeholder:text-[#71717A] outline-none"
+                  className="flex-1 py-4 bg-transparent text-[#FAFAFA] placeholder:text-[#78716C] outline-none"
                   autoFocus
                 />
                 <button
@@ -264,7 +264,7 @@ export function CommandPalette() {
                     setIsOpen(false)
                     setSearch('')
                   }}
-                  className="p-1 text-[#71717A] hover:text-[#FAFAFA] transition-colors"
+                  className="p-1 text-[#78716C] hover:text-[#FAFAFA] transition-colors"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -281,51 +281,51 @@ export function CommandPalette() {
                       className={cn(
                         'w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-colors',
                         selectedIndex === index
-                          ? 'bg-[#27272A] text-[#FAFAFA]'
-                          : 'text-[#A1A1AA] hover:bg-[#27272A] hover:text-[#FAFAFA]'
+                          ? 'bg-[#2A2826] text-[#FAFAFA]'
+                          : 'text-[#A8A29E] hover:bg-[#2A2826] hover:text-[#FAFAFA]'
                       )}
                     >
                       <span className={cn(
                         'p-2 rounded-lg',
-                        selectedIndex === index ? 'bg-[#06B6D4]/20 text-[#06B6D4]' : 'bg-[#27272A]'
+                        selectedIndex === index ? 'bg-[#0ED3CF]/20 text-[#0ED3CF]' : 'bg-[#2A2826]'
                       )}>
                         {command.icon}
                       </span>
                       <div className="flex-1 min-w-0">
                         <div className="font-medium">{command.label}</div>
                         {command.description && (
-                          <div className="text-sm text-[#71717A] truncate">
+                          <div className="text-sm text-[#78716C] truncate">
                             {command.description}
                           </div>
                         )}
                       </div>
                       {selectedIndex === index && (
-                        <span className="text-xs text-[#71717A] px-2 py-1 bg-[#3F3F46] rounded">
+                        <span className="text-xs text-[#78716C] px-2 py-1 bg-[#3D3A37] rounded">
                           Enter
                         </span>
                       )}
                     </button>
                   ))
                 ) : (
-                  <div className="px-3 py-8 text-center text-[#71717A]">
+                  <div className="px-3 py-8 text-center text-[#78716C]">
                     No commands found
                   </div>
                 )}
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-3 border-t border-[#27272A] text-xs text-[#71717A]">
+              <div className="flex items-center justify-between px-4 py-3 border-t border-[#2A2826] text-xs text-[#78716C]">
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-[#27272A] rounded text-[#A1A1AA]">↑↓</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[#2A2826] rounded text-[#A8A29E]">↑↓</kbd>
                     Navigate
                   </span>
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-[#27272A] rounded text-[#A1A1AA]">↵</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[#2A2826] rounded text-[#A8A29E]">↵</kbd>
                     Select
                   </span>
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-[#27272A] rounded text-[#A1A1AA]">Esc</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[#2A2826] rounded text-[#A8A29E]">Esc</kbd>
                     Close
                   </span>
                 </div>
@@ -357,11 +357,11 @@ export function CommandPaletteHint() {
         })
         document.dispatchEvent(event)
       }}
-      className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm text-[#71717A] bg-[#18181B] border border-[#27272A] rounded-lg hover:border-[#3F3F46] hover:text-[#A1A1AA] transition-colors"
+      className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm text-[#78716C] bg-[#1A1917] border border-[#2A2826] rounded-lg hover:border-[#3D3A37] hover:text-[#A8A29E] transition-colors"
     >
       <Search className="h-3.5 w-3.5" />
       <span>Search</span>
-      <kbd className="flex items-center gap-0.5 px-1.5 py-0.5 text-xs bg-[#27272A] rounded">
+      <kbd className="flex items-center gap-0.5 px-1.5 py-0.5 text-xs bg-[#2A2826] rounded">
         {isMac ? <Command className="h-3 w-3" /> : 'Ctrl'}
         <span>K</span>
       </kbd>

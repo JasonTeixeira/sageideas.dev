@@ -20,20 +20,20 @@ export default async function UnsubscribePage({ searchParams }: Props) {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#09090B] p-6">
       <GradientMesh />
-      <div className="relative z-10 w-full max-w-md rounded-2xl border border-[#27272A] bg-[#0F0F12] p-8 space-y-5">
+      <div className="relative z-10 w-full max-w-md rounded-2xl border border-[#2A2826] bg-[#12110F] p-8 space-y-5">
         <div className="flex items-center gap-3 text-[#FAFAFA]">
           <SageLogo />
           <span className="font-semibold">Sage Ideas</span>
         </div>
 
         <div className="space-y-2">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-[#06B6D4]">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF]">
             Unsubscribed
           </div>
           <h1 className="text-2xl font-semibold tracking-tight text-[#FAFAFA]">
             You’re off the list.
           </h1>
-          <p className="text-sm text-[#A1A1AA] leading-relaxed">
+          <p className="text-sm text-[#A8A29E] leading-relaxed">
             {email ? (
               <>
                 We won’t send marketing email to{' '}
@@ -48,14 +48,14 @@ export default async function UnsubscribePage({ searchParams }: Props) {
               </>
             )}
           </p>
-          <p className="text-xs text-[#71717A]">
+          <p className="text-xs text-[#78716C]">
             Did this in error? Reply to any prior email from us and we’ll re-add you.
           </p>
         </div>
 
         <Link
           href="/"
-          className="inline-flex items-center text-xs font-mono uppercase tracking-widest text-[#06B6D4] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#06B6D4]/60 rounded-sm"
+          className="inline-flex items-center text-xs font-mono uppercase tracking-widest text-[#0ED3CF] hover:text-[#22D3EE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0ED3CF]/60 rounded-sm"
         >
           ← Back to sageideas.dev
         </Link>

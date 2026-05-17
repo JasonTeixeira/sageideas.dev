@@ -134,18 +134,18 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="border-b border-[#27272A]">
+    <div className="border-b border-[#2A2826]">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left group"
       >
-        <span className="text-[#FAFAFA] font-medium group-hover:text-[#06B6D4] transition-colors pr-4">{q}</span>
+        <span className="text-[#FAFAFA] font-medium group-hover:text-[#0ED3CF] transition-colors pr-4">{q}</span>
         <ChevronDown
-          className={`h-5 w-5 text-[#71717A] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 text-[#78716C] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         />
       </button>
       {open && (
-        <div className="pb-5 text-[#A1A1AA] text-sm leading-relaxed">{a}</div>
+        <div className="pb-5 text-[#A8A29E] text-sm leading-relaxed">{a}</div>
       )}
     </div>
   )
@@ -161,10 +161,10 @@ export function ProcessContent() {
           <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
             Four steps.<br />No surprises.
           </h1>
-          <p className="mt-6 text-xl text-[#A1A1AA] leading-relaxed">
+          <p className="mt-6 text-xl text-[#A8A29E] leading-relaxed">
             Every engagement follows the same four-step methodology. The details change by tier. The discipline doesn&apos;t.
           </p>
-          <p className="mt-4 text-lg text-[#A1A1AA] leading-relaxed">
+          <p className="mt-4 text-lg text-[#A8A29E] leading-relaxed">
             There are two ways to build software: make it up as you go, or follow a process that&apos;s been refined across
             dozens of projects. The Sage Ideas methodology exists because we&apos;ve seen what happens without it — and
             we&apos;ve seen what becomes possible with it.
@@ -173,7 +173,7 @@ export function ProcessContent() {
       </section>
 
       {/* 4 Steps */}
-      <section className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="space-y-8">
             {steps.map((step, i) => (
@@ -192,43 +192,43 @@ export function ProcessContent() {
                         <div className="flex items-center gap-4 mb-4">
                           <span
                             aria-hidden="true"
-                            className="text-5xl font-bold text-[#27272A] font-mono leading-none select-none"
+                            className="text-5xl font-bold text-[#2A2826] font-mono leading-none select-none"
                           >
                             {step.number}
                           </span>
                           <div>
                             <div className="flex items-center gap-2">
-                              <step.icon className="h-5 w-5 text-[#06B6D4]" />
-                              <span className="text-xs font-mono uppercase tracking-widest text-[#06B6D4]">Step {step.number}</span>
+                              <step.icon className="h-5 w-5 text-[#0ED3CF]" />
+                              <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">Step {step.number}</span>
                             </div>
                             <h2 className="text-2xl font-bold text-[#FAFAFA]">{step.name}</h2>
                           </div>
                         </div>
                         <h3 className="text-lg font-semibold text-[#FAFAFA] mb-3">{step.headline}</h3>
-                        <p className="text-[#A1A1AA] text-sm leading-relaxed">{step.body}</p>
+                        <p className="text-[#A8A29E] text-sm leading-relaxed">{step.body}</p>
                         {step.note && (
-                          <p className="mt-3 text-xs text-[#06B6D4] bg-[#06B6D4]/10 border border-[#06B6D4]/20 rounded-lg px-3 py-2">
+                          <p className="mt-3 text-xs text-[#0ED3CF] bg-[#0ED3CF]/10 border border-[#0ED3CF]/20 rounded-lg px-3 py-2">
                             {step.note}
                           </p>
                         )}
-                        <p className="mt-4 text-xs text-[#71717A] font-mono">
+                        <p className="mt-4 text-xs text-[#78716C] font-mono">
                           Duration: {step.duration}
                         </p>
                       </div>
 
                       {/* Deliverables */}
                       <div className="lg:col-span-3">
-                        <p className="text-xs font-mono uppercase tracking-widest text-[#71717A] mb-4">
+                        <p className="text-xs font-mono uppercase tracking-widest text-[#78716C] mb-4">
                           Deliverables
                         </p>
                         <div className="grid sm:grid-cols-2 gap-3">
                           {step.deliverables.map((d) => (
                             <div
                               key={d.label}
-                              className="p-3 bg-[#09090B] border border-[#27272A] rounded-lg"
+                              className="p-3 bg-[#09090B] border border-[#2A2826] rounded-lg"
                             >
                               <p className="text-xs font-semibold text-[#FAFAFA] mb-1">{d.label}</p>
-                              <p className="text-xs text-[#71717A]">{d.items}</p>
+                              <p className="text-xs text-[#78716C]">{d.items}</p>
                             </div>
                           ))}
                         </div>
@@ -243,13 +243,13 @@ export function ProcessContent() {
       </section>
 
       {/* Visual proof — what each step actually produces */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#27272A]">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#2A2826]">
         <motion.div {...fadeInUp} className="mb-12">
           <SectionLabel>Evidence</SectionLabel>
           <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
             What each step actually produces.
           </h2>
-          <p className="text-[#A1A1AA] mt-4 max-w-2xl leading-relaxed">
+          <p className="text-[#A8A29E] mt-4 max-w-2xl leading-relaxed">
             Every engagement leaves a paper trail. Architecture diagrams from
             <span className="text-[#FAFAFA]"> Architect</span>, CI runs from
             <span className="text-[#FAFAFA]"> Build</span>, dashboards and
@@ -298,7 +298,7 @@ export function ProcessContent() {
         <motion.div {...fadeInUp}>
           <SectionLabel>Communication</SectionLabel>
           <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">What you can expect.</h2>
-          <p className="text-[#A1A1AA] mb-10 max-w-2xl">
+          <p className="text-[#A8A29E] mb-10 max-w-2xl">
             Predictable, documented communication. No chasing updates. No wondering where your project is.
           </p>
         </motion.div>
@@ -310,18 +310,18 @@ export function ProcessContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="p-6 bg-[#0F0F12] border border-[#27272A] rounded-xl"
+              className="p-6 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
-              <div className="w-2 h-2 bg-[#06B6D4] rounded-full mb-4" />
+              <div className="w-2 h-2 bg-[#0ED3CF] rounded-full mb-4" />
               <h3 className="font-semibold text-[#FAFAFA] mb-2">{item.title}</h3>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed">{item.body}</p>
+              <p className="text-sm text-[#A8A29E] leading-relaxed">{item.body}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <SectionLabel>FAQ</SectionLabel>
@@ -346,7 +346,7 @@ export function ProcessContent() {
         >
           <Button
             asChild
-            className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold px-8"
+            className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold px-8"
           >
             <Link href="/pricing">
               See pricing
@@ -356,7 +356,7 @@ export function ProcessContent() {
           <Button
             asChild
             variant="outline"
-            className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent px-8"
+            className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent px-8"
           >
             <Link href="/book">
               Book a call

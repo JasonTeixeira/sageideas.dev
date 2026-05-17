@@ -1,0 +1,64 @@
+---
+title: "The Case Against Over-Engineering (From Someone Who's Done It)"
+slug: "the-case-against-over-engineering-from-someone-who"
+date: "2025-12-01"
+category: "Engineering"
+readTime: "10 min read"
+excerpt: "I once built a plugin architecture for a system that never needed plugins. 3 weeks of abstraction layers for a feature nobody asked for. Here's how I learned to stop."
+tags:
+  - "Architecture"
+  - "Over-Engineering"
+  - "YAGNI"
+  - "Best Practices"
+  - "Design"
+coverImage: "/blog/covers/the-case-against-over-engineering-from-someone-who.png"
+id: 35
+---
+
+# The Case Against Over-Engineering (From Someone Who's Done It)
+
+I have a confession. In 2023, I spent three weeks building a plugin system for a test automation framework. Configurable test runners. Hot-reloadable plugins. A dependency injection container. The whole thing.
+
+Nobody ever wrote a plugin.
+
+The framework ran in CI with the same configuration every time. The "extensibility" I built was used by exactly zero people. I could have shipped the entire thing in 4 days without the plugin architecture.
+
+## How Over-Engineering Happens
+
+It starts with a reasonable thought: "What if we need to extend this later?"
+
+That thought is the trap. Because "later" rarely looks like what you imagined, and the abstractions you build for imaginary requirements usually get in the way of the real ones.
+
+Here's the progression I've watched in myself:
+
+1. Build a simple function ✅
+2. Think "this should be configurable" ⚠️
+3. Add a config object
+4. Think "different environments might need different implementations" ⚠️
+5. Add an interface and factory pattern
+6. Think "we might need to swap this at runtime" 🚩
+7. Add dependency injection
+8. Realize nobody has ever needed to swap it
+9. Maintain the abstraction forever because removing it is harder than keeping it
+
+## The Three Questions
+
+Before adding any abstraction, I now ask:
+
+**1. "Has anyone actually asked for this?"**
+
+If the answer is "no, but they might" — don't build it. YAGNI (You Aren't Gonna Need It) is the most violated principle in engineering.
+
+**2. "What's the cost of adding this later vs now?"**
+
+If I can add the abstraction in 2 hours when it's actually needed, there's no reason to build it now "just in case." The cost of premature abstraction (maintaining code nobody uses) is almost always higher than the cost of adding it later.
+
+**3. "Can I explain why this exists to someone in one sentence?"**
+
+"We use dependency injection because we need to swap the payment provider between Stripe and Braintree in different environments." That's a real reason.
+
+"We use dependency injection because it's best practice." That's not a reason. That's cargo culting.
+
+## What Simple Code Looks Like
+
+\\\

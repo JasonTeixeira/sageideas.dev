@@ -49,7 +49,7 @@ const STATUS_DOT: Record<NonNullable<DashboardActivity['status']>, string> = {
   ok: '#34D399',
   warn: '#F59E0B',
   error: '#F87171',
-  pending: '#71717A',
+  pending: '#78716C',
 }
 
 export function AgentDashboardMockup({
@@ -100,14 +100,14 @@ export function AgentDashboardMockup({
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-5">
         <div>
-          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#71717A]">
+          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#78716C]">
             <CircleDot className="w-3 h-3 text-emerald-400 animate-pulse" />
             Live · Production
           </div>
           <h3 className="mt-1.5 text-lg font-semibold text-[#FAFAFA]">{title}</h3>
-          <p className="mt-1 text-sm text-[#A1A1AA]">{subtitle}</p>
+          <p className="mt-1 text-sm text-[#A8A29E]">{subtitle}</p>
         </div>
-        <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-[#71717A]">
+        <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-[#78716C]">
           <span className="px-2 py-1 rounded bg-white/5 border border-white/10">
             agent.v1.4
           </span>
@@ -125,7 +125,7 @@ export function AgentDashboardMockup({
             transition={{ duration: 0.35, delay: i * 0.05 }}
             className="rounded-xl border border-white/10 bg-black/30 p-4"
           >
-            <div className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
               {k.label}
             </div>
             <div className="mt-1.5 text-xl font-semibold text-[#FAFAFA]">
@@ -148,11 +148,11 @@ export function AgentDashboardMockup({
         {/* Activity feed */}
         <div className="lg:col-span-2 rounded-xl border border-white/10 bg-black/30">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
-            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#A1A1AA]">
+            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#A8A29E]">
               <Activity className="w-3.5 h-3.5" style={{ color: accent }} />
               Live activity
             </div>
-            <span className="text-[10px] font-mono text-[#52525B]">
+            <span className="text-[10px] font-mono text-[#57534E]">
               last 5 min
             </span>
           </div>
@@ -174,7 +174,7 @@ export function AgentDashboardMockup({
                     backgroundColor: STATUS_DOT[a.status ?? 'ok'],
                   }}
                 />
-                <span className="text-[10px] font-mono text-[#52525B] w-8 shrink-0 mt-0.5">
+                <span className="text-[10px] font-mono text-[#57534E] w-8 shrink-0 mt-0.5">
                   {a.t}
                 </span>
                 <span className="text-[12.5px] text-[#D4D4D8] leading-snug">
@@ -190,7 +190,7 @@ export function AgentDashboardMockup({
         <div className="space-y-3">
           {/* Eval gauge */}
           <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
               <span className="flex items-center gap-1.5">
                 <Gauge className="w-3 h-3" style={{ color: accent }} />
                 Eval pass rate
@@ -209,20 +209,20 @@ export function AgentDashboardMockup({
                 }}
               />
             </div>
-            <div className="mt-2 text-[10.5px] text-[#71717A]">
+            <div className="mt-2 text-[10.5px] text-[#78716C]">
               42 / 44 test cases passed · last run 12m ago
             </div>
           </div>
 
           {/* Spend cap */}
           <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
               <span className="flex items-center gap-1.5">
                 <DollarSign className="w-3 h-3 text-amber-400" />
                 Monthly spend
               </span>
-              <span className="text-[#A1A1AA]">
-                {spendUsed} <span className="text-[#52525B]">/ {spendCap}</span>
+              <span className="text-[#A8A29E]">
+                {spendUsed} <span className="text-[#57534E]">/ {spendCap}</span>
               </span>
             </div>
             <div className="mt-2 h-2 rounded-full bg-white/5 overflow-hidden">
@@ -234,14 +234,14 @@ export function AgentDashboardMockup({
                 className="h-full rounded-full bg-gradient-to-r from-amber-500/80 to-amber-400/80"
               />
             </div>
-            <div className="mt-2 text-[10.5px] text-[#71717A]">
+            <div className="mt-2 text-[10.5px] text-[#78716C]">
               Auto-pause at cap. Slack alert at 80%.
             </div>
           </div>
 
           {/* Approvals */}
           <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
+            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-[#78716C]">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3 h-3 text-pink-400" />
                 Awaiting approval
@@ -259,7 +259,7 @@ export function AgentDashboardMockup({
                 <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
                 Outbound email batch — 12 ready
               </li>
-              <li className="flex items-center gap-2 text-[#71717A]">
+              <li className="flex items-center gap-2 text-[#78716C]">
                 <CircleDot className="w-3 h-3 shrink-0" />1 more queued
               </li>
             </ul>

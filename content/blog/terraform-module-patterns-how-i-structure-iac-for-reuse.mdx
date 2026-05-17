@@ -1,0 +1,27 @@
+---
+title: "Terraform Module Patterns: How I Structure IaC for Reuse"
+slug: "terraform-module-patterns-how-i-structure-iac-for-reuse"
+date: "2026-03-18"
+category: "Cloud Automation"
+readTime: "11 min read"
+excerpt: "Opinionated Terraform module patterns — consistent variable naming, output contracts, testing with Terratest, and the module structure that works across teams."
+tags:
+  - "Terraform"
+  - "AWS"
+  - "IaC"
+  - "Infrastructure"
+  - "DevOps"
+  - "HCL"
+coverImage: "/blog/covers/terraform-module-patterns-how-i-structure-iac-for-reuse.png"
+id: 17
+---
+
+# Terraform Module Patterns: How I Structure IaC for Reuse
+
+After building the AWS Landing Zone and multiple infrastructure projects, I've developed opinions about how to write Terraform modules that other people can actually use.
+
+## The Module Structure
+
+Every module follows this structure:
+
+\

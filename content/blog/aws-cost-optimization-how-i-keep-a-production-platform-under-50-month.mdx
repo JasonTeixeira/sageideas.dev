@@ -1,0 +1,58 @@
+---
+title: "AWS Cost Optimization: How I Keep a Production Platform Under $50/Month"
+slug: "aws-cost-optimization-how-i-keep-a-production-platform-under-50-month"
+date: "2026-03-08"
+category: "Cloud Automation"
+readTime: "10 min read"
+excerpt: "The Nexural platform runs on AWS with Vercel, Supabase, and targeted AWS services. Here's how I keep costs under $50/month for a platform with 185 tables and real-time data."
+tags:
+  - "AWS"
+  - "Cost Optimization"
+  - "Supabase"
+  - "Vercel"
+  - "Lambda"
+  - "Architecture"
+coverImage: "/blog/covers/aws-cost-optimization-how-i-keep-a-production-platform-under-50-month.png"
+id: 19
+---
+
+# AWS Cost Optimization: How I Keep a Production Platform Under $50/Month
+
+The Nexural ecosystem has 185 database tables, 69 API endpoints, real-time market data, AI-powered features, and a live quality dashboard. My AWS bill is under $50/month.
+
+Here's how.
+
+## The Architecture That Saves Money
+
+**Principle: use managed services at their free/cheap tiers instead of running your own infrastructure.**
+
+| Service | What It Does | Monthly Cost |
+|---------|-------------|-------------|
+| Vercel (Hobby → Pro) | Next.js hosting, edge functions | $0-20 |
+| Supabase (Free → Pro) | PostgreSQL, Auth, Real-time | $0-25 |
+| AWS S3 | Telemetry data, artifacts | $0.02 |
+| AWS Lambda | API proxy, telemetry ingestion | $0 (free tier) |
+| AWS API Gateway | Lambda HTTP endpoint | $0 (free tier) |
+| AWS CloudFront | CDN + WAF | $0 (free tier) |
+| GitHub Actions | CI/CD, scheduled jobs | $0 (free for public repos) |
+
+**Total: ~$25-45/month** for a production platform.
+
+## The Tricks
+
+### 1. Supabase Instead of RDS
+
+A Supabase Pro instance is $25/month and includes:
+- PostgreSQL 15 with 8GB storage
+- Row-level security
+- Real-time subscriptions
+- Built-in authentication
+- Auto-backups
+
+An equivalent RDS instance (db.t3.micro) is $15/month but you need to manage backups, auth, and real-time yourself. Add those services and you're at $60+.
+
+### 2. Lambda for Spiky Workloads
+
+The telemetry ingestion API handles 0 requests most of the time, then bursts during CI runs. Lambda is perfect: $0 when idle, pennies during bursts.
+
+\

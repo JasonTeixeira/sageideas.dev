@@ -1,0 +1,67 @@
+---
+title: "Authentication Is Harder Than You Think"
+slug: "authentication-is-harder-than-you-think"
+date: "2025-12-28"
+category: "Architecture"
+readTime: "11 min read"
+excerpt: "I've implemented auth 4 times across different projects. Every time I thought it would take 2 days. Every time it took 2 weeks. Here's why, and what I'd do differently."
+tags:
+  - "Authentication"
+  - "Security"
+  - "Supabase"
+  - "JWT"
+  - "Architecture"
+coverImage: "/blog/covers/authentication-is-harder-than-you-think.png"
+id: 31
+---
+
+# Authentication Is Harder Than You Think
+
+Every project plan I've ever written has a line item: "Authentication — 2 days."
+
+Every project retrospective has a note: "Auth took 2 weeks."
+
+I've built auth systems 4 times now. Each time, I underestimate it. Here's why, and what I finally learned.
+
+## The Iceberg
+
+What you think auth is:
+- Login form
+- Store a token
+- Check if token is valid
+- Done
+
+What auth actually is:
+- Login form (email/password + OAuth + magic links + MFA?)
+- Password hashing (bcrypt, argon2, what cost factor?)
+- Session management (JWT vs session cookie vs both?)
+- Token refresh (silent refresh, rotation, revocation)
+- CSRF protection (same-site cookies, double-submit token)
+- Rate limiting (on login, on registration, on password reset)
+- Password reset flow (token generation, expiry, single-use)
+- Email verification (token, resend logic, what if they change email?)
+- Account lockout (how many attempts? What's the unlock flow?)
+- Role-based access (admin vs user vs moderator)
+- API key management (for programmatic access)
+- Session invalidation on password change
+- "Remember me" vs "this session only"
+- Login from new device notification
+- Audit logging (who logged in, when, from where)
+
+That's 15+ features. At 1-2 days each, you're looking at a month.
+
+## What I Do Now: Use Supabase Auth and Extend
+
+After building custom auth twice and hating my life both times, I now start with Supabase Auth (or Clerk, or Auth.js). It handles:
+
+- Email/password with bcrypt
+- OAuth providers (Google, GitHub, Discord)
+- JWT tokens with refresh
+- Email verification
+- Password reset
+- Session management
+- Rate limiting
+
+That's 80% of auth, handled by people who think about auth full-time. I focus on the 20% that's specific to my app:
+
+\\\

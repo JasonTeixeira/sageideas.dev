@@ -75,26 +75,26 @@ export function StudioAnimations() {
           <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
             The studio.
           </h1>
-          <h2 className="mt-6 text-2xl font-semibold text-[#A1A1AA]">
+          <h2 className="mt-6 text-2xl font-semibold text-[#A8A29E]">
             One engineer. One LLC. Years of compounded decisions and shipped systems.
           </h2>
-          <p className="mt-6 text-lg text-[#A1A1AA] leading-relaxed">
+          <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">
             Sage Ideas LLC was founded in 2024 with a specific thesis: that the right process, the right infrastructure,
             and AI-native development practices allow a single practitioner to build and ship software at a quality level
             that matches a small agency — with the added benefit of direct accountability.
           </p>
-          <p className="mt-4 text-lg text-[#A1A1AA] leading-relaxed">
+          <p className="mt-4 text-lg text-[#A8A29E] leading-relaxed">
             Before the studio, Jason Teixeira spent five years as a fintech engineer at HighStrike (2021–2026) — building
             trading infrastructure, market data systems, and real-time financial applications that handled production load.
             That&apos;s where the engineering discipline came from: systems that don&apos;t fail on a volatile trading day demand
             a level of rigor that carries over into everything since.
           </p>
-          <p className="mt-4 text-[#71717A]">The studio operates out of Orlando, FL. Remote-first by default.</p>
+          <p className="mt-4 text-[#78716C]">The studio operates out of Orlando, FL. Remote-first by default.</p>
         </motion.div>
       </section>
 
       {/* Pillars */}
-      <section className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp} className="text-center mb-16">
             <SectionLabel>Pillars</SectionLabel>
@@ -112,11 +112,11 @@ export function StudioAnimations() {
               >
                 <GlowCard className="h-full">
                   <div className="p-8">
-                    <div className="p-3 bg-[#06B6D4]/10 rounded-xl w-fit mb-6">
-                      <pillar.icon className="h-6 w-6 text-[#06B6D4]" />
+                    <div className="p-3 bg-[#0ED3CF]/10 rounded-xl w-fit mb-6">
+                      <pillar.icon className="h-6 w-6 text-[#0ED3CF]" />
                     </div>
                     <h3 className="text-xl font-semibold text-[#FAFAFA] mb-3">{pillar.title}</h3>
-                    <p className="text-[#A1A1AA] text-sm leading-relaxed">{pillar.description}</p>
+                    <p className="text-[#A8A29E] text-sm leading-relaxed">{pillar.description}</p>
                   </div>
                 </GlowCard>
               </motion.div>
@@ -130,7 +130,7 @@ export function StudioAnimations() {
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Engagement Model</SectionLabel>
           <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-8">How the studio works</h2>
-          <div className="space-y-6 text-[#A1A1AA] text-lg leading-relaxed">
+          <div className="space-y-6 text-[#A8A29E] text-lg leading-relaxed">
             <p>
               Clients work with Jason directly — not an account manager, not a project coordinator, not a handoff to a
               handoff team after the sales call. The same person who scoped the project is the person building it. That
@@ -156,12 +156,12 @@ export function StudioAnimations() {
       </section>
 
       {/* What we don't do */}
-      <section className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp} className="max-w-3xl">
             <SectionLabel>Scope</SectionLabel>
             <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">What we don&apos;t do</h2>
-            <p className="text-[#A1A1AA] mb-8 text-lg">
+            <p className="text-[#A8A29E] mb-8 text-lg">
               Self-qualification matters. These are honest limits — not failures, just not the right fit for this studio.
             </p>
             <div className="space-y-4">
@@ -172,10 +172,10 @@ export function StudioAnimations() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="flex items-start gap-3 p-4 bg-[#09090B] border border-[#27272A] rounded-xl"
+                  className="flex items-start gap-3 p-4 bg-[#09090B] border border-[#2A2826] rounded-xl"
                 >
-                  <XCircle className="h-5 w-5 text-[#71717A] mt-0.5 flex-shrink-0" />
-                  <span className="text-[#A1A1AA]">{item}</span>
+                  <XCircle className="h-5 w-5 text-[#78716C] mt-0.5 flex-shrink-0" />
+                  <span className="text-[#A8A29E]">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -218,7 +218,7 @@ export function StudioAnimations() {
               <GlowCard className="h-full">
                 <div className="p-6">
                   <h3 className="font-semibold text-[#FAFAFA] mb-2">{v.title}</h3>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed">{v.body}</p>
+                  <p className="text-sm text-[#A8A29E] leading-relaxed">{v.body}</p>
                 </div>
               </GlowCard>
             </motion.div>
@@ -227,7 +227,7 @@ export function StudioAnimations() {
       </section>
 
       {/* Stats strip */}
-      <section className="bg-[#0F0F12] border-y border-[#27272A]">
+      <section className="bg-[#12110F] border-y border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
             initial={{ opacity: 0 }}
@@ -256,7 +256,7 @@ export function StudioAnimations() {
         <motion.div {...fadeInUp}>
           <SectionLabel>Stack</SectionLabel>
           <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">The stack.</h2>
-          <p className="text-[#A1A1AA] mb-10 max-w-2xl">Full stack from UI to infrastructure. Every layer chosen for production reliability, not demo convenience.</p>
+          <p className="text-[#A8A29E] mb-10 max-w-2xl">Full stack from UI to infrastructure. Every layer chosen for production reliability, not demo convenience.</p>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
           {stackCategories.map((cat, i) => (
@@ -266,10 +266,10 @@ export function StudioAnimations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="p-5 bg-[#0F0F12] border border-[#27272A] rounded-xl"
+              className="p-5 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
-              <p className="text-xs font-mono uppercase tracking-widest text-[#06B6D4] mb-2">{cat.label}</p>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed">{cat.items}</p>
+              <p className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF] mb-2">{cat.label}</p>
+              <p className="text-sm text-[#A8A29E] leading-relaxed">{cat.items}</p>
             </motion.div>
           ))}
         </div>
@@ -282,7 +282,7 @@ export function StudioAnimations() {
         >
           <Link
             href="/stack"
-            className="inline-flex items-center text-[#06B6D4] hover:text-[#22D3EE] text-sm font-medium transition-colors group"
+            className="inline-flex items-center text-[#0ED3CF] hover:text-[#22D3EE] text-sm font-medium transition-colors group"
           >
             See the full stack reference
             <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -291,7 +291,7 @@ export function StudioAnimations() {
       </section>
 
       {/* CTAs */}
-      <section className="bg-[#0F0F12] border-t border-[#27272A]">
+      <section className="bg-[#12110F] border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -302,7 +302,7 @@ export function StudioAnimations() {
           >
             <Button
               asChild
-              className="bg-[#06B6D4] text-[#09090B] hover:bg-[#22D3EE] font-semibold px-8"
+              className="bg-[#0ED3CF] text-[#09090B] hover:bg-[#22D3EE] font-semibold px-8"
             >
               <Link href="/founder">
                 Read the founder story
@@ -312,7 +312,7 @@ export function StudioAnimations() {
             <Button
               asChild
               variant="outline"
-              className="border-[#3F3F46] text-[#A1A1AA] hover:border-[#06B6D4] hover:text-[#06B6D4] bg-transparent px-8"
+              className="border-[#3D3A37] text-[#A8A29E] hover:border-[#0ED3CF] hover:text-[#0ED3CF] bg-transparent px-8"
             >
               <Link href="/work">
                 See the work

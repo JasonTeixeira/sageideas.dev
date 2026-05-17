@@ -1,0 +1,83 @@
+---
+title: "Why I Treat My Portfolio Like a Production System"
+slug: "why-i-treat-my-portfolio-like-a-production-system"
+date: "2026-04-10"
+category: "Cloud Automation"
+readTime: "10 min read"
+excerpt: "SLOs, incident drills, WAF rate limiting, and OIDC federation — why I operate my portfolio site with the same rigor as enterprise infrastructure, and what it signals to hiring managers."
+tags:
+  - "SLOs"
+  - "Operations"
+  - "Security"
+  - "AWS"
+  - "Production"
+  - "Career"
+coverImage: "/blog/covers/why-i-treat-my-portfolio-like-a-production-system.png"
+id: 8
+---
+
+# Why I Treat My Portfolio Like a Production System
+
+Most developer portfolios are static sites. Mine has SLOs.
+
+This isn't about over-engineering. It's about demonstrating a specific skill that's hard to show in interviews: **operational maturity**.
+
+## What "Production-Grade Portfolio" Means
+
+My portfolio site (sageideas.dev) has:
+
+- **SLO targets:** 99.9% dashboard availability, <24h telemetry freshness, <500ms P95 response time
+- **Incident drills:** 4 failure scenarios tested with documented responses
+- **WAF rate limiting:** CloudFront Web ACL with attack simulation evidence
+- **OIDC federation:** GitHub Actions → AWS without static credentials
+- **Quality telemetry:** Live dashboard pulling CI artifacts in real-time
+- **Security receipts:** IAM policies, threat models, and evidence for every claim
+
+## Why Bother?
+
+Because the gap between "I can build things" and "I can run things" is where senior roles live.
+
+Junior engineers build features. Mid-level engineers build systems. Senior engineers **operate** systems — they think about failure modes, blast radius, cost, compliance, and what happens at 3am.
+
+By treating my portfolio like production, I'm showing:
+
+1. **I think about failure before it happens** — every external dependency has a fallback
+2. **I measure what matters** — SLOs, not vanity metrics
+3. **I document for the next person** — runbooks, playbooks, architecture docs
+4. **I don't cut corners on security** — even for a portfolio site
+
+## The Incident Drill Pattern
+
+Every quarter, I run through 4 scenarios:
+
+| Scenario | Response | Status |
+|---|---|---|
+| GitHub API rate limits | Fall back to snapshot mode | Tested |
+| Missing CI artifact | Scan recent runs, degrade gracefully | Tested |
+| AWS proxy token mismatch | CloudWatch alarm, auto-degrade | Tested |
+| S3 object missing | Fail closed, no secrets leak | Tested |
+
+Each drill follows: **detect → triage → mitigate → verify → document**
+
+The drill report is publicly available in my artifacts library.
+
+## What Hiring Managers Notice
+
+When I interview for senior/staff roles, I don't talk about my portfolio's design. I talk about its operations:
+
+- "Here's my SLO dashboard. We're at 99.94% this month."
+- "Here's a WAF rate limiting test I ran last week. 429s trigger at 100 req/5min."
+- "Here's the IAM policy. The Lambda has exactly one permission: s3:GetObject on one key."
+
+This changes the conversation from "can you code?" to "can you run systems?" — which is what $200K+ roles actually require.
+
+## How to Do This Yourself
+
+You don't need AWS. Start small:
+
+1. **Define one SLO** — "My site will have 99% uptime this month." Monitor it.
+2. **Add one quality gate** — Lighthouse CI in your deploy pipeline. Fail the build if performance drops.
+3. **Document one failure mode** — "If my API key expires, what happens?" Write the answer down.
+4. **Run one incident drill** — Actually break something intentionally and practice the response.
+
+The goal isn't perfection. It's demonstrating that you think about production, not just development.

@@ -32,19 +32,19 @@ export function CapacitySignal({
   if (dismissed) return null
 
   return (
-    <div className="relative rounded-xl border border-[#06B6D4]/30 bg-[#06B6D4]/5 px-4 py-2.5 mb-8 flex flex-wrap items-center gap-3">
+    <div className="relative rounded-xl border border-[#0ED3CF]/30 bg-[#0ED3CF]/5 px-4 py-2.5 mb-8 flex flex-wrap items-center gap-3">
       <span
-        className="inline-block w-2 h-2 rounded-full bg-[#06B6D4] shrink-0"
+        className="inline-block w-2 h-2 rounded-full bg-[#0ED3CF] shrink-0"
         aria-hidden
       >
-        <span className="block w-2 h-2 rounded-full bg-[#06B6D4] animate-ping" />
+        <span className="block w-2 h-2 rounded-full bg-[#0ED3CF] animate-ping" />
       </span>
-      <span className="text-xs font-mono uppercase tracking-widest text-[#A1A1AA] flex-1">
-        <span className="text-[#06B6D4]">{message}</span>
+      <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E] flex-1">
+        <span className="text-[#0ED3CF]">{message}</span>
       </span>
       <a
         href={ctaHref}
-        className="text-xs font-mono uppercase tracking-widest text-[#06B6D4] hover:text-[#FAFAFA] transition-colors"
+        className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF] hover:text-[#FAFAFA] transition-colors"
       >
         {ctaLabel} →
       </a>
@@ -57,7 +57,7 @@ export function CapacitySignal({
           } catch {}
           setDismissed(true)
         }}
-        className="text-[#71717A] hover:text-[#FAFAFA] transition-colors"
+        className="text-[#78716C] hover:text-[#FAFAFA] transition-colors"
       >
         <X className="w-3.5 h-3.5" />
       </button>

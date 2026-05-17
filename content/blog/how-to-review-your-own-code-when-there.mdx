@@ -1,0 +1,56 @@
+---
+title: "How to Review Your Own Code (When There's Nobody Else)"
+slug: "how-to-review-your-own-code-when-there"
+date: "2025-12-08"
+category: "Engineering"
+readTime: "10 min read"
+excerpt: "Solo engineering means no code reviews. I've developed a self-review process that catches 80% of what a second pair of eyes would find. It starts with stepping away."
+tags:
+  - "Code Review"
+  - "Solo Engineering"
+  - "Best Practices"
+  - "Git"
+  - "Quality"
+coverImage: "/blog/covers/how-to-review-your-own-code-when-there.png"
+id: 34
+---
+
+# How to Review Your Own Code (When There's Nobody Else)
+
+On larger teams, every PR gets reviewed by at least one other engineer. At Sage Ideas, I'm the only engineer. Nobody reviews my code.
+
+This is a problem. Not because I write bad code — but because I'm blind to my own assumptions. Every developer is.
+
+I've developed a self-review process that catches most of what a second pair of eyes would. It's not perfect, but it's dramatically better than "looks good, merge."
+
+## The 24-Hour Rule
+
+I never review code I wrote today. The minimum gap between writing and reviewing is 24 hours. Ideally 48.
+
+This sounds slow. It's actually fast. In those 24 hours, I'm building something else. When I come back to review, I've partially forgotten my implementation. That forgetting is the point — it lets me read the code like someone else wrote it.
+
+## The Review Checklist
+
+I review in 4 passes. Each pass looks for different things:
+
+### Pass 1: Read Like a User (5 minutes)
+Don't look at the code. Open the PR diff and read just the file names and line counts.
+
+Questions:
+- Does the change make sense from the file names alone?
+- Is it touching too many files? (sign of a coupled change)
+- Are there files that shouldn't be in this change?
+
+### Pass 2: Read for Logic (15 minutes)
+Now read the code. But don't check for style, naming, or formatting. Just logic.
+
+Questions:
+- Does the happy path work?
+- What happens with null/undefined inputs?
+- Are there any cases where this fails silently?
+- Am I handling the error case, or just logging and moving on?
+- Is there a race condition? (Especially in async code)
+
+### Pass 3: Read for Security (10 minutes)
+
+\\\

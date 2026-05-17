@@ -24,11 +24,11 @@ export function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-16 left-0 right-0 h-0.5 bg-[#27272A] z-50 origin-left"
+      className="fixed top-16 left-0 right-0 h-0.5 bg-[#2A2826] z-50 origin-left"
       style={{ scaleX: 0 }}
     >
       <motion.div
-        className="h-full bg-gradient-to-r from-[#06B6D4] to-[#8B5CF6] origin-left"
+        className="h-full bg-gradient-to-r from-[#0ED3CF] to-[#E85D3A] origin-left"
         style={{ scaleX }}
       />
     </motion.div>
