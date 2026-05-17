@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -10,12 +11,6 @@ import {
   Terminal,
   CheckCircle2,
   Lock,
-  Workflow,
-  Bot,
-  RefreshCw,
-  Compass,
-  Package,
-  Layers,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SectionLabel } from '@/components/section-label'
@@ -23,6 +18,7 @@ import { FounderPortrait } from '@/components/founder-portrait'
 import { HeroMotionLayer } from '@/components/hero-motion-layer'
 import { GlowCard } from '@/components/glow-card'
 import { MetricCounter } from '@/components/metric-counter'
+import { GitHubActivity } from '@/components/github-activity'
 import { ProductRotator, type RotatorItem } from '@/components/home/product-rotator'
 import { TypewriterLines, Stagger, StaggerItem, HoverGlow } from '@/components/motion'
 import { TestimonialCarousel } from '@/components/social-proof/testimonial-carousel'
@@ -57,9 +53,7 @@ const HERO_ROTATOR_ITEMS: RotatorItem[] = [
 ]
 import { FloatingOrbs } from '@/components/floating-orbs'
 import { TestimonialCard } from '@/components/testimonial-card'
-import { LogoStrip } from '@/components/logo-strip'
 import { references, trustedBy } from '@/data/references'
-import { blogPosts } from '@/lib/blogData'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -67,20 +61,6 @@ const fadeInUp = {
   transition: { duration: 0.6, ease: 'easeOut' as const },
 }
 
-const stackLogos = [
-  'Next.js',
-  'React',
-  'TypeScript',
-  'Python',
-  'AWS',
-  'Supabase',
-  'Stripe',
-  'Tailwind',
-  'Framer Motion',
-  'FastAPI',
-  'Terraform',
-  'Playwright',
-]
 
 const capabilities = [
   {
@@ -208,71 +188,7 @@ const trustChips = [
   '5 years fintech engineering',
 ]
 
-const aiAutomationCategories = [
-  {
-    key: 'ai-flagship',
-    icon: Sparkles,
-    label: 'AI Flagship',
-    tagline: 'Custom AI agents, voice agents, lead engines. Built on your business.',
-    href: '/services#cat-ai-flagship',
-    accent: '#0ED3CF',
-    count: 'Featured',
-  },
-  {
-    key: 'ai-services',
-    icon: Sparkles,
-    label: 'AI services',
-    tagline: 'Reliability audits, RAG, agents, internal copilots.',
-    href: '/services#cat-ai-services',
-    accent: '#0ED3CF',
-    count: '5 offers',
-  },
-  {
-    key: 'automation-pipelines',
-    icon: Workflow,
-    label: 'Automation pipelines',
-    tagline: 'Postmortems, release notes, feedback routing, data hygiene.',
-    href: '/services#cat-automation-pipelines',
-    accent: '#E85D3A',
-    count: '5 offers',
-  },
-  {
-    key: 'ai-products',
-    icon: Bot,
-    label: 'Customer-facing AI',
-    tagline: 'Docs-as-a-product, onboarding concierge, support deflection.',
-    href: '/services#cat-ai-products',
-    accent: '#E85D3A',
-    count: '3 offers',
-  },
-  {
-    key: 'retainers',
-    icon: RefreshCw,
-    label: 'Productized retainers',
-    tagline: 'AI Quality, Automation, Reliability, Founder partner.',
-    href: '/services#cat-retainers',
-    accent: '#A8C633',
-    count: '4 plans',
-  },
-  {
-    key: 'diagnostics',
-    icon: Compass,
-    label: 'Diagnostics',
-    tagline: '48-hour AI readiness, stack X-ray, hallucination hunt.',
-    href: '/services#cat-diagnostics',
-    accent: '#C7236E',
-    count: '3 sprints',
-  },
-  {
-    key: 'bundle',
-    icon: Package,
-    label: 'Bundles & bespoke',
-    tagline: 'Studio Package (90-day DFY + 6mo retainer) or custom scope.',
-    href: '/services#cat-bundle',
-    accent: '#FAFAFA',
-    count: '2 paths',
-  },
-] as const
+
 
 const homepageStats = [
   { value: '20+', label: 'Production Builds' },
@@ -287,8 +203,18 @@ export default function HomePage() {
       <FloatingOrbs />
 
       {/* HERO */}
-      {/* Hero background image */}
-      <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{ backgroundImage: "url(/images/hero-abstract.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
+      {/* Hero background image — optimized */}
+      <div className="absolute inset-0 opacity-[0.08] pointer-events-none">
+        <Image
+          src="/images/hero-abstract.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+      </div>
       <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
         <HeroMotionLayer intensity="medium" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -416,27 +342,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LOGO BAR */}
-      <section className="border-y border-[#2A2826] bg-[#0B0A09]/60 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#78716C] shrink-0">
-              Built on
-            </span>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              {stackLogos.map((logo) => (
-                <span
-                  key={logo}
-                  className="text-sm text-[#A8A29E] hover:text-[#FAFAFA] transition-colors"
-                >
-                  {logo}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
       {/* WHAT WE DO */}
       <section className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -548,138 +454,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* WHAT WE SHIP — AI & Automation expansion */}
-      <section className="py-24 lg:py-32 border-t border-[#2A2826] bg-gradient-to-b from-[#0B0A09] via-[#09090B] to-[#0B0A09] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(6,182,212,0.06),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(139,92,246,0.06),transparent_50%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12"
-          >
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0ED3CF]/10 border border-[#0ED3CF]/30 mb-5">
-                <Layers className="w-3.5 h-3.5 text-[#0ED3CF]" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#0ED3CF]">
-                  AI Flagship + 22 productized offers
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA]">
-                What we ship.
-              </h2>
-              <p className="text-[#A8A29E] mt-4 text-lg leading-relaxed">
-                Seven categories on top of our 9 productized tiers and 3 care plans. AI Flagship
-                offers up top — custom agents, voice agents, and lead engines built on your
-                business, with dashboards and approval queues you actually use.
-              </p>
-            </div>
-            <Link
-              href="/services"
-              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] flex items-center gap-1 group whitespace-nowrap"
-            >
-              Browse the menu
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {aiAutomationCategories.map((cat, i) => (
-              <motion.div
-                key={cat.key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-              >
-                <Link
-                  href={cat.href}
-                  className="group block h-full rounded-2xl border border-[#2A2826] bg-[#12110F] hover:bg-[#131318] p-6 transition-all"
-                  style={{
-                    borderColor: '#2A2826',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = `${cat.accent}66`
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#2A2826'
-                  }}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div
-                      className="w-11 h-11 rounded-xl border flex items-center justify-center shrink-0"
-                      style={{
-                        borderColor: `${cat.accent}40`,
-                        backgroundColor: `${cat.accent}14`,
-                        color: cat.accent,
-                      }}
-                    >
-                      <cat.icon className="w-5 h-5" />
-                    </div>
-                    <span
-                      className="text-[10px] font-mono uppercase tracking-widest"
-                      style={{ color: cat.accent }}
-                    >
-                      {cat.count}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-[#FAFAFA] mt-5 group-hover:text-[#FAFAFA]">
-                    {cat.label}
-                  </h3>
-                  <p className="text-sm text-[#A8A29E] mt-2 leading-relaxed">{cat.tagline}</p>
-                  <div className="mt-5 inline-flex items-center gap-1 text-xs text-[#A8A29E] group-hover:gap-2 transition-all">
-                    Explore
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Bottom strip — pricing CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#2A2826] bg-[#0B0A09]/60 px-6 py-5"
-          >
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-[#78716C]">
-              <span className="text-[#0ED3CF]">5 AI Flagship offers</span>
-              <span aria-hidden>·</span>
-              <span>22 AI &amp; automation offers</span>
-              <span aria-hidden>·</span>
-              <span>9 productized tiers</span>
-              <span aria-hidden>·</span>
-              <span>3 care retainers</span>
-              <span aria-hidden>·</span>
-              <span className="text-[#0ED3CF]">99+ ways to engage</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button
-                asChild
-                size="sm"
-                variant="ghost"
-                className="text-[#FAFAFA] hover:bg-[#1A1917] border border-[#2A2826]"
-              >
-                <Link href="/pricing">Full price menu</Link>
-              </Button>
-              <Button
-                asChild
-                size="sm"
-                className="bg-[#0ED3CF] hover:bg-[#0AA8A5] text-[#09090B] font-medium"
-              >
-                <Link href="/contact?engagement=custom">
-                  Custom scope
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+      
       {/* FEATURED WORK */}
       <section className="py-24 lg:py-32 border-t border-[#2A2826]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -869,6 +644,17 @@ export default function HomePage() {
             blurb="Most engagements run under NDA. Names withheld until written permission lands — no fake logos, no implied endorsements."
           />
 
+          
+          {/* Stats row */}
+          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {homepageStats.map((stat) => (
+              <MetricCounter key={stat.label} value={stat.value} label={stat.label} />
+            ))}
+          </div>
+          <div className="mt-8">
+            <GitHubActivity />
+          </div>
+
           {/* References / honest testimonials */}
           <div className="mt-16">
             <motion.div
@@ -904,17 +690,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="py-20 border-t border-[#2A2826]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {homepageStats.map((stat) => (
-              <MetricCounter key={stat.label} value={stat.value} label={stat.label} />
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* TESTIMONIAL CAROUSEL */}
       <section className="py-20 border-t border-[#2A2826]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1012,67 +788,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LATEST WRITING */}
-      <section className="py-24 lg:py-32 border-t border-[#2A2826] bg-[#0B0A09]/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
-          >
-            <div className="max-w-2xl">
-              <SectionLabel>Latest writing</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#FAFAFA] mt-4">
-                Field notes from the keyboard.
-              </h2>
-              <p className="text-[#A8A29E] text-base mt-3 leading-relaxed">
-                Engineering and architecture writing — the same patterns we ship for clients, written up while they’re fresh.
-              </p>
-            </div>
-            <Link
-              href="/blog"
-              className="text-sm text-[#0ED3CF] hover:text-[#33EBE8] inline-flex items-center gap-1 group shrink-0"
-            >
-              All posts
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </motion.div>
-          <Stagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {blogPosts.slice(0, 3).map((post) => (
-              <StaggerItem key={post.slug}>
-                <HoverGlow className="rounded-xl">
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group block h-full rounded-xl border border-[#2A2826] bg-[#12110F] p-6 hover:border-[#0ED3CF]/40 transition-colors"
-                >
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#0ED3CF] mb-3">
-                    {new Date(post.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                    })}
-                  </div>
-                  <h3 className="text-[#FAFAFA] font-semibold leading-snug group-hover:text-[#0ED3CF] transition-colors">
-                    {post.title}
-                  </h3>
-                  {post.excerpt && (
-                    <p className="text-sm text-[#A8A29E] mt-3 leading-relaxed line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  <div className="text-sm text-[#0ED3CF] mt-5 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Read →
-                  </div>
-                </Link>
-                </HoverGlow>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
+      
       {/* FINAL CTA */}
       <section className="py-24 lg:py-32 border-t border-[#2A2826] relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.08),transparent_70%)]" />
