@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T06:03:09.113Z",
+  "generatedAt": "2026-05-17T06:09:09.877Z",
   "summary": {
     "overallStatus": "degraded",
     "notes": "Auto-generated snapshot from GitHub Actions (Phase 1). Phase 2 upgrades to live server-side GitHub API + report artifacts.",
@@ -20,7 +20,7 @@
       "repo": "JasonTeixeira/qa-portfolio",
       "type": "portfolio",
       "status": "degraded",
-      "lastRun": "2026-05-16T06:02:28Z",
+      "lastRun": "2026-05-17T06:08:29Z",
       "ci": {
         "runsUrl": "https://github.com/JasonTeixeira/qa-portfolio/actions"
       },
