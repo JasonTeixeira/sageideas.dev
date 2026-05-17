@@ -77,7 +77,7 @@ export function ServicesGrid({
 
                   {/* Price */}
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-3xl font-bold text-[#FAFAFA]">{tier.price}</span>
+                    <span className="text-3xl font-normal text-[#FAFAFA]">{tier.price}</span>
                     {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
                       <span className="text-[#78716C] text-sm">/mo</span>
                     )}

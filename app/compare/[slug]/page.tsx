@@ -59,7 +59,7 @@ export default async function CompareDetailPage({ params }: Props) {
 
         <header className="mb-12">
           <SectionLabel>Comparison</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="mt-4 text-4xl sm:text-5xl font-normal text-[#FAFAFA] tracking-tight">
             Sage Ideas <span className="text-[#57534E]">vs</span> {c.competitorShort}.
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E]">{c.tagline}</p>

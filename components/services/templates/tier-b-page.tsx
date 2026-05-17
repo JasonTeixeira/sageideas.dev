@@ -51,7 +51,7 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
               <SectionLabel>Standard engagement</SectionLabel>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="text-4xl sm:text-5xl font-normal text-[#FAFAFA] leading-tight">
               {tier.name}
             </h1>
             <p className={`mt-3 text-lg ${accent.text} font-medium`}>{tier.tagline}</p>
@@ -165,7 +165,7 @@ export function TierBPage({ tier }: { tier: Tier | ExtendedTier }) {
 
       {/* CTA */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="text-3xl font-bold text-[#FAFAFA]">Want to scope {tier.shortName}?</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA]">Want to scope {tier.shortName}?</h2>
         <p className="mt-3 text-[#A8A29E]">
           A short call to confirm fit and timeline.
         </p>

@@ -18,7 +18,7 @@ export default function CheckoutCancelPage() {
           <X className="w-8 h-8 text-[#78716C]" />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+        <h1 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
           Checkout cancelled.
         </h1>
 

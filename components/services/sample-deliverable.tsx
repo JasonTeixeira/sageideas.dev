@@ -46,7 +46,7 @@ export function SampleDeliverable({ tabs = DEFAULT_TABS }: { tabs?: SampleTab[] 
       <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
         Sample deliverables
       </span>
-      <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
+      <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">
         See the artifact, not the marketing.
       </h2>
       <p className="mt-2 text-[#A8A29E] max-w-2xl">

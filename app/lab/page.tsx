@@ -26,7 +26,7 @@ export default function LabPage() {
         {/* Hero */}
         <section className="mb-20">
           <SectionLabel>Products</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] tracking-tight">
             The Lab.
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">
@@ -43,7 +43,7 @@ export default function LabPage() {
         {/* Free tools */}
         <section className="mb-20">
           <SectionLabel>Free tools</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
             Try before you talk to us.
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -96,7 +96,7 @@ export default function LabPage() {
         {/* Product grid */}
         <section>
           <SectionLabel>Products</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
             Things we built and run ourselves.
           </h2>
           <div className="mt-8">

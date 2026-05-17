@@ -70,7 +70,7 @@ export function FounderPortrait({
               className="absolute inset-0 mix-blend-color pointer-events-none opacity-70 group-hover:opacity-30 transition-opacity duration-700"
               style={{
                 background:
-                  'radial-gradient(circle at 25% 20%, rgba(6,182,212,0.55), transparent 60%), radial-gradient(circle at 80% 90%, rgba(139,92,246,0.45), transparent 60%)',
+                  'radial-gradient(circle at 25% 20%, rgba(14,211,207,0.55), transparent 60%), radial-gradient(circle at 80% 90%, rgba(232,93,58,0.45), transparent 60%)',
               }}
             />
             {/* Bottom darken for legend */}

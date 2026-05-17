@@ -31,7 +31,7 @@ export default function CalculatorsPage() {
 
         <header className="mb-12">
           <SectionLabel>Tools</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight">
             ROI Calculators.
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">

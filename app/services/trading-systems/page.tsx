@@ -27,7 +27,7 @@ export default function TradingSystemsPage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <span className="text-xs font-mono text-[#0ED3CF] bg-[#0ED3CF]/10 px-3 py-1 rounded-full">Trading Systems</span>
-        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
+        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] leading-tight">
           Trading Software Built by a Trader
         </h1>
         <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
@@ -48,7 +48,7 @@ export default function TradingSystemsPage() {
 
       {/* Systems */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">What I Build for Traders</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-8">What I Build for Traders</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {systems.map(sys => (
             <div key={sys.title} className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#0ED3CF]/30 transition-colors">

@@ -50,7 +50,7 @@ export default async function TemplateDetailPage({ params }: Props) {
 
         <header className="mb-10">
           <SectionLabel>{categoryLabels[t.category]}</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="mt-4 text-4xl sm:text-5xl font-normal text-[#FAFAFA] tracking-tight">
             {t.name}
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E]">{t.tagline}</p>

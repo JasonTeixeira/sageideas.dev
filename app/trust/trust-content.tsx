@@ -26,6 +26,7 @@ import { TestimonialCard } from '@/components/testimonial-card'
 import { LogoStrip } from '@/components/logo-strip'
 import { EvidenceStrip } from '@/components/evidence-strip'
 import { references, trustedBy } from '@/data/references'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 const trustEvidence = [
   {
@@ -271,12 +272,13 @@ const honestyItems = [
 
 export function TrustContent() {
   return (
-    <div className="min-h-screen bg-[#09090B]">
+    <div className="relative min-h-screen bg-[#09090B]">
+          <PageHeroBg src="/images/hero-trust.jpg" />
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Evidence</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight">
             Why teams trust<br />the studio.
           </h1>
           <p className="mt-6 text-xl text-[#A8A29E] font-medium">We don&apos;t ask you to take our word for it. Here&apos;s the evidence.</p>
@@ -316,7 +318,7 @@ export function TrustContent() {
             <Activity className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Live receipts</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             What we promise, in numbers.
           </h2>
           <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
@@ -372,7 +374,7 @@ export function TrustContent() {
               <Shield className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Certifications</SectionLabel>
             </div>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-3">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-3">
               9 active certifications across testing, cloud, and networking.
             </h2>
             <p className="text-[#78716C] text-sm mb-2">
@@ -409,7 +411,7 @@ export function TrustContent() {
             <FileCheck className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Code Quality</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             Every project ships with these standards enforced.
           </h2>
         </motion.div>
@@ -438,7 +440,7 @@ export function TrustContent() {
               <TestTube className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Testing Infrastructure</SectionLabel>
             </div>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
               13 testing frameworks. Every layer covered.
             </h2>
             <p className="text-[#A8A29E] mb-3">
@@ -474,7 +476,7 @@ export function TrustContent() {
             <GitBranch className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>CI/CD Standards</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             No code ships without passing CI gates.
           </h2>
         </motion.div>
@@ -503,7 +505,7 @@ export function TrustContent() {
               <Cloud className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Infrastructure</SectionLabel>
             </div>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
               Terraform-managed. Security-scanned. Auditable.
             </h2>
             <p className="text-[#A8A29E] mb-8">All infrastructure provisioned via Terraform.</p>
@@ -533,7 +535,7 @@ export function TrustContent() {
             <Lock className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Open-Source Record</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             106 public repositories. 1,438 commits in the last year.
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -551,7 +553,7 @@ export function TrustContent() {
               transition={{ duration: 0.4, delay: i * 0.1 }}
               className="text-center p-4 bg-[#12110F] border border-[#2A2826] rounded-xl"
             >
-              <p className="text-3xl font-bold text-[#FAFAFA] font-mono">{stat.value}</p>
+              <p className="text-3xl font-normal text-[#FAFAFA] font-mono">{stat.value}</p>
               <p className="text-xs text-[#78716C] mt-1">{stat.label}</p>
             </motion.div>
           ))}
@@ -582,7 +584,7 @@ export function TrustContent() {
               <Database className="h-5 w-5 text-[#0ED3CF]" />
               <SectionLabel>Data handling</SectionLabel>
             </div>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
               Where your data lives, who can read it, and how long.
             </h2>
             <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
@@ -618,7 +620,7 @@ export function TrustContent() {
             <ScrollText className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>Engagement guarantees</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             What we put in writing.
           </h2>
           <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
@@ -654,7 +656,7 @@ export function TrustContent() {
               <AlertTriangle className="h-5 w-5 text-[#F59E0B]" />
               <SectionLabel>What could go wrong</SectionLabel>
             </div>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
               Here’s when we are the wrong fit.
             </h2>
             <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">
@@ -694,7 +696,7 @@ export function TrustContent() {
             <MessageSquareQuote className="h-5 w-5 text-[#0ED3CF]" />
             <SectionLabel>References</SectionLabel>
           </div>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="mt-2 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
             Talk to past collaborators directly.
           </h2>
           <p className="text-[#A8A29E] text-base leading-relaxed max-w-3xl">

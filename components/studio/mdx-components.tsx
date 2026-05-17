@@ -9,7 +9,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 export const legalMdxComponents: MDXComponents = {
   h1: (props: ComponentPropsWithoutRef<'h1'>) => (
     <h1
-      className="text-4xl sm:text-5xl font-bold tracking-tight text-[#FAFAFA] mb-6 mt-2 leading-tight"
+      className="text-4xl sm:text-5xl font-normal tracking-tight text-[#FAFAFA] mb-6 mt-2 leading-tight"
       {...props}
     />
   ),

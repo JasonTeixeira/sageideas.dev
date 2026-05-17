@@ -158,7 +158,7 @@ export function ProcessContent() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Methodology</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight">
             Four steps.<br />No surprises.
           </h1>
           <p className="mt-6 text-xl text-[#A8A29E] leading-relaxed">
@@ -192,7 +192,7 @@ export function ProcessContent() {
                         <div className="flex items-center gap-4 mb-4">
                           <span
                             aria-hidden="true"
-                            className="text-5xl font-bold text-[#2A2826] font-mono leading-none select-none"
+                            className="text-5xl font-normal text-[#2A2826] font-mono leading-none select-none"
                           >
                             {step.number}
                           </span>
@@ -246,7 +246,7 @@ export function ProcessContent() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-[#2A2826]">
         <motion.div {...fadeInUp} className="mb-12">
           <SectionLabel>Evidence</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
             What each step actually produces.
           </h2>
           <p className="text-[#A8A29E] mt-4 max-w-2xl leading-relaxed">
@@ -297,7 +297,7 @@ export function ProcessContent() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Communication</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">What you can expect.</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">What you can expect.</h2>
           <p className="text-[#A8A29E] mb-10 max-w-2xl">
             Predictable, documented communication. No chasing updates. No wondering where your project is.
           </p>
@@ -325,7 +325,7 @@ export function ProcessContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <SectionLabel>FAQ</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10">Common questions.</h2>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-10">Common questions.</h2>
           </motion.div>
           <div className="max-w-3xl">
             {faqs.map((faq) => (

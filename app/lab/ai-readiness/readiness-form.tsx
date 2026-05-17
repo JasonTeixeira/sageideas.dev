@@ -138,13 +138,13 @@ function ResultPanel({ answers, onReset }: { answers: Answers; onReset: () => vo
             <span className="text-xs font-mono uppercase tracking-wider text-[#0ED3CF]">
               Your readiness band
             </span>
-            <h2 className="mt-2 text-4xl sm:text-5xl font-bold text-[#FAFAFA] tracking-tight">
+            <h2 className="mt-2 text-4xl sm:text-5xl font-normal text-[#FAFAFA] tracking-tight">
               {tier.band}
             </h2>
           </div>
           <div className="text-right sm:text-right">
             <div className="text-xs font-mono uppercase tracking-wider text-[#A8A29E]">Score</div>
-            <div className="mt-1 text-5xl font-bold text-[#FAFAFA] tracking-tight tabular-nums">
+            <div className="mt-1 text-5xl font-normal text-[#FAFAFA] tracking-tight tabular-nums">
               {total}<span className="text-2xl text-[#57534E]"> / {maxScore}</span>
             </div>
           </div>

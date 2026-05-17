@@ -61,7 +61,7 @@ export default function ChangelogPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="max-w-3xl">
           <SectionLabel>Changelog</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight tracking-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight tracking-tight">
             What we&apos;ve shipped.
           </h1>
           <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">
@@ -157,7 +157,7 @@ export default function ChangelogPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="rounded-2xl border border-[#2A2826] bg-gradient-to-br from-[#12110F] to-[#0B0A09] p-8 sm:p-12 text-center">
           <SectionLabel>What&apos;s next</SectionLabel>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
             New work ships every week.
           </h2>
           <p className="mt-3 text-[#A8A29E] leading-relaxed max-w-2xl mx-auto">

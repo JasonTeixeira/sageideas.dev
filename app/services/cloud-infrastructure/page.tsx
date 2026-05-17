@@ -27,7 +27,7 @@ export default function CloudInfraPage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <span className="text-xs font-mono text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full">Cloud & DevOps</span>
-        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
+        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] leading-tight">
           Cloud Infrastructure That Scales and Costs What It Should
         </h1>
         <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
@@ -45,7 +45,7 @@ export default function CloudInfraPage() {
 
       {/* Capabilities */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">Cloud Capabilities</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-8">Cloud Capabilities</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {capabilities.map(cap => (
             <div key={cap.title} className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#F59E0B]/30 transition-colors">

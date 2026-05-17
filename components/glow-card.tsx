@@ -38,8 +38,8 @@ export function GlowCard({ children, className, glowColor = 'cyan' }: GlowCardPr
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        'relative bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden transition-all duration-300',
-        isHovered && 'border-[#0ED3CF]/50',
+        'relative bg-[#1A1917] border border-[#2A2826] rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.2)]',
+        isHovered && 'border-[#0ED3CF]/50 shadow-[0_8px_32px_rgba(14,211,207,0.08)]',
         className
       )}
       whileHover={{ y: -4 }}

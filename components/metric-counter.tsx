@@ -74,7 +74,7 @@ export function MetricCounter({ value, label }: MetricCounterProps) {
     >
       <div className="relative">
         <motion.div
-          className="text-4xl sm:text-5xl font-bold text-[#FAFAFA] mb-2 font-mono"
+          className="text-4xl sm:text-5xl font-normal text-[#FAFAFA] mb-2 font-mono"
           animate={hasAnimated ? { scale: [1, 1.05, 1] } : {}}
           transition={{ duration: 0.3 }}
         >

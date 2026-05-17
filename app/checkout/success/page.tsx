@@ -18,7 +18,7 @@ export default function CheckoutSuccessPage() {
           <Check className="w-8 h-8 text-[#0ED3CF]" />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+        <h1 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
           Payment confirmed.
         </h1>
 

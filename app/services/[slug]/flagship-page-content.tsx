@@ -123,7 +123,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
               Flagship engagement
             </div>
 
-            <h1 className="text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight tracking-tight">
+            <h1 className="text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight tracking-tight">
               {tier.name}
             </h1>
             <p
@@ -139,7 +139,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             {/* Price + chips */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-[#FAFAFA]">
+                <span className="text-4xl font-normal text-[#FAFAFA]">
                   {tier.price}
                 </span>
                 {tier.cadence === 'monthly' && (
@@ -219,7 +219,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Why this exists</SectionLabel>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] max-w-3xl leading-tight">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] max-w-3xl leading-tight">
               {visuals.story.headline}
             </h2>
             <p
@@ -269,7 +269,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               The architecture, end to end
             </h2>
             <p className="text-[#A8A29E] mb-6 max-w-2xl">
@@ -296,7 +296,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Listen in</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               A real call, scripted from a real deployment
             </h2>
             <p className="text-[#A8A29E] mb-6 max-w-2xl">
@@ -317,7 +317,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Where this fits</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               Real use cases we ship
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -361,7 +361,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Your command center</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               The dashboard you actually use
             </h2>
             <p className="text-[#A8A29E] mb-6 max-w-2xl">
@@ -393,7 +393,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Cost forecast</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-6">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-6">
               Estimate your monthly run cost
             </h2>
             <AgentCostEstimator
@@ -419,7 +419,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
           transition={fadeUp.transition}
         >
           <SectionLabel>Outcomes</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
             What you get
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -453,7 +453,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Agent flow</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               How the agent thinks
             </h2>
             <p className="text-[#A8A29E] mb-6 max-w-2xl">
@@ -478,7 +478,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Methodology</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               How we run this engagement
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -561,7 +561,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>By the numbers</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               Typical results
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -581,7 +581,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                     {m.context ?? 'Result'}
                   </div>
                   <div
-                    className="mt-2 text-3xl font-bold tabular-nums"
+                    className="mt-2 text-3xl font-normal tabular-nums"
                     style={{ color: '#FAFAFA' }}
                   >
                     {m.value}
@@ -651,7 +651,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>Add-ons</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-6">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-6">
               Extend the engagement
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -697,7 +697,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
             transition={fadeUp.transition}
           >
             <SectionLabel>FAQ</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-6">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-6">
               Honest answers
             </h2>
             <div className="space-y-3 max-w-3xl">
@@ -742,7 +742,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
                 className="w-10 h-10 mx-auto mb-4"
                 style={{ color: accent }}
               />
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] max-w-2xl mx-auto leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] max-w-2xl mx-auto leading-tight">
                 Ready to scope this for your business?
               </h2>
               <p className="mt-4 text-[#A8A29E] max-w-xl mx-auto">

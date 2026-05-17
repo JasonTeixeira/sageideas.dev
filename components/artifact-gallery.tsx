@@ -84,7 +84,7 @@ export function ArtifactGallery({
             </div>
           )}
           {title && (
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FAFAFA]">
+            <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-[#FAFAFA]">
               {title}
             </h3>
           )}

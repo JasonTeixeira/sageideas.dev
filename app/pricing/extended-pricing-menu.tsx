@@ -122,7 +122,7 @@ export function ExtendedPricingMenu({
         <span className="text-xs font-mono uppercase tracking-widest text-[#0ED3CF]">
           Full menu
         </span>
-        <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-3">
+        <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-3">
           Every engagement, in one place.
         </h2>
         <p className="text-[#A8A29E] max-w-2xl">

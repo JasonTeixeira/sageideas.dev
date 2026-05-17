@@ -68,7 +68,7 @@ export default function ServicesPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="max-w-3xl">
             <SectionLabel>Engagements</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               Engineering. AI. Automation.{' '}
               <span className="text-[#0ED3CF]">Custom welcome.</span>
             </h1>
@@ -130,7 +130,7 @@ export default function ServicesPage() {
             Productized engagements
           </span>
         </div>
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">Engineering & QA</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">Engineering & QA</h2>
         <p className="text-[#A8A29E] mb-8 max-w-2xl">
           Fixed scope, fixed price, Stripe checkout. The original Sage Ideas catalog —
           strategy audits, marketing-site sprints, brand work, and platform builds.
@@ -146,7 +146,7 @@ export default function ServicesPage() {
             AI & Automation
           </span>
         </div>
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">
           Twenty-two more ways we can help.
         </h2>
         <p className="text-[#A8A29E] mb-6 max-w-2xl">
@@ -168,7 +168,7 @@ export default function ServicesPage() {
             Proof from the Lab
           </span>
         </div>
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">
           We ship these patterns ourselves first.
         </h2>
         <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -229,7 +229,7 @@ export default function ServicesPage() {
             Monthly retainers
           </span>
         </div>
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">Care plans</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">Care plans</h2>
         <p className="text-[#A8A29E] mb-8 max-w-2xl">
           Lightweight monthly retainers for teams who already shipped. Cancel anytime.
         </p>
@@ -276,7 +276,7 @@ export default function ServicesPage() {
               Custom packages
             </span>
           </div>
-          <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">
             Or scope something custom.
           </h2>
           <p className="text-[#A8A29E] max-w-2xl leading-relaxed mb-6">
@@ -312,7 +312,7 @@ export default function ServicesPage() {
           <p className="text-[#78716C] text-sm font-mono uppercase tracking-widest mb-3">
             Not sure which fits?
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-4">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-4">
             Start with a conversation.
           </h2>
           <p className="text-[#A8A29E] max-w-xl mx-auto mb-8">

@@ -88,7 +88,7 @@ export function ContactContent() {
           <div className="w-16 h-16 bg-[#10B981]/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="h-8 w-8 text-[#10B981]" />
           </div>
-          <h1 className="text-3xl font-bold text-[#FAFAFA] mb-4">Message Sent!</h1>
+          <h1 className="text-3xl font-normal text-[#FAFAFA] mb-4">Message Sent!</h1>
           <p className="text-[#A8A29E] mb-8">
             {"Thanks for reaching out. I'll get back to you within 24 hours."}
           </p>
@@ -110,7 +110,7 @@ export function ContactContent() {
           transition={{ duration: 0.6 }}
         >
           <SectionLabel>Contact</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA]">
             {"Let's Work Together"}
           </h1>
           <p className="mt-6 text-lg text-[#A8A29E] max-w-2xl">

@@ -44,7 +44,7 @@ export function HowItWorksContent() {
             className="max-w-3xl"
           >
             <SectionLabel>How it works</SectionLabel>
-            <h1 className="mt-4 text-5xl font-bold leading-tight text-[#FAFAFA] sm:text-6xl">
+            <h1 className="mt-4 text-5xl font-normal leading-tight text-[#FAFAFA] sm:text-6xl">
               Every service, end to end —
               <span className="block bg-gradient-to-r from-cyan-300 via-violet-300 to-cyan-300 bg-clip-text text-transparent">
                 visualized stage by stage.
@@ -202,7 +202,7 @@ export function HowItWorksContent() {
             <div className="grid gap-6 p-8 md:grid-cols-[1.5fr,1fr] md:p-10">
               <div>
                 <SectionLabel>Custom & retainers</SectionLabel>
-                <h2 className="mt-3 text-3xl font-bold text-white">
+                <h2 className="mt-3 text-3xl font-normal text-white">
                   Not sure which pipeline fits?
                 </h2>
                 <p className="mt-3 max-w-2xl text-zinc-400">

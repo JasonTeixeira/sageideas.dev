@@ -40,7 +40,7 @@ export function IndustriesIndexContent({
             className="max-w-3xl"
           >
             <SectionLabel>Industries</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               Five verticals.{' '}
               <span className="text-[#0ED3CF]">Operator-grade execution.</span>
             </h1>
@@ -119,7 +119,7 @@ export function IndustriesIndexContent({
           transition={{ duration: 0.55 }}
           className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
             Industry not listed?
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">

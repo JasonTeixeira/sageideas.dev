@@ -71,7 +71,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Founder</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight">
             Jason Teixeira.
           </h1>
           <p className="mt-6 text-xl text-[#A8A29E] leading-relaxed font-medium">
@@ -142,7 +142,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <SectionLabel>The Studio Approach</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-8">
               Why a one-person studio is the offer, not the limitation.
             </h2>
             <p className="text-[#A8A29E] text-lg leading-relaxed max-w-3xl mb-10">
@@ -175,7 +175,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Two Tracks</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-8">
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-8">
             How engagements work.
           </h2>
         </motion.div>
@@ -242,7 +242,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <SectionLabel>Background</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10">The background.</h2>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-10">The background.</h2>
           </motion.div>
 
           {/* Experience */}
@@ -298,7 +298,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Certifications</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-3">9 active certifications.</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-3">9 active certifications.</h2>
           <p className="text-[#A8A29E] mb-10 max-w-2xl">
             Each one reflects a domain where the studio works. All active and maintained.
           </p>
@@ -332,7 +332,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp}>
             <SectionLabel>Capabilities</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-3">What lands on every engagement.</h2>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-3">What lands on every engagement.</h2>
             <p className="text-[#A8A29E] mb-10 max-w-2xl">
               The studio is intentionally narrow on offer surface and broad on capability. Whatever the engagement —
               audit, sprint, build, or operate — these are the disciplines on the table.
@@ -360,7 +360,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Get Started</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10">How to start a conversation.</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-10">How to start a conversation.</h2>
         </motion.div>
         <div className="grid sm:grid-cols-2 gap-6 max-w-3xl">
           {[
@@ -395,7 +395,7 @@ export function FounderAnimations({ capabilities, principles }: Props) {
                 <GlowCard className="h-full">
                   <div className="p-8">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-4xl font-bold text-[#2A2826] font-mono">{step.step}</span>
+                      <span className="text-4xl font-normal text-[#2A2826] font-mono">{step.step}</span>
                       <Icon className="h-5 w-5 text-[#0ED3CF]" />
                     </div>
                     <h3 className="mt-3 text-xl font-semibold text-[#FAFAFA] mb-3">{step.title}</h3>

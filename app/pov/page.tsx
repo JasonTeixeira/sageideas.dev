@@ -25,7 +25,7 @@ export default function POVPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(6,182,212,0.10),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(139,92,246,0.08),transparent_55%)]" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
           <SectionLabel>Sage Ideas · POV</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight leading-[1.05]">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight leading-[1.05]">
             Why we refuse to ship anything that can&rsquo;t be rolled back in
             30 seconds.
           </h1>
@@ -69,7 +69,7 @@ export default function POVPage() {
             a 24/7 ops team behind it.
           </p>
 
-          <h2 className="pt-6 text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             What &ldquo;30-second rollback&rdquo; actually means.
           </h2>
 
@@ -102,7 +102,7 @@ export default function POVPage() {
             anyone has ever shipped software.
           </p>
 
-          <h2 className="pt-6 text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             The cost is real. So is the math.
           </h2>
 
@@ -125,7 +125,7 @@ export default function POVPage() {
             constraint paying out.
           </p>
 
-          <h2 className="pt-6 text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             Why this matters for the people who hire us.
           </h2>
 
@@ -145,7 +145,7 @@ export default function POVPage() {
             Clarity transfers.
           </p>
 
-          <h2 className="pt-6 text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             What it looks like in practice.
           </h2>
 
@@ -162,7 +162,7 @@ export default function POVPage() {
             the language of the person who has to push the button at 2 a.m.
           </p>
 
-          <h2 className="pt-6 text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+          <h2 className="pt-6 text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
             The studio takes one bet on every engagement.
           </h2>
 

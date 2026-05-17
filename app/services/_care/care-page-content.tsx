@@ -220,7 +220,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
                 Cancel anytime
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               {care.name}
             </h1>
             <p className="mt-4 text-2xl text-[#A8A29E] leading-snug">
@@ -362,7 +362,7 @@ export function CarePageContent({ care }: { care: CareTier }) {
           {...fadeUp}
           className="rounded-2xl bg-gradient-to-br from-[#E85D3A]/10 via-[#12110F] to-[#0ED3CF]/10 border border-[#E85D3A]/20 p-8 sm:p-12 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
             Ready for steady upkeep?
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">

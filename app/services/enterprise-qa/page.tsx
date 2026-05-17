@@ -34,7 +34,7 @@ export default function EnterpriseQAPage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <span className="text-xs font-mono text-[#10B981] bg-[#10B981]/10 px-3 py-1 rounded-full">Enterprise QA</span>
-        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
+        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] leading-tight">
           QA Automation That Ships Confidence
         </h1>
         <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
@@ -55,11 +55,11 @@ export default function EnterpriseQAPage() {
 
       {/* Results */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">Proven Results</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-8">Proven Results</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {results.map(r => (
             <div key={r.label} className="p-5 bg-[#1A1917] border border-[#2A2826] rounded-2xl">
-              <p className="text-3xl font-bold text-[#0ED3CF]">{r.metric}</p>
+              <p className="text-3xl font-normal text-[#0ED3CF]">{r.metric}</p>
               <p className="text-sm font-medium text-[#FAFAFA] mt-1">{r.label}</p>
               <p className="text-xs text-[#78716C] mt-2">{r.context}</p>
             </div>
@@ -69,7 +69,7 @@ export default function EnterpriseQAPage() {
 
       {/* Frameworks */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">Testing Frameworks I Build</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-8">Testing Frameworks I Build</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {frameworks.map(fw => (
             <Link key={fw.title} href={fw.link} className="block p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#0ED3CF]/30 transition-colors group">

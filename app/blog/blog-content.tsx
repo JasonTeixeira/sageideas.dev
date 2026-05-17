@@ -75,7 +75,7 @@ export function BlogContent() {
           transition={{ duration: 0.6 }}
         >
           <SectionLabel>Blog</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA]">
             Engineering &amp; Architecture
           </h1>
           <p className="mt-6 text-lg text-[#A8A29E] max-w-2xl">
@@ -119,7 +119,7 @@ export function BlogContent() {
                       {featuredPost.readTime}
                     </span>
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] leading-tight group-hover:text-[#0ED3CF] transition-colors">
+                  <h2 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] leading-tight group-hover:text-[#0ED3CF] transition-colors">
                     {featuredPost.title}
                   </h2>
                   <p className="mt-5 text-[#A8A29E] leading-relaxed line-clamp-3">

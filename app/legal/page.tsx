@@ -56,7 +56,7 @@ export default function LegalIndexPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="mb-12">
           <SectionLabel>Legal</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA]">Legal Documents</h1>
+          <h1 className="mt-4 text-4xl sm:text-5xl font-normal text-[#FAFAFA]">Legal Documents</h1>
           <p className="mt-4 text-lg text-[#A8A29E] max-w-2xl">
             All governing documents for Sage Ideas LLC — client contracts, privacy terms, and policy templates. Written
             in plain language where possible.

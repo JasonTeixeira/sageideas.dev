@@ -11,6 +11,7 @@ import { CareCheckoutButton } from '@/components/studio/care-checkout-button'
 import { careTiers } from '@/data/services/tiers'
 import { RefreshCw, Sparkles } from 'lucide-react'
 import { pricingFaq } from '@/data/services/pricing-faq'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 const tableColumns = [
   { label: 'Tier', key: 'name' },
@@ -33,7 +34,8 @@ const bestForMap: Record<string, string> = {
 
 export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
   return (
-    <div className="min-h-screen bg-[#09090B]">
+    <div className="relative min-h-screen bg-[#09090B]">
+          <PageHeroBg src="/images/hero-pricing.jpg" />
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-25" />
@@ -45,7 +47,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
             className="max-w-3xl"
           >
             <SectionLabel>Pricing</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               Three lanes.{' '}
               <span className="text-[#0ED3CF]">No asterisks.</span>
             </h1>
@@ -74,7 +76,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
       <section className="border-y border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <SectionLabel>Choose a lane</SectionLabel>
-          <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-2">
+          <h2 className="mt-3 text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-2">
             Three ways to engage. One studio behind all of them.
           </h2>
           <p className="text-[#A8A29E] mb-10 max-w-2xl">
@@ -94,7 +96,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#0ED3CF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </div>
-              <div className="text-3xl font-bold text-[#FAFAFA] mb-2">$750 — $9,500+</div>
+              <div className="text-3xl font-normal text-[#FAFAFA] mb-2">$750 — $9,500+</div>
               <p className="text-sm text-[#A8A29E] leading-relaxed mb-4 flex-1">
                 Ten fixed-scope engagements. Pick a tier, see the deliverables,
                 check out on Stripe. Best for one-off projects with a clear
@@ -125,7 +127,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#E85D3A] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
               </div>
-              <div className="text-3xl font-bold text-[#FAFAFA] mb-2">
+              <div className="text-3xl font-normal text-[#FAFAFA] mb-2">
                 $300 — $800<span className="text-base text-[#78716C] font-normal">/mo</span>
               </div>
               <p className="text-sm text-[#A8A29E] leading-relaxed mb-4 flex-1">
@@ -157,7 +159,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
                   Lane 03 — Studio Engagement
                 </div>
               </div>
-              <div className="text-3xl font-bold text-[#FAFAFA] mb-2">
+              <div className="text-3xl font-normal text-[#FAFAFA] mb-2">
                 From $25k<span className="text-base text-[#78716C] font-normal"> / quarter</span>
               </div>
               <p className="text-sm text-[#A8A29E] leading-relaxed mb-4 flex-1">
@@ -404,7 +406,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
               <div className="inline-flex items-center gap-2 rounded-full border border-[#FAFAFA]/20 bg-[#09090B]/60 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-[#FAFAFA] mb-5">
                 <Lock className="w-3 h-3" /> Lane 03 — By application only
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4 tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4 tracking-tight leading-tight">
                 Studio Engagement.
                 <br />
                 One quarter, one keyboard.
@@ -467,7 +469,7 @@ export function PricingContent({ tiers }: { tiers: readonly Tier[] }) {
               None of the lanes fit?
             </span>
           </div>
-          <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">
             Custom packages on request.
           </h2>
           <p className="text-[#A8A29E] max-w-2xl leading-relaxed mb-6">

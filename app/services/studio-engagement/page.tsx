@@ -157,7 +157,7 @@ function studioEngagementContent() {
             <Lock className="w-3 h-3" /> By application only
           </div>
           <SectionLabel>Studio Engagement</SectionLabel>
-          <h1 className="mt-3 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight leading-[1.05]">
+          <h1 className="mt-3 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight leading-[1.05]">
             One quarter. One keyboard.
             <br />
             <span className="text-[#0ED3CF]">Production-grade software</span>
@@ -225,7 +225,7 @@ function studioEngagementContent() {
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <SectionLabel>Built for</SectionLabel>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-6 leading-tight">
+            <h2 className="mt-3 text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-6 leading-tight">
               You should apply if&hellip;
             </h2>
             <ul className="space-y-3">
@@ -242,7 +242,7 @@ function studioEngagementContent() {
           </div>
           <div>
             <SectionLabel color="violet">Not built for</SectionLabel>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-6 leading-tight">
+            <h2 className="mt-3 text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-6 leading-tight">
               You should not apply if&hellip;
             </h2>
             <ul className="space-y-3">
@@ -276,7 +276,7 @@ function studioEngagementContent() {
       <section className="border-y border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <SectionLabel>What it includes</SectionLabel>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-12 leading-tight max-w-3xl">
+          <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-12 leading-tight max-w-3xl">
             What you actually get for one quarter of the studio.
           </h2>
           <div className="grid md:grid-cols-2 gap-5">
@@ -300,7 +300,7 @@ function studioEngagementContent() {
       {/* Cadence */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <SectionLabel>Cadence</SectionLabel>
-        <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10 leading-tight max-w-3xl">
+        <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-10 leading-tight max-w-3xl">
           Twelve weeks. One operator. Predictable rhythm.
         </h2>
         <div className="space-y-3">
@@ -330,7 +330,7 @@ function studioEngagementContent() {
       <section className="border-y border-[#2A2826] bg-[#0B0A09]/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <SectionLabel>How the application works</SectionLabel>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-10 leading-tight max-w-3xl">
+          <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-10 leading-tight max-w-3xl">
             Four steps. No sales theater.
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -389,7 +389,7 @@ function studioEngagementContent() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.08),transparent_70%)]" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
           <SectionLabel>Three slots open this year</SectionLabel>
-          <h2 className="mt-4 text-4xl sm:text-5xl font-bold text-[#FAFAFA] tracking-tight leading-tight">
+          <h2 className="mt-4 text-4xl sm:text-5xl font-normal text-[#FAFAFA] tracking-tight leading-tight">
             Apply if it&rsquo;s the right shape.
           </h2>
           <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-xl mx-auto">

@@ -59,7 +59,7 @@ export function TearsheetContent({ product }: Props) {
             <span className="text-xs font-mono text-[#78716C] uppercase tracking-wide">{product.category}</span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] tracking-tight">
             {product.name}
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">{product.tagline}</p>

@@ -17,7 +17,7 @@ export default async function LegalDocPage() {
         <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-3">
           Legal Document
         </p>
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#FAFAFA] leading-tight">
+        <h1 className="text-4xl sm:text-5xl font-normal tracking-tight text-[#FAFAFA] leading-tight">
           {frontmatter.title ?? 'Master Services Agreement'}
         </h1>
         {frontmatter.summary ? (

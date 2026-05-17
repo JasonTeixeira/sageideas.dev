@@ -32,7 +32,7 @@ export function EvidenceStrip({ items, heading, blurb, linkArtifacts = false }: 
       {(heading || blurb) && (
         <div className="max-w-2xl mb-8">
           {heading && (
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] tracking-tight">
               {heading}
             </h3>
           )}

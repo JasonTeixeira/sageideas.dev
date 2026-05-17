@@ -61,7 +61,7 @@ export default function SiteStarterPage() {
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-6">
             <div className="max-w-3xl">
               <SectionLabel>Site Starter</SectionLabel>
-              <h1 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] leading-tight">
+              <h1 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] leading-tight">
                 A real site, live in days. <span className="text-[#0ED3CF]">Pick a tier.</span>
               </h1>
               <p className="mt-3 text-base text-[#A8A29E] leading-relaxed max-w-2xl">
@@ -112,7 +112,7 @@ export default function SiteStarterPage() {
                   <p className="text-sm text-[#A8A29E] leading-snug">{tier.tagline}</p>
                 </div>
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-4xl font-bold text-[#FAFAFA]">{tier.price}</span>
+                  <span className="text-4xl font-normal text-[#FAFAFA]">{tier.price}</span>
                   <span className="text-[#78716C] text-sm ml-1">one-time</span>
                 </div>
                 <div className="inline-flex items-center gap-1 text-xs text-[#78716C] mb-5">
@@ -138,7 +138,7 @@ export default function SiteStarterPage() {
 
         {/* What's included across all tiers */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <h2 className="text-3xl font-bold text-[#FAFAFA] mb-3">Every tier ships with</h2>
+          <h2 className="text-3xl font-normal text-[#FAFAFA] mb-3">Every tier ships with</h2>
           <p className="text-[#A8A29E] mb-8 max-w-2xl">
             The baseline you should expect from any site we build — not optional, not negotiated.
           </p>
@@ -163,7 +163,7 @@ export default function SiteStarterPage() {
 
         {/* Comparison */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <h2 className="text-3xl font-bold text-[#FAFAFA] mb-6">How to pick</h2>
+          <h2 className="text-3xl font-normal text-[#FAFAFA] mb-6">How to pick</h2>
           <div className="rounded-2xl border border-[#2A2826] bg-[#12110F] overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-[#1A1917] border-b border-[#2A2826]">
@@ -238,7 +238,7 @@ export default function SiteStarterPage() {
                 <span className="text-[10px] font-mono uppercase tracking-widest text-[#E85D3A] mb-3 inline-block">
                   Add ongoing maintenance
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+                <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
                   Add Site Care — $300/mo
                 </h2>
                 <p className="text-[#A8A29E] leading-relaxed">
@@ -259,7 +259,7 @@ export default function SiteStarterPage() {
 
         {/* FAQ */}
         <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-          <h2 className="text-3xl font-bold text-[#FAFAFA] mb-6">Common questions</h2>
+          <h2 className="text-3xl font-normal text-[#FAFAFA] mb-6">Common questions</h2>
           <div className="space-y-5">
             {[
               {

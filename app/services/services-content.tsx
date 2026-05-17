@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button'
 import { SectionLabel } from '@/components/section-label'
 import { GlowCard } from '@/components/glow-card'
 import {
+import { PageHeroBg } from '@/components/page-hero-bg'
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -155,7 +156,8 @@ const faqs = [
 
 export function ServicesContent() {
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <div className="relative min-h-screen pt-24 pb-20">
+          <PageHeroBg src="/images/hero-services.jpg" />
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <motion.div
@@ -165,7 +167,7 @@ export function ServicesContent() {
           className="max-w-3xl"
         >
           <SectionLabel>Services</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA]">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA]">
             What I Build For You
           </h1>
           <p className="mt-6 text-lg text-[#A8A29E]">
@@ -247,7 +249,7 @@ export function ServicesContent() {
             className="mb-12"
           >
             <SectionLabel>Process</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA]">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA]">
               How We Work Together
             </h2>
           </motion.div>
@@ -285,7 +287,7 @@ export function ServicesContent() {
             className="mb-12"
           >
             <SectionLabel>FAQ</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA]">
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA]">
               Common Questions
             </h2>
           </motion.div>
@@ -442,7 +444,7 @@ export function ServicesContent() {
               </div>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">
               Ready to Build Something?
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl mx-auto">

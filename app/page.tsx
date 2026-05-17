@@ -773,7 +773,7 @@ export default function HomePage() {
                   <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#0ED3CF] mb-2">
                     Sage Ideas LLC
                   </div>
-                  <div className="text-2xl lg:text-3xl font-bold text-[#FAFAFA] tracking-tight">
+                  <div className="text-2xl lg:text-3xl font-normal text-[#FAFAFA] tracking-tight">
                     Jason Teixeira
                   </div>
                   <div className="text-sm text-[#A8A29E] mt-1">

@@ -55,7 +55,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             </div>
 
             <SectionLabel>Industry</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               {v.heroH1}
             </h1>
             <p className="mt-3 text-xl text-[#0ED3CF] font-medium">{v.tagline}</p>
@@ -99,7 +99,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
           transition={{ duration: 0.55 }}
         >
           <SectionLabel>Why us</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
             Why Sage Ideas for {v.shortName}
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -132,7 +132,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Challenges</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               What we solve
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -175,7 +175,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Engagements</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               Recommended tiers
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -244,7 +244,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Proof</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               Relevant work
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -296,7 +296,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>FAQ</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               {v.shortName} questions
             </h2>
             <div className="space-y-4">
@@ -352,7 +352,7 @@ export function IndustryPageContent({ vertical: v }: { vertical: Vertical }) {
           transition={{ duration: 0.55 }}
           className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
             {v.ctaLine}
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">

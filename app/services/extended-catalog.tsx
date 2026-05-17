@@ -151,7 +151,7 @@ export function ExtendedCatalog() {
               </div>
               <h2
                 id={`cat-heading-${cat.key}`}
-                className={`font-bold text-[#FAFAFA] mb-2 ${
+                className={`font-normal text-[#FAFAFA] mb-2 ${
                   isFlagship ? 'text-4xl sm:text-5xl tracking-tight' : 'text-3xl'
                 }`}
               >

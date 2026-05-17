@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* Header */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <SectionLabel>{post.category}</SectionLabel>
-          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-normal text-[#FAFAFA] leading-tight">
             {post.title}
           </h1>
 

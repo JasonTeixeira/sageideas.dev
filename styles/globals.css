@@ -184,4 +184,58 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Page entrance animation — every main content fades in */
+  main {
+    animation: sage-fade-in 0.5s ease-out both;
+  }
+
+  @keyframes sage-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ─── Card depth system ─── */
+/* Consistent shadow + lift across all card patterns */
+.sage-card,
+[class*="rounded-2xl"][class*="border"][class*="bg-[#12110F]"],
+[class*="rounded-xl"][class*="border"][class*="bg-[#12110F]"],
+[class*="rounded-2xl"][class*="border"][class*="bg-[#1A1917]"] {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.sage-card:hover,
+[class*="rounded-2xl"][class*="border"][class*="bg-[#12110F]"]:hover,
+[class*="rounded-xl"][class*="border"][class*="bg-[#12110F]"]:hover,
+[class*="rounded-2xl"][class*="border"][class*="bg-[#1A1917]"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(14, 211, 207, 0.06), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated counter for stats */
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+/* Premium link underline animation */
+a[class*="text-[#0ED3CF]"] {
+  text-decoration: none;
+  background-image: linear-gradient(#0ED3CF, #0ED3CF);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.3s ease;
+}
+
+a[class*="text-[#0ED3CF]"]:hover {
+  background-size: 100% 1px;
 }

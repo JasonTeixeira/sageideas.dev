@@ -6,6 +6,7 @@ import { SectionLabel } from '@/components/section-label'
 import { GlowCard } from '@/components/glow-card'
 import { WorkGrid } from './work-grid'
 import { caseStudies } from '@/data/work/case-studies'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.sageideas.dev/work' },
@@ -22,13 +23,14 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <div className="min-h-screen bg-[#09090B]">
+    <div className="relative min-h-screen bg-[#09090B]">
+          <PageHeroBg src="/images/hero-work.jpg" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Hero */}
         <section className="mb-20">
           <div>
             <SectionLabel>Case Studies</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] tracking-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] tracking-tight">
               The work speaks.
             </h1>
             <p className="mt-6 text-xl text-[#A8A29E] max-w-2xl">

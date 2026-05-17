@@ -137,7 +137,7 @@ export function DecisionTree() {
         </span>
       </div>
       <div className="flex items-end justify-between gap-3 mb-6">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA]">
+        <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA]">
           Three quick questions.
         </h2>
         {(stage || pain) && (

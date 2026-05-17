@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { GlowCard } from '@/components/glow-card'
 import { type LabProduct } from '@/data/lab/products'
+import { PageHeroBg } from '@/components/page-hero-bg'
 
 const statusStyles: Record<string, string> = {
   Production: 'text-green-400 bg-green-500/20 border-green-500/30',
@@ -26,7 +27,8 @@ interface LabGridProps {
 
 export function LabGrid({ products }: LabGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <PageHeroBg src="/images/hero-lab.jpg" />
       {products.map((product, i) => (
         <motion.div
           key={product.slug}

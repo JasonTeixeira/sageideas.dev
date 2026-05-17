@@ -232,7 +232,7 @@ function ContactInner() {
               <CheckCircle2 className="h-4 w-4 text-[#10B981]" />
               <span className="text-xs font-mono uppercase tracking-widest text-[#10B981]">Inquiry received</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#FAFAFA] leading-tight">Got it. Check your inbox.</h1>
+            <h1 className="text-4xl sm:text-5xl font-normal text-[#FAFAFA] leading-tight">Got it. Check your inbox.</h1>
             <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">
               A confirmation just landed at <span className="text-[#FAFAFA] font-mono">{email}</span>. Every inquiry is
               read personally — well-matched ones get a response within 48 hours.
@@ -260,7 +260,7 @@ function ContactInner() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Contact</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight">
             Start a conversation.
           </h1>
           <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed">
@@ -518,7 +518,7 @@ function ContactInner() {
           {/* What to expect timeline */}
           <motion.div {...fadeInUp}>
             <SectionLabel>What to expect</SectionLabel>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+            <h2 className="mt-3 text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
               From inquiry to kickoff, in four steps.
             </h2>
             <p className="mt-3 text-[#A8A29E] leading-relaxed max-w-2xl">

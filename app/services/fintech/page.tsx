@@ -34,7 +34,7 @@ export default function FintechPage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <span className="text-xs font-mono text-[#E85D3A] bg-[#E85D3A]/10 px-3 py-1 rounded-full">FinTech Development</span>
-        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] leading-tight">
+        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] leading-tight">
           Trading Platforms & Financial Systems
         </h1>
         <p className="mt-6 text-lg text-[#A8A29E] max-w-3xl">
@@ -58,7 +58,7 @@ export default function FintechPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {proofPoints.map(point => (
             <div key={point.label} className="p-5 bg-[#1A1917] border border-[#2A2826] rounded-2xl text-center">
-              <p className="text-3xl font-bold text-[#FAFAFA]">{point.metric}</p>
+              <p className="text-3xl font-normal text-[#FAFAFA]">{point.metric}</p>
               <p className="text-sm text-[#A8A29E] mt-1">{point.label}</p>
               <p className="text-xs text-[#78716C] mt-1">{point.detail}</p>
             </div>
@@ -68,7 +68,7 @@ export default function FintechPage() {
 
       {/* Capabilities */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <h2 className="text-3xl font-bold text-[#FAFAFA] mb-8">What I Build for FinTech</h2>
+        <h2 className="text-3xl font-normal text-[#FAFAFA] mb-8">What I Build for FinTech</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {capabilities.map(cap => (
             <div key={cap.title} className="p-6 bg-[#1A1917] border border-[#2A2826] rounded-2xl hover:border-[#0ED3CF]/30 transition-colors">

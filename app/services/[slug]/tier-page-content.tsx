@@ -75,7 +75,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             </div>
 
             <SectionLabel>Service</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               {tier.name}
             </h1>
             <p className="mt-3 text-xl text-[#0ED3CF] font-medium">{tier.tagline}</p>
@@ -86,7 +86,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             {/* Price + cadence chip */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-[#FAFAFA]">{tier.price}</span>
+                <span className="text-4xl font-normal text-[#FAFAFA]">{tier.price}</span>
                 {tier.cadence === 'monthly' && (
                   <span className="text-[#78716C] text-base">/mo</span>
                 )}
@@ -128,7 +128,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>By the numbers</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               Typical results
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -147,7 +147,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
                       {m.context ?? 'Result'}
                     </span>
                   </div>
-                  <div className="text-3xl font-bold text-[#FAFAFA] tabular-nums">
+                  <div className="text-3xl font-normal text-[#FAFAFA] tabular-nums">
                     {m.value}
                   </div>
                   <div className="text-sm text-[#A8A29E] mt-1">{m.label}</div>
@@ -165,7 +165,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
           transition={{ duration: 0.55 }}
         >
           <SectionLabel>Outcomes</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">What you get</h2>
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">What you get</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {tier.outcomes.map((outcome, i) => (
               <motion.div
@@ -197,7 +197,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
               transition={{ duration: 0.55 }}
             >
               <SectionLabel>The journey</SectionLabel>
-              <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-3">
+              <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-3">
                 How {tier.name} actually runs
               </h2>
               <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -219,7 +219,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Methodology</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               How we run this
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -294,7 +294,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
           transition={{ duration: 0.55 }}
         >
           <SectionLabel>Deliverables</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">What&apos;s included</h2>
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">What&apos;s included</h2>
           <GlowCard>
             <div className="p-6 sm:p-8">
               <ul className="space-y-3">
@@ -325,7 +325,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Sample</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               See what you&apos;ll get
             </h2>
             <div className="rounded-2xl bg-gradient-to-br from-[#12110F] via-[#12110F] to-[#0ED3CF]/5 border border-[#2A2826] p-6 sm:p-8">
@@ -369,7 +369,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Add-ons</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-2">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-2">
               Extend the engagement
             </h2>
             <p className="text-[#A8A29E] mb-8 max-w-2xl">
@@ -413,7 +413,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Scope</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">Not included</h2>
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">Not included</h2>
             <div className="rounded-xl border border-[#2A2826]/60 bg-[#12110F]/50 p-6">
               <ul className="space-y-2.5">
                 {tier.notIncluded.map((item) => (
@@ -439,7 +439,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>Proof</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">
               Related case studies
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -491,7 +491,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
             transition={{ duration: 0.55 }}
           >
             <SectionLabel>FAQ</SectionLabel>
-            <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA] mb-8">Frequently asked</h2>
+            <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA] mb-8">Frequently asked</h2>
             <div className="space-y-4">
               {tier.faq.map((item, i) => (
                 <motion.div
@@ -518,7 +518,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
           transition={{ duration: 0.55 }}
           className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
             Ready to get started?
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">

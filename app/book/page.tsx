@@ -28,7 +28,7 @@ export default function BookPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
           <div className="max-w-2xl">
             <SectionLabel>Discovery Call</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               Book a 30-minute
               <br />
               <span className="text-[#0ED3CF]">discovery call.</span>
@@ -87,7 +87,7 @@ export default function BookPage() {
             <p className="text-xs font-mono text-[#0ED3CF] uppercase tracking-widest mb-3">
               Two ways to start
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] tracking-tight">
               Pick what feels lighter.
             </h2>
             <p className="mt-3 text-[#A8A29E] leading-relaxed">

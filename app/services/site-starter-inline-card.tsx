@@ -41,7 +41,7 @@ export function SiteStarterInlineCard() {
             </div>
 
             <div className="flex items-baseline gap-1 mb-1">
-              <span className="text-3xl font-bold text-[#FAFAFA]">$1,500</span>
+              <span className="text-3xl font-normal text-[#FAFAFA]">$1,500</span>
               <span className="text-[#78716C] text-sm">to $3,500</span>
             </div>
 

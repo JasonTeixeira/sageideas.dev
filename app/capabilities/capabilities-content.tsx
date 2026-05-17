@@ -112,7 +112,7 @@ export function CapabilitiesContent() {
             className="max-w-3xl"
           >
             <SectionLabel>Capabilities</SectionLabel>
-            <h1 className="mt-4 text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="mt-4 text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               Eight capabilities.{' '}
               <span className="text-[#0ED3CF]">Four modes.</span>{' '}
               <span className="text-[#E85D3A]">Every cell filled.</span>
@@ -474,7 +474,7 @@ export function CapabilitiesContent() {
           transition={{ duration: 0.55 }}
           className="rounded-2xl bg-gradient-to-br from-[#0ED3CF]/10 via-[#12110F] to-[#E85D3A]/10 border border-[#0ED3CF]/20 p-8 sm:p-12 text-center"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#FAFAFA] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-normal text-[#FAFAFA] mb-3">
             Not sure which capability you need?
           </h2>
           <p className="text-[#A8A29E] mb-8 max-w-lg mx-auto">

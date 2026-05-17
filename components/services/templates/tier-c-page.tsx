@@ -46,7 +46,7 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
                 <ServiceIcon name={meta.icon} className={`w-7 h-7 ${accent.text}`} />
               </div>
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-[#FAFAFA] leading-tight">
+                <h1 className="text-3xl sm:text-4xl font-normal text-[#FAFAFA] leading-tight">
                   {tier.name}
                 </h1>
                 <p className={`mt-2 ${accent.text} font-medium`}>{tier.tagline}</p>
@@ -64,7 +64,7 @@ export function TierCPage({ tier }: { tier: Tier | ExtendedTier }) {
             <p className="text-[#A8A29E] leading-relaxed">{tier.description}</p>
 
             <div className="mt-6 flex items-baseline gap-1">
-              <span className="text-4xl font-bold text-[#FAFAFA]">{tier.price}</span>
+              <span className="text-4xl font-normal text-[#FAFAFA]">{tier.price}</span>
               {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
                 <span className="text-[#78716C] text-sm">/mo</span>
               )}

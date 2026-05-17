@@ -23,7 +23,7 @@ export default function CompareIndexPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <header className="mb-12">
           <SectionLabel>Compare</SectionLabel>
-          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight">
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight">
             Sage Ideas vs the alternatives.
           </h1>
           <p className="mt-4 text-xl text-[#A8A29E] max-w-2xl">

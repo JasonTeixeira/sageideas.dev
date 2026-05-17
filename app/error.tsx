@@ -32,7 +32,7 @@ export default function ErrorBoundary({
             Status 500 · unexpected error
           </span>
         </div>
-        <h1 className="text-6xl sm:text-7xl font-bold text-[#FAFAFA] leading-none tracking-tight">
+        <h1 className="text-6xl sm:text-7xl font-normal text-[#FAFAFA] leading-none tracking-tight">
           Something failed.
         </h1>
         <p className="mt-6 text-lg text-[#A8A29E] leading-relaxed max-w-xl">

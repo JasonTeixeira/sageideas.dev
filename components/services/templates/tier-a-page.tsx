@@ -77,7 +77,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
               <SectionLabel>{cadenceLabel[tier.cadence]}</SectionLabel>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl font-bold text-[#FAFAFA] leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-normal text-[#FAFAFA] leading-tight">
               {tier.name}
             </h1>
             <p className={`mt-4 text-xl ${accent.text} font-medium`}>{tier.tagline}</p>
@@ -85,7 +85,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold text-[#FAFAFA]">{tier.price}</span>
+                <span className="text-3xl font-normal text-[#FAFAFA]">{tier.price}</span>
                 {tier.cadence === 'monthly' && !tier.price.includes('/mo') && (
                   <span className="text-[#78716C] text-sm">/mo</span>
                 )}
@@ -127,7 +127,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {/* Deliverables grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <SectionLabel>Deliverables</SectionLabel>
-        <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
+        <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">
           Concrete artifacts you keep.
         </h2>
         <p className="mt-3 text-[#A8A29E] max-w-2xl">
@@ -161,7 +161,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {/* Outcomes */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <SectionLabel>What you walk away with</SectionLabel>
-        <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
+        <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">
           The outcome, not just the output.
         </h2>
         <ul className="mt-8 grid md:grid-cols-2 gap-4">
@@ -181,7 +181,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {tier.phases.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <SectionLabel>Timeline</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">
             How the engagement runs.
           </h2>
           <div className="mt-10 space-y-3">
@@ -218,7 +218,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {relatedStudies.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <SectionLabel>Proof</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">Related case studies</h2>
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">Related case studies</h2>
           <div className="mt-8 grid md:grid-cols-2 gap-4">
             {relatedStudies.slice(0, 2).map((cs) => (
               <Link
@@ -257,7 +257,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
       {tier.faq.length > 0 && (
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <SectionLabel>FAQ</SectionLabel>
-          <h2 className="mt-3 text-3xl font-bold text-[#FAFAFA]">Common questions</h2>
+          <h2 className="mt-3 text-3xl font-normal text-[#FAFAFA]">Common questions</h2>
           <dl className="mt-8 space-y-4">
             {tier.faq.slice(0, 4).map((f) => (
               <div
@@ -274,7 +274,7 @@ export function TierAPage({ tier }: { tier: Tier | ExtendedTier }) {
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <h2 className="text-4xl font-bold text-[#FAFAFA]">Ready to scope {tier.shortName}?</h2>
+        <h2 className="text-4xl font-normal text-[#FAFAFA]">Ready to scope {tier.shortName}?</h2>
         <p className="mt-4 text-lg text-[#A8A29E] max-w-2xl mx-auto">
           A 30-minute call to confirm fit, scope, and timeline. No pressure, no slides.
         </p>

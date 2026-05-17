@@ -72,7 +72,7 @@ export function StudioAnimations() {
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>About</SectionLabel>
-          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold text-[#FAFAFA] leading-tight">
+          <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-normal text-[#FAFAFA] leading-tight">
             The studio.
           </h1>
           <h2 className="mt-6 text-2xl font-semibold text-[#A8A29E]">
@@ -98,7 +98,7 @@ export function StudioAnimations() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp} className="text-center mb-16">
             <SectionLabel>Pillars</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA]">How we think about the work</h2>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA]">How we think about the work</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -129,7 +129,7 @@ export function StudioAnimations() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp} className="max-w-3xl">
           <SectionLabel>Engagement Model</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-8">How the studio works</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-8">How the studio works</h2>
           <div className="space-y-6 text-[#A8A29E] text-lg leading-relaxed">
             <p>
               Clients work with Jason directly — not an account manager, not a project coordinator, not a handoff to a
@@ -160,7 +160,7 @@ export function StudioAnimations() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div {...fadeInUp} className="max-w-3xl">
             <SectionLabel>Scope</SectionLabel>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">What we don&apos;t do</h2>
+            <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">What we don&apos;t do</h2>
             <p className="text-[#A8A29E] mb-8 text-lg">
               Self-qualification matters. These are honest limits — not failures, just not the right fit for this studio.
             </p>
@@ -187,7 +187,7 @@ export function StudioAnimations() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Values</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-12">The values, plainly stated.</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-12">The values, plainly stated.</h2>
         </motion.div>
         <div className="grid sm:grid-cols-2 gap-6 max-w-4xl">
           {[
@@ -255,7 +255,7 @@ export function StudioAnimations() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <motion.div {...fadeInUp}>
           <SectionLabel>Stack</SectionLabel>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#FAFAFA] mb-4">The stack.</h2>
+          <h2 className="mt-4 text-3xl sm:text-4xl font-normal text-[#FAFAFA] mb-4">The stack.</h2>
           <p className="text-[#A8A29E] mb-10 max-w-2xl">Full stack from UI to infrastructure. Every layer chosen for production reliability, not demo convenience.</p>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">

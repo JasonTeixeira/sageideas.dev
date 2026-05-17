@@ -68,7 +68,7 @@ export function CaseStudyContent({ study }: Props) {
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#09090B] via-[#09090B]/60 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
               {study.posterTitle && (
-                <h2 className="text-[#FAFAFA] text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight max-w-3xl drop-shadow-lg">
+                <h2 className="text-[#FAFAFA] text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight max-w-3xl drop-shadow-lg">
                   {study.posterTitle}
                 </h2>
               )}
@@ -88,14 +88,14 @@ export function CaseStudyContent({ study }: Props) {
               <div className="text-xs font-mono uppercase tracking-[0.18em] text-[#0ED3CF] mb-3">
                 {study.title}
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight leading-[1.05] max-w-4xl">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight leading-[1.05] max-w-4xl">
                 {study.posterTitle}
               </h1>
               <p className="mt-5 text-lg lg:text-xl text-[#A8A29E] leading-relaxed max-w-3xl">{study.tagline}</p>
             </>
           ) : (
             <>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#FAFAFA] tracking-tight leading-tight max-w-4xl">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal text-[#FAFAFA] tracking-tight leading-tight max-w-4xl">
                 {study.title}
               </h1>
               <p className="mt-4 text-xl text-[#A8A29E] max-w-3xl">{study.tagline}</p>
@@ -282,7 +282,7 @@ export function CaseStudyContent({ study }: Props) {
             className="mt-24 pt-12 border-t border-[#2A2826]"
           >
             <SectionLabel>References</SectionLabel>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-[#FAFAFA]">
+            <h2 className="mt-3 text-2xl sm:text-3xl font-normal text-[#FAFAFA]">
               Talk to people on this work.
             </h2>
             <p className="mt-3 text-sm text-[#A8A29E] leading-relaxed max-w-2xl">
