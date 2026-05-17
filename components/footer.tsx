@@ -76,7 +76,7 @@ export function Footer() {
               href="/"
               className="inline-flex items-center gap-2.5 text-xl font-bold text-[#FAFAFA] tracking-tight hover:text-[#0ED3CF] transition-colors group"
             >
-              <img src="/brand/sage-mark.svg" alt="" className="w-8 h-8 group-hover:scale-110 transition-transform duration-200" aria-hidden />
+              <img src="/brand/sage-logo.png" alt="" className="w-8 h-8 group-hover:scale-110 transition-transform duration-200" aria-hidden />
               <span className="tracking-[0.08em] text-[17px] font-semibold">SAGE IDEAS</span>
             </Link>
             <p className="text-sm text-[#A8A29E] leading-relaxed max-w-sm">

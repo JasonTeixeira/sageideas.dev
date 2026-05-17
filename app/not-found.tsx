@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const LOGO_MARK = '/brand/sage-mark.svg'
+const LOGO_MARK = '/brand/sage-logo.png'
 
 const HELPFUL_LINKS = [
   { href: '/work', label: 'Recent work', desc: 'Five case studies, real artifacts' },
