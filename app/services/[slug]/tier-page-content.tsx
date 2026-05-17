@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button'
 import { GlowCard } from '@/components/glow-card'
 import { CheckoutButton } from '@/components/studio/checkout-button'
 import { Pipeline } from '@/components/pipeline'
+import { PageHeroBg } from '@/components/page-hero-bg'
 import { getPipeline } from '@/data/pipelines'
 
 const fadeUp = {
@@ -43,6 +44,19 @@ const modeLabel: Record<Tier['mode'], string> = {
   operate: 'Operate',
 }
 
+
+const capabilityHero: Record<string, string> = {
+  strategy: '/images/services/hero-audit.jpg',
+  web: '/images/services/hero-ship.jpg',
+  automation: '/images/services/hero-automate.jpg',
+  seo: '/images/services/hero-scale.jpg',
+  content: '/images/services/hero-scale.jpg',
+  brand: '/images/services/hero-brand.jpg',
+  product: '/images/services/hero-ship.jpg',
+  platform: '/images/services/hero-cloud.jpg',
+  app: '/images/services/hero-ship.jpg',
+}
+
 export function TierPageContent({ tier }: { tier: Tier }) {
   const relatedStudies = caseStudies.filter((cs) =>
     tier.caseStudySlugs.includes(cs.slug)
@@ -53,6 +67,7 @@ export function TierPageContent({ tier }: { tier: Tier }) {
       {/* Hero */}
       <section className="relative pt-24 pb-16 overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-20" />
+        <PageHeroBg src={capabilityHero[tier.capability] || "/images/hero-services.jpg"} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div
             initial={fadeUp.initial}

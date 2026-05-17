@@ -82,6 +82,7 @@ export function FlagshipPageContent({ tier }: { tier: ExtendedTier }) {
       {/* Hero */}
       <section className="relative pt-24 pb-16 overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-20" />
+        <PageHeroBg src="/images/services/hero-automate.jpg" />
         {/* Accent glow */}
         <div
           className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
