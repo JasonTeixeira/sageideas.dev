@@ -185,7 +185,6 @@ export default async function RootLayout({
       className={`${display.variable} ${sans.variable} ${mono.variable} bg-[#09090B]`}
     >
       <body className="font-sans antialiased min-h-screen flex flex-col">
-        <a href="#main-content" className="skip-link">Skip to main content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

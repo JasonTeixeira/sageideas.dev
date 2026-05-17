@@ -148,21 +148,6 @@
     @apply bg-background text-foreground;
   }
 
-  /* Skip-link for accessibility */
-  .skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--sage-brand);
-    color: #09090B;
-    padding: 8px 16px;
-    z-index: 100;
-    font-weight: 600;
-    transition: top 0.15s;
-  }
-  .skip-link:focus {
-    top: 0;
-  }
 
   /* Custom focus-visible for keyboard nav */
   :focus-visible {
