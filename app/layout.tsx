@@ -157,6 +157,7 @@ const organizationSchema = {
     'https://github.com/JasonTeixeira',
     'https://www.linkedin.com/in/jason-teixeira',
     'https://www.youtube.com/@SageideasAI',
+    'https://whatsapp.com/channel/0029Vb8pc2qFcow9BCta6o47',
   ],
   address: {
     '@type': 'PostalAddress',
@@ -205,6 +206,7 @@ const professionalServiceSchema = {
     'https://github.com/JasonTeixeira',
     'https://www.linkedin.com/in/jason-teixeira',
     'https://www.youtube.com/@SageideasAI',
+    'https://whatsapp.com/channel/0029Vb8pc2qFcow9BCta6o47',
   ],
 }
 
