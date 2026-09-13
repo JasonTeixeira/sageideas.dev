@@ -9,6 +9,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { SageLivingMark } from '@/components/brand/sage-living-mark'
+import { WhatsAppIcon } from '@/components/brand/whatsapp-icon'
 import { getLocale } from '@/lib/i18n/server'
 import { getMessages, translate } from '@/lib/i18n/messages'
 
@@ -78,12 +79,18 @@ const legalLinks: FooterLink[] = [
 const socialLinks: FooterLink[] = [
   { href: 'mailto:sage@sageideas.dev', label: 'Email', external: true },
   { href: 'https://linkedin.com/in/jason-teixeira', label: 'LinkedIn', external: true },
+  {
+    href: 'https://whatsapp.com/channel/0029Vb8pc2qFcow9BCta6o47',
+    label: 'WhatsApp',
+    external: true,
+  },
   { href: 'https://github.com/JasonTeixeira', label: 'GitHub', external: true },
 ]
 
 const socialIcons = {
   Email: Mail,
   LinkedIn: Linkedin,
+  WhatsApp: WhatsAppIcon,
   GitHub: Github,
 }
 

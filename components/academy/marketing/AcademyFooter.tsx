@@ -5,6 +5,7 @@ const MONO = '"JetBrains Mono", monospace'
 type FooterLink = {
   label: string
   href: string
+  external?: boolean
 }
 
 // Real routes only — verified to exist. No Legal/Terms/Privacy (deferred).
@@ -14,6 +15,11 @@ const LINKS: FooterLink[] = [
   { label: 'Proof, not paper', href: '/academy/proof-not-paper' },
   { label: 'Help', href: '/academy/help' },
   { label: 'Contact', href: 'mailto:contact@sageideas.dev' },
+  {
+    label: 'WhatsApp Channel',
+    href: 'https://whatsapp.com/channel/0029VbDfypZCcW4xCLb8h331',
+    external: true,
+  },
 ]
 
 type AcademyFooterProps = {
@@ -60,10 +66,11 @@ export function AcademyFooter({
             gap: 'clamp(12px, 2vw, 22px)',
           }}
         >
-          {LINKS.map(({ label, href }) => (
+          {LINKS.map(({ label, href, external }) => (
             <Link
               key={href}
               href={href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               style={{
                 fontFamily: MONO,
                 fontSize: 11,
