@@ -1,0 +1,50 @@
+{
+  "your-first-line": {
+    "language": "python",
+    "code": "print(\"Hello, world!\")"
+  },
+  "variables": {
+    "language": "python",
+    "code": "name = \"Ada\"\nage = 36\nprint(name + \" is \" + str(age) + \" years old.\")"
+  },
+  "logic-conditionals": {
+    "language": "python",
+    "code": "score = 72\ngrade = \"\"\nif score >= 90:\n    grade = \"A\"\nelif score >= 80:\n    grade = \"B\"\nelif score >= 70:\n    grade = \"C\"\nelif score >= 60:\n    grade = \"D\"\nelse:\n    grade = \"F\"\nprint(\"Grade: \" + grade)"
+  },
+  "loops": {
+    "language": "python",
+    "code": "prices = [10, 20, 30]\ntotal = 0\nfor price in prices:\n    total = total + price\nprint('Total: ' + str(total))"
+  },
+  "functions-and-scope": {
+    "language": "python",
+    "code": "def line_total(price, quantity):\n    return price * quantity\n\nprint(f\"Total: {line_total(7, 6)}\")"
+  },
+  "collections": {
+    "language": "python",
+    "code": "orders = [{\"id\": 1, \"paid\": True, \"total\": 20}, {\"id\": 2, \"paid\": False, \"total\": 10}, {\"id\": 3, \"paid\": True, \"total\": 25}]\npaid_orders = [order for order in orders if order[\"paid\"]]\npaid_count = len(paid_orders)\nrevenue = sum(order[\"total\"] for order in paid_orders)\nprint(f\"Paid orders: {paid_count} | Revenue: ${revenue}\")"
+  },
+  "exceptions-validation": {
+    "language": "python",
+    "code": "def parse_port(raw):\n    try:\n        port = int(raw)\n    except ValueError as error:\n        raise ValueError(\"port must be an integer\") from error\n    if not 1 <= port <= 65535:\n        raise ValueError(\"port must be 1-65535\")\n    return port\n\nprint(f\"Port: {parse_port(\"8080\")}\")"
+  },
+  "files-json": {
+    "language": "python",
+    "code": "import json\n\nRAW = '{\"users\":[{\"name\":\"Ada\",\"active\":true},{\"name\":\"Grace\",\"active\":false},{\"name\":\"Lin\",\"active\":true}]}'\n\ndef active_names(raw):\n    data = json.loads(raw)\n    users = data.get(\"users\")\n    if not isinstance(users, list):\n        raise ValueError(\"users must be a list\")\n    return [user[\"name\"] for user in users if user.get(\"active\") is True]\n\nprint(\"Active: \" + \", \".join(active_names(RAW)))"
+  },
+  "modules-venvs": {
+    "language": "python",
+    "code": "import math\n\ndef circle_area(radius):\n    if radius < 0:\n        raise ValueError(\"radius must be nonnegative\")\n    return math.pi * radius ** 2\n\nif __name__ == \"__main__\":\n    print(f\"Area: {circle_area(2):.2f}\")"
+  },
+  "testing-debugging": {
+    "language": "python",
+    "code": "def safe_average(values):\n    if not values:\n        return 0\n    return sum(values) / len(values)\n\nassert safe_average([2, 4, 6]) == 4\nassert safe_average([]) == 0\nassert safe_average([10]) == 10\nprint(\"3 tests passed\")"
+  },
+  "http-apis": {
+    "language": "python",
+    "code": "RESPONSE = {\"status\": 200, \"json\": {\"name\": \" Ada \", \"active\": True}}\n\ndef normalize_user(response):\n    if response.get(\"status\") != 200:\n        raise RuntimeError(\"request failed\")\n    body = response.get(\"json\")\n    if not isinstance(body, dict) or not isinstance(body.get(\"name\"), str):\n        raise ValueError(\"invalid user schema\")\n    return {\"name\": body[\"name\"].strip().lower(), \"active\": body.get(\"active\") is True}\n\nuser = normalize_user(RESPONSE)\nprint(f\"User: {user[\"name\"]} | Active: {user[\"active\"]}\")"
+  },
+  "automation-capstone": {
+    "language": "python",
+    "code": "RECORDS = [{\"id\":\"A1\",\"total\":20},{\"id\":\"A1\",\"total\":20},{\"id\":\"B2\",\"total\":25},{\"total\":99}]\n\ndef build_report(records):\n    seen = set()\n    rejected = []\n    revenue = 0\n    accepted = 0\n    for record in records:\n        order_id = record.get(\"id\")\n        total = record.get(\"total\")\n        if not isinstance(order_id, str) or not order_id:\n            rejected.append(\"missing-id\")\n            continue\n        if order_id in seen:\n            rejected.append(f\"duplicate:{order_id}\")\n            continue\n        if not isinstance(total, (int, float)) or total < 0:\n            rejected.append(f\"invalid-total:{order_id}\")\n            continue\n        seen.add(order_id)\n        accepted += 1\n        revenue += total\n    return {\"accepted\": accepted, \"rejected\": rejected, \"revenue\": revenue}\n\nreport = build_report(RECORDS)\nprint(f\"Accepted: {report[\"accepted\"]}\")\nprint(\"Rejected: \" + \", \".join(report[\"rejected\"]))\nprint(f\"Revenue: ${report[\"revenue\"]}\")"
+  }
+}

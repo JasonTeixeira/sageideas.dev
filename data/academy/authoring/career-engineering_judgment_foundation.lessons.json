@@ -23,9 +23,53 @@
       "reveal": "It is an answer wearing a problem's clothes. \"Add a cache\" presumes the problem is read latency, the cause is recomputation, and the fix is caching — three unproven leaps. The real frame: \"p99 order-confirmation latency is 4s, the SLO is 1s, and we do not yet know why.\" Naming the fix first feels like progress while quietly deciding the answer."
     },
     {
+      "type": "worked-example",
+      "intro": "Writing Section 1, one line at a time. The Frame template in the memo — each line a forcing function.",
+      "code": "# Engineering Judgment Decision Memo\n\n## 1. Frame\n- Decision to be made: <ship | rollback | instrument | redesign>, by <when>\n- Real problem (one sentence, no solution in it):\n- Hard constraint (the thing that is NOT negotiable):\n- Feared failure (what \"wrong\" looks like in production):\n- Reversibility: <one-way door | two-way door>\n\n<!-- Sections 2–5 are added in Lessons 2, 3, 4 and the capstone. -->",
+      "language": "bash",
+      "steps": [
+        "The header: This memo threads all four lessons — one artifact, grown a section at a time.",
+        "Decision + deadline: Name the call and when it is due. \"ship | rollback | instrument | redesign\" — pick the verb, not a hunch.",
+        "The problem line: One sentence, no solution in it. If it names a technology or an action you would take, you smuggled in the answer.",
+        "The hard constraint: The one thing that is NOT negotiable — and it must rule out at least one plausible option, or it is decoration.",
+        "Feared failure: Specific enough to recognize in a dashboard. The strong version names both a false-positive and a false-negative.",
+        "Reversibility: One-way vs two-way door sets how much proof the later lessons demand."
+      ],
+      "commonMistake": "Pre-decided — defends a guess"
+    },
+    {
       "text": "State the real problem in one solution-free sentence, the one non-negotiable constraint, and the specific failure you fear. The invariant: the frame holds the problem, never the answer. A solution in the problem line means you pre-decided.",
       "type": "concept",
       "title": "A frame is problem + constraint + feared failure — and no solution"
+    },
+    {
+      "type": "lab",
+      "title": "Lint solution-first problem frames",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: frames_passing: 2/4 Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: frames_passing: 2/4",
+      "language": "python",
+      "starter": "SOLUTION_NOUNS = [\"cache\", \"redis\", \"kubernetes\"]\nFRAMES = [\n    {\"problem\": \"We need to add a cache\", \"constraint\": \"\", \"feared_failure\": \"things stay slow\"},\n    {\"problem\": \"EU checkout p95 is 9s during peak\", \"constraint\": \"no new infrastructure\", \"feared_failure\": \"paid orders are abandoned\"},\n]\n\ndef lint_frame(frame):\n    # TODO: return violations for a solution-first problem, missing constraint,\n    # and a vague feared failure.\n    return []\n\n# TODO: print PASS/FAIL for every frame and the total frames_passing.",
+      "check": "frames_passing: 2/4"
+    },
+    {
+      "type": "debug",
+      "symptom": "Pre-decided — defends a guess",
+      "brokenCode": "Problem: \"search is broken, reindex tonight\"\nSolution fused into the problem line\nConstraint: \"make it fast\" (decoration)\nFeared failure: \"it stays broken\" (a vibe)\nA peer cannot restate it without the fix",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Disguised solution approach and repair it before continuing.",
+      "fix": "Problem: recent products missing for ~30% of queries\nQuantified: how much, who, since when\nConstraint: no daytime downtime (primary conversion path)\nFeared failure: cluster outage OR silent conversion loss\nZero solution inside it — opponent would sign it\nDiagnosable — aims every later move"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Same trigger, two frames",
+      "optionA": {
+        "label": "Disguised solution",
+        "text": "Problem: \"search is broken, reindex tonight\" · Solution fused into the problem line · Constraint: \"make it fast\" (decoration) · Feared failure: \"it stays broken\" (a vibe) · A peer cannot restate it without the fix Outcome: Pre-decided — defends a guess"
+      },
+      "optionB": {
+        "label": "Real frame",
+        "text": "Problem: recent products missing for ~30% of queries · Quantified: how much, who, since when · Constraint: no daytime downtime (primary conversion path) · Feared failure: cluster outage OR silent conversion loss · Zero solution inside it — opponent would sign it Outcome: Diagnosable — aims every later move"
+      },
+      "guidance": "Measure the pain (how much, who, since when), never the fix. \"3 more replicas\" is a measured answer, still an answer."
     },
     {
       "left": {
@@ -348,6 +392,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (frames_passing: 2/4): Section 1 (\"Frame\") of engineering_judgment_decision_memo.md: a one-sentence problem with no solution baked in, one named hard constraint, the decision + deadline, and a concrete feared failure. A peer reads it and can restate the problem back to you without you correcting them.",
+        "Diagnose and repair the broken case: Pre-decided — defends a guess",
+        "Confirm every verification item: Read your one-sentence problem aloud. If it contains a noun that is a technology or a verb that is an action you would take, you have a solution in it — cut it. · Hand the Frame to a peer and ask them to restate the problem. If they restate it differently than you meant, the frame is ambiguous, not them. · Check the constraint actually constrains: can you name at least one plausible option it rules out? If not, it is decoration. · Check the feared failure is specific enough to recognize in a dashboard or a customer report — not \"things go wrong\". · Confirm reversibility is marked (one-way vs two-way door) — it sets how much proof the later lessons demand.",
+        "Complete the transfer without copying the worked example: Not a software move — the move. A doctor frames before treating (\"chest pain, 55, fear is an MI, constraint is we cannot wait for slow labs\"). A founder frames before building. Anywhere a decision is ambiguous and a clock is running, the Frame is the first artifact. Next lesson keeps this exact memo and adds Section 2 — the Diagnostic Route — turning your feared failure into an ordered plan for finding the real cause."
+      ]
     }
   ],
   "02-diagnostic-route": [
@@ -374,9 +427,53 @@
       "reveal": "Not the most likely — the most CHEAPLY DISQUALIFIABLE. A 2-minute test that eliminates half the suspects whatever its result beats an hour confirming your top guess. You are not trying to be right early; you are trying to shrink the space fastest. Often the best first move is a test you expect to PASS, precisely because passing it rules a whole branch out."
     },
     {
+      "type": "worked-example",
+      "intro": "Writing Section 2, one line at a time. The Route in the memo — ranked, falsifiable, ordered cheapest-first.",
+      "code": "## 2. Diagnostic Route\n- Hypothesis A (lag): index worker is behind        → kill-test: newest indexed doc vs newest DB write  → cost: cheap\n- Hypothesis B (silent-fail): worker crashes on some events → kill-test: worker error-log + dead-letter count → cost: cheap\n- Hypothesis C (stale-cache): query layer serves old results → kill-test: bypass cache, re-query primary → cost: mid\n- Run order (cheapest disqualifier first): A → B → C\n- Stop rule: one branch confirmed by evidence, or 30 min elapsed → decide",
+      "language": "bash",
+      "steps": [
+        "Most-likely hypothesis: A real hypothesis, not a shrug: \"maybe a config issue\" has no kill-test, so it cannot be on the route.",
+        "Span layers you do not own: B and C should reach beyond your own code. Bias hides in \"it must be my service\".",
+        "A falsifiable kill-test each: Each test must be able to return \"no\" and eliminate a branch. A test that can only confirm is theater.",
+        "Cost each test: A timestamp compare is minutes; a code-path change is expensive. Cost decides the order, not your favorite suspect.",
+        "Cheapest disqualifier first: Order by elimination-per-minute. The first move can cross off a whole branch in one query.",
+        "The stop rule: A concrete time or evidence threshold — past it, diagnosis is procrastination with a stack trace."
+      ],
+      "commonMistake": "Burns the on-call's night proving you are innocent"
+    },
+    {
       "text": "List plausible causes, attach to each a falsifiable kill-test (a check whose \"no\" eliminates it), and run the cheapest disqualifier first. Every test must be able to fail. Add a stop rule — the point where you stop diagnosing and decide.",
       "type": "concept",
       "title": "A route ranks hypotheses by information-per-cost, not by gut"
+    },
+    {
+      "type": "lab",
+      "title": "Rank diagnostic hypotheses by elimination per minute",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: stop_rule: Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: stop_rule:",
+      "language": "python",
+      "starter": "HYPOTHESES = [\n    {\"name\": \"last deploy\", \"prior\": 0.40, \"cost_min\": 30},\n    {\"name\": \"provider degraded\", \"prior\": 0.25, \"cost_min\": 2},\n    {\"name\": \"pool exhausted\", \"prior\": 0.20, \"cost_min\": 5},\n]\n\ndef route(hypotheses):\n    # TODO: return cheapest big-eliminators first using prior / cost_min.\n    return []\n\n# TODO: print the route and a concrete stop_rule.",
+      "check": "stop_rule:"
+    },
+    {
+      "type": "debug",
+      "symptom": "Burns the on-call's night proving you are innocent",
+      "brokenCode": "Step 1: re-read my own endpoint code\nStep 2: add logging to my endpoint, redeploy\nStep 3: maybe ask the DB team (last)\nRedeploy (slow) before any cheap elimination\nOther teams pushed last because not \"mine\"",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Search where the light is good approach and repair it before continuing.",
+      "fix": "3+ ranked hypotheses across layers you do not own\nA falsifiable kill-test on each (can return \"no\")\nStep 1: gateway logs — do 500s even reach my service?\nOne query eliminates half the stack\nStop rule: a time/evidence box, not a feeling\nCrosses off a branch before opening a file"
+    },
+    {
+      "type": "tradeoff",
+      "question": "One guess vs a real route",
+      "optionA": {
+        "label": "Search where the light is good",
+        "text": "Step 1: re-read my own endpoint code · Step 2: add logging to my endpoint, redeploy · Step 3: maybe ask the DB team (last) · Redeploy (slow) before any cheap elimination · Other teams pushed last because not \"mine\" Outcome: Burns the on-call's night proving you are innocent"
+      },
+      "optionB": {
+        "label": "Cheapest disqualifier first",
+        "text": "3+ ranked hypotheses across layers you do not own · A falsifiable kill-test on each (can return \"no\") · Step 1: gateway logs — do 500s even reach my service? · One query eliminates half the stack · Stop rule: a time/evidence box, not a feeling Outcome: Crosses off a branch before opening a file"
+      },
+      "guidance": "A passing kill-test is pure profit — it permanently removes a branch. If every test \"succeeds\" at finding the bug, you are confirming, not diagnosing."
     },
     {
       "type": "diagram",
@@ -714,6 +811,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (stop_rule:): Section 2 (\"Diagnostic Route\") of engineering_judgment_decision_memo.md: 3+ hypotheses, each with a falsifiable kill-test and a cost, plus an explicit run order and a stop rule. A reviewer agrees your first test is the one most likely to eliminate a branch for the least effort.",
+        "Diagnose and repair the broken case: Burns the on-call's night proving you are innocent",
+        "Confirm every verification item: For every hypothesis, write the exact result that would KILL it. If you cannot, it is not a hypothesis yet. · Confirm at least one hypothesis points outside the code you own — bias hides in \"it must be my service\". · Check your first test is genuinely the cheapest big-eliminator, not just the one nearest your comfort zone. · Confirm a stop rule exists with a concrete threshold (a time box or an evidence bar), so diagnosis cannot run forever. · Trace the route on paper: if Test 1 passes, what is left? If it fails? Each branch should be smaller than where you started.",
+        "Complete the transfer without copying the worked example: Same route, any domain with a hidden cause. A mechanic runs the cheap test that splits the space (\"is the battery dead? click the lights\") before rebuilding the engine. A growth team ranks \"tracking broke / competitor moved / funnel changed\" and runs the analytics check before redesigning anything. You have framed and routed; next lesson adds Section 3 — the System Map — because \"index is 5h behind\" only makes sense once you can see the system the lag lives in."
+      ]
     }
   ],
   "03-system-map": [
@@ -740,9 +846,53 @@
       "reveal": "Useful beats complete. A map with every service is accurate and worthless — the failure is lost in the clutter. A useful map is the smallest one that still contains the decision, with directed flow and a boundary you can defend. The skill is omission with a reason."
     },
     {
+      "type": "worked-example",
+      "intro": "Writing Section 3, one line at a time. The same map as text in the memo — built up flow by flow.",
+      "code": "## 3. System Map\n[Client] --request--> [API Gateway] --> [Orders Service] --writes--> [Postgres]\n                                              |\n                                              +--emits event--> [Index Worker] --> [Search Index]\n                                                                       ^\n              [Client] --query-------- + (reads here)\n- Suspect edge: Orders write -> Index Worker -> Search Index\n- Blast radius if it fails: search shows stale catalog; conversions drop; no data loss\n- Boundary we will NOT cross: the payments path is out of scope",
+      "language": "bash",
+      "steps": [
+        "The write path: Request routes to Orders, which writes to Postgres — the source of truth.",
+        "The index hand-off: Orders emits an event; the Index Worker copies the write into Search. Asynchronous — this is where lag hides.",
+        "The read path: The Client reads from Search, not Postgres. Stale here means wrong answers to customers.",
+        "Suspect edge: The 5-hour lag lives on write → index → search. Name it explicitly.",
+        "Blast radius: Stale catalog, conversions drop — but no data loss. Stale vs lost shapes urgency.",
+        "Boundary: Payments is out of scope — and you can defend why."
+      ],
+      "commonMistake": "The call spends 20 minutes orienting"
+    },
+    {
       "text": "Name the components the decision touches, the direction data flows between them, the edge where the diagnosis landed, and what breaks if it fails. As small as it can be while still holding the failure.",
       "type": "concept",
       "title": "Directed flow + suspect edge + blast radius — kept small on purpose"
+    },
+    {
+      "type": "lab",
+      "title": "Compute a failure blast radius",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: blast_radius: Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: blast_radius:",
+      "language": "python",
+      "starter": "EDGES = [\n    (\"client\", \"api\"), (\"api\", \"orders\"),\n    (\"orders\", \"payments_adapter\"), (\"payments_adapter\", \"provider\"),\n    (\"orders\", \"inventory\"),\n]\n\ndef upstream(edges, node):\n    # TODO: return every component whose path depends on node.\n    return []\n\nsuspect = \"payments_adapter\"\n# TODO: print suspect_edge, blast_radius, severity, and out_of_scope.",
+      "check": "blast_radius:"
+    },
+    {
+      "type": "debug",
+      "symptom": "The call spends 20 minutes orienting",
+      "brokenCode": "~20 boxes, every service\nNo arrow directions\nNo suspect edge\nNo blast radius\nFailure hidden in the clutter",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Architecture poster approach and repair it before continuing.",
+      "fix": "6 boxes on the suspect path\nDirected write → index → read\nSuspect edge circled\nBlast radius named (stale ≠ lost)\nPayments explicitly out of scope\nThe call argues the right arrow"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two maps of the same incident",
+      "optionA": {
+        "label": "Architecture poster",
+        "text": "~20 boxes, every service · No arrow directions · No suspect edge · No blast radius · Failure hidden in the clutter Outcome: The call spends 20 minutes orienting"
+      },
+      "optionB": {
+        "label": "Decision map",
+        "text": "6 boxes on the suspect path · Directed write → index → read · Suspect edge circled · Blast radius named (stale ≠ lost) · Payments explicitly out of scope Outcome: The call argues the right arrow"
+      },
+      "guidance": "Smaller and directed beats complete and flat."
     },
     {
       "type": "diagram",
@@ -1086,6 +1236,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (blast_radius:): Section 3 of engineering_judgment_decision_memo.md: a directed map of the relevant components, the suspect edge marked, the blast radius named, an explicit out-of-scope boundary. A peer traces a request through it without you narrating.",
+        "Diagnose and repair the broken case: The call spends 20 minutes orienting",
+        "Confirm every verification item: Every connection has a direction. If any line is undirected, you cannot tell a write path from a read path — fix it. · A peer can trace one request end-to-end through your arrows without you narrating. · The suspect edge from your Diagnostic Route is marked and findable in under five seconds. · The blast radius distinguishes severity — stale vs lost, degraded vs down — not just \"it breaks\". · You can defend at least two omissions: name two components you left out and why they are not on this path.",
+        "Complete the transfer without copying the worked example: Cartography of the relevant, nothing more — it travels everywhere. A surgeon studies the region they will operate on and marks where a nick is catastrophic versus survivable. You have framed, routed, and mapped; next is the Retrieval Protocol — running these three moves from memory under pressure."
+      ]
     }
   ],
   "04-retrieval-protocol": [
@@ -1112,9 +1271,53 @@
       "reveal": "Unverified data — and on its own, a mild warning. Confidence and correctness are different axes; the dangerous quadrant is high-confidence-and-wrong, because you stop checking exactly when you should not. Logging confidence is not to feel sure — it is to find the gap between how sure you felt and how right you were. A calibrated engineer is the one whose confidence predicts their accuracy."
     },
     {
+      "type": "worked-example",
+      "intro": "Running the protocol, one checkbox at a time. The closed-note checklist + calibration log — the whole module made portable.",
+      "code": "## 4. Retrieval Protocol (run closed-note)\n- [ ] Frame: problem (solution-free) · constraint · feared failure        confidence: _/5\n- [ ] Route: 3 ranked hypotheses · a kill-test each · cheapest first       confidence: _/5\n- [ ] Map: directed flow · suspect edge · blast radius · scope boundary    confidence: _/5\n- [ ] Decision: chosen option · rejected option · reversal condition       confidence: _/5\n\n## Calibration log\n- Ran closed-note on: <date> · for decision: <name>\n- Confidence said: __  | Reality after proof: <right|wrong on each step>\n- Overconfident step (>3 confidence, wrong) → repair: ______",
+      "language": "bash",
+      "steps": [
+        "Frame, from memory (L1): Problem · constraint · feared failure, no notes. Score how sure you are BEFORE you check it.",
+        "Route, from memory (L2): Three ranked hypotheses, a kill-test each, cheapest first. The timestamp compare was the cheapest disqualifier.",
+        "Map, from memory (L3): Directed flow, suspect edge, blast radius, boundary. This is the step the worked run scored 3/5 — and still too high.",
+        "Decide: Chosen (fix the lagging worker + backfill), rejected (full reindex — violates no-daytime-downtime), reversal condition (off-hours reindex if backfill misses 30 min).",
+        "Calibration: confidence vs reality: The Map missed the Index Worker also feeds Analytics. 3/5 was too confident — that honest miss is the most useful line here.",
+        "The repair: A reusable rule, not \"be more careful\": \"before declaring blast radius, ask who else reads from this node.\""
+      ],
+      "commonMistake": "Tests reading, not 2 a.m. recall"
+    },
+    {
       "text": "A closed-note checklist that runs the module — Frame, Route, Map, then Decide — from memory, with a 1–5 confidence per step. After proof, you compare confidence to reality and log every gap. Passed only when run closed-note AND checked against truth: recall plus calibration, never one without the other.",
       "type": "concept",
       "title": "A protocol is the three moves from memory, scored for calibration"
+    },
+    {
+      "type": "lab",
+      "title": "Measure confidence against correctness",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: calibration_error: Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: calibration_error:",
+      "language": "python",
+      "starter": "STEPS = [\n    (\"frame\", 5, True),\n    (\"route\", 5, False),\n    (\"map\", 3, True),\n]\n\ndef calibrate(steps):\n    # TODO: compute confidence/5 minus observed correctness per step,\n    # flag confident-wrong answers, and return mean absolute error.\n    return [], 0.0\n\n# TODO: print each row, calibration_error, and repair_targets.",
+      "check": "calibration_error:"
+    },
+    {
+      "type": "debug",
+      "symptom": "Tests reading, not 2 a.m. recall",
+      "brokenCode": "Ran with the Lesson 1–3 memo open in another tab\nFrame 5/5 · Route 5/5 · Map 5/5 · Decide 5/5\n\"I was confident and it all felt right\"\nNo comparison to reality — no axis of truth\nConfident-and-wrong is invisible by construction",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Confidence brag (open-note) approach and repair it before continuing.",
+      "fix": "Ran from memory, notes closed\nConfidence scored per step BEFORE checking\nEach step compared to proof\nOne honest gap logged: Map 3/5, missed Analytics edge\nRepair = a reusable rule that prevents the miss class\nProves pressure performance + calibration"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two calibration logs, same engineer",
+      "optionA": {
+        "label": "Confidence brag (open-note)",
+        "text": "Ran with the Lesson 1–3 memo open in another tab · Frame 5/5 · Route 5/5 · Map 5/5 · Decide 5/5 · \"I was confident and it all felt right\" · No comparison to reality — no axis of truth · Confident-and-wrong is invisible by construction Outcome: Tests reading, not 2 a.m. recall"
+      },
+      "optionB": {
+        "label": "Honest calibration (closed-note)",
+        "text": "Ran from memory, notes closed · Confidence scored per step BEFORE checking · Each step compared to proof · One honest gap logged: Map 3/5, missed Analytics edge · Repair = a reusable rule that prevents the miss class Outcome: Proves pressure performance + calibration"
+      },
+      "guidance": "A 5/5 that turns out wrong is the most valuable line in the log. A flawless-looking log with no honest miss teaches you nothing."
     },
     {
       "type": "diagram",
@@ -1439,6 +1642,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "The completed engineering_judgment_decision_memo.md (all four sections) PLUS a calibration log showing you ran the protocol CLOSED-NOTE: a confidence score per step and at least one honest note where confidence exceeded correctness (or a defensible claim that none did). Reusable on the next real decision.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: You ran Frame → Route → Map → Decide from memory, notes closed. If you peeked, it does not count as retrieval — re-run it. · Every step has a 1–5 confidence recorded BEFORE you checked it against reality. · At least one step has been compared to proof, and any gap between confidence and correctness is logged honestly. · Each over-confident miss has a repair that is a reusable rule, not \"be more careful\". · The completed memo reads as reusable on a brand-new decision — you could hand it to next week's incident unchanged in structure.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: You came in able to argue about Redis in a war room and you leave able to do the four things that actually decide the outcome: frame the problem with no solution smuggled in, route the diagnosis cheapest-disqualifier-first, map the system small enough to reason about, and run all of it from memory while knowing which of your own answers to trust. That last skill — calibrated, retrievable judgment — is what a pilot rehearses in the simulator, what a surgeon drills before the OR, what a trader logs after every call. It is domain-independent and it is the whole game. The memo you built across these four lessons is your first piece of portfolio evidence: not \"I understand engineering judgment\" but \"here is a decision I framed, diagnosed, mapped, decided, and calibrated — read it.\" Carry it into the next module. You do not just talk about judgment now. You can run it.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "You came in able to argue about Redis in a war room and you leave able to do the four things that actually decide the outcome: frame the problem with no solution smuggled in, route the diagnosis cheapest-disqualifier-first, map the system small enough to reason about, and run all of it from memory while knowing which of your own answers to trust. That last skill — calibrated, retrievable judgment — is what a pilot rehearses in the simulator, what a surgeon drills before the OR, what a trader logs after every call. It is domain-independent and it is the whole game. The memo you built across these four lessons is your first piece of portfolio evidence: not \"I understand engineering judgment\" but \"here is a decision I framed, diagnosed, mapped, decided, and calibrated — read it.\" Carry it into the next module. You do not just talk about judgment now. You can run it.",
       "type": "transfer"
     },
@@ -1449,6 +1660,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (calibration_error:): The completed engineering_judgment_decision_memo.md (all four sections) PLUS a calibration log showing you ran the protocol CLOSED-NOTE: a confidence score per step and at least one honest note where confidence exceeded correctness (or a defensible claim that none did). Reusable on the next real decision.",
+        "Diagnose and repair the broken case: Tests reading, not 2 a.m. recall",
+        "Confirm every verification item: You ran Frame → Route → Map → Decide from memory, notes closed. If you peeked, it does not count as retrieval — re-run it. · Every step has a 1–5 confidence recorded BEFORE you checked it against reality. · At least one step has been compared to proof, and any gap between confidence and correctness is logged honestly. · Each over-confident miss has a repair that is a reusable rule, not \"be more careful\". · The completed memo reads as reusable on a brand-new decision — you could hand it to next week's incident unchanged in structure.",
+        "Complete the transfer without copying the worked example: You came in able to argue about Redis in a war room and you leave able to do the four things that actually decide the outcome: frame the problem with no solution smuggled in, route the diagnosis cheapest-disqualifier-first, map the system small enough to reason about, and run all of it from memory while knowing which of your own answers to trust. That last skill — calibrated, retrievable judgment — is what a pilot rehearses in the simulator, what a surgeon drills before the OR, what a trader logs after every call. It is domain-independent and it is the whole game. The memo you built across these four lessons is your first piece of portfolio evidence: not \"I understand engineering judgment\" but \"here is a decision I framed, diagnosed, mapped, decided, and calibrated — read it.\" Carry it into the next module. You do not just talk about judgment now. You can run it."
       ]
     }
   ],
@@ -1476,69 +1696,24 @@
       "reveal": "The decision may be correct and still fail review, because nothing is inspectable. \"Felt risky\" and \"looked off\" cannot be checked, reproduced, or argued with — a reviewer cannot tell a calibrated call from a lucky guess. The fix is not a better sentence; it is a smaller artifact: the exact metric, the threshold it crossed, the option you rejected, and how you would prove the rollback worked. The win in engineering judgment is never the opinion; it is the reviewable thing the opinion produced."
     },
     {
+      "type": "worked-example",
+      "intro": "The tiny artifact, line by line. Watch a paragraph of vibes become a memo a reviewer can check — the filled template you grow all module.",
+      "code": "# engineering_judgment_decision_memo.md — the tiny artifact (grows all module)\n# Under two minutes to read. Inspectable beats impressive.\n\n## Context\nRelease v2.4.0, 14:02. Checkout p99 latency 280ms -> 910ms in 8 min. Error rate flat.\n\n## Assumptions\nLatency signal is real (cross-checked two sources). No upstream incident open.\n\n## Decision\nRolled back to v2.3.9 at 14:11.\n\n## Rejected option\nFeature-flag the new checkout path off. Rejected: flag not wired for the payment\ncall -> partial disable risked double-charge.\n\n## Verification method\np99 < 350ms within 5 min of rollback. (Observed 14:16: p99 = 240ms. PASS.)\n\n## Reviewer objection + answer\n\"Was the spike a metrics blip?\" -> Two independent latency sources agreed.",
+      "language": "bash",
+      "steps": [
+        "Context — measured, not vibes: A number and a threshold (\"280ms -> 910ms in 8 min\"), not \"seemed unstable\". A reviewer can disagree with the number; they cannot disagree with a feeling.",
+        "Assumptions named up front: State the thing that could be wrong (\"latency signal is real\"). Naming the assumption is what makes the next lesson — injecting its failure — even possible.",
+        "The decision, one line: The actual call with a timestamp. Not \"we discussed options\" — the verb and the time.",
+        "Rejected option — the most convincing line: The credible alternative AND the specific reason it loses (flag not wired for payments). Write this FIRST; it separates a calibrated call from a reflex.",
+        "Verification method: Something that could be RUN to confirm the call worked, with the observed result. This is the seed of the Lesson 08 proof.",
+        "Objection answered in advance: Pre-empt the sharpest \"but what about…\". The memo invites challenge instead of defending against it."
+      ],
+      "commonMistake": "No metric, no rejected option, no proof"
+    },
+    {
       "text": "Every ambiguous decision must terminate in something named, small, and inspectable. Named = it has a filename. Small = read in under two minutes. Inspectable = the reasoning, the rejected option, and the planned proof are all on the page. Small is for reviewability, not modesty.",
       "type": "concept",
       "title": "A tiny artifact is the smallest output a reviewer can inspect without you in the room"
-    },
-    {
-      "code": "# engineering_judgment_decision_memo.md — the tiny artifact (grows all module)\n# Under two minutes to read. Inspectable beats impressive.\n\n## Context\nRelease v2.4.0, 14:02. Checkout p99 latency 280ms -> 910ms in 8 min. Error rate flat.\n\n## Assumptions\nLatency signal is real (cross-checked two sources). No upstream incident open.\n\n## Decision\nRolled back to v2.3.9 at 14:11.\n\n## Rejected option\nFeature-flag the new checkout path off. Rejected: flag not wired for the payment\ncall -> partial disable risked double-charge.\n\n## Verification method\np99 < 350ms within 5 min of rollback. (Observed 14:16: p99 = 240ms. PASS.)\n\n## Reviewer objection + answer\n\"Was the spike a metrics blip?\" -> Two independent latency sources agreed.",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "A number and a threshold (\"280ms -> 910ms in 8 min\"), not \"seemed unstable\". A reviewer can disagree with the number; they cannot disagree with a feeling.",
-          "label": "Context — measured, not vibes",
-          "lines": [
-            4,
-            5
-          ]
-        },
-        {
-          "note": "State the thing that could be wrong (\"latency signal is real\"). Naming the assumption is what makes the next lesson — injecting its failure — even possible.",
-          "label": "Assumptions named up front",
-          "lines": [
-            7,
-            8
-          ]
-        },
-        {
-          "note": "The actual call with a timestamp. Not \"we discussed options\" — the verb and the time.",
-          "label": "The decision, one line",
-          "lines": [
-            10,
-            11
-          ]
-        },
-        {
-          "note": "The credible alternative AND the specific reason it loses (flag not wired for payments). Write this FIRST; it separates a calibrated call from a reflex.",
-          "label": "Rejected option — the most convincing line",
-          "lines": [
-            13,
-            14,
-            15
-          ]
-        },
-        {
-          "note": "Something that could be RUN to confirm the call worked, with the observed result. This is the seed of the Lesson 08 proof.",
-          "label": "Verification method",
-          "lines": [
-            17,
-            18
-          ]
-        },
-        {
-          "note": "Pre-empt the sharpest \"but what about…\". The memo invites challenge instead of defending against it.",
-          "label": "Objection answered in advance",
-          "lines": [
-            20,
-            21
-          ]
-        }
-      ],
-      "title": "The tiny artifact, line by line",
-      "caption": "A reviewer who never spoke to you finds the decision and its evidence in under two minutes. That is the whole skill.",
-      "filename": "engineering_judgment_decision_memo.md",
-      "language": "bash",
-      "subtitle": "Watch a paragraph of vibes become a memo a reviewer can check — the filled template you grow all module."
     },
     {
       "type": "diagram",
@@ -1770,7 +1945,91 @@
     {
       "type": "lab",
       "title": "Produce engineering_judgment_decision_memo.md for a real decision",
-      "summary": "Take one ambiguous call you actually face right now (ship/rollback/instrument/redesign, a tool choice, a \"do we refactor this\") and fill the engineering_judgment_decision_memo.md template: Context, Assumptions, Decision, Rejected option (with the specific reason it loses), Verification method, Reviewer objection + answer. Keep it under two minutes to read. The win is the file existing and being inspectable — not being long."
+      "summary": "Take one ambiguous call you actually face right now (ship/rollback/instrument/redesign, a tool choice, a \"do we refactor this\") and fill the engineering_judgment_decision_memo.md template: Context, Assumptions, Decision, Rejected option (with the specific reason it loses), Verification method, Reviewer objection + answer. Keep it under two minutes to read. The win is the file existing and being inspectable — not being long. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: verdict: INSPECTABLE",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 05-tiny-artifact artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: verdict: INSPECTABLE\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "verdict: INSPECTABLE"
+    },
+    {
+      "code": "# engineering_judgment_decision_memo.md — the tiny artifact (grows all module)\n# Under two minutes to read. Inspectable beats impressive.\n\n## Context\nRelease v2.4.0, 14:02. Checkout p99 latency 280ms -> 910ms in 8 min. Error rate flat.\n\n## Assumptions\nLatency signal is real (cross-checked two sources). No upstream incident open.\n\n## Decision\nRolled back to v2.3.9 at 14:11.\n\n## Rejected option\nFeature-flag the new checkout path off. Rejected: flag not wired for the payment\ncall -> partial disable risked double-charge.\n\n## Verification method\np99 < 350ms within 5 min of rollback. (Observed 14:16: p99 = 240ms. PASS.)\n\n## Reviewer objection + answer\n\"Was the spike a metrics blip?\" -> Two independent latency sources agreed.",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "A number and a threshold (\"280ms -> 910ms in 8 min\"), not \"seemed unstable\". A reviewer can disagree with the number; they cannot disagree with a feeling.",
+          "label": "Context — measured, not vibes",
+          "lines": [
+            4,
+            5
+          ]
+        },
+        {
+          "note": "State the thing that could be wrong (\"latency signal is real\"). Naming the assumption is what makes the next lesson — injecting its failure — even possible.",
+          "label": "Assumptions named up front",
+          "lines": [
+            7,
+            8
+          ]
+        },
+        {
+          "note": "The actual call with a timestamp. Not \"we discussed options\" — the verb and the time.",
+          "label": "The decision, one line",
+          "lines": [
+            10,
+            11
+          ]
+        },
+        {
+          "note": "The credible alternative AND the specific reason it loses (flag not wired for payments). Write this FIRST; it separates a calibrated call from a reflex.",
+          "label": "Rejected option — the most convincing line",
+          "lines": [
+            13,
+            14,
+            15
+          ]
+        },
+        {
+          "note": "Something that could be RUN to confirm the call worked, with the observed result. This is the seed of the Lesson 08 proof.",
+          "label": "Verification method",
+          "lines": [
+            17,
+            18
+          ]
+        },
+        {
+          "note": "Pre-empt the sharpest \"but what about…\". The memo invites challenge instead of defending against it.",
+          "label": "Objection answered in advance",
+          "lines": [
+            20,
+            21
+          ]
+        }
+      ],
+      "title": "The tiny artifact, line by line",
+      "caption": "A reviewer who never spoke to you finds the decision and its evidence in under two minutes. That is the whole skill.",
+      "filename": "engineering_judgment_decision_memo.md",
+      "language": "bash",
+      "subtitle": "Watch a paragraph of vibes become a memo a reviewer can check — the filled template you grow all module."
+    },
+    {
+      "type": "debug",
+      "symptom": "No metric, no rejected option, no proof",
+      "brokenCode": "Decision memo: caching layer\n\"Weighed the tradeoffs carefully…\"\n\"…the right call for our scale\"\n\"…aligns with best practices\"\n\"Everyone agreed. Confident.\"",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Unreviewable (vibes) approach and repair it before continuing.",
+      "fix": "Context: p99 = 740ms; 80% of reads hit 12 hot keys\nDecision: 60s TTL cache on those keys\nRejected: read replica — bottleneck is repeated\n  identical reads, not replication lag\nVerify: p99 < 300ms + hit-rate > 85% over 24h\nA reviewer can disagree with the number"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two decision memos, same call",
+      "optionA": {
+        "label": "Unreviewable (vibes)",
+        "text": "Decision memo: caching layer · \"Weighed the tradeoffs carefully…\" · \"…the right call for our scale\" · \"…aligns with best practices\" · \"Everyone agreed. Confident.\" Outcome: No metric, no rejected option, no proof"
+      },
+      "optionB": {
+        "label": "Inspectable (gold)",
+        "text": "Context: p99 = 740ms; 80% of reads hit 12 hot keys · Decision: 60s TTL cache on those keys · Rejected: read replica — bottleneck is repeated ·   identical reads, not replication lag · Verify: p99 < 300ms + hit-rate > 85% over 24h Outcome: A reviewer can disagree with the number"
+      },
+      "guidance": "\"Best practices\" and \"everyone agreed\" are appeals to authority, not evidence. The repair names the metric, the rejected option, and the verification — now it is a real artifact."
     },
     {
       "type": "quiz",
@@ -1823,6 +2082,15 @@
         "day 7",
         "day 30"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A real engineering_judgment_decision_memo.md on disk with context, the decision, the rejected option, and the proof you will run — an artifact someone could review, not a note.",
+        "Diagnose and repair the broken case: No metric, no rejected option, no proof",
+        "Confirm every verification item: engineering_judgment_decision_memo.md exists as a file you can open right now. · A reviewer who has never spoken to you could find the decision in under two minutes. · It names one credible rejected option AND the specific reason it loses. · It states a verification method — something that could be run to confirm the decision worked. · It contains zero unmeasurable phrases like \"felt risky\" or \"looked off\" standing in for evidence.",
+        "Complete the transfer without copying the worked example: This is not just for incidents. The same tiny-artifact move upgrades a pull-request description (state the rejected approach and how you verified), a vendor choice (the one real alternative and the metric that decided it), and a postmortem (the inspectable timeline, not the narrated one). Anywhere a decision currently lives only in your head or a Slack thread, replace it with the smallest named, inspectable artifact — and you become reviewable, which is what \"trusted with hard calls\" actually means. Next lesson, you stop trusting the happy path: you deliberately inject a failure into this very artifact to find out what it does NOT survive."
+      ]
     }
   ],
   "06-failure-injection": [
@@ -1849,52 +2117,22 @@
       "reveal": "\"It worked\" confirms the outcome, not the reasoning — and outcome and reasoning come apart constantly. A reckless call can get a good outcome by luck; a calibrated call can get a bad outcome from a risk you correctly accepted. If you cannot name what would have made the rollback wrong (the spike was downstream and the rollback masked the real cause, delaying the fix), you cannot tell skill from luck, and neither can your reviewer. Injecting the failure is how you separate the two: you state the condition under which your right-looking decision is actually wrong."
     },
     {
+      "type": "worked-example",
+      "intro": "The failure autopsy, line by line. Inject a failure into the rollback memo from Lesson 05. Notice it attacks the decision that already looked good.",
+      "code": "## Failure autopsy (appended to engineering_judgment_decision_memo.md)\n# Attack your OWN decision with the most realistic failure — before reality does.\n\n## Injected failure\nThe latency spike was caused by a downstream cache eviction, NOT the release.\nRollback recovered p99 by coincidence; the real bug is still live in v2.3.9.\n\n## Blast radius\nWe declare the incident resolved, page nobody, and the spike returns at the next\ntraffic peak — now with no release to blame, so diagnosis takes 3x longer.\n\n## Detection signal\nWatch whether p99 stays recovered through the NEXT traffic peak, not just the\n5 minutes after rollback. Re-spike on v2.3.9 means the release was never the cause.\n\n## Response\nIf it re-spikes on the old version: stop blaming the release, pull the downstream\ncache metrics, and REOPEN the incident instead of closing it.",
+      "language": "bash",
+      "steps": [
+        "Inject the most realistic failure: Not \"what if the data center floods?\" — the credible one: the spike was downstream, so the rollback recovered p99 by coincidence and the real bug still lives.",
+        "Blast radius: What and who it hurts, and how widely. Closing the incident wrongly is worse than the spike: the next recurrence has no release to blame and takes 3x longer.",
+        "Detection signal — the hardest question: Not \"what breaks?\" but \"how would we even know?\" Here: watch the NEXT traffic peak, not the 5 minutes after rollback. A failure with no signal is the highest-priority gap.",
+        "Response: What you actually do when the signal fires. If the autopsy did not add a line to the response plan, you injected a strawman, not a failure."
+      ],
+      "commonMistake": "A category, not a failure; no signal"
+    },
+    {
       "text": "A decision is not hardened until you inject the most realistic failure it faces and show what changes. Two rules: no toy failures (use the credible production one, not a strawman), and every injected failure needs a detection signal — the specific thing you would watch. A failure you cannot detect is not handled; it is just named.",
       "type": "concept",
       "title": "Failure injection: attack your own decision with the most realistic failure, not a toy one"
-    },
-    {
-      "code": "## Failure autopsy (appended to engineering_judgment_decision_memo.md)\n# Attack your OWN decision with the most realistic failure — before reality does.\n\n## Injected failure\nThe latency spike was caused by a downstream cache eviction, NOT the release.\nRollback recovered p99 by coincidence; the real bug is still live in v2.3.9.\n\n## Blast radius\nWe declare the incident resolved, page nobody, and the spike returns at the next\ntraffic peak — now with no release to blame, so diagnosis takes 3x longer.\n\n## Detection signal\nWatch whether p99 stays recovered through the NEXT traffic peak, not just the\n5 minutes after rollback. Re-spike on v2.3.9 means the release was never the cause.\n\n## Response\nIf it re-spikes on the old version: stop blaming the release, pull the downstream\ncache metrics, and REOPEN the incident instead of closing it.",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "Not \"what if the data center floods?\" — the credible one: the spike was downstream, so the rollback recovered p99 by coincidence and the real bug still lives.",
-          "label": "Inject the most realistic failure",
-          "lines": [
-            5,
-            6
-          ]
-        },
-        {
-          "note": "What and who it hurts, and how widely. Closing the incident wrongly is worse than the spike: the next recurrence has no release to blame and takes 3x longer.",
-          "label": "Blast radius",
-          "lines": [
-            9,
-            10
-          ]
-        },
-        {
-          "note": "Not \"what breaks?\" but \"how would we even know?\" Here: watch the NEXT traffic peak, not the 5 minutes after rollback. A failure with no signal is the highest-priority gap.",
-          "label": "Detection signal — the hardest question",
-          "lines": [
-            13,
-            14
-          ]
-        },
-        {
-          "note": "What you actually do when the signal fires. If the autopsy did not add a line to the response plan, you injected a strawman, not a failure.",
-          "label": "Response",
-          "lines": [
-            17,
-            18
-          ]
-        }
-      ],
-      "title": "The failure autopsy, line by line",
-      "caption": "A real injected failure should make you LESS comfortable with your decision and ADD a line to the plan. If it changed nothing, it was theater.",
-      "filename": "engineering_judgment_decision_memo.md",
-      "language": "bash",
-      "subtitle": "Inject a failure into the rollback memo from Lesson 05. Notice it attacks the decision that already looked good."
     },
     {
       "type": "diagram",
@@ -2126,7 +2364,74 @@
     {
       "type": "lab",
       "title": "Append a Failure autopsy to engineering_judgment_decision_memo.md",
-      "summary": "Take YOUR decision from Lesson 05's memo and inject the single most realistic failure it faces — not a toy one. Append a \"Failure autopsy\" section with four lines: Injected failure (the credible way it goes wrong), Blast radius (what and who it hurts, and how widely), Detection signal (the specific thing you would watch — or an honest \"we currently could not detect this\"), and Response (what you would do when you see the signal). The win is a memo that now documents its own most realistic failure."
+      "summary": "Take YOUR decision from Lesson 05's memo and inject the single most realistic failure it faces — not a toy one. Append a \"Failure autopsy\" section with four lines: Injected failure (the credible way it goes wrong), Blast radius (what and who it hurts, and how widely), Detection signal (the specific thing you would watch — or an honest \"we currently could not detect this\"), and Response (what you would do when you see the signal). The win is a memo that now documents its own most realistic failure. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: autopsy_line:",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 06-failure-injection artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: autopsy_line:\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "autopsy_line:"
+    },
+    {
+      "code": "## Failure autopsy (appended to engineering_judgment_decision_memo.md)\n# Attack your OWN decision with the most realistic failure — before reality does.\n\n## Injected failure\nThe latency spike was caused by a downstream cache eviction, NOT the release.\nRollback recovered p99 by coincidence; the real bug is still live in v2.3.9.\n\n## Blast radius\nWe declare the incident resolved, page nobody, and the spike returns at the next\ntraffic peak — now with no release to blame, so diagnosis takes 3x longer.\n\n## Detection signal\nWatch whether p99 stays recovered through the NEXT traffic peak, not just the\n5 minutes after rollback. Re-spike on v2.3.9 means the release was never the cause.\n\n## Response\nIf it re-spikes on the old version: stop blaming the release, pull the downstream\ncache metrics, and REOPEN the incident instead of closing it.",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "Not \"what if the data center floods?\" — the credible one: the spike was downstream, so the rollback recovered p99 by coincidence and the real bug still lives.",
+          "label": "Inject the most realistic failure",
+          "lines": [
+            5,
+            6
+          ]
+        },
+        {
+          "note": "What and who it hurts, and how widely. Closing the incident wrongly is worse than the spike: the next recurrence has no release to blame and takes 3x longer.",
+          "label": "Blast radius",
+          "lines": [
+            9,
+            10
+          ]
+        },
+        {
+          "note": "Not \"what breaks?\" but \"how would we even know?\" Here: watch the NEXT traffic peak, not the 5 minutes after rollback. A failure with no signal is the highest-priority gap.",
+          "label": "Detection signal — the hardest question",
+          "lines": [
+            13,
+            14
+          ]
+        },
+        {
+          "note": "What you actually do when the signal fires. If the autopsy did not add a line to the response plan, you injected a strawman, not a failure.",
+          "label": "Response",
+          "lines": [
+            17,
+            18
+          ]
+        }
+      ],
+      "title": "The failure autopsy, line by line",
+      "caption": "A real injected failure should make you LESS comfortable with your decision and ADD a line to the plan. If it changed nothing, it was theater.",
+      "filename": "engineering_judgment_decision_memo.md",
+      "language": "bash",
+      "subtitle": "Inject a failure into the rollback memo from Lesson 05. Notice it attacks the decision that already looked good."
+    },
+    {
+      "type": "debug",
+      "symptom": "A category, not a failure; no signal",
+      "brokenCode": "Failure analysis: new caching layer\nRisk: the cache could fail.\nMitigation: we will monitor it and fix issues.\nOverall this is low risk.\nWe are confident in the approach.",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Failure theater approach and repair it before continuing.",
+      "fix": "Injected: stale price served after a change\n  (TTL 60s, no invalidate-on-write)\nBlast radius: every read shows old price 60s →\n  pricing-integrity bug at checkout\nDetect: alert if checkout price != source-of-truth\n  — we have NO such check (the real gap)\nResponse: invalidate on write, not TTL\nChanges the design"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Theater vs a real autopsy",
+      "optionA": {
+        "label": "Failure theater",
+        "text": "Failure analysis: new caching layer · Risk: the cache could fail. · Mitigation: we will monitor it and fix issues. · Overall this is low risk. · We are confident in the approach. Outcome: A category, not a failure; no signal"
+      },
+      "optionB": {
+        "label": "Real autopsy",
+        "text": "Injected: stale price served after a change ·   (TTL 60s, no invalidate-on-write) · Blast radius: every read shows old price 60s → ·   pricing-integrity bug at checkout · Detect: alert if checkout price != source-of-truth ·   — we have NO such check (the real gap) · Response: invalidate on write, not TTL Outcome: Changes the design"
+      },
+      "guidance": "\"The cache could fail\" is a category, not a failure mode; \"we will monitor it\" names no signal. The repair injects a concrete failure, surfaces a silent-failure gap, and changes what you build."
     },
     {
       "type": "quiz",
@@ -2179,6 +2484,15 @@
         "day 7",
         "day 30"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A \"Failure autopsy\" section appended to engineering_judgment_decision_memo.md: the injected failure, the blast radius, the detection signal, and the response — written before the failure happens, not after.",
+        "Diagnose and repair the broken case: A category, not a failure; no signal",
+        "Confirm every verification item: engineering_judgment_decision_memo.md now contains a \"Failure autopsy\" section attached to YOUR decision. · The injected failure is one a reviewer would agree could actually happen in production — not a strawman. · You named a specific detection signal, OR you honestly wrote that you currently could not detect it (and flagged that as the gap). · There is a response: what you would do when the signal fires. · The autopsy changed something — a thing you would now watch or do that you would not have before.",
+        "Complete the transfer without copying the worked example: Failure injection is the engine behind premortems, chaos engineering, and threat modeling — the same move at different scales: attack your own plan with a realistic failure before reality does, and demand a detection signal for each one. Apply it to a migration (what is the realistic data-loss path, and would we notice mid-migration?), to a hiring decision (what is the realistic way this is the wrong hire, and what early signal would tell us?), to a launch (what realistically makes us roll it back, and is that instrumented?). Next lesson, the failure you injected here becomes ammunition: it is the \"risk if wrong\" you weigh when you compare options and defend a tradeoff."
+      ]
     }
   ],
   "07-tradeoff-decision": [
@@ -2203,6 +2517,20 @@
       "type": "pretest",
       "prompt": "You compare two databases. You list Postgres with five upsides and the alternative with five downsides, and conclude \"clearly Postgres.\" Before reading on — why will a sharp reviewer distrust this even if Postgres is the right answer?",
       "reveal": "A comparison where one option has all upsides and the other all downsides is not a tradeoff — it is a decision already made, dressed up. Real options each win under SOME condition; if the alternative had no scenario where it wins, it was never credible and listing it is theater. The reviewer distrusts it because no constraint is doing the deciding — it reads as motivated reasoning. A real tradeoff names the binding constraint (\"we need multi-region writes in 6 months\") and shows how THAT, not a tally of pros, selects the option. Honest tradeoffs admit the alternative wins in a world slightly different from yours."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The tradeoff section, line by line. Defend the rollback as a tradeoff. Watch a constraint — not a pro/con tally — do the deciding, and the L06 failure return as the risk-if-wrong.",
+      "code": "## Tradeoff (added to engineering_judgment_decision_memo.md)\n# Selection by the binding constraint, with a stated reversal condition.\n\n## Real options (each wins under SOME condition)\nA — full rollback to v2.3.9\nB — feature-flag the new checkout path off\nC — leave it up, instrument harder for 10 more minutes\n\n## Binding constraint (what actually decides)\nCustomer-facing latency event: the cost of being slow now exceeds the cost of\nlosing the new feature for an hour. Time-to-recover dominates.\n\n## Choice — by the constraint, not a pro/con tally\nA: fastest, fully reversible. B: flag not wired for payments (the L06 failure)\n-> double-charge risk. C: keeps the pain live. Under time-to-recover, A wins.\n\n## Reversal condition (the specific change that flips it)\nOnce the payment flag is wired safely AND latency is isolated to a non-payment\npath, the same event next quarter flips to B (smaller blast radius, keeps feature).\n\n## Risk if wrong (reuse the L06 injected failure)\nIf the spike was downstream, A recovers p99 by coincidence -> pair A with the\nL06 detection signal: watch the next traffic peak.",
+      "language": "bash",
+      "steps": [
+        "Real options, each credible: Three options that each win under SOME condition. If one is all-downside, it is set dressing — cut it and find a real alternative.",
+        "Name the binding constraint: Not a pile of pros — the one thing that decides: time-to-recover dominates. State it and the whole call fits in one sentence.",
+        "Select BY the constraint: A wins because time-to-recover dominates — not because \"A has more pluses\". One binding constraint beats ten pros listed evenly.",
+        "Reversal condition — the senior signal: The precise change that flips the call (\"once the payment flag is wired safely\"). Stating it proves the decision is reasoned, not reflexive.",
+        "Risk if wrong reuses L06: The injected failure is not wasted — it becomes the risk column, paired with its detection signal. The module compounds."
+      ],
+      "commonMistake": "No constraint decides; \"revisit\" commits to nothing"
     },
     {
       "text": "Three parts. Real options: each must win under some plausible condition. The binding constraint: the one or two things (latency, cost, team skill, risk, time) that actually decide — name them and you explain the call in one sentence. The reversal condition: the specific change in the world that would flip your choice. No reversal condition means a true one-way door (rare) or a bluff.",
@@ -2454,19 +2782,6 @@
       ]
     },
     {
-      "type": "tradeoff",
-      "optionA": {
-        "text": "Fastest, fully reversible recovery; loses the new feature for an hour. Wins when time-to-recover is the binding constraint and the blast radius spans the payment path.",
-        "label": "Full rollback (A)"
-      },
-      "optionB": {
-        "text": "Smaller blast radius, keeps the rest of the release; but the flag is not wired for the payment call, so a partial disable risks double-charge. Wins only once that flag is safe AND the latency is isolated to a non-payment path.",
-        "label": "Feature-flag off (B)"
-      },
-      "guidance": "Choose A here, and say WHY in one line: time-to-recover dominates and the unsafe flag makes B a correctness risk, not just a smaller one. Then state the reversal explicitly: wire the payment flag safely and the same event next quarter flips to B. The senior signal is not picking A — it is naming the exact condition under which you would pick B instead.",
-      "question": "Under a customer-facing latency event with the payment-path flag NOT wired, do you full-rollback (A) or feature-flag the new path off (B)?"
-    },
-    {
       "left": {
         "tone": "warning",
         "label": "Pro-tally (dressed up)",
@@ -2507,7 +2822,31 @@
     {
       "type": "lab",
       "title": "Add a defended Tradeoff section to engineering_judgment_decision_memo.md",
-      "summary": "Take YOUR decision and write a \"Tradeoff\" section with: at least two REAL options (each must win under some condition), the one or two binding constraints that actually decide it, the chosen option justified BY that constraint (not a pro/con tally), an explicit reversal condition (the specific change that would flip your choice), and the risk-if-wrong — reuse the failure you injected in Lesson 06. The win is a decision a reviewer could attack and you could defend without flinching."
+      "summary": "Take YOUR decision and write a \"Tradeoff\" section with: at least two REAL options (each must win under some condition), the one or two binding constraints that actually decide it, the chosen option justified BY that constraint (not a pro/con tally), an explicit reversal condition (the specific change that would flip your choice), and the risk-if-wrong — reuse the failure you injected in Lesson 06. The win is a decision a reviewer could attack and you could defend without flinching. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: reversal_condition:",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 07-tradeoff-decision artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: reversal_condition:\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "reversal_condition:"
+    },
+    {
+      "type": "debug",
+      "symptom": "No constraint decides; \"revisit\" commits to nothing",
+      "brokenCode": "Tradeoff: message queue\nA (Kafka): scalable, durable, standard, ecosystem\nB (SQS): simple, managed, less ops\nDecision: Kafka — scores higher overall\nWe can revisit later if needed.",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Pro-tally (dressed up) approach and repair it before continuing.",
+      "fix": "Binding constraint: 3-person team, no streaming\n  experience, live in 4 weeks\nUnder that: SQS wins — Kafka ops burden is the\n  biggest risk for a 3-person team\nReversal: ~10k msg/s sustained OR need replay\n  -> Kafka earns its cost; migrate\nRisk if wrong: 256KB limit -> alert at 200KB\nThe constraint decides; the reversal is concrete"
+    },
+    {
+      "type": "tradeoff",
+      "optionA": {
+        "text": "Fastest, fully reversible recovery; loses the new feature for an hour. Wins when time-to-recover is the binding constraint and the blast radius spans the payment path.",
+        "label": "Full rollback (A)"
+      },
+      "optionB": {
+        "text": "Smaller blast radius, keeps the rest of the release; but the flag is not wired for the payment call, so a partial disable risks double-charge. Wins only once that flag is safe AND the latency is isolated to a non-payment path.",
+        "label": "Feature-flag off (B)"
+      },
+      "guidance": "Choose A here, and say WHY in one line: time-to-recover dominates and the unsafe flag makes B a correctness risk, not just a smaller one. Then state the reversal explicitly: wire the payment flag safely and the same event next quarter flips to B. The senior signal is not picking A — it is naming the exact condition under which you would pick B instead.",
+      "question": "Under a customer-facing latency event with the payment-path flag NOT wired, do you full-rollback (A) or feature-flag the new path off (B)?"
     },
     {
       "type": "quiz",
@@ -2560,6 +2899,15 @@
         "day 7",
         "day 30"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A \"Tradeoff\" section in engineering_judgment_decision_memo.md: at least two credible options compared against the binding constraints, the chosen option, the explicit reversal condition, and the risk-if-wrong (the failure you injected last lesson).",
+        "Diagnose and repair the broken case: No constraint decides; \"revisit\" commits to nothing",
+        "Confirm every verification item: engineering_judgment_decision_memo.md has a \"Tradeoff\" section comparing at least two options that each win under some condition. · You can state, in ONE sentence, the binding constraint that decided it. · There is an explicit reversal condition — a specific, checkable change that would flip your choice. · The risk-if-wrong reuses the realistic failure you injected in Lesson 06. · You could make a genuinely strong case for the option you rejected (and did, at least to yourself).",
+        "Complete the transfer without copying the worked example: Defended tradeoffs are the literal substance of architecture decision records (ADRs), build-vs-buy memos, and roadmap prioritization. The pattern transfers everywhere a choice has real alternatives and binding constraints: choosing a framework (what constraint — team skill, hiring pool, performance — actually decides, and what reverses it?), pricing a feature (which constraint binds, and at what number do you change course?), even accepting a job (what would have to be true for the rejected offer to have been right?). Last lesson left: you have a decision that is inspectable, fails honestly, and is defended as a tradeoff. Now you PROVE it holds — with the strongest evidence available, not a vibe."
+      ]
     }
   ],
   "08-testa-proof": [
@@ -2586,62 +2934,23 @@
       "reveal": "A vanished symptom proves the symptom is gone right now — not that you fixed the cause, and not that it stays gone. The bug could be intermittent (gone by luck of timing), or your change masked it (the cause still lurks), or it depended on load you are not currently generating. The strongest available proof targets the CAUSE and is repeatable: a failing test that now passes (and failed before your fix), a contract check the artifact must satisfy, a load test that reproduces the original condition. \"The symptom disappeared\" is where proof STARTS, not where it ends. Testa forces the question: what is the strongest evidence this situation actually allows, and did I run THAT?"
     },
     {
+      "type": "worked-example",
+      "intro": "The Proof section, line by line. Prove the caching decision. Watch the strongest available mode get selected, the L06 failure closed, and confidence calibrated to the evidence.",
+      "code": "## Proof (Testa mode: executable test + contract check)\n# Capstone close. Strongest available evidence — and honesty about which it is.\n\n## Executable test (strongest mode available)\nHot-path test asserts p99 < 300ms.\nFAILED pre-cache (740ms) -> PASSES cached (210ms). Both runs attached.\n\n## Contract check (closes the L06 failure)\n10k sampled reads: cached price == source-of-truth price.\nResult: 0 mismatches over 24h. (Proves the L06 stale-price failure absent.)\n\n## Calibrated confidence\n4/5. Not 5: load test was synthetic; real hot-key traffic not yet reproduced.\nWhat would raise it: replay production traffic shape against the cache.\n\n## Portfolio claim (names the proof, not the topic)\n\"Cut checkout p99 740ms -> 210ms with a targeted TTL cache, and proved\ncorrectness under the stale-price failure with a 24h contract check (0 mismatches).\"\n\n## Module roll-call — the four-part artifact, complete\nInspectable (L05) -> Failure injected + detected (L06) ->\nTradeoff defended with reversal (L07) -> Proven, strongest evidence (L08).",
+      "language": "bash",
+      "steps": [
+        "Executable: strongest mode available: Running code exists, so a reviewer rubric would be cheating. The test FAILED pre-cache (740ms) and PASSES cached (210ms) — failed-then-passed is the proof, not \"it works\".",
+        "Contract check closes L06: The Lesson 06 injected failure was stale prices. 10k sampled reads, 0 mismatches over 24h — this proves the injected failure does not occur. The module closes its own loop.",
+        "Calibrate confidence to the proof: 4/5, not 5 — the load test used synthetic traffic. Confidence tracks the evidence, and you say out loud what would raise it.",
+        "Portfolio claim names the PROOF: Not \"I worked on caching\" — \"cut p99 740ms -> 210ms and proved correctness with a 24h contract check (0 mismatches).\" Interview-ready: X under constraint Y, proved with Z.",
+        "Module roll-call: Inspectable (L05) -> injected + detected (L06) -> defended with reversal (L07) -> proven (L08). The four-part artifact, complete — what the course capstone asks for on demand."
+      ],
+      "commonMistake": "No mode, no assertion, uncalibrated"
+    },
+    {
       "text": "A decision is proven only by the strongest evidence mode available, named so its strength is legible. Strongest to weakest: (1) executable test — failed before, passes after, run by you; (2) contract/schema check; (3) domain check (a11y/security/reliability/eval); (4) reviewer rubric when execution is impossible. Reach for the strongest mode, not the easiest — and say which one. Pair it with calibrated confidence that tracks the proof, not your mood.",
       "type": "concept",
       "title": "Testa proof: the strongest evidence the situation allows — and honesty about which one it is"
-    },
-    {
-      "code": "## Proof (Testa mode: executable test + contract check)\n# Capstone close. Strongest available evidence — and honesty about which it is.\n\n## Executable test (strongest mode available)\nHot-path test asserts p99 < 300ms.\nFAILED pre-cache (740ms) -> PASSES cached (210ms). Both runs attached.\n\n## Contract check (closes the L06 failure)\n10k sampled reads: cached price == source-of-truth price.\nResult: 0 mismatches over 24h. (Proves the L06 stale-price failure absent.)\n\n## Calibrated confidence\n4/5. Not 5: load test was synthetic; real hot-key traffic not yet reproduced.\nWhat would raise it: replay production traffic shape against the cache.\n\n## Portfolio claim (names the proof, not the topic)\n\"Cut checkout p99 740ms -> 210ms with a targeted TTL cache, and proved\ncorrectness under the stale-price failure with a 24h contract check (0 mismatches).\"\n\n## Module roll-call — the four-part artifact, complete\nInspectable (L05) -> Failure injected + detected (L06) ->\nTradeoff defended with reversal (L07) -> Proven, strongest evidence (L08).",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "Running code exists, so a reviewer rubric would be cheating. The test FAILED pre-cache (740ms) and PASSES cached (210ms) — failed-then-passed is the proof, not \"it works\".",
-          "label": "Executable: strongest mode available",
-          "lines": [
-            4,
-            5,
-            6
-          ]
-        },
-        {
-          "note": "The Lesson 06 injected failure was stale prices. 10k sampled reads, 0 mismatches over 24h — this proves the injected failure does not occur. The module closes its own loop.",
-          "label": "Contract check closes L06",
-          "lines": [
-            8,
-            9,
-            10
-          ]
-        },
-        {
-          "note": "4/5, not 5 — the load test used synthetic traffic. Confidence tracks the evidence, and you say out loud what would raise it.",
-          "label": "Calibrate confidence to the proof",
-          "lines": [
-            12,
-            13
-          ]
-        },
-        {
-          "note": "Not \"I worked on caching\" — \"cut p99 740ms -> 210ms and proved correctness with a 24h contract check (0 mismatches).\" Interview-ready: X under constraint Y, proved with Z.",
-          "label": "Portfolio claim names the PROOF",
-          "lines": [
-            16,
-            17
-          ]
-        },
-        {
-          "note": "Inspectable (L05) -> injected + detected (L06) -> defended with reversal (L07) -> proven (L08). The four-part artifact, complete — what the course capstone asks for on demand.",
-          "label": "Module roll-call",
-          "lines": [
-            20,
-            21
-          ]
-        }
-      ],
-      "title": "The Proof section, line by line",
-      "caption": "Proven means strongest-available-and-named, with confidence that tracks the evidence. That standard, applied honestly, is the judgment this course exists to build.",
-      "filename": "engineering_judgment_decision_memo.md",
-      "language": "bash",
-      "subtitle": "Prove the caching decision. Watch the strongest available mode get selected, the L06 failure closed, and confidence calibrated to the evidence."
     },
     {
       "type": "diagram",
@@ -2874,7 +3183,84 @@
     {
       "type": "lab",
       "title": "Close engineering_judgment_decision_memo.md with a Testa proof, calibrated confidence, and a portfolio claim",
-      "summary": "Take YOUR decision and add a \"Proof\" section: (1) name the STRONGEST Testa mode the situation allows — executable test, contract/schema check, domain check, or reviewer rubric — and run it, recording the concrete result; if you used a test, it must have FAILED before and PASSED after. (2) Add a calibrated-confidence line (1-5) with what would raise or lower it. (3) Write a one-line portfolio claim of the form \"I decided X under constraint Y and proved it with Z\" — naming the proof, not just the topic. The win is a complete four-part artifact you could hand to a reviewer or paste into a portfolio."
+      "summary": "Take YOUR decision and add a \"Proof\" section: (1) name the STRONGEST Testa mode the situation allows — executable test, contract/schema check, domain check, or reviewer rubric — and run it, recording the concrete result; if you used a test, it must have FAILED before and PASSED after. (2) Add a calibrated-confidence line (1-5) with what would raise or lower it. (3) Write a one-line portfolio claim of the form \"I decided X under constraint Y and proved it with Z\" — naming the proof, not just the topic. The win is a complete four-part artifact you could hand to a reviewer or paste into a portfolio. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: portfolio_claim:",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 08-testa-proof artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: portfolio_claim:\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "portfolio_claim:"
+    },
+    {
+      "code": "## Proof (Testa mode: executable test + contract check)\n# Capstone close. Strongest available evidence — and honesty about which it is.\n\n## Executable test (strongest mode available)\nHot-path test asserts p99 < 300ms.\nFAILED pre-cache (740ms) -> PASSES cached (210ms). Both runs attached.\n\n## Contract check (closes the L06 failure)\n10k sampled reads: cached price == source-of-truth price.\nResult: 0 mismatches over 24h. (Proves the L06 stale-price failure absent.)\n\n## Calibrated confidence\n4/5. Not 5: load test was synthetic; real hot-key traffic not yet reproduced.\nWhat would raise it: replay production traffic shape against the cache.\n\n## Portfolio claim (names the proof, not the topic)\n\"Cut checkout p99 740ms -> 210ms with a targeted TTL cache, and proved\ncorrectness under the stale-price failure with a 24h contract check (0 mismatches).\"\n\n## Module roll-call — the four-part artifact, complete\nInspectable (L05) -> Failure injected + detected (L06) ->\nTradeoff defended with reversal (L07) -> Proven, strongest evidence (L08).",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "Running code exists, so a reviewer rubric would be cheating. The test FAILED pre-cache (740ms) and PASSES cached (210ms) — failed-then-passed is the proof, not \"it works\".",
+          "label": "Executable: strongest mode available",
+          "lines": [
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "note": "The Lesson 06 injected failure was stale prices. 10k sampled reads, 0 mismatches over 24h — this proves the injected failure does not occur. The module closes its own loop.",
+          "label": "Contract check closes L06",
+          "lines": [
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "note": "4/5, not 5 — the load test used synthetic traffic. Confidence tracks the evidence, and you say out loud what would raise it.",
+          "label": "Calibrate confidence to the proof",
+          "lines": [
+            12,
+            13
+          ]
+        },
+        {
+          "note": "Not \"I worked on caching\" — \"cut p99 740ms -> 210ms and proved correctness with a 24h contract check (0 mismatches).\" Interview-ready: X under constraint Y, proved with Z.",
+          "label": "Portfolio claim names the PROOF",
+          "lines": [
+            16,
+            17
+          ]
+        },
+        {
+          "note": "Inspectable (L05) -> injected + detected (L06) -> defended with reversal (L07) -> proven (L08). The four-part artifact, complete — what the course capstone asks for on demand.",
+          "label": "Module roll-call",
+          "lines": [
+            20,
+            21
+          ]
+        }
+      ],
+      "title": "The Proof section, line by line",
+      "caption": "Proven means strongest-available-and-named, with confidence that tracks the evidence. That standard, applied honestly, is the judgment this course exists to build.",
+      "filename": "engineering_judgment_decision_memo.md",
+      "language": "bash",
+      "subtitle": "Prove the caching decision. Watch the strongest available mode get selected, the L06 failure closed, and confidence calibrated to the evidence."
+    },
+    {
+      "type": "debug",
+      "symptom": "No mode, no assertion, uncalibrated",
+      "brokenCode": "## Proof\nWe tested it and it works.\nBehaves correctly in our testing.\nWe are 100% confident, production-ready.\nQA gave a thumbs up. Status: PROVEN.",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Weakest, dressed up approach and repair it before continuing.",
+      "fix": "Testa mode: executable.\nDiscounted total for known cart == $42.30;\n  FAILED pre-fix ($47.00) -> PASSES now.\nEdge cases (empty cart, 100% off) covered.\nConfidence 4/5 — concurrent discount+tax\n  rounding not yet tested (next test).\nStatus: proven for single-discount path.\nNames mode, strength, and honest boundary"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Weakest proof dressed as rigor vs a named strongest mode",
+      "optionA": {
+        "label": "Weakest, dressed up",
+        "text": "## Proof · We tested it and it works. · Behaves correctly in our testing. · We are 100% confident, production-ready. · QA gave a thumbs up. Status: PROVEN. Outcome: No mode, no assertion, uncalibrated"
+      },
+      "optionB": {
+        "label": "Strongest mode, named",
+        "text": "Testa mode: executable. · Discounted total for known cart == $42.30; ·   FAILED pre-fix ($47.00) -> PASSES now. · Edge cases (empty cart, 100% off) covered. · Confidence 4/5 — concurrent discount+tax ·   rounding not yet tested (next test). · Status: proven for single-discount path. Outcome: Names mode, strength, and honest boundary"
+      },
+      "guidance": "\"We tested it and it works\" names nothing that would have failed if the code were broken; \"100% confident\" is uncalibrated by definition. The repair states the mode, the failed-then-passed assertion, and the unproven boundary."
     },
     {
       "type": "quiz",
@@ -2909,10 +3295,6 @@
       ]
     },
     {
-      "text": "This four-part artifact is your engineering-judgment signature, and it transfers to every decision you will ever defend: an incident review, a design doc, a promotion packet, a portfolio piece, a system-design interview where the interviewer asks \"how do you know?\" In each, the move is identical — make it inspectable, inject the realistic failure, defend the tradeoff with a reversal condition, and prove it with the strongest evidence the situation allows, calibrating your confidence to that evidence. That is the whole of Build & Prove, and it is what Module 1's thinking was always pointing at: you do not just reason well — you produce evidence that a reviewer, a system, or your future self can check. Keep engineering_judgment_decision_memo.md as your reusable template. The course capstone will ask you to produce exactly this, on a decision that matters, on demand. You are now equipped to do it.",
-      "type": "transfer"
-    },
-    {
       "note": "This is the capstone rubric — be ruthless. If you reached for a reviewer rubric when a test was possible, you score weak no matter how nicely it is written. Proven means strongest-available-and-named, with confidence that tracks the evidence. That standard, applied honestly, is the judgment this course exists to build.",
       "type": "calibration",
       "weak": "A \"proof\" that names no mode, asserts nothing that could have failed, and reports uncalibrated confidence (\"100% sure\", \"it works\"). The weakest check chosen because it was easy; no portfolio claim or one that names only the topic.",
@@ -2921,12 +3303,25 @@
       "excellent": "All of passing, plus the proof explicitly closes the Lesson 06 injected failure (shows it does not occur), confidence states what observation would raise OR lower it and by how much, and the portfolio claim is interview-ready: \"I decided X under constraint Y and proved it with Z.\""
     },
     {
+      "text": "This four-part artifact is your engineering-judgment signature, and it transfers to every decision you will ever defend: an incident review, a design doc, a promotion packet, a portfolio piece, a system-design interview where the interviewer asks \"how do you know?\" In each, the move is identical — make it inspectable, inject the realistic failure, defend the tradeoff with a reversal condition, and prove it with the strongest evidence the situation allows, calibrating your confidence to that evidence. That is the whole of Build & Prove, and it is what Module 1's thinking was always pointing at: you do not just reason well — you produce evidence that a reviewer, a system, or your future self can check. Keep engineering_judgment_decision_memo.md as your reusable template. The course capstone will ask you to produce exactly this, on a decision that matters, on demand. You are now equipped to do it.",
+      "type": "transfer"
+    },
+    {
       "type": "spaced-review",
       "schedule": [
         "same day",
         "day 3",
         "day 7",
         "day 30"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A \"Proof\" section in engineering_judgment_decision_memo.md naming the Testa mode used and its concrete result, plus a calibrated-confidence line and a portfolio claim of the form \"I decided X under constraint Y and proved it with Z.\"",
+        "Diagnose and repair the broken case: No mode, no assertion, uncalibrated",
+        "Confirm every verification item: engineering_judgment_decision_memo.md has a \"Proof\" section that NAMES the Testa mode used (executable / contract / domain check / reviewer rubric). · It is the strongest mode the situation actually allowed — not the easiest one available. · If a test was used, it FAILED before the decision and PASSES after (both states recorded). · Your stated confidence (1-5) tracks the proof's strength, and you named what would raise or lower it. · There is a portfolio claim that names the PROOF, not just the topic (\"...and proved it with Z\"). · The full four-part artifact is present: inspectable (L05), failure injected (L06), tradeoff defended (L07), proven (L08).",
+        "Complete the transfer without copying the worked example: This four-part artifact is your engineering-judgment signature, and it transfers to every decision you will ever defend: an incident review, a design doc, a promotion packet, a portfolio piece, a system-design interview where the interviewer asks \"how do you know?\" In each, the move is identical — make it inspectable, inject the realistic failure, defend the tradeoff with a reversal condition, and prove it with the strongest evidence the situation allows, calibrating your confidence to that evidence. That is the whole of Build & Prove, and it is what Module 1's thinking was always pointing at: you do not just reason well — you produce evidence that a reviewer, a system, or your future self can check. Keep engineering_judgment_decision_memo.md as your reusable template. The course capstone will ask you to produce exactly this, on a decision that matters, on demand. You are now equipped to do it."
       ]
     }
   ],
@@ -2952,6 +3347,21 @@
       "type": "pretest",
       "prompt": "You can describe your decision fluently: you say \"blast radius\", \"tradeoff\", \"rollback\". A teammate asks, \"Show me the exact evidence that this is not just a happy-path answer.\" What do you think happens to most engineers here?",
       "reveal": "Most go quiet — because fluent vocabulary and real understanding feel identical from the inside. You only discover the gap when you are forced to point at the evidence: the artifact, the broken case, the proof output, the transfer. If you cannot point, you did not understand it; you summarized it. Explaining-back in a FIXED order forces the point every time, so the gap surfaces in practice, not in the review."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The explain-back pass, move by move. A FILLED explain-back over a real decision memo — each move lands on evidence, not vocabulary.",
+      "code": "# engineering_judgment_decision_memo.md  (explain-back pass)\n\nDecision: Ship the checkout rewrite behind a 5% flag, or hold for the full rollback test?\nContext:  Conversion is flat; the new flow is 40% less code; load test is incomplete.\n\nTeach-back, in order (the eight moves):\n1. Problem  — we cannot prove the rewrite is safe at 100% traffic yet.\n2. Context  — a bad checkout bug costs revenue per minute; this is the money path.\n3. Artifact — this memo + the 5%-flag config + the dashboard I will watch.\n4. Failure  — most likely break: the new flow drops the tax line on cart edits.\n5. Proof    — flag at 5%, watch order-total parity vs. control for 24h.\n6. Tradeoff — slower rollout vs. blast radius if I'm wrong (I chose smaller blast).\n7. Repair   — if parity drifts >0.5%, flip the flag to 0 and autopsy the diff.\n8. Transfer — same gate applies to any money-path change: small flag, watch parity.",
+      "language": "bash",
+      "steps": [
+        "Set the stage: Decision + context first — the money path, the incomplete load test. This is what makes the stakes real.",
+        "Moves 1–2: problem + context: Name what you could not prove, and why being wrong costs revenue per minute. No solution smuggled in yet.",
+        "Moves 3–4: artifact + failure: Point at the inspectable thing (memo + flag config + dashboard) and the most likely break (tax line drops on cart edits).",
+        "Move 5: proof: The move people stall on. A measurement plan vs. a control — parity for 24h — not \"the demo went fine\".",
+        "Moves 6–7: tradeoff + repair: Chosen smaller blast radius; reversal condition is parity drift >0.5% → flip to 0 and autopsy.",
+        "Move 8: transfer: The gate generalizes: any money-path change gets a small flag and a parity watch."
+      ],
+      "commonMistake": "An engineer presents a confident explain-back, but the review board is not convinced. Find the flaw in the REASONING, not in any code."
     },
     {
       "text": "Not a summary — your decision taught back in eight ordered moves, each pointing at the exact evidence a reviewer could inspect. The fixed order is the trick: it removes your ability to skip the part you secretly do not understand.",
@@ -3176,6 +3586,49 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "Vocabulary, in importance order",
+        "lines": [
+          "\"Shipped behind a flag to reduce blast radius\"",
+          "Leads with the clever tradeoff (the proud part)",
+          "No artifact named — nothing to inspect",
+          "No failure mode — nothing to watch",
+          "Proof = \"it seemed like the safer call\""
+        ],
+        "verdict": "Fluent, named, and completely unfalsifiable"
+      },
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "Taught back in the fixed order",
+        "lines": [
+          "Problem: could not prove safe at 100% traffic",
+          "Artifact: \"here is the memo + 5% flag config\"",
+          "Failure: \"tax line drops on cart edits\"",
+          "Proof: \"order-total parity held 0.1% over 24h\"",
+          "Repair: \"drift >0.5% → flip to 0, autopsy the diff\""
+        ],
+        "verdict": "Every claim is checkable by a reviewer"
+      },
+      "title": "Same decision, explained two ways",
+      "caption": "Skipping to the tradeoff and away from failure + proof IS the dodge the fixed order exists to stop. The reordered move is your weakest part.",
+      "subtitle": "The weak version uses the vocabulary; the strong version teaches it in order and lands on evidence."
+    },
+    {
+      "text": "The pro move: explain it back to the wall before you explain it to a person. The stall — the move where you slow down, hedge, or reach for a buzzword — is a signal, not an embarrassment. That exact spot is where your understanding is thin, and it is far cheaper to find it talking to a wall than in front of a review board. Senior engineers are not the ones who never stall; they are the ones who notice the stall and go fix that part first.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "title": "Explain back your decision memo",
+      "summary": "Take the engineering_judgment_decision_memo.md you wrote in Module 1 (the ship / rollback / instrument / redesign call). Explain it back in writing in the eight fixed moves, in order, by name. For each move, point at the specific evidence — the artifact path, the broken case, the proof output, the transfer case. Mark the move where you stalled: that is your repair target for Lesson 11. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: repair_target: proof",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 09-explain-back artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: repair_target: proof\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "repair_target: proof"
+    },
+    {
       "code": "# engineering_judgment_decision_memo.md  (explain-back pass)\n\nDecision: Ship the checkout rewrite behind a 5% flag, or hold for the full rollback test?\nContext:  Conversion is flat; the new flow is 40% less code; load test is incomplete.\n\nTeach-back, in order (the eight moves):\n1. Problem  — we cannot prove the rewrite is safe at 100% traffic yet.\n2. Context  — a bad checkout bug costs revenue per minute; this is the money path.\n3. Artifact — this memo + the 5%-flag config + the dashboard I will watch.\n4. Failure  — most likely break: the new flow drops the tax line on cart edits.\n5. Proof    — flag at 5%, watch order-total parity vs. control for 24h.\n6. Tradeoff — slower rollout vs. blast radius if I'm wrong (I chose smaller blast).\n7. Repair   — if parity drifts >0.5%, flip the flag to 0 and autopsy the diff.\n8. Transfer — same gate applies to any money-path change: small flag, watch parity.",
       "type": "code-walkthrough",
       "steps": [
@@ -3233,52 +3686,25 @@
       "subtitle": "A FILLED explain-back over a real decision memo — each move lands on evidence, not vocabulary."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "Vocabulary, in importance order",
-        "lines": [
-          "\"Shipped behind a flag to reduce blast radius\"",
-          "Leads with the clever tradeoff (the proud part)",
-          "No artifact named — nothing to inspect",
-          "No failure mode — nothing to watch",
-          "Proof = \"it seemed like the safer call\""
-        ],
-        "verdict": "Fluent, named, and completely unfalsifiable"
-      },
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "Taught back in the fixed order",
-        "lines": [
-          "Problem: could not prove safe at 100% traffic",
-          "Artifact: \"here is the memo + 5% flag config\"",
-          "Failure: \"tax line drops on cart edits\"",
-          "Proof: \"order-total parity held 0.1% over 24h\"",
-          "Repair: \"drift >0.5% → flip to 0, autopsy the diff\""
-        ],
-        "verdict": "Every claim is checkable by a reviewer"
-      },
-      "title": "Same decision, explained two ways",
-      "caption": "Skipping to the tradeoff and away from failure + proof IS the dodge the fixed order exists to stop. The reordered move is your weakest part.",
-      "subtitle": "The weak version uses the vocabulary; the strong version teaches it in order and lands on evidence."
-    },
-    {
-      "text": "The pro move: explain it back to the wall before you explain it to a person. The stall — the move where you slow down, hedge, or reach for a buzzword — is a signal, not an embarrassment. That exact spot is where your understanding is thin, and it is far cheaper to find it talking to a wall than in front of a review board. Senior engineers are not the ones who never stall; they are the ones who notice the stall and go fix that part first.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "title": "Explain back your decision memo",
-      "summary": "Take the engineering_judgment_decision_memo.md you wrote in Module 1 (the ship / rollback / instrument / redesign call). Explain it back in writing in the eight fixed moves, in order, by name. For each move, point at the specific evidence — the artifact path, the broken case, the proof output, the transfer case. Mark the move where you stalled: that is your repair target for Lesson 11."
-    },
-    {
       "fix": "It skips ARTIFACT (no memo, no config to inspect), skips FAILURE (no named failure mode, so nothing to watch), and fakes PROOF — \"works on my machine\" and \"demo went fine\" are not parity-against-a-control measurements; they are happy-path anecdotes. The TRADEOFF is also self-serving (\"I know the new framework\") rather than risk-based. Repair: produce the artifact, name the most likely failure, replace the anecdote with a real proof metric vs. a control, and re-justify the tradeoff on blast radius, not personal comfort. Only then does the transfer (\"rewrite the others\") earn the right to exist.",
       "task": "Name what is broken in this explain-back. Which of the eight moves are missing or fake, and which named evidence would a reviewer demand that this engineer cannot produce?",
       "type": "debug",
       "symptom": "An engineer presents a confident explain-back, but the review board is not convinced. Find the flaw in the REASONING, not in any code.",
       "language": "bash",
       "brokenCode": "Explain-back as delivered:\n\"Problem: the old service was slow. Context: users complained.\n Tradeoff: I picked the rewrite because it's cleaner and I know the new framework well.\n Proof: it works on my machine and the demo went fine.\n Transfer: we should rewrite the other slow services too.\""
+    },
+    {
+      "type": "tradeoff",
+      "question": "Same decision, explained two ways",
+      "optionA": {
+        "label": "Vocabulary, in importance order",
+        "text": "\"Shipped behind a flag to reduce blast radius\" · Leads with the clever tradeoff (the proud part) · No artifact named — nothing to inspect · No failure mode — nothing to watch · Proof = \"it seemed like the safer call\" Outcome: Fluent, named, and completely unfalsifiable"
+      },
+      "optionB": {
+        "label": "Taught back in the fixed order",
+        "text": "Problem: could not prove safe at 100% traffic · Artifact: \"here is the memo + 5% flag config\" · Failure: \"tax line drops on cart edits\" · Proof: \"order-total parity held 0.1% over 24h\" · Repair: \"drift >0.5% → flip to 0, autopsy the diff\" Outcome: Every claim is checkable by a reviewer"
+      },
+      "guidance": "Skipping to the tradeoff and away from failure + proof IS the dodge the fixed order exists to stop. The reordered move is your weakest part."
     },
     {
       "type": "quiz",
@@ -3325,6 +3751,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): An explain-back pass over your engineering_judgment_decision_memo.md that hits all eight moves in order and names the artifact, the broken case, and the proof output.",
+        "Diagnose and repair the broken case: An engineer presents a confident explain-back, but the review board is not convinced. Find the flaw in the REASONING, not in any code.",
+        "Confirm every verification item: You covered all eight moves — problem, context, artifact, failure, proof, tradeoff, repair, transfer — in that order. · You used the real names of the artifacts (the memo path, the metric, the flag), not generic phrases. · For \"proof\" you pointed at a measurement against a control or baseline, not an anecdote. · You named a specific, realistic failure mode — not \"it might break\". · You marked the one move where you stalled, and you can state why it is thin. · A second person could follow your explain-back to the evidence without you narrating it.",
+        "Complete the transfer without copying the worked example: Explain-back is not a course exercise — it is how you survive design reviews, incident retros, and promo packets for the rest of your career. Before any high-stakes conversation, teach the decision back to a wall in the eight moves and fix the move you stall on. Use it on a teammate, too: when someone explains a decision and skips straight to the clever part, ask for the missing move — \"what is the most likely failure?\" — and watch the quality of the conversation jump. Next lesson you stop grading by feel and put a number on the work: the review rubric."
+      ]
     }
   ],
   "10-review-rubric": [
@@ -3349,6 +3784,21 @@
       "type": "pretest",
       "prompt": "Your memo is strong on everything except proof, where you wrote \"the demo went fine.\" On a 0–100 scale, your instinct says it is about an 88 — the writing is sharp and the tradeoff is smart. What should the actual score be?",
       "reveal": "It is capped at 78, regardless of how good the prose is — because a missing or fake proof CAPS the score; you cannot average a brilliant tradeoff back up over a hole in the evidence. This is the single hardest habit in self-review: a cap is not a deduction you can offset. One faked dimension holds the whole artifact down until it is repaired. The cap is what makes the number honest."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Reading the rubric, dimension by dimension. A FILLED review_rubric.md — each dimension carries its own cap so one hole holds the whole score down.",
+      "code": "# review_rubric.md  (decision-memo review board, 0–100)\n\nScore the artifact, not the author. Each dimension is pass/partial/fail with a hard cap.\n\n1. ARTIFACT EXISTS & IS INSPECTABLE        cap 72 if missing/thin\n   - named file, readable by a stranger, not a paragraph of prose\n2. FAILURE NAMED & REALISTIC               cap 82 if no real failure mode\n   - a production-grade break, not a toy (\"it might error\")\n3. PROOF IS CONCRETE                        cap 78 if proof is an anecdote\n   - measurement vs. a control/baseline, reproducible\n4. TRADEOFF IS DEFENSIBLE                    cap 86 if self-serving\n   - chosen + rejected option + reversal condition + risk-if-wrong\n5. REPAIR PATH STATED                        cap 88 if no rollback/repair\n   - what flips, at what threshold, and the autopsy that follows\n6. TRANSFER CHANGES CONTEXT                  cap 92 if transfer is a restatement\n   - same pattern, genuinely different domain/constraints\n\nPass  = 80+  (all six present, none faked)\nGold  = 94+  (also: reviewer objection answered, repair re-tested)\nHonest-score rule: a missing dimension CAPS the score. You may not average past a cap.",
+      "language": "bash",
+      "steps": [
+        "The governing rule: Score the artifact, not the author. Each dimension is pass/partial/fail with a hard cap — caps, not deductions.",
+        "Dim 1: artifact exists: A named file a stranger can read, not a paragraph of prose. Missing → capped at 72.",
+        "Dims 2–3: failure + proof: A realistic production break (cap 82) and a measurement vs. a control (cap 78). These are where most memos leak.",
+        "Dims 4–5: tradeoff + repair: Defensible tradeoff with a reversal condition (cap 86); a stated rollback/repair path (cap 88).",
+        "Dim 6: transfer: Same pattern in a genuinely different domain — a restatement caps at 92.",
+        "The pass bands + cap rule: Pass 80+, Gold 94+. The honest-score rule: a missing dimension CAPS — you may not average past a cap."
+      ],
+      "commonMistake": "A reviewer hands back a score that looks rigorous but is quietly broken. Find the flaw in how the rubric was APPLIED."
     },
     {
       "text": "A small set of named dimensions, each with a pass condition and a hard CAP for failing it. You score the artifact against evidence, not the author against charisma. Caps — not averages — are what keep a self-review honest.",
@@ -3566,6 +4016,49 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "Vibe review",
+        "lines": [
+          "\"Solid memo, clear writing, smart tradeoff\"",
+          "No named dimensions",
+          "No evidence cited",
+          "No cap — feel-based number",
+          "Verdict: \"I'd give it a 90\""
+        ],
+        "verdict": "Unrepeatable — a second reviewer gets a different number"
+      },
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "Rubric applied",
+        "lines": [
+          "Artifact: present + inspectable → pass",
+          "Failure: tax-line drop named → pass",
+          "Proof: \"demo went fine\" = anecdote → FAIL, cap 78",
+          "Tradeoff: chosen + rejected + reversal → pass",
+          "Score = 78, capped by proof"
+        ],
+        "verdict": "Repeatable, and the repair target is unambiguous"
+      },
+      "title": "Scoring the same memo two ways",
+      "caption": "The killer mistake is averaging past the cap: \"proof fails but the rest is 95, so call it 88.\" No — a cap is a ceiling, not a term in a mean.",
+      "subtitle": "The weak review is a vibe; the strong review is the rubric applied with evidence and an honest cap."
+    },
+    {
+      "text": "Pros score the artifact, never the author. The fastest way to corrupt a review is to let \"but they are smart and they worked hard\" leak into the number — that is how a faked proof ships. Pretend you do not know who wrote it. Better: pretend a stranger has to act on this memo at 3am with no one to ask. If the rubric forces a low score, that is the rubric doing its job — protecting you from your own optimism.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "title": "Build and apply your review rubric",
+      "summary": "Write a review_rubric.md for the decision memo: at least the six dimensions above, each with a pass condition and a hard cap. Then score your own memo with it. For every dimension, cite the exact evidence (or name its absence) that sets the score, and respect the caps — do not average past one. Output the final number and the single repair target that is holding it down. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: final_score: 60",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 10-review-rubric artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: final_score: 60\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "final_score: 60"
+    },
+    {
       "code": "# review_rubric.md  (decision-memo review board, 0–100)\n\nScore the artifact, not the author. Each dimension is pass/partial/fail with a hard cap.\n\n1. ARTIFACT EXISTS & IS INSPECTABLE        cap 72 if missing/thin\n   - named file, readable by a stranger, not a paragraph of prose\n2. FAILURE NAMED & REALISTIC               cap 82 if no real failure mode\n   - a production-grade break, not a toy (\"it might error\")\n3. PROOF IS CONCRETE                        cap 78 if proof is an anecdote\n   - measurement vs. a control/baseline, reproducible\n4. TRADEOFF IS DEFENSIBLE                    cap 86 if self-serving\n   - chosen + rejected option + reversal condition + risk-if-wrong\n5. REPAIR PATH STATED                        cap 88 if no rollback/repair\n   - what flips, at what threshold, and the autopsy that follows\n6. TRANSFER CHANGES CONTEXT                  cap 92 if transfer is a restatement\n   - same pattern, genuinely different domain/constraints\n\nPass  = 80+  (all six present, none faked)\nGold  = 94+  (also: reviewer objection answered, repair re-tested)\nHonest-score rule: a missing dimension CAPS the score. You may not average past a cap.",
       "type": "code-walkthrough",
       "steps": [
@@ -3624,52 +4117,25 @@
       "subtitle": "A FILLED review_rubric.md — each dimension carries its own cap so one hole holds the whole score down."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "Vibe review",
-        "lines": [
-          "\"Solid memo, clear writing, smart tradeoff\"",
-          "No named dimensions",
-          "No evidence cited",
-          "No cap — feel-based number",
-          "Verdict: \"I'd give it a 90\""
-        ],
-        "verdict": "Unrepeatable — a second reviewer gets a different number"
-      },
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "Rubric applied",
-        "lines": [
-          "Artifact: present + inspectable → pass",
-          "Failure: tax-line drop named → pass",
-          "Proof: \"demo went fine\" = anecdote → FAIL, cap 78",
-          "Tradeoff: chosen + rejected + reversal → pass",
-          "Score = 78, capped by proof"
-        ],
-        "verdict": "Repeatable, and the repair target is unambiguous"
-      },
-      "title": "Scoring the same memo two ways",
-      "caption": "The killer mistake is averaging past the cap: \"proof fails but the rest is 95, so call it 88.\" No — a cap is a ceiling, not a term in a mean.",
-      "subtitle": "The weak review is a vibe; the strong review is the rubric applied with evidence and an honest cap."
-    },
-    {
-      "text": "Pros score the artifact, never the author. The fastest way to corrupt a review is to let \"but they are smart and they worked hard\" leak into the number — that is how a faked proof ships. Pretend you do not know who wrote it. Better: pretend a stranger has to act on this memo at 3am with no one to ask. If the rubric forces a low score, that is the rubric doing its job — protecting you from your own optimism.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "title": "Build and apply your review rubric",
-      "summary": "Write a review_rubric.md for the decision memo: at least the six dimensions above, each with a pass condition and a hard cap. Then score your own memo with it. For every dimension, cite the exact evidence (or name its absence) that sets the score, and respect the caps — do not average past one. Output the final number and the single repair target that is holding it down."
-    },
-    {
       "fix": "First, it AVERAGES past the caps: a failure-case of 3 and a proof that is \"just a screenshot\" should CAP the artifact (around 78–82), not get diluted into a 7.5 average that rounds up to 90. Second, it scores \"Writing\" and \"Effort\" — author/charisma dimensions that do not belong in an artifact review; they inflate the number with things a stranger acting on the memo at 3am does not care about. Repair: drop the author dimensions, apply the proof and failure caps, and the real score lands near 78 with an obvious repair target — add a real proof measurement and a named failure mode.",
       "task": "This score is wrong even though the per-dimension reads are reasonable. Name the two structural errors in how the rubric was applied.",
       "type": "debug",
       "symptom": "A reviewer hands back a score that looks rigorous but is quietly broken. Find the flaw in how the rubric was APPLIED.",
       "language": "bash",
       "brokenCode": "Reviewer's scoring note:\n\"Artifact: 9/10. Writing: 10/10. Failure case: 3/10 (none given).\n Proof: 4/10 (just a screenshot). Tradeoff: 9/10. Effort: 10/10.\n Average of the six = 7.5, so I'm scoring it 90/100. Approve.\""
+    },
+    {
+      "type": "tradeoff",
+      "question": "Scoring the same memo two ways",
+      "optionA": {
+        "label": "Vibe review",
+        "text": "\"Solid memo, clear writing, smart tradeoff\" · No named dimensions · No evidence cited · No cap — feel-based number · Verdict: \"I'd give it a 90\" Outcome: Unrepeatable — a second reviewer gets a different number"
+      },
+      "optionB": {
+        "label": "Rubric applied",
+        "text": "Artifact: present + inspectable → pass · Failure: tax-line drop named → pass · Proof: \"demo went fine\" = anecdote → FAIL, cap 78 · Tradeoff: chosen + rejected + reversal → pass · Score = 78, capped by proof Outcome: Repeatable, and the repair target is unambiguous"
+      },
+      "guidance": "The killer mistake is averaging past the cap: \"proof fails but the rest is 95, so call it 88.\" No — a cap is a ceiling, not a term in a mean."
     },
     {
       "type": "quiz",
@@ -3716,6 +4182,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A review_rubric.md with named dimensions and hard score-caps, plus a scored pass over your decision memo where every dimension cites the exact evidence (or its absence) that justifies the score.",
+        "Diagnose and repair the broken case: A reviewer hands back a score that looks rigorous but is quietly broken. Find the flaw in how the rubric was APPLIED.",
+        "Confirm every verification item: Every dimension has a written pass condition AND a hard cap for failing it. · You scored the artifact, not the author — no \"writing\", \"effort\", or \"they are smart\" dimensions. · Each score cites the exact evidence (or names its absence) that justifies it. · You respected every cap — no dimension was averaged back up past its ceiling. · An independent reviewer applying your rubric to the same memo would land within one point. · The output names the single repair target currently holding the score down.",
+        "Complete the transfer without copying the worked example: A rubric you can defend is portable: code review, design docs, vendor selection, even hiring loops all improve the moment \"looks good\" becomes \"scored 82, capped on testability, here is the line.\" Reuse this exact instrument on a teammate's decision and watch the conversation stop being about ego and start being about evidence. You now have a number AND the reason it is held down. Next lesson turns that reason into action: the repair loop fixes the weakest part — and only the weakest part — then re-scores to prove the fix landed."
+      ]
     }
   ],
   "11-repair-loop": [
@@ -3740,6 +4215,21 @@
       "type": "pretest",
       "prompt": "Your memo is capped at 78 on proof. You have one hour. You could (a) rewrite the prose and expand the tradeoff table to four options, or (b) run the flag for 24h and record one parity measurement. Which raises the score, and why does the other one feel more productive?",
       "reveal": "Only (b) raises the score, because proof is the capped dimension and a cap can only be lifted by repairing the thing it caps. (a) feels productive — more words, more options, visible effort — but it touches dimensions that already passed, so the cap (and the 78) does not move an inch. This is the repair trap: the satisfying work is usually not the targeted work. Always repair the cap first; everything else is polishing a thing that was never broken."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The repair log, line by line. A FILLED repair_log.md — pre-score, root cause, smallest fix, re-test, post-score, honesty check.",
+      "code": "# repair_log.md  (one entry per repair, re-tested)\n\nArtifact:  engineering_judgment_decision_memo.md\nPre-score: 78 / 100  (capped: PROOF — \"demo went fine\" is an anecdote)\n\nWeakest part (from rubric): PROOF dimension, capped at 78.\nRoot cause:  I never measured the new flow against a control; I trusted a demo.\nRepair (smallest fix that lifts the cap):\n  - Run the 5% flag for 24h.\n  - Compare order-total parity, new flow vs. control cohort.\n  - Record the delta + the dashboard link IN the memo's proof section.\nRe-test:   Apply the SAME rubric. Proof dimension now: measurement vs. control → PASS.\nPost-score: 91 / 100  (cap lifted; new ceiling is TRANSFER, the next-weakest part)\nReviewer objection answered: \"Is 5% representative?\" → cohort matched on device + region.\nDid the score move for the RIGHT reason? Yes — proof, the capped dimension, not the prose.",
+      "language": "bash",
+      "steps": [
+        "Pre-state: Name the artifact and the pre-score with its cap: 78, capped on PROOF because \"demo went fine\" is an anecdote.",
+        "Weakest part + root cause: The symptom is \"weak proof\"; the root cause is \"I never measured the new flow against a control.\" Fix the cause.",
+        "The smallest fix: Run the existing 5% flag 24h, compare order-total parity vs. control, record the delta IN the memo. No rewrite.",
+        "Re-test with the SAME rubric: Proof is now a measurement vs. control → PASS. The cap lifts because the dimension genuinely improved.",
+        "Post-score + new ceiling: Now 91; the new weakest part is TRANSFER. The loop moves there next — repair is iterative.",
+        "The honesty check: The objection (\"is 5% representative?\") is answered, and the +13 came from PROOF — not from polishing prose. Right reason."
+      ],
+      "commonMistake": "An engineer reports a successful repair: the score went from 78 to 90. But the review board rejects the repair. Find the flaw in the REASONING."
     },
     {
       "text": "Four moves: identify the dimension that capped the score, find its root cause (not symptom), make the SMALLEST change that lifts the cap, then re-apply the SAME rubric and confirm the lift came from that dimension. The loop repeats on the new weakest part.",
@@ -3980,6 +4470,49 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "Renovation (churn)",
+        "lines": [
+          "Rewrite the whole memo, sharpen the prose",
+          "Add three more options to the tradeoff table",
+          "Tighten the summary",
+          "All of it touches dimensions that already passed",
+          "PROOF cap untouched"
+        ],
+        "verdict": "Score still 78 — an hour spent, nothing lifted"
+      },
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "Repair (scalpel)",
+        "lines": [
+          "Leave the passing dimensions alone",
+          "Root cause: no measurement vs. a control",
+          "Run the flag 24h, record parity vs. control",
+          "Re-test with the SAME rubric → PROOF passes",
+          "Lift traces to PROOF, not prose"
+        ],
+        "verdict": "Score 78 → 91 for the right reason"
+      },
+      "title": "Two hours on a capped memo",
+      "caption": "The satisfying work is usually not the targeted work. Repair the cap first; everything else is polishing a thing that was never broken.",
+      "subtitle": "Both feel like work. Only one moves the score — because only one targets the cap."
+    },
+    {
+      "text": "The senior habit: re-test with the EXACT rubric you scored with the first time, and never edit the rubric in the same pass as the repair. The instant you loosen a cap \"because the fix is basically done\", you have stopped repairing the artifact and started repairing the grader — and your score becomes a lie you told yourself. If the rubric genuinely needs changing, do it in a separate, logged pass, then re-score everything. Keep the measuring stick fixed while you measure.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "title": "Run one repair loop on your memo",
+      "summary": "Take the capped dimension your rubric flagged in Lesson 10. Write a repair_log.md: record the pre-score and the cap, the root cause (not the symptom), the smallest fix that lifts the cap, and the re-test using the SAME rubric. Show the post-score and add the one-line honesty check: the lift came from the repaired dimension, not from re-grading the parts that already passed. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: lift: +27",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 11-repair-loop artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: lift: +27\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "lift: +27"
+    },
+    {
       "code": "# repair_log.md  (one entry per repair, re-tested)\n\nArtifact:  engineering_judgment_decision_memo.md\nPre-score: 78 / 100  (capped: PROOF — \"demo went fine\" is an anecdote)\n\nWeakest part (from rubric): PROOF dimension, capped at 78.\nRoot cause:  I never measured the new flow against a control; I trusted a demo.\nRepair (smallest fix that lifts the cap):\n  - Run the 5% flag for 24h.\n  - Compare order-total parity, new flow vs. control cohort.\n  - Record the delta + the dashboard link IN the memo's proof section.\nRe-test:   Apply the SAME rubric. Proof dimension now: measurement vs. control → PASS.\nPost-score: 91 / 100  (cap lifted; new ceiling is TRANSFER, the next-weakest part)\nReviewer objection answered: \"Is 5% representative?\" → cohort matched on device + region.\nDid the score move for the RIGHT reason? Yes — proof, the capped dimension, not the prose.",
       "type": "code-walkthrough",
       "steps": [
@@ -4037,52 +4570,25 @@
       "subtitle": "A FILLED repair_log.md — pre-score, root cause, smallest fix, re-test, post-score, honesty check."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "Renovation (churn)",
-        "lines": [
-          "Rewrite the whole memo, sharpen the prose",
-          "Add three more options to the tradeoff table",
-          "Tighten the summary",
-          "All of it touches dimensions that already passed",
-          "PROOF cap untouched"
-        ],
-        "verdict": "Score still 78 — an hour spent, nothing lifted"
-      },
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "Repair (scalpel)",
-        "lines": [
-          "Leave the passing dimensions alone",
-          "Root cause: no measurement vs. a control",
-          "Run the flag 24h, record parity vs. control",
-          "Re-test with the SAME rubric → PROOF passes",
-          "Lift traces to PROOF, not prose"
-        ],
-        "verdict": "Score 78 → 91 for the right reason"
-      },
-      "title": "Two hours on a capped memo",
-      "caption": "The satisfying work is usually not the targeted work. Repair the cap first; everything else is polishing a thing that was never broken.",
-      "subtitle": "Both feel like work. Only one moves the score — because only one targets the cap."
-    },
-    {
-      "text": "The senior habit: re-test with the EXACT rubric you scored with the first time, and never edit the rubric in the same pass as the repair. The instant you loosen a cap \"because the fix is basically done\", you have stopped repairing the artifact and started repairing the grader — and your score becomes a lie you told yourself. If the rubric genuinely needs changing, do it in a separate, logged pass, then re-score everything. Keep the measuring stick fixed while you measure.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "title": "Run one repair loop on your memo",
-      "summary": "Take the capped dimension your rubric flagged in Lesson 10. Write a repair_log.md: record the pre-score and the cap, the root cause (not the symptom), the smallest fix that lifts the cap, and the re-test using the SAME rubric. Show the post-score and add the one-line honesty check: the lift came from the repaired dimension, not from re-grading the parts that already passed."
-    },
-    {
       "fix": "First, the work targeted the WRONG dimensions — rewriting prose and expanding the tradeoff table touches things that already passed; the capped dimension (proof) was never actually fixed. Second, and worse, the engineer LOOSENED the rubric's proof cap in the same pass — moving the goalposts, not improving the artifact. The 90 is an artifact of a changed measuring stick, not a better decision. Real repair: leave the rubric fixed, add a real proof measurement vs. a control, then re-score. If proof now genuinely passes, the lift is legitimate. If you must change the rubric, do it in a separate logged pass and re-score the whole artifact.",
       "task": "The score went up but the repair is not real. Name the two reasons the review board rejects it.",
       "type": "debug",
       "symptom": "An engineer reports a successful repair: the score went from 78 to 90. But the review board rejects the repair. Find the flaw in the REASONING.",
       "language": "bash",
       "brokenCode": "Repair report:\n\"Score was 78, capped on proof. I rewrote the memo to be much clearer,\n added two more options to the tradeoff table, and tightened the summary.\n I also decided the proof dimension was too strict, so I relaxed its cap.\n New score: 90. Repair complete.\""
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two hours on a capped memo",
+      "optionA": {
+        "label": "Renovation (churn)",
+        "text": "Rewrite the whole memo, sharpen the prose · Add three more options to the tradeoff table · Tighten the summary · All of it touches dimensions that already passed · PROOF cap untouched Outcome: Score still 78 — an hour spent, nothing lifted"
+      },
+      "optionB": {
+        "label": "Repair (scalpel)",
+        "text": "Leave the passing dimensions alone · Root cause: no measurement vs. a control · Run the flag 24h, record parity vs. control · Re-test with the SAME rubric → PROOF passes · Lift traces to PROOF, not prose Outcome: Score 78 → 91 for the right reason"
+      },
+      "guidance": "The satisfying work is usually not the targeted work. Repair the cap first; everything else is polishing a thing that was never broken."
     },
     {
       "type": "quiz",
@@ -4129,6 +4635,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A repair_log.md with a pre-score, the capped dimension, a root cause, the smallest targeted fix, and a re-test using the SAME rubric showing the cap lifted — plus a one-line check that the score moved because of the repaired dimension, not the prose.",
+        "Diagnose and repair the broken case: An engineer reports a successful repair: the score went from 78 to 90. But the review board rejects the repair. Find the flaw in the REASONING.",
+        "Confirm every verification item: Your repair log records the pre-score and which dimension was capping it. · You wrote the ROOT CAUSE, not just the symptom the rubric named. · The fix is the smallest change that lifts the cap — not a full rewrite. · You re-tested with the SAME rubric, unchanged, and the capped dimension now passes. · The post-score is higher, and you can show the lift came from the repaired dimension. · You did not loosen any cap to make the number move.",
+        "Complete the transfer without copying the worked example: The repair loop is how every durable system improves: incident retros, flaky-test triage, performance work, even career feedback. The move is always the same — find the one capped dimension, fix the root cause, re-measure with the unchanged yardstick, prove the lift came from the fix. Resist the renovation instinct; cut once, in the right place. But a repair that you never revisit decays — the proof you added today is the proof you will have forgotten the reasoning behind in a month. The last lesson closes the loop: the spacing queue makes your repaired judgment stick."
+      ]
     }
   ],
   "12-spacing-queue": [
@@ -4153,6 +4668,21 @@
       "type": "pretest",
       "prompt": "You nail a hard decision in review today, completely cold. Your instinct: \"Got it — locked in, move on.\" When are you actually most at risk of having lost it, and what does that imply about reviewing it again tomorrow?",
       "reveal": "You are most at risk right after you stop reviewing — recall today proves almost nothing about recall in three weeks, which is when the new hire asks. And reviewing it AGAIN tomorrow is nearly wasted effort: massed practice (cramming the same card on consecutive days) feels productive but barely moves long-term retention. The counterintuitive truth: the right time to review is just as you are about to forget — at an EXPANDING gap (day 3, day 7, day 30), not the next day. Easy, well-timed effort beats hard, mistimed effort."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Reading the queue, row by row. A FILLED spacing_queue.md — cards from THIS module, each with an expanding due date and a calibration column.",
+      "code": "# spacing_queue.md  (expanding-interval recall, interleaved)\n\nEach card = one hard-won judgment to recall WITHOUT notes, then re-score honestly.\n\ncard                          | due (same/3/7/30) | last recall | confidence\n------------------------------|-------------------|-------------|-----------\ncheckout flag: proof-vs-control | day 7            | passed      | 4\ntax-line failure autopsy        | day 3            | shaky       | 2  → repair\nrubric cap rule (no averaging)  | day 30           | passed      | 5\nrepair = root cause, re-test    | day 7            | passed      | 4\nexplain-back: the 8 moves       | day 3            | passed      | 4\n\nRules:\n1. Expanding intervals: same-day → day 3 → day 7 → day 30. A miss resets the card.\n2. INTERLEAVE: shuffle cards across topics; never review in lesson order.\n3. Calibrate: confidence 4–5 + a wrong/shaky recall → that card goes to repair (Lesson 11).\n4. Due-only: review what is due, not everything — spacing is the point.",
+      "language": "bash",
+      "steps": [
+        "What a card is: One hard-won judgment to recall WITHOUT notes, then re-score honestly. Recognition is not recall.",
+        "The table header: Each row: card · due (same/3/7/30) · last recall · confidence. The schedule and the calibration live together.",
+        "A shaky card: The tax-line autopsy: due day 3, recall \"shaky\", confidence 2 → flagged for repair. The queue catches decay.",
+        "A mastered card: The rubric cap rule: passed at confidence 5, pushed all the way out to day 30. Earned its long interval.",
+        "Rules 1–2: expand + interleave: Same-day → 3 → 7 → 30, a miss resets; shuffle cards across topics so lesson order never leaks the answer.",
+        "Rules 3–4: calibrate + due-only: Confidence 4–5 + a wrong recall routes to repair (Lesson 11). Review only what is due — spacing is the point."
+      ],
+      "commonMistake": "An engineer keeps a diligent-looking review routine but cannot recall their own decisions cold a month later. Find the flaw in the ROUTINE."
     },
     {
       "text": "A small set of cards — each a decision you recall WITHOUT notes — scheduled at EXPANDING intervals (same-day, 3, 7, 30): a miss resets it, a pass pushes it out. Interleave across topics so order gives no hints, and route confident-but-wrong recalls to repair.",
@@ -4396,6 +4926,49 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "Massed re-reading",
+        "lines": [
+          "Re-read the memo every day for a week",
+          "Same set, same order, eyes open",
+          "Recognition (\"yes, I wrote that\") ≠ recall",
+          "Builds false familiarity, not retrieval",
+          "No calibration — confident-wrong stays hidden"
+        ],
+        "verdict": "Feels diligent; a month later, nothing sharp comes out"
+      },
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "Spaced, interleaved, calibrated",
+        "lines": [
+          "Turn each decision into a recall-cold card",
+          "Expanding gaps: same-day → 3 → 7 → 30",
+          "Interleave across topics — order gives no hints",
+          "Recall WITHOUT notes; a miss resets the card",
+          "Confident-but-wrong → routed to repair"
+        ],
+        "verdict": "A month later the new hire asks and it comes out sharp"
+      },
+      "title": "Two ways to keep a decision fresh",
+      "caption": "The goal is effortful retrieval, not comfortable familiarity. The uncomfortable test is the one that builds durable judgment.",
+      "subtitle": "One feels like studying. The other actually retains."
+    },
+    {
+      "text": "The trap pros avoid: confusing familiarity with mastery. Re-reading your own sharp memo feels great and teaches you almost nothing — your brain rewards recognition, not retrieval. The uncomfortable test (recall it cold, no notes, after a gap, mixed in with unrelated cards) is the one that actually builds durable judgment. And watch the calibration column hardest: a card you got WRONG while feeling CONFIDENT is more dangerous than one you knew you were unsure of, because confident-wrong is exactly the state in which engineers ship the bad decision. Route those to repair first.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "title": "Seed your spacing queue (Module 3 capstone)",
+      "summary": "Build a spacing_queue.md from THIS module: at least five cards — your explain-back eight moves, the rubric cap rule, your repaired proof, the failure autopsy, the repair-loop discipline. Give each an expanding-interval due date (same-day / day 3 / day 7 / day 30), write the interleave rule (shuffle across topics, never lesson order), and add a calibration column that routes any confident-but-wrong recall back to the repair loop. This is the artifact that keeps the whole module alive. Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: interleave_rule:",
+      "language": "python",
+      "starter": "# Build a deterministic evaluator for your 12-spacing-queue artifact.\n# Represent each required criterion as data, reject missing or vague evidence,\n# and print the acceptance marker only when the artifact earns it.\n\ncriteria = {\n    \"artifact_exists\": False,\n    \"claim_is_specific\": False,\n    \"proof_is_inspectable\": False,\n    \"failure_is_named\": False,\n}\n\ndef evaluate(evidence):\n    # TODO: return explicit failures and an honest pass/fail verdict.\n    return []\n\n# Required observable marker: interleave_rule:\n# TODO: run the evaluator against a weak and a passing fixture.",
+      "check": "interleave_rule:"
+    },
+    {
       "code": "# spacing_queue.md  (expanding-interval recall, interleaved)\n\nEach card = one hard-won judgment to recall WITHOUT notes, then re-score honestly.\n\ncard                          | due (same/3/7/30) | last recall | confidence\n------------------------------|-------------------|-------------|-----------\ncheckout flag: proof-vs-control | day 7            | passed      | 4\ntax-line failure autopsy        | day 3            | shaky       | 2  → repair\nrubric cap rule (no averaging)  | day 30           | passed      | 5\nrepair = root cause, re-test    | day 7            | passed      | 4\nexplain-back: the 8 moves       | day 3            | passed      | 4\n\nRules:\n1. Expanding intervals: same-day → day 3 → day 7 → day 30. A miss resets the card.\n2. INTERLEAVE: shuffle cards across topics; never review in lesson order.\n3. Calibrate: confidence 4–5 + a wrong/shaky recall → that card goes to repair (Lesson 11).\n4. Due-only: review what is due, not everything — spacing is the point.",
       "type": "code-walkthrough",
       "steps": [
@@ -4452,52 +5025,25 @@
       "subtitle": "A FILLED spacing_queue.md — cards from THIS module, each with an expanding due date and a calibration column."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "Massed re-reading",
-        "lines": [
-          "Re-read the memo every day for a week",
-          "Same set, same order, eyes open",
-          "Recognition (\"yes, I wrote that\") ≠ recall",
-          "Builds false familiarity, not retrieval",
-          "No calibration — confident-wrong stays hidden"
-        ],
-        "verdict": "Feels diligent; a month later, nothing sharp comes out"
-      },
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "Spaced, interleaved, calibrated",
-        "lines": [
-          "Turn each decision into a recall-cold card",
-          "Expanding gaps: same-day → 3 → 7 → 30",
-          "Interleave across topics — order gives no hints",
-          "Recall WITHOUT notes; a miss resets the card",
-          "Confident-but-wrong → routed to repair"
-        ],
-        "verdict": "A month later the new hire asks and it comes out sharp"
-      },
-      "title": "Two ways to keep a decision fresh",
-      "caption": "The goal is effortful retrieval, not comfortable familiarity. The uncomfortable test is the one that builds durable judgment.",
-      "subtitle": "One feels like studying. The other actually retains."
-    },
-    {
-      "text": "The trap pros avoid: confusing familiarity with mastery. Re-reading your own sharp memo feels great and teaches you almost nothing — your brain rewards recognition, not retrieval. The uncomfortable test (recall it cold, no notes, after a gap, mixed in with unrelated cards) is the one that actually builds durable judgment. And watch the calibration column hardest: a card you got WRONG while feeling CONFIDENT is more dangerous than one you knew you were unsure of, because confident-wrong is exactly the state in which engineers ship the bad decision. Route those to repair first.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "title": "Seed your spacing queue (Module 3 capstone)",
-      "summary": "Build a spacing_queue.md from THIS module: at least five cards — your explain-back eight moves, the rubric cap rule, your repaired proof, the failure autopsy, the repair-loop discipline. Give each an expanding-interval due date (same-day / day 3 / day 7 / day 30), write the interleave rule (shuffle across topics, never lesson order), and add a calibration column that routes any confident-but-wrong recall back to the repair loop. This is the artifact that keeps the whole module alive."
-    },
-    {
       "fix": "First, it is MASSED, not spaced — daily review of the same set is cramming; it should expand to day 3 / 7 / 30 so each review lands as forgetting begins. Second, it is RE-READING, not retrieval — \"I always remember them as I read\" is recognition, not recall; the test must be answering cold with the memo closed. Third, it is in ORDER, not interleaved — same-order review lets you coast on context, so cards must be shuffled across topics. And marking on \"recognize it\" with no confidence check misses the confident-but-wrong cards entirely. Repair: close the notes, expand the intervals, interleave the cards, and route confident misses to the repair loop.",
       "task": "This routine feels rigorous but builds almost no durable recall. Name the three things it gets wrong.",
       "type": "debug",
       "symptom": "An engineer keeps a diligent-looking review routine but cannot recall their own decisions cold a month later. Find the flaw in the ROUTINE.",
       "language": "bash",
       "brokenCode": "Review routine:\n\"Every morning I re-read all my decision memos in order, start to finish.\n I always remember them as I read — feels solid. I review the same set daily\n so nothing slips. If I recognize it, I mark it 'known' and move on.\""
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two ways to keep a decision fresh",
+      "optionA": {
+        "label": "Massed re-reading",
+        "text": "Re-read the memo every day for a week · Same set, same order, eyes open · Recognition (\"yes, I wrote that\") ≠ recall · Builds false familiarity, not retrieval · No calibration — confident-wrong stays hidden Outcome: Feels diligent; a month later, nothing sharp comes out"
+      },
+      "optionB": {
+        "label": "Spaced, interleaved, calibrated",
+        "text": "Turn each decision into a recall-cold card · Expanding gaps: same-day → 3 → 7 → 30 · Interleave across topics — order gives no hints · Recall WITHOUT notes; a miss resets the card · Confident-but-wrong → routed to repair Outcome: A month later the new hire asks and it comes out sharp"
+      },
+      "guidance": "The goal is effortful retrieval, not comfortable familiarity. The uncomfortable test is the one that builds durable judgment."
     },
     {
       "type": "quiz",
@@ -4533,6 +5079,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "A spacing_queue.md seeded with your Module-3 decisions, each card carrying an expanding-interval due date, an interleave rule, and a calibration column that routes high-confidence misses to repair.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: Each card is a recall-without-notes prompt, not a re-reading prompt. · Intervals EXPAND (same-day / day 3 / day 7 / day 30), and a miss resets the card. · Cards are interleaved across topics — review order gives no hints. · A calibration column routes confident-but-wrong recalls to the repair loop. · The queue is seeded with your real Module-3 decisions, not generic facts. · You can explain why daily re-reading would have been worse than this schedule.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: You now hold the full Review & Repair loop: explain it back to find the weak part (09), score it with a rubric and honest caps (10), repair the one capped dimension and re-test (11), and queue it for spaced, interleaved recall so it lasts (12). This is not a course mechanic — it is how durable engineering judgment is actually built and kept: prove it, find the hole, fix the hole, make it stick. Point the same loop at anything you must not forget — incident lessons, system invariants, the reasoning behind a hard call. The capstone reuses every artifact you built here: the memo, the rubric, the repair log, and this queue ARE your evidence ledger. You did not just read about good judgment. You built the system that maintains it. That is the work.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "You now hold the full Review & Repair loop: explain it back to find the weak part (09), score it with a rubric and honest caps (10), repair the one capped dimension and re-test (11), and queue it for spaced, interleaved recall so it lasts (12). This is not a course mechanic — it is how durable engineering judgment is actually built and kept: prove it, find the hole, fix the hole, make it stick. Point the same loop at anything you must not forget — incident lessons, system invariants, the reasoning behind a hard call. The capstone reuses every artifact you built here: the memo, the rubric, the repair log, and this queue ARE your evidence ledger. You did not just read about good judgment. You built the system that maintains it. That is the work.",
       "type": "transfer"
     },
@@ -4543,6 +5097,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (undefined): A spacing_queue.md seeded with your Module-3 decisions, each card carrying an expanding-interval due date, an interleave rule, and a calibration column that routes high-confidence misses to repair.",
+        "Diagnose and repair the broken case: An engineer keeps a diligent-looking review routine but cannot recall their own decisions cold a month later. Find the flaw in the ROUTINE.",
+        "Confirm every verification item: Each card is a recall-without-notes prompt, not a re-reading prompt. · Intervals EXPAND (same-day / day 3 / day 7 / day 30), and a miss resets the card. · Cards are interleaved across topics — review order gives no hints. · A calibration column routes confident-but-wrong recalls to the repair loop. · The queue is seeded with your real Module-3 decisions, not generic facts. · You can explain why daily re-reading would have been worse than this schedule.",
+        "Complete the transfer without copying the worked example: You now hold the full Review & Repair loop: explain it back to find the weak part (09), score it with a rubric and honest caps (10), repair the one capped dimension and re-test (11), and queue it for spaced, interleaved recall so it lasts (12). This is not a course mechanic — it is how durable engineering judgment is actually built and kept: prove it, find the hole, fix the hole, make it stick. Point the same loop at anything you must not forget — incident lessons, system invariants, the reasoning behind a hard call. The capstone reuses every artifact you built here: the memo, the rubric, the repair log, and this queue ARE your evidence ledger. You did not just read about good judgment. You built the system that maintains it. That is the work."
       ]
     }
   ],
@@ -4570,9 +5133,53 @@
       "reveal": "No — they transferred the template, not the judgment. The two decisions have different invariants: the flag is cheaply reversible; the deletion is not, and once the data is gone no reversal condition brings it back — which should dominate the entire memo. A real transfer changes the FAILURE case (irreversible loss, not a bad rollout), the reviewer objection (legal/retention, not user impact), and the reversal condition (there may not be one). If those three did not move, no transfer happened. Transfer is measured by what changed, not by what was reused."
     },
     {
+      "type": "worked-example",
+      "intro": "A real transfer, worked line by line. Decision: add a 200ms cache to an AUTH endpoint to cut load. Watch the load re-derive the whole memo.",
+      "code": "# Decision Memo — cache the auth endpoint to cut load\n# engineering_judgment_decision_memo.md\n\n## Decision\nCache ONLY negative results (failed lookups), 5s TTL; never cache a valid token.\n\n## Rejected\nCaching successful auth — a stale \"valid\" is a security hole; that risk\ndominates the latency win.\n\n## Expected failure\nA user is banned, their session revoked, but a cached \"valid\" keeps them in\nfor the TTL window — invisible in staging, where nobody gets revoked.\n\n## Verification\nContract test: revoked sessions are NEVER served from cache.\n\n## Reversal condition\nAny auth-bypass report flips the cache off immediately — no meeting required.\n\n## Invariant carried\nName the decision · mark assumptions · compare by cost + reversibility ·\nname the realistic failure · pick the strongest proof · write the reversal.\n\n## Domain load (re-derived)\nUser: every logged-in request. Risk if wrong: SECURITY, not latency.\nPrivacy: auth state now lives in a second place.",
+      "language": "bash",
+      "steps": [
+        "The decision (load-shaped): A weak transfer writes \"add the cache.\" The strong one is already shaped by the auth load: cache only negatives, never a valid token.",
+        "Rejected, with the dominating risk: Caching a successful auth is rejected because a stale \"valid\" is a SECURITY hole — that risk dominates the latency win. The load, not the template, picks the loser.",
+        "The domain-specific failure: Not \"it might be slow.\" A revoked session stays valid for the TTL window — sharp, auth-specific, and invisible in staging where nobody gets revoked.",
+        "The strongest available proof: A contract test asserting revoked sessions are never served from cache. The proof is chosen for THIS failure, not pasted from the last memo.",
+        "Reversal matched to reversibility: Cheaply reversible, so: any auth-bypass report flips the cache off immediately — no meeting. Re-derived, not inherited.",
+        "Skeleton vs load, named: The two explicit sections the proof demands — what you carried unchanged, and what this domain forced you to re-derive."
+      ],
+      "commonMistake": "Treats an irreversible call as reversible — broken"
+    },
+    {
       "text": "The skeleton never changes: name the decision, mark assumptions, compare by cost and reversibility, name the realistic failure, pick the strongest proof, write the reversal. The LOAD is what the new domain forces on. Carry both — or get a hollow memo or a panicked guess.",
       "type": "concept",
       "title": "Transfer = invariant skeleton + re-derived domain load"
+    },
+    {
+      "type": "lab",
+      "title": "Detect hollow transfer across domains",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: verdict: real transfer Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: verdict: real transfer",
+      "language": "python",
+      "starter": "INVARIANT_FIELDS = [\"decision\", \"assumptions\", \"failure\", \"proof\", \"reversal\"]\nDOMAIN_FIELDS = [\"user\", \"scale\", \"risk\", \"privacy\"]\n\ndef assess_transfer(source, target):\n    # TODO: prove the invariant skeleton survived while the domain load changed.\n    return {\"skeleton\": 0, \"domain_rewritten\": 0, \"hollow\": True}\n\n# TODO: compare two genuinely different decision memos and print a verdict.",
+      "check": "verdict: real transfer"
+    },
+    {
+      "type": "debug",
+      "symptom": "Treats an irreversible call as reversible — broken",
+      "brokenCode": "Decision: auto-delete after 90 days\nRejected: \"keep forever — wastes storage\"\nFailure: \"the deletion job might be slow\"\nVerification: \"it works in staging\"\nReversal: \"turn the job off\"",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Noun-swap (reversible skeleton) approach and repair it before continuing.",
+      "fix": "Failure: a dormant-but-paying annual user is deleted; returns to find data gone\nVerification: dry-run lists what WOULD delete, reviewed first\nPlus a 30-day soft-delete window before hard-delete\nReversal: NONE after hard-delete — which is WHY dry-run + window are mandatory\nReversibility re-derived, not inherited\nJudgment moved with the domain"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Noun-swap vs real transfer",
+      "optionA": {
+        "label": "Noun-swap (reversible skeleton)",
+        "text": "Decision: auto-delete after 90 days · Rejected: \"keep forever — wastes storage\" · Failure: \"the deletion job might be slow\" · Verification: \"it works in staging\" · Reversal: \"turn the job off\" Outcome: Treats an irreversible call as reversible — broken"
+      },
+      "optionB": {
+        "label": "Real transfer (re-derived load)",
+        "text": "Failure: a dormant-but-paying annual user is deleted; returns to find data gone · Verification: dry-run lists what WOULD delete, reviewed first · Plus a 30-day soft-delete window before hard-delete · Reversal: NONE after hard-delete — which is WHY dry-run + window are mandatory · Reversibility re-derived, not inherited Outcome: Judgment moved with the domain"
+      },
+      "guidance": "The tell of a fake transfer: a failure case (\"might be slow\") that would be true of almost any decision. The fix is not better wording — it is re-deriving reversibility for the new domain."
     },
     {
       "type": "diagram",
@@ -4890,6 +5497,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "A new engineering_judgment_decision_memo.md for an unfamiliar decision, with an explicit \"what stays invariant / what changes\" section naming the new domain's user, scale, risk, cost, latency, and privacy pressures.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: The domain is one you were NOT walked through earlier in this course. · The \"Invariant\" section names the skeleton you carried from prior decisions. · The \"Domain load\" section names this domain's user, scale, risk, cost, latency, and privacy specifically. · Your failure case is sharp enough that it would be FALSE if pasted into a different memo. · Your reversal condition matches the actual reversibility of THIS decision (and says \"none\" honestly if there is none). · A reader with no context could agree the judgment transferred, not just the format.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: You just made the move the market actually pays for: you carried judgment into a problem nobody handed you a runbook for. Now widen it — next time you join a team, inherit a legacy system, or get pulled into an incident in code you have never read, run the same two-layer move: carry the invariant skeleton, re-derive the load. The domains keep changing for your whole career; the skeleton does not. Next lesson, you stop producing decisions and start packaging them — turning today's memo into evidence a reviewer can trust without taking your word for it.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "You just made the move the market actually pays for: you carried judgment into a problem nobody handed you a runbook for. Now widen it — next time you join a team, inherit a legacy system, or get pulled into an incident in code you have never read, run the same two-layer move: carry the invariant skeleton, re-derive the load. The domains keep changing for your whole career; the skeleton does not. Next lesson, you stop producing decisions and start packaging them — turning today's memo into evidence a reviewer can trust without taking your word for it.",
       "type": "transfer"
     },
@@ -4900,6 +5515,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (verdict: real transfer): A new engineering_judgment_decision_memo.md for an unfamiliar decision, with an explicit \"what stays invariant / what changes\" section naming the new domain's user, scale, risk, cost, latency, and privacy pressures.",
+        "Diagnose and repair the broken case: Treats an irreversible call as reversible — broken",
+        "Confirm every verification item: The domain is one you were NOT walked through earlier in this course. · The \"Invariant\" section names the skeleton you carried from prior decisions. · The \"Domain load\" section names this domain's user, scale, risk, cost, latency, and privacy specifically. · Your failure case is sharp enough that it would be FALSE if pasted into a different memo. · Your reversal condition matches the actual reversibility of THIS decision (and says \"none\" honestly if there is none). · A reader with no context could agree the judgment transferred, not just the format.",
+        "Complete the transfer without copying the worked example: You just made the move the market actually pays for: you carried judgment into a problem nobody handed you a runbook for. Now widen it — next time you join a team, inherit a legacy system, or get pulled into an incident in code you have never read, run the same two-layer move: carry the invariant skeleton, re-derive the load. The domains keep changing for your whole career; the skeleton does not. Next lesson, you stop producing decisions and start packaging them — turning today's memo into evidence a reviewer can trust without taking your word for it."
       ]
     }
   ],
@@ -4927,9 +5551,52 @@
       "reveal": "Not yet. A memo in private notes proves nothing to a skeptic — it is unledgered, untimestamped, and unlinked to a claim, so a reviewer cannot tell whether it was written before the outcome (judgment) or after (a story). Evidence becomes trustworthy the moment it is (1) committed somewhere timestamped, (2) linked to a specific claim, and (3) accompanied by the failure you predicted IN ADVANCE. The memo is the artifact; the package is what makes it believable. Quality of the memo is necessary — but the PACKAGING is what a reviewer actually checks."
     },
     {
+      "type": "worked-example",
+      "intro": "Committing the evidence, line by line. The ledger entry + the commit that timestamps it — the move every promotion packet repeats.",
+      "code": "# Append this decision to the course evidence ledger and commit it,\n# so the proof is timestamped and reviewable — not a claim in your head.\n\ncat >> evidence_ledger.md <<'ENTRY'\n\n## auth-cache decision — 2026-06-18\n- claim:    \"I can decide under incomplete evidence and defend the failure case.\"\n- artifact: ./engineering_judgment_decision_memo.md\n- proof:    contract test (revoked sessions never served from cache)\n- failure: stale-revoked-session — predicted IN ADVANCE, see commit below\n- status:  passed\nENTRY\n\ngit add evidence_ledger.md engineering_judgment_decision_memo.md\ngit commit -m \"evidence: auth-cache decision memo + predicted failure autopsy\"",
+      "language": "bash",
+      "steps": [
+        "The claim — a proof, not a topic: \"I can decide under incomplete evidence and defend the failure case,\" not \"I know about decision memos.\" A reviewer can check the first; the second is unfalsifiable.",
+        "The link to the artifact: A path a skeptic can open. The claim is worthless if it does not end in something inspectable.",
+        "The strongest available proof: A contract test here — not \"I tested it.\" Name the check, not the feeling.",
+        "The predicted failure: The stale-revoked-session case, marked predicted-in-advance. This single line is what separates judgment from a post-hoc story.",
+        "The commit that makes it un-fakeable: git timestamps the order. A failure autopsy committed before the outcome is the most credible artifact you can own — the history makes \"I knew that would happen\" impossible to fake."
+      ],
+      "commonMistake": "Zero weight — anyone can claim it"
+    },
+    {
       "text": "CLAIM names what you can do as a proof, not a topic. ARTIFACT is the inspectable file. PROOF is the strongest check available. PREDICTED FAILURE is the autopsy written before the outcome. The binding property: independently inspectable — committed, timestamped, linked.",
       "type": "concept",
       "title": "Evidence = claim + artifact + proof + predicted failure, made inspectable"
+    },
+    {
+      "type": "lab",
+      "title": "Reject evidence a reviewer cannot inspect",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: ledger_status: Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: ledger_status:",
+      "language": "python",
+      "starter": "LEDGER = [\n    {\"claim\": \"I proved a rollback under a peak-traffic constraint\", \"artifact\": \"decisions/rollback.md\", \"proof\": \"executable\", \"predicted\": \"2026-07-02\", \"outcome\": \"2026-07-04\"},\n    {\"claim\": \"Caching knowledge\", \"artifact\": \"my head\", \"proof\": \"trust me\", \"predicted\": \"2026-07-09\", \"outcome\": \"2026-07-08\"},\n]\n\ndef validate(entry):\n    # TODO: reject topic-only claims, non-path artifacts, weak proof, and\n    # predictions recorded after the outcome.\n    return []\n\n# TODO: print each verdict and ledger_status.",
+      "check": "ledger_status:"
+    },
+    {
+      "type": "debug",
+      "symptom": "Zero weight — anyone can claim it",
+      "brokenCode": "\"Skilled at engineering judgment and decision-making.\"\n\"Experienced in decision-making under ambiguity.\"\nNames a topic — proves nothing\nInspectable nowhere\nA reviewer can neither disprove nor verify it",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Topic claim (unfalsifiable) approach and repair it before continuing.",
+      "fix": "\"Decided under incomplete evidence on an auth-cache change;\npredicted the stale-revoked-session failure in advance,\nproved the guard with a contract test,\ndefended the call against a security reviewer —\nsee evidence_ledger.md#auth-cache\"\nEarns the promotion — ends in an inspectable link"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Claiming the topic vs claiming the proof",
+      "optionA": {
+        "label": "Topic claim (unfalsifiable)",
+        "text": "\"Skilled at engineering judgment and decision-making.\" · \"Experienced in decision-making under ambiguity.\" · Names a topic — proves nothing · Inspectable nowhere · A reviewer can neither disprove nor verify it Outcome: Zero weight — anyone can claim it"
+      },
+      "optionB": {
+        "label": "Proof claim (inspectable)",
+        "text": "\"Decided under incomplete evidence on an auth-cache change; · predicted the stale-revoked-session failure in advance, · proved the guard with a contract test, · defended the call against a security reviewer — · see evidence_ledger.md#auth-cache\" Outcome: Earns the promotion — ends in an inspectable link"
+      },
+      "guidance": "If your claim cannot be DISPROVEN by opening a file, it cannot be PROVEN by one either. Always name the inspectable thing and the failure you called in advance."
     },
     {
       "type": "diagram",
@@ -5253,6 +5920,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "An evidence ledger entry linking engineering_judgment_decision_memo.md to a named claim, a concrete proof method, and a status — committed to git so it is timestamped and inspectable, not asserted from memory.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: Your ledger entry names a CLAIM phrased as a proof, not a topic. · The entry links to the actual memo artifact (a path a reviewer can open). · The PROOF method is the strongest one available for this artifact (test / contract / telemetry / reviewer rubric). · The PREDICTED FAILURE was written before the outcome — and git history can show it. · The whole package is committed and timestamped, not living in private notes. · A skeptic could verify your judgment from the ledger alone, with no questions for you.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: You now know how to make judgment legible — and that skill outlives this course. Every promotion packet, design review, postmortem, and funding pitch is the same move: name the claim as a proof, link the inspectable artifact, show the failure you called in advance. Engineers who package evidence get believed; engineers who summarize get second-guessed. Start a real evidence_ledger.md in your actual work and add to it on every non-trivial call — in a year it is the most persuasive document you own. Next lesson, this package stops being a nice-to-have and becomes the literal key: the unlock gate checks the evidence, and only evidence opens it.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "You now know how to make judgment legible — and that skill outlives this course. Every promotion packet, design review, postmortem, and funding pitch is the same move: name the claim as a proof, link the inspectable artifact, show the failure you called in advance. Engineers who package evidence get believed; engineers who summarize get second-guessed. Start a real evidence_ledger.md in your actual work and add to it on every non-trivial call — in a year it is the most persuasive document you own. Next lesson, this package stops being a nice-to-have and becomes the literal key: the unlock gate checks the evidence, and only evidence opens it.",
       "type": "transfer"
     },
@@ -5263,6 +5938,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (ledger_status:): An evidence ledger entry linking engineering_judgment_decision_memo.md to a named claim, a concrete proof method, and a status — committed to git so it is timestamped and inspectable, not asserted from memory.",
+        "Diagnose and repair the broken case: Zero weight — anyone can claim it",
+        "Confirm every verification item: Your ledger entry names a CLAIM phrased as a proof, not a topic. · The entry links to the actual memo artifact (a path a reviewer can open). · The PROOF method is the strongest one available for this artifact (test / contract / telemetry / reviewer rubric). · The PREDICTED FAILURE was written before the outcome — and git history can show it. · The whole package is committed and timestamped, not living in private notes. · A skeptic could verify your judgment from the ledger alone, with no questions for you.",
+        "Complete the transfer without copying the worked example: You now know how to make judgment legible — and that skill outlives this course. Every promotion packet, design review, postmortem, and funding pitch is the same move: name the claim as a proof, link the inspectable artifact, show the failure you called in advance. Engineers who package evidence get believed; engineers who summarize get second-guessed. Start a real evidence_ledger.md in your actual work and add to it on every non-trivial call — in a year it is the most persuasive document you own. Next lesson, this package stops being a nice-to-have and becomes the literal key: the unlock gate checks the evidence, and only evidence opens it."
       ]
     }
   ],
@@ -5290,9 +5974,52 @@
       "reveal": "No — that is averaging, and a gate does not average. Proof is a REQUIRED criterion, not a weighted one; \"a bit thin\" on proof means the gate is closed until the proof is real, no matter how strong the other four are. The instinct to round up — \"mostly there, so basically passed\" — is exactly the instinct an honest gate exists to stop, because it is the same instinct that ships a release with a skipped test. A gate is a conjunction (all required AND-ed), never a sum. One honest red closes it."
     },
     {
+      "type": "worked-example",
+      "intro": "Reading a closed gate, line by line. Four passes, one honest red. Watch why \"4 of 5\" is not 80% open — it is closed.",
+      "code": "# Honest gate — run as a CONJUNCTION (AND), never an average.\n# All required criteria must be PASS by inspectable evidence.\n\nretrieval:     PASS    # stated the invariant with no notes, vs the concept block\nartifact:      PASS    # ./engineering_judgment_decision_memo.md exists and opens\nproof:         REPAIR  # have a reviewer rubric, never ran it past anyone\nfailure_case:  PASS    # stale-revoked-session — realistic, production-grade\ntransfer:      PASS    # cold-domain memo, judgment moved\n\n# => 4 PASS, 1 REPAIR. A gate is NOT 80% open — one required REPAIR closes it.\nGATE: CLOSED\n\n# Route the red, do not wave it through:\nrepair(proof) -> verification: get the reviewer rubric actually applied,\n                 do NOT self-grade it green.\n# Then RE-CHECK proof. Gate opens only when proof is genuinely PASS.",
+      "language": "bash",
+      "steps": [
+        "Each PASS names its evidence: Not \"I think so.\" Retrieval is checked against the concept block; the artifact is a file that opens. A PASS you cannot point at is not a PASS.",
+        "The honest red: A reviewer rubric you have never actually run past anyone is not proof — it is a plan. REPAIR, not a generous PASS.",
+        "Why 4/5 does not open it: The gate is a conjunction, not a percentage. One required REPAIR closes it regardless of how many others pass.",
+        "Route the red to a named repair: proof → verification repair: get the rubric applied. \"Do better\" is not a route; \"run the rubric past a reviewer\" is.",
+        "Re-check before declaring open: The gate reopens only when proof is genuinely PASS — not when you feel finished. That re-check is the whole discipline."
+      ],
+      "commonMistake": "A rubber stamp — protects nothing"
+    },
+    {
       "text": "Required criteria, all met by inspectable evidence — an AND, not an average. Two non-negotiables: no soft caps (honest red is the correct output when evidence is missing), and every red routes to a specific repair, then you RE-CHECK before declaring it open.",
       "type": "concept",
       "title": "A gate is a conjunction with no soft caps, and every red has a repair route"
+    },
+    {
+      "type": "lab",
+      "title": "Implement an honest all-required gate",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: gate_run_2: OPEN Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: gate_run_2: OPEN",
+      "language": "python",
+      "starter": "CRITERIA = {\n    \"retrieval\": \"calibration log\",\n    \"artifact\": \"decision memo\",\n    \"proof\": None,\n    \"transfer\": \"cold-domain memo\",\n}\n\ndef run_gate(criteria):\n    # TODO: return OPEN only when every required criterion has evidence.\n    return \"OPEN\", []\n\n# TODO: print the first closed run, repair proof, re-check, and print OPEN.",
+      "check": "gate_run_2: OPEN"
+    },
+    {
+      "type": "debug",
+      "symptom": "A rubber stamp — protects nothing",
+      "brokenCode": "\"4 of 5 met — 80%, basically passed.\"\n\"I worked really hard, the thin proof should count.\"\nTreats a required criterion as weighted\nLets deadline / sunk cost buy a pass\nGate has never once stopped anything",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Averaging + effort discount approach and repair it before continuing.",
+      "fix": "One required red ⇒ GATE CLOSED, full stop\nEffort is invisible to the gate — it checks evidence\nRed routed to verification repair, named\nRe-checked after repair before opening\nOpens only when the proof is genuinely real\nA gate that means something"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Two ways to read the same gate",
+      "optionA": {
+        "label": "Averaging + effort discount",
+        "text": "\"4 of 5 met — 80%, basically passed.\" · \"I worked really hard, the thin proof should count.\" · Treats a required criterion as weighted · Lets deadline / sunk cost buy a pass · Gate has never once stopped anything Outcome: A rubber stamp — protects nothing"
+      },
+      "optionB": {
+        "label": "Honest conjunction",
+        "text": "One required red ⇒ GATE CLOSED, full stop · Effort is invisible to the gate — it checks evidence · Red routed to verification repair, named · Re-checked after repair before opening · Opens only when the proof is genuinely real Outcome: A gate that means something"
+      },
+      "guidance": "The gate is most valuable exactly when it is most inconvenient. The first time it forces you to hold a release you wanted to ship is the gate doing its entire job."
     },
     {
       "type": "diagram",
@@ -5627,6 +6354,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "A completed gate checklist against your packaged evidence, each criterion marked pass or repair, every repair routed to a named action, and a re-check after repair — applied to YOUR artifact, not a hypothetical.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: Every gate criterion is marked PASS or REPAIR — none left ambiguous. · Each PASS names the inspectable thing that backs it (you can point at it). · Each REPAIR names a specific route (concept / build / verification / oral-defense), not \"do better.\" · You did NOT open the gate on a majority — any required red kept it closed. · After repairing a red, you RE-CHECKED that criterion before declaring the gate open. · Your final gate state is one you would defend to a reviewer out loud.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: You now own the most underrated senior skill: gating your own work honestly, before anyone makes you. Carry it everywhere — your pull requests get a self-gate before you request review, your designs get a gate before the meeting, your claims get a gate before they hit a resume. The engineers trusted with bigger and bigger blast radius are the ones whose self-gate is stricter than the org's, so their work clears review the first time. Next is the capstone: one gate over the entire course. Everything you just practiced — honest red, required-criteria conjunction, repair-then-recheck — you will now run across all four modules at once. Bring your evidence.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "You now own the most underrated senior skill: gating your own work honestly, before anyone makes you. Carry it everywhere — your pull requests get a self-gate before you request review, your designs get a gate before the meeting, your claims get a gate before they hit a resume. The engineers trusted with bigger and bigger blast radius are the ones whose self-gate is stricter than the org's, so their work clears review the first time. Next is the capstone: one gate over the entire course. Everything you just practiced — honest red, required-criteria conjunction, repair-then-recheck — you will now run across all four modules at once. Bring your evidence.",
       "type": "transfer"
     },
@@ -5637,6 +6372,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (gate_run_2: OPEN): A completed gate checklist against your packaged evidence, each criterion marked pass or repair, every repair routed to a named action, and a re-check after repair — applied to YOUR artifact, not a hypothetical.",
+        "Diagnose and repair the broken case: A rubber stamp — protects nothing",
+        "Confirm every verification item: Every gate criterion is marked PASS or REPAIR — none left ambiguous. · Each PASS names the inspectable thing that backs it (you can point at it). · Each REPAIR names a specific route (concept / build / verification / oral-defense), not \"do better.\" · You did NOT open the gate on a majority — any required red kept it closed. · After repairing a red, you RE-CHECKED that criterion before declaring the gate open. · Your final gate state is one you would defend to a reviewer out loud.",
+        "Complete the transfer without copying the worked example: You now own the most underrated senior skill: gating your own work honestly, before anyone makes you. Carry it everywhere — your pull requests get a self-gate before you request review, your designs get a gate before the meeting, your claims get a gate before they hit a resume. The engineers trusted with bigger and bigger blast radius are the ones whose self-gate is stricter than the org's, so their work clears review the first time. Next is the capstone: one gate over the entire course. Everything you just practiced — honest red, required-criteria conjunction, repair-then-recheck — you will now run across all four modules at once. Bring your evidence."
       ]
     }
   ],
@@ -5664,9 +6408,52 @@
       "reveal": "Not yet — assembly is not defense. A complete-looking packet proves only that the documents exist, not that the judgment behind them holds. The capstone passes when the packet clears an HONEST gate (your own, no soft caps) AND you can field the hardest objection — \"show me the exact evidence this is not happy-path\" — without hedging. The gap between \"I have all the documents\" and \"I can defend all the documents to a skeptic\" is the entire capstone. The gate is on the defense, not the assembly."
     },
     {
+      "type": "worked-example",
+      "intro": "The mastery packet, assembled and gated. Pull every real artifact into one bundle, then run the conjunction over all of it.",
+      "code": "# Mastery Packet — Course 00: Engineering Judgment Foundation\n# Assemble, then run your own HONEST gate over all of it (no soft caps).\n\n## 1. Diagnostic        — where I started, honestly (Module 1)\n## 2. Decision memo     — engineering_judgment_decision_memo.md (Module 2)\n## 3. Failure autopsy   — the failure I predicted in advance (Module 3)\n## 4. Proof             — strongest check the repaired version survived (Module 3)\n## 5. Reviewer objection answered — hardest pushback + my answer\n## 6. Transfer case     — judgment carried to a new domain (Module 4 · transfer)\n## 7. Evidence ledger   — claims as proofs, linked + timestamped (Module 4 · package)\n\n## 8. HONEST GATE (Module 4 · gate) — the whole packet is AND-ed, no averaging:\ngate:\n  diagnostic_honest:        PASS | REPAIR\n  decision_defensible:      PASS | REPAIR\n  failure_predicted_early:  PASS | REPAIR\n  proof_concrete:           PASS | REPAIR\n  objection_answered:       PASS | REPAIR\n  transfer_real:            PASS | REPAIR\n  every_claim_names_proof:  PASS | REPAIR\n# Gate OPENS only when every line is PASS. One REPAIR closes it — fix, re-check.\n\ngit add mastery_packet.md engineering_judgment_decision_memo.md evidence_ledger.md\ngit commit -m \"capstone: Course 00 mastery packet, gated honestly\"",
+      "language": "bash",
+      "steps": [
+        "Modules 1–3 contribute their proof: Diagnostic, decision memo, failure autopsy, proof — the recognize / decide / break-prove-repair arc, each a real artifact you produced, not a fresh stand-in.",
+        "Module 4 contributes transfer + ledger: The reviewer objection answered, the cold-domain transfer, and the evidence ledger that links every claim to an inspectable artifact.",
+        "The honest gate, AND-ed: Seven required lines. every_claim_names_proof is the through-line of the whole course — a claim that names a topic instead of a proof is an automatic REPAIR.",
+        "One REPAIR closes it: The capstone IS the gate: it opens only when every line is PASS by inspectable evidence. No averaging, no \"most are green.\"",
+        "Commit the whole packet: git timestamps the bundle. The mastery packet becomes the template for every review, promotion, and design defense you will ever walk into."
+      ],
+      "commonMistake": "Looks stronger — fails on contact"
+    },
+    {
       "text": "Not six documents — one defensible argument. Diagnostic, decision memo, failure autopsy, reviewer objection answered, transfer case, evidence ledger — bound by one honest gate run across all of it: \"I own engineering judgment, and here is the inspectable proof, gated the way a reviewer would.\"",
       "type": "concept",
       "title": "The mastery packet: one bundle that proves the whole course, gated honestly"
+    },
+    {
+      "type": "lab",
+      "title": "Gate the complete mastery packet",
+      "summary": "Build the executable counterpart to this lesson's reasoning artifact. The practice evaluator must observe: packet_defensible: Then encode the acceptance criteria in a deterministic evaluator and prove both a weak fixture and a passing fixture; the passing run must include: packet_defensible:",
+      "language": "python",
+      "starter": "PACKET = [\n    {\"artifact\": \"diagnostic\", \"present\": True, \"gate\": \"pass\", \"stale\": False},\n    {\"artifact\": \"decision memo\", \"present\": True, \"gate\": \"pass\", \"stale\": False},\n    {\"artifact\": \"reviewer objection\", \"present\": True, \"gate\": \"repair\", \"stale\": False},\n    {\"artifact\": \"transfer case\", \"present\": True, \"gate\": \"pass\", \"stale\": True},\n]\n\ndef evaluate_packet(packet):\n    # TODO: count presence separately from proof, find stale pointers,\n    # and name the weakest item.\n    return {}\n\n# TODO: print the evidence summary and honest packet_defensible verdict.",
+      "check": "packet_defensible:"
+    },
+    {
+      "type": "debug",
+      "symptom": "Looks stronger — fails on contact",
+      "brokenCode": "Smooth over the weak claim, present a full pass\nInflate the diagnostic: \"started already strong\"\nHope the objection does not come up\nGate averaged: \"most are PASS, packet is strong\"\nCollapses the instant a reviewer probes the weak claim",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Present clean (assembly) approach and repair it before continuing.",
+      "fix": "Mark the weak claim honestly, show the repair you ran\nHonest diagnostic: name where you were weak\nDefend every other clause cleanly, out loud\nGate as conjunction: one red closes it, then fix\nRehearsed the objection in an empty room first\nLess perfect, far more credible — and it passes"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Present clean vs present honest-and-repaired",
+      "optionA": {
+        "label": "Present clean (assembly)",
+        "text": "Smooth over the weak claim, present a full pass · Inflate the diagnostic: \"started already strong\" · Hope the objection does not come up · Gate averaged: \"most are PASS, packet is strong\" · Collapses the instant a reviewer probes the weak claim Outcome: Looks stronger — fails on contact"
+      },
+      "optionB": {
+        "label": "Present honest + repaired (defense)",
+        "text": "Mark the weak claim honestly, show the repair you ran · Honest diagnostic: name where you were weak · Defend every other clause cleanly, out loud · Gate as conjunction: one red closes it, then fix · Rehearsed the objection in an empty room first Outcome: Less perfect, far more credible — and it passes"
+      },
+      "guidance": "A reviewer trusts the engineer who flags their own weak claim and shows the repair infinitely more than the one with a suspiciously clean packet. Honest red over dishonest green — the whole course in one choice."
     },
     {
       "type": "diagram",
@@ -6023,6 +6810,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "A mastery packet — diagnostic + decision memo + failure autopsy + reviewer objection answered + transfer case + evidence ledger + honest unlock gate — in one inspectable bundle that a reviewer who has never met you could read and agree: this person owns engineering judgment.",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: The packet pulls in REAL artifacts you produced across the course, not freshly invented stand-ins. · The diagnostic is honest about where you started — including where you were weak. · The decision memo survives the hardest reviewer objection, answered out loud without hedging. · The failure you packaged was predicted in advance, and git can show the order. · The transfer case is a genuine new domain — its failure case would be false in your original memo. · You ran the honest gate as a conjunction: every line PASS by inspectable evidence, or honestly REPAIR-and-rechecked — never averaged. · You rehearsed the defense aloud and can stake your reputation on every clause.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: Stop and own this: you did not finish a course, you cleared a gate — the one the rest of the Sage curriculum is built on. Recognize a real decision, make it under incomplete evidence, break it, prove it, repair it, transfer it to a domain nobody walked you through, package it as inspectable proof, and gate it honestly with no soft caps. That is engineering judgment, and you can now defend that you own it, clause by clause, to anyone who asks. Everything ahead — the systems, the languages, the architectures — assumes this foundation, and it should, because you just proved it holds. Keep the evidence_ledger.md you started; add to it for the rest of your career. The mastery packet you built today is the template for every review, promotion, and design defense you will ever walk into. The gate is open. Go build on it.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
       "text": "Stop and own this: you did not finish a course, you cleared a gate — the one the rest of the Sage curriculum is built on. Recognize a real decision, make it under incomplete evidence, break it, prove it, repair it, transfer it to a domain nobody walked you through, package it as inspectable proof, and gate it honestly with no soft caps. That is engineering judgment, and you can now defend that you own it, clause by clause, to anyone who asks. Everything ahead — the systems, the languages, the architectures — assumes this foundation, and it should, because you just proved it holds. Keep the evidence_ledger.md you started; add to it for the rest of your career. The mastery packet you built today is the template for every review, promotion, and design defense you will ever walk into. The gate is open. Go build on it.",
       "type": "transfer"
     },
@@ -6033,6 +6828,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (packet_defensible:): A mastery packet — diagnostic + decision memo + failure autopsy + reviewer objection answered + transfer case + evidence ledger + honest unlock gate — in one inspectable bundle that a reviewer who has never met you could read and agree: this person owns engineering judgment.",
+        "Diagnose and repair the broken case: Looks stronger — fails on contact",
+        "Confirm every verification item: The packet pulls in REAL artifacts you produced across the course, not freshly invented stand-ins. · The diagnostic is honest about where you started — including where you were weak. · The decision memo survives the hardest reviewer objection, answered out loud without hedging. · The failure you packaged was predicted in advance, and git can show the order. · The transfer case is a genuine new domain — its failure case would be false in your original memo. · You ran the honest gate as a conjunction: every line PASS by inspectable evidence, or honestly REPAIR-and-rechecked — never averaged. · You rehearsed the defense aloud and can stake your reputation on every clause.",
+        "Complete the transfer without copying the worked example: Stop and own this: you did not finish a course, you cleared a gate — the one the rest of the Sage curriculum is built on. Recognize a real decision, make it under incomplete evidence, break it, prove it, repair it, transfer it to a domain nobody walked you through, package it as inspectable proof, and gate it honestly with no soft caps. That is engineering judgment, and you can now defend that you own it, clause by clause, to anyone who asks. Everything ahead — the systems, the languages, the architectures — assumes this foundation, and it should, because you just proved it holds. Keep the evidence_ledger.md you started; add to it for the rest of your career. The mastery packet you built today is the template for every review, promotion, and design defense you will ever walk into. The gate is open. Go build on it."
       ]
     }
   ]

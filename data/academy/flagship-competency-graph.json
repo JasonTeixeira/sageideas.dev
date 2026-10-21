@@ -1,0 +1,1089 @@
+{
+  "schemaVersion": 1,
+  "pathId": "flagship-production-ai-automation-engineer-v1",
+  "title": "Production AI, Automation, Cloud, and Network Engineering",
+  "status": "draft",
+  "levels": [
+    {
+      "id": "novice",
+      "label": "Novice",
+      "outcome": "Can follow a model with support and name what remains unclear."
+    },
+    {
+      "id": "foundation",
+      "label": "Foundation",
+      "outcome": "Can complete bounded tasks, explain the mechanism, and diagnose common failures."
+    },
+    {
+      "id": "practitioner",
+      "label": "Practitioner",
+      "outcome": "Can build and operate a complete system under explicit constraints."
+    },
+    {
+      "id": "advanced",
+      "label": "Advanced",
+      "outcome": "Can make defensible tradeoffs, handle unfamiliar failures, and improve system quality."
+    },
+    {
+      "id": "mastery",
+      "label": "Mastery",
+      "outcome": "Can integrate disciplines, defend decisions with evidence, teach the model, and transfer it to a novel production problem."
+    }
+  ],
+  "masteryPolicy": {
+    "requiredEvidence": [
+      {
+        "type": "build",
+        "contract": "Produce a working artifact from a blank or deliberately incomplete starting point without copying the reference solution."
+      },
+      {
+        "type": "debug",
+        "contract": "Diagnose and repair an injected or naturally occurring failure, including the causal explanation and regression test."
+      },
+      {
+        "type": "explain",
+        "contract": "Teach the mechanism and defend the important tradeoff in plain language without relying on memorized wording."
+      },
+      {
+        "type": "transfer",
+        "contract": "Apply the skill to a materially different, previously unseen scenario."
+      },
+      {
+        "type": "retrieve",
+        "contract": "Reproduce the key model after delay and repair any confidence-versus-performance mismatch."
+      }
+    ],
+    "retrievalScheduleDays": [
+      2,
+      7,
+      21,
+      45
+    ],
+    "minimumKnowledgeScore": 0.85,
+    "minimumIndependentAttempts": 2,
+    "labEvidenceBeforeTrustedRuntime": "practice_only",
+    "outcomeDisclaimer": "Completion does not guarantee employment, expertise in every context, or a top-one-percent percentile outcome; the path defines demanding observable evidence for production readiness and continued mastery practice."
+  },
+  "phases": [
+    {
+      "id": "learning-judgment",
+      "label": "Learning systems and engineering judgment",
+      "prerequisitePhaseIds": [],
+      "competencyIds": [
+        "learning-system",
+        "engineering-judgment"
+      ],
+      "courseSlugs": [
+        "career-engineering_judgment_foundation"
+      ]
+    },
+    {
+      "id": "automation-foundations",
+      "label": "Programming, data structures, Git, terminal, and automation foundations",
+      "prerequisitePhaseIds": [
+        "learning-judgment"
+      ],
+      "competencyIds": [
+        "programming-automation",
+        "version-control-shell"
+      ],
+      "courseSlugs": [
+        "programming-fundamentals",
+        "python-basics",
+        "git-the-terminal",
+        "data-structures",
+        "career-programming_cs_foundations"
+      ]
+    },
+    {
+      "id": "network-security",
+      "label": "Networking, systems, and security",
+      "prerequisitePhaseIds": [
+        "automation-foundations"
+      ],
+      "competencyIds": [
+        "network-systems",
+        "security-identity"
+      ],
+      "courseSlugs": [
+        "career-networking_fundamentals_advanced_networking",
+        "career-security_identity"
+      ]
+    },
+    {
+      "id": "data-backend",
+      "label": "Databases, APIs, backend services, and distributed systems",
+      "prerequisitePhaseIds": [
+        "network-security"
+      ],
+      "competencyIds": [
+        "data-modeling",
+        "backend-distributed-systems"
+      ],
+      "courseSlugs": [
+        "career-databases_data_modeling",
+        "career-backend_engineering",
+        "system-design"
+      ]
+    },
+    {
+      "id": "cloud-operations",
+      "label": "Cloud, DevOps, observability, reliability, and platform operations",
+      "prerequisitePhaseIds": [
+        "data-backend"
+      ],
+      "competencyIds": [
+        "cloud-delivery",
+        "reliability-platform"
+      ],
+      "courseSlugs": [
+        "career-cloud_devops_operations",
+        "career-observability_reliability_performance",
+        "career-platform_engineering_internal_developer_platforms"
+      ]
+    },
+    {
+      "id": "applied-ai",
+      "label": "LLM APIs, prompting, retrieval, agents, automation, evals, and safety",
+      "prerequisitePhaseIds": [
+        "data-backend",
+        "cloud-operations"
+      ],
+      "competencyIds": [
+        "llm-systems",
+        "retrieval-systems",
+        "agent-automation",
+        "ai-evaluation-safety"
+      ],
+      "courseSlugs": [
+        "the-llm-api",
+        "prompt-engineering",
+        "rag-retrieval",
+        "agents-tool-use",
+        "career-ai_engineering_rag_eval"
+      ]
+    },
+    {
+      "id": "production-capstone",
+      "label": "Cross-discipline production capstone and defense",
+      "prerequisitePhaseIds": [
+        "applied-ai"
+      ],
+      "competencyIds": [
+        "production-integration"
+      ],
+      "courseSlugs": [
+        "system-design",
+        "career-product_execution_market_feedback"
+      ],
+      "releaseGap": "The evidence contract is canonical, but a dedicated immutable capstone course release has not yet been authored or certified."
+    }
+  ],
+  "competencies": [
+    {
+      "id": "learning-system",
+      "label": "Plan, retrieve, calibrate, and adapt learning",
+      "level": "foundation",
+      "prerequisiteIds": [],
+      "courseMappings": [
+        {
+          "courseSlug": "career-engineering_judgment_foundation"
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A four-week deliberate-practice plan with measurable retrieval and transfer checkpoints."
+        },
+        {
+          "type": "debug",
+          "artifact": "A corrected plan based on a documented confidence-versus-performance mismatch."
+        },
+        {
+          "type": "explain",
+          "artifact": "A teach-back of retrieval, spacing, interleaving, feedback, and deliberate practice."
+        }
+      ]
+    },
+    {
+      "id": "engineering-judgment",
+      "label": "Frame constraints, compare options, and defend decisions",
+      "level": "foundation",
+      "prerequisiteIds": [
+        "learning-system"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-engineering_judgment_foundation"
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A decision record naming constraints, alternatives, assumptions, and success measures."
+        },
+        {
+          "type": "debug",
+          "artifact": "A premortem and revision after one assumption is falsified."
+        },
+        {
+          "type": "transfer",
+          "artifact": "A second decision record for an unfamiliar system with different constraints."
+        }
+      ]
+    },
+    {
+      "id": "programming-automation",
+      "label": "Turn requirements into tested programs and safe automations",
+      "level": "foundation",
+      "prerequisiteIds": [
+        "learning-system"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "programming-fundamentals",
+          "lessonSlugs": [
+            "your-first-program",
+            "variables-and-values",
+            "numbers-and-strings",
+            "reading-input",
+            "booleans-and-logic",
+            "lists",
+            "loops",
+            "functions-basics",
+            "build-a-tiny-program",
+            "input-validation",
+            "error-handling",
+            "functions-and-modules",
+            "types-and-data",
+            "control-flow",
+            "files-and-io",
+            "testing-and-debugging"
+          ]
+        },
+        {
+          "courseSlug": "python-basics",
+          "lessonSlugs": [
+            "your-first-line",
+            "variables",
+            "logic-conditionals",
+            "loops",
+            "functions-and-scope",
+            "collections",
+            "exceptions-validation",
+            "files-json",
+            "modules-venvs",
+            "testing-debugging",
+            "http-apis",
+            "automation-capstone"
+          ]
+        },
+        {
+          "courseSlug": "data-structures",
+          "lessonSlugs": [
+            "big-o-cost-you-feel",
+            "arrays-dynamic-arrays",
+            "memory-cache-contiguity",
+            "amortized-analysis",
+            "linked-lists",
+            "stacks",
+            "queues-deques",
+            "list-vs-linked-decision",
+            "hash-maps",
+            "sets-dedup",
+            "collisions-load-factor",
+            "designing-good-keys",
+            "binary-trees-traversal",
+            "binary-search-trees",
+            "heaps-priority-queues",
+            "tries",
+            "graph-representations",
+            "bfs-dfs",
+            "choosing-the-structure",
+            "capstone-pick-and-implement"
+          ]
+        },
+        {
+          "courseSlug": "career-programming_cs_foundations",
+          "lessonSlugs": [
+            "terminal-files",
+            "python-functions-inputs-outputs",
+            "types-dataclasses",
+            "lists-dicts-sets",
+            "files-json-csv",
+            "errors-validation",
+            "testing-basics",
+            "complexity-big-o",
+            "frequency-maps",
+            "stacks-queues",
+            "two-pointers-windows",
+            "binary-search",
+            "heaps-top-k",
+            "graphs-bfs-dfs",
+            "dynamic-programming-intro",
+            "processes-ports-env-vars",
+            "http-dns-tls-basics",
+            "debugging-loop",
+            "integration-mini-project",
+            "track-1-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A tested command-line automation that validates input and produces deterministic output."
+        },
+        {
+          "type": "debug",
+          "artifact": "Repairs for malformed input, incorrect branching, unsafe file handling, and a regression test."
+        },
+        {
+          "type": "transfer",
+          "artifact": "A second automation for a new domain using the same decomposition and verification model."
+        }
+      ]
+    },
+    {
+      "id": "version-control-shell",
+      "label": "Operate safely in a terminal and create auditable Git history",
+      "level": "foundation",
+      "prerequisiteIds": [
+        "programming-automation"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "programming-fundamentals",
+          "lessonSlugs": [
+            "cli-workflow",
+            "git-fundamentals"
+          ]
+        },
+        {
+          "courseSlug": "git-the-terminal"
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A repository with atomic commits, a reproducible command workflow, and a useful README."
+        },
+        {
+          "type": "debug",
+          "artifact": "Recovery from a deliberate Git or shell mistake without destroying unrelated work."
+        },
+        {
+          "type": "explain",
+          "artifact": "A defense of the commit boundaries, safe defaults, and rollback strategy."
+        }
+      ]
+    },
+    {
+      "id": "network-systems",
+      "label": "Trace and troubleshoot application traffic across network layers",
+      "level": "practitioner",
+      "prerequisiteIds": [
+        "version-control-shell"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-networking_fundamentals_advanced_networking",
+          "lessonSlugs": [
+            "tcp-ip-model-without-trivia",
+            "packet-path-reasoning",
+            "latency-and-throughput",
+            "failure-domain-mapping",
+            "dns-resolution",
+            "http-semantics",
+            "tls-handshake-and-certificates",
+            "quic-tradeoffs",
+            "cidr-and-subnets",
+            "nat-and-routes",
+            "load-balancer-modes",
+            "proxy-and-cdn-path",
+            "vpc-vnet-design",
+            "service-discovery",
+            "ingress-and-services",
+            "networkpolicy-boundaries",
+            "packet-capture-plan",
+            "firewall-denial-repair",
+            "zero-trust-access",
+            "network-incident-runbook"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A segmented service network with documented addressing, DNS, routing, and transport behavior."
+        },
+        {
+          "type": "debug",
+          "artifact": "A packet- and log-supported diagnosis of a DNS, routing, TLS, or firewall failure."
+        },
+        {
+          "type": "transfer",
+          "artifact": "A troubleshooting runbook applied to an unseen topology."
+        }
+      ]
+    },
+    {
+      "id": "security-identity",
+      "label": "Design identity, authorization, secrets, and abuse controls",
+      "level": "practitioner",
+      "prerequisiteIds": [
+        "network-systems"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-security_identity",
+          "lessonSlugs": [
+            "security-mindset-risk",
+            "identity-authentication",
+            "session-token-security",
+            "authorization-rbac-abac",
+            "object-level-authorization",
+            "input-validation-injection",
+            "secrets-management",
+            "secure-api-design",
+            "threat-modeling",
+            "attack-trees",
+            "secure-coding-review",
+            "dependency-supply-chain",
+            "cloud-iam-least-privilege",
+            "network-edge-security",
+            "data-protection-privacy",
+            "logging-detection-response",
+            "incident-response",
+            "compliance-evidence",
+            "security-interview-practice",
+            "security-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A least-privilege access model and threat model for a service boundary."
+        },
+        {
+          "type": "debug",
+          "artifact": "A closed authorization bypass, secret exposure, or replay path with a regression test."
+        },
+        {
+          "type": "explain",
+          "artifact": "A defense of trust boundaries, failure modes, and residual risk."
+        }
+      ]
+    },
+    {
+      "id": "data-modeling",
+      "label": "Model, query, migrate, and protect durable data",
+      "level": "practitioner",
+      "prerequisiteIds": [
+        "programming-automation",
+        "security-identity"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-databases_data_modeling",
+          "lessonSlugs": [
+            "database-systems-map",
+            "entities-relationships",
+            "normalization-denormalization",
+            "constraints-invariants",
+            "indexes-access-patterns",
+            "query-design-joins",
+            "transactions-atomicity",
+            "isolation-concurrency",
+            "migrations-schema-evolution",
+            "query-plans-performance",
+            "repository-data-access-layer",
+            "seed-fixtures-test-data",
+            "data-quality-checks",
+            "backup-restore-retention",
+            "security-privacy-compliance",
+            "caching-read-models",
+            "analytics-warehouse-boundaries",
+            "observability-incidents",
+            "integration-mini-project",
+            "database-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A normalized schema, representative queries, constraints, indexes, and a reversible migration."
+        },
+        {
+          "type": "debug",
+          "artifact": "A diagnosis of incorrect results or degraded query performance using evidence."
+        },
+        {
+          "type": "transfer",
+          "artifact": "A revised model for a new access pattern and consistency requirement."
+        }
+      ]
+    },
+    {
+      "id": "backend-distributed-systems",
+      "label": "Build reliable APIs and reason about distributed failure",
+      "level": "practitioner",
+      "prerequisiteIds": [
+        "network-systems",
+        "data-modeling"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-backend_engineering",
+          "lessonSlugs": [
+            "backend-request-response",
+            "resource-modeling",
+            "api-contracts-schemas",
+            "validation-error-model",
+            "http-status-codes",
+            "pagination-filtering-sorting",
+            "idempotency-retry-safety",
+            "auth-authorization-boundaries",
+            "persistence-repository-boundary",
+            "background-jobs-queue-basics",
+            "worker-state-retries-dlq",
+            "event-vs-command",
+            "observability-request-ids-logs-metrics",
+            "backend-testing-contracts",
+            "rate-limits-backpressure",
+            "versioning-compatibility",
+            "security-privacy-boundaries",
+            "backend-debugging-incident-loop",
+            "backend-integration-mini-project",
+            "backend-capstone"
+          ]
+        },
+        {
+          "courseSlug": "system-design",
+          "lessonSlugs": [
+            "what-system-design-is",
+            "back-of-envelope",
+            "building-blocks",
+            "latency-throughput-availability",
+            "sql-vs-nosql",
+            "indexing",
+            "replication",
+            "sharding-partitioning",
+            "caching-strategies",
+            "cache-invalidation",
+            "load-balancing",
+            "cdn-edge",
+            "cap-and-consistency",
+            "async-queues",
+            "consensus-quorum",
+            "distributed-fallacies",
+            "failure-modes-blast-radius",
+            "resilience-patterns",
+            "observability-slos",
+            "rate-limiting-load-shedding",
+            "tradeoff-analysis-adrs",
+            "the-interview-method",
+            "designing-a-real-system",
+            "capstone-design-and-defend"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A documented API with validation, authentication boundary, persistence, tests, and failure handling."
+        },
+        {
+          "type": "debug",
+          "artifact": "A fix for retry, idempotency, concurrency, partial failure, or consistency behavior."
+        },
+        {
+          "type": "explain",
+          "artifact": "A system-design defense covering scaling assumptions and failure domains."
+        }
+      ]
+    },
+    {
+      "id": "cloud-delivery",
+      "label": "Provision, release, and automate cloud workloads safely",
+      "level": "advanced",
+      "prerequisiteIds": [
+        "backend-distributed-systems"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-cloud_devops_operations",
+          "lessonSlugs": [
+            "cloud-operating-model",
+            "linux-processes-ports",
+            "environment-config-secrets",
+            "container-image-design",
+            "docker-compose-local-stack",
+            "networking-dns-tls",
+            "ci-pipeline-quality-gates",
+            "artifact-versioning-releases",
+            "deployment-strategies",
+            "health-readiness-liveness",
+            "kubernetes-manifests",
+            "infrastructure-as-code",
+            "observability-logs-metrics-traces",
+            "alerting-slo-error-budgets",
+            "rollbacks-incident-response",
+            "security-supply-chain",
+            "cost-capacity-finops",
+            "multi-env-promotion",
+            "production-readiness-review",
+            "cloud-devops-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "An environment created from versioned configuration with CI checks, deployment, and rollback."
+        },
+        {
+          "type": "debug",
+          "artifact": "A failed-deployment diagnosis and verified recovery without untracked console drift."
+        },
+        {
+          "type": "transfer",
+          "artifact": "The workload redeployed under a different scaling, cost, or availability constraint."
+        }
+      ]
+    },
+    {
+      "id": "reliability-platform",
+      "label": "Operate observable, reliable, cost-aware platforms",
+      "level": "advanced",
+      "prerequisiteIds": [
+        "cloud-delivery"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-observability_reliability_performance",
+          "lessonSlugs": [
+            "observability-mindset",
+            "service-level-objectives",
+            "golden-signals-red",
+            "use-method-resources",
+            "instrumentation-contracts",
+            "structured-logging",
+            "distributed-tracing",
+            "trace-context-propagation",
+            "dashboards-as-code",
+            "alert-design",
+            "burn-rate-alerting",
+            "incident-triage",
+            "incident-communication",
+            "postmortems",
+            "performance-profiling",
+            "capacity-planning",
+            "queue-backpressure",
+            "resilience-patterns",
+            "release-observability",
+            "observability-capstone"
+          ]
+        },
+        {
+          "courseSlug": "career-platform_engineering_internal_developer_platforms",
+          "lessonSlugs": [
+            "platform-vs-devops-boundary",
+            "developer-journey-mapping",
+            "golden-path-definition",
+            "adoption-metrics",
+            "ci-cd-contract",
+            "rollback-workflow",
+            "iac-module-design",
+            "policy-as-code",
+            "logging-metrics-traces",
+            "service-scaffold",
+            "artifact-promotion",
+            "environment-lifecycle",
+            "secrets-management",
+            "kubernetes-abstractions",
+            "slo-defaults",
+            "incident-ready-services",
+            "self-service-controls",
+            "cost-and-quota-guardrails",
+            "support-model",
+            "platform-roadmap-review"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "Service-level objectives, telemetry, alerts, runbook, capacity assumption, and cost budget."
+        },
+        {
+          "type": "debug",
+          "artifact": "An incident timeline with diagnosis, mitigation, root cause, and prevention evidence."
+        },
+        {
+          "type": "explain",
+          "artifact": "A defense of reliability, developer-experience, security, and cost tradeoffs."
+        }
+      ]
+    },
+    {
+      "id": "llm-systems",
+      "label": "Build reliable applications on probabilistic model APIs",
+      "level": "practitioner",
+      "prerequisiteIds": [
+        "backend-distributed-systems"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "the-llm-api",
+          "lessonSlugs": [
+            "llm-request-response-contract",
+            "messages-array-roles",
+            "tokens-context-window",
+            "generation-parameters",
+            "streaming-responses",
+            "structured-outputs-json",
+            "function-tool-calling",
+            "conversation-state",
+            "errors-status-codes",
+            "retries-backoff-idempotency",
+            "rate-limits-concurrency",
+            "timeouts-partials",
+            "token-cost-model",
+            "caching-prompt-reuse",
+            "model-selection-fallbacks",
+            "latency-budgets",
+            "safety-moderation",
+            "llm-observability",
+            "secrets-provider-boundary",
+            "capstone-resilient-streaming-client"
+          ]
+        },
+        {
+          "courseSlug": "prompt-engineering",
+          "lessonSlugs": [
+            "prompt-as-contract",
+            "role-instruction-format",
+            "the-refusal-rule",
+            "the-grounding-rule",
+            "few-shot-examples",
+            "decomposition-chaining",
+            "chain-of-thought",
+            "self-check-critique",
+            "schema-constrained-prompts",
+            "output-validation-repair",
+            "delimiters-escaping-untrusted",
+            "handling-long-inputs",
+            "build-a-prompt-eval-set",
+            "llm-as-judge",
+            "regression-test-prompts",
+            "measuring-drift-across-models",
+            "prompt-injection",
+            "injection-defense-patterns",
+            "jailbreak-resistance",
+            "capstone-injection-resistant-prompt"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A structured-output LLM feature with validation, retries, cost limits, and evaluation cases."
+        },
+        {
+          "type": "debug",
+          "artifact": "A reproduced and reduced model-output failure with a measured mitigation."
+        },
+        {
+          "type": "transfer",
+          "artifact": "The feature adapted to a new task without weakening its evaluation contract."
+        }
+      ]
+    },
+    {
+      "id": "retrieval-systems",
+      "label": "Design and evaluate grounded retrieval systems",
+      "level": "advanced",
+      "prerequisiteIds": [
+        "data-modeling",
+        "llm-systems"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "rag-retrieval",
+          "lessonSlugs": [
+            "why-rag-grounding",
+            "loaders-cleaning",
+            "chunking-strategies",
+            "metadata-provenance",
+            "embeddings-intuition",
+            "cosine-similarity",
+            "vector-stores-upsert",
+            "indexing-versioning",
+            "top-k-thresholds",
+            "hybrid-search",
+            "reranking",
+            "query-rewriting",
+            "grounding-contract",
+            "citations-source-spans",
+            "refusal-when-unsupported",
+            "stale-chunk-handling",
+            "recall-at-k",
+            "answer-faithfulness",
+            "rag-cost-latency",
+            "capstone-grounded-cited-rag"
+          ]
+        },
+        {
+          "courseSlug": "career-ai_engineering_rag_eval",
+          "lessonSlugs": [
+            "ai-product-framing",
+            "prompt-contracts",
+            "structured-outputs",
+            "document-ingestion",
+            "chunking-metadata",
+            "embeddings-indexing",
+            "retrieval-quality",
+            "rag-answer-grounding",
+            "eval-dataset-design",
+            "llm-judges-graders",
+            "safety-policy-guardrails",
+            "tool-calling-workflows",
+            "agent-workflow-control",
+            "observability-cost-latency",
+            "regression-testing-drift",
+            "security-privacy-ai",
+            "human-feedback-review",
+            "llmops-release-process",
+            "ai-interview-portfolio",
+            "ai-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A retrieval pipeline with corpus provenance, chunking rationale, citations, and evaluation set."
+        },
+        {
+          "type": "debug",
+          "artifact": "A diagnosis separating retrieval failure from generation failure."
+        },
+        {
+          "type": "explain",
+          "artifact": "A defense of relevance, grounding, latency, freshness, and cost choices."
+        }
+      ]
+    },
+    {
+      "id": "agent-automation",
+      "label": "Build bounded agents and human-auditable automations",
+      "level": "advanced",
+      "prerequisiteIds": [
+        "security-identity",
+        "llm-systems"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "agents-tool-use",
+          "lessonSlugs": [
+            "what-an-agent-is",
+            "tool-calling-recap",
+            "observe-decide-act-loop",
+            "tool-schemas-contracts",
+            "planning-decomposition",
+            "react-pattern",
+            "stopping-conditions-budgets",
+            "state-and-memory",
+            "tool-errors-recovery",
+            "loop-guards",
+            "argument-validation-bounding",
+            "human-in-the-loop-checkpoints",
+            "multi-tool-workflows",
+            "sub-agents-orchestration",
+            "shared-memory",
+            "concurrency-and-races",
+            "least-privilege-tool-permissions",
+            "injection-via-tool-outputs",
+            "evaluating-agent-trajectories",
+            "capstone-bounded-guardrailed-agent"
+          ]
+        },
+        {
+          "courseSlug": "career-ai_engineering_rag_eval",
+          "lessonSlugs": [
+            "ai-product-framing",
+            "prompt-contracts",
+            "structured-outputs",
+            "document-ingestion",
+            "chunking-metadata",
+            "embeddings-indexing",
+            "retrieval-quality",
+            "rag-answer-grounding",
+            "eval-dataset-design",
+            "llm-judges-graders",
+            "safety-policy-guardrails",
+            "tool-calling-workflows",
+            "agent-workflow-control",
+            "observability-cost-latency",
+            "regression-testing-drift",
+            "security-privacy-ai",
+            "human-feedback-review",
+            "llmops-release-process",
+            "ai-interview-portfolio",
+            "ai-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "An agent workflow with typed tools, explicit permissions, approval boundaries, idempotency, and audit logs."
+        },
+        {
+          "type": "debug",
+          "artifact": "A contained prompt-injection, tool misuse, looping, replay, or partial-execution failure."
+        },
+        {
+          "type": "transfer",
+          "artifact": "The control model reused for a different automation domain and risk class."
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety",
+      "label": "Measure AI quality, safety, robustness, cost, and drift",
+      "level": "advanced",
+      "prerequisiteIds": [
+        "retrieval-systems",
+        "agent-automation"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "career-ai_engineering_rag_eval",
+          "lessonSlugs": [
+            "ai-product-framing",
+            "prompt-contracts",
+            "structured-outputs",
+            "document-ingestion",
+            "chunking-metadata",
+            "embeddings-indexing",
+            "retrieval-quality",
+            "rag-answer-grounding",
+            "eval-dataset-design",
+            "llm-judges-graders",
+            "safety-policy-guardrails",
+            "tool-calling-workflows",
+            "agent-workflow-control",
+            "observability-cost-latency",
+            "regression-testing-drift",
+            "security-privacy-ai",
+            "human-feedback-review",
+            "llmops-release-process",
+            "ai-interview-portfolio",
+            "ai-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A versioned evaluation suite with representative, edge, abuse, and regression cases."
+        },
+        {
+          "type": "debug",
+          "artifact": "A failure analysis that changes the system and proves improvement without hiding regressions."
+        },
+        {
+          "type": "explain",
+          "artifact": "A model card or release decision naming limits, residual risks, cost, and monitoring thresholds."
+        }
+      ]
+    },
+    {
+      "id": "production-integration",
+      "label": "Integrate, operate, defend, and teach a production system",
+      "level": "mastery",
+      "prerequisiteIds": [
+        "reliability-platform",
+        "ai-evaluation-safety"
+      ],
+      "courseMappings": [
+        {
+          "courseSlug": "system-design",
+          "lessonSlugs": [
+            "what-system-design-is",
+            "back-of-envelope",
+            "building-blocks",
+            "latency-throughput-availability",
+            "sql-vs-nosql",
+            "indexing",
+            "replication",
+            "sharding-partitioning",
+            "caching-strategies",
+            "cache-invalidation",
+            "load-balancing",
+            "cdn-edge",
+            "cap-and-consistency",
+            "async-queues",
+            "consensus-quorum",
+            "distributed-fallacies",
+            "failure-modes-blast-radius",
+            "resilience-patterns",
+            "observability-slos",
+            "rate-limiting-load-shedding",
+            "tradeoff-analysis-adrs",
+            "the-interview-method",
+            "designing-a-real-system",
+            "capstone-design-and-defend"
+          ]
+        },
+        {
+          "courseSlug": "career-product_execution_market_feedback",
+          "lessonSlugs": [
+            "problem-framing",
+            "customer-discovery",
+            "competitive-landscape",
+            "value-proposition",
+            "user-journey",
+            "experiment-design",
+            "mvp-scope",
+            "prd-rfc",
+            "metric-design",
+            "instrumentation",
+            "feedback-intake",
+            "prioritization",
+            "roadmap-strategy",
+            "go-to-market",
+            "pricing-packaging",
+            "launch-readiness",
+            "post-launch-analysis",
+            "iteration-loop",
+            "stakeholder-communication",
+            "product-capstone"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "build",
+          "artifact": "A deployed end-to-end product integrating network, data, cloud, automation, AI, security, observability, tests, and rollback."
+        },
+        {
+          "type": "debug",
+          "artifact": "A live defense against seeded correctness, security, reliability, and cost failures."
+        },
+        {
+          "type": "explain",
+          "artifact": "An architecture defense and operator handoff judged against a published rubric."
+        },
+        {
+          "type": "transfer",
+          "artifact": "A constrained redesign for a novel workload, threat model, and operating budget."
+        }
+      ]
+    }
+  ]
+}

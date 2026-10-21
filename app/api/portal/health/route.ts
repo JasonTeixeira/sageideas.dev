@@ -1,24 +1,19 @@
-import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase/server';
+import { NextResponse } from 'next/server'
+import { checkPublicReadiness, createRequestId } from '@/lib/observability/health'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function GET() {
-  try {
-    const sb = supabaseAdmin();
-    const { error } = await sb.from('service_catalog').select('id').limit(1);
-    if (error) {
-      console.error('[portal/health] db check failed', error);
-    }
-    return NextResponse.json({
-      ok: !error,
-      db: error ? 'error' : 'connected',
-      env: {
-        supabase: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-        supabase_auth: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      },
-      ts: new Date().toISOString(),
-    });
-  } catch (e) {
-    console.error('[portal/health] health check failed', e);
-    return NextResponse.json({ ok: false, error: 'Something went wrong.' }, { status: 500 });
+  const requestId = createRequestId()
+  const readiness = await checkPublicReadiness()
+  const body = { ok: readiness.ok, ts: new Date().toISOString(), request_id: requestId }
+  const headers = { 'Cache-Control': 'no-store, max-age=0', 'X-Request-Id': requestId }
+  if (!readiness.ok) {
+    return NextResponse.json(body, { status: 503, headers })
   }
+  return NextResponse.json(
+    body,
+    { status: 200, headers },
+  )
 }

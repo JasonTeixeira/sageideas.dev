@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:49:14.956Z",
+  "status": "pass",
+  "classification": "isolated_application_rollback_verified",
+  "target": "https://sageideas-academy-staging-js73jqntw-sage-ideas.vercel.app",
+  "alias": "sageideas-academy-staging-drill.vercel.app",
+  "baselineDeploymentId": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+  "rollbackDeploymentId": "dpl_4XUZE6HwCKz8AHidpiq61gg9sGcx",
+  "restoredDeploymentId": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+  "restored": true,
+  "baseline": {
+    "id": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+    "name": "sageideas-academy-staging",
+    "url": "sageideas-academy-staging-js73jqntw-sage-ideas.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "meta": {
+      "gitCommitSha": "8e3c083901911a8eedc6823082eab0fb88d457f5",
+      "gitCommitRef": "production/01-program-loop-v1"
+    }
+  },
+  "rollback": {
+    "id": "dpl_4XUZE6HwCKz8AHidpiq61gg9sGcx",
+    "name": "sageideas-academy-staging",
+    "url": "sageideas-academy-staging-btqq5jasl-sage-ideas.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "meta": {
+      "gitCommitSha": "a0098a861d68480f68810c48d2cb2e71befb5e55",
+      "gitCommitRef": "production/01-program-loop-v1"
+    }
+  },
+  "checks": {
+    "baseline": 200,
+    "rollback": 200,
+    "restored": 200
+  },
+  "bindings": {
+    "baseline": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+    "rollback": "dpl_4XUZE6HwCKz8AHidpiq61gg9sGcx",
+    "restored": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV"
+  },
+  "publicProtection": {
+    "status": 302,
+    "location": "https://vercel.com/sso-api"
+  },
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "findings": []
+}

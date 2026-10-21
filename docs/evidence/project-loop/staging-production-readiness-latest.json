@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:49:40.711Z",
+  "status": "not_production_ready",
+  "classification": "stateless_staging_verified_external_evidence_pending",
+  "summary": {
+    "pass": 4,
+    "fail": 0,
+    "blocked": 4,
+    "approvalRequired": 2
+  },
+  "gates": {
+    "local_production_candidate": {
+      "status": "pass",
+      "evidence": "canonical_release_manifest"
+    },
+    "stateless_http": {
+      "status": "pass",
+      "evidence": "identity_bound_routes_headers_and_protection"
+    },
+    "hosted_browser": {
+      "status": "pass",
+      "evidence": "identity_bound_accessibility_responsive_and_hydration_suite"
+    },
+    "application_rollback": {
+      "status": "pass",
+      "evidence": "isolated_alias_rollback_and_restore_verified"
+    },
+    "hosted_migrations": {
+      "status": "blocked",
+      "evidence": "designated_supabase_staging_project_not_supplied"
+    },
+    "database_restore": {
+      "status": "blocked",
+      "evidence": "designated_supabase_staging_project_not_supplied"
+    },
+    "authenticated_integrations": {
+      "status": "blocked",
+      "evidence": "credentialed_staging_configuration_not_supplied"
+    },
+    "controlled_lab_runtime": {
+      "status": "blocked",
+      "evidence": "controlled_lab_activation_evidence_pending"
+    },
+    "human_review": {
+      "status": "approval_required",
+      "evidence": "human_review_boundary"
+    },
+    "production_deployment": {
+      "status": "approval_required",
+      "evidence": "production_deployment_boundary"
+    }
+  },
+  "findings": [],
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "stopBoundary": "human_review_or_production_deployment"
+}

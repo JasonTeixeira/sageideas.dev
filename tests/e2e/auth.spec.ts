@@ -14,20 +14,21 @@ test.describe('Auth flows', () => {
     await expect(page.getByText(/Continue with LinkedIn/i)).toBeVisible();
   });
 
-  test('signup wizard step 1 → step 2 query param navigation', async ({ page }) => {
+  test('signup wizard does not accept query-driven steps', async ({ page }) => {
     await page.goto('/signup');
     expect(page.url()).toContain('/signup');
-    // Step 2 requires email; visiting it directly without email should redirect back to step 1
+    // Query parameters cannot hydrate later steps because credentials must never
+    // move through the URL or browser history.
     const res2 = await page.goto('/signup?step=2');
     expect(res2?.status()).toBeLessThan(400);
-    // After redirect, URL should not contain step=2 (it requires email)
-    expect(page.url()).toMatch(/\/signup(\?|$)/);
+    await expect(page.getByRole('heading', { name: 'Create your account' })).toBeVisible();
   });
 
-  test('signup step 2 with email loads', async ({ page }) => {
-    const res = await page.goto('/signup?step=2&email=test%40example.com&mode=magic');
+  test('signup may safely prefill email without advancing the wizard', async ({ page }) => {
+    const res = await page.goto('/signup?email=test%40example.com');
     expect(res?.status()).toBeLessThan(400);
-    expect(page.url()).toContain('step=2');
+    await expect(page.getByLabel('Email')).toHaveValue('test@example.com');
+    await expect(page.getByRole('heading', { name: 'Create your account' })).toBeVisible();
   });
 
   test('onboarding page shows check-inbox copy', async ({ page }) => {

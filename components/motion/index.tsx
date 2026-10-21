@@ -373,7 +373,6 @@ export function PageReveal({ children }: { children: ReactNode }) {
 // PageTransition (route-keyed)
 // =============================================================
 export function PageTransition({ children }: { children: ReactNode }) {
-  const reduced = useReducedMotion()
   const pathname = usePathname()
   const [label, setLabel] = useState('Index')
 
@@ -395,8 +394,6 @@ export function PageTransition({ children }: { children: ReactNode }) {
             .join(' / ')
     setLabel(next)
   }, [pathname])
-
-  if (reduced) return <>{children}</>
 
   return (
     <div className="relative isolate">

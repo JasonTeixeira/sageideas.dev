@@ -1,0 +1,25 @@
+{
+  "packageScripts": {
+    "build": "next build",
+    "test:unit": "node tests/unit/run.mjs"
+  },
+  "files": [
+    "app/page.tsx",
+    "app/api/checkout/route.ts",
+    "supabase/migrations/0001_accounts.sql",
+    "supabase/migrations/0001_duplicate.sql"
+  ],
+  "workstreams": [
+    { "id": "alpha", "dependsOn": ["beta"], "boundary": "safe_local" },
+    { "id": "beta", "dependsOn": ["alpha"], "boundary": "safe_local" }
+  ],
+  "commands": [
+    "npm run build",
+    "git push origin main",
+    "supabase db push"
+  ],
+  "trust": {
+    "academyCertification": "certified",
+    "labTrust": "trusted_controlled_runtime"
+  }
+}

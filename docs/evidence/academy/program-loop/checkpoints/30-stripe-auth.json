@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "stripe-auth",
+  "baselineRegistryVersion": "sha256:cc54cf4a90910000b88a350a3b5985be0b7591f3a1242da5d21a1403cda820a0",
+  "registryVersion": "sha256:e24c0505bd0af8ecfb9440d3374620065f0c8391c36e74fcd676f06bd0f5b87c",
+  "commit": "50ce425b",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/stripe-auth-mastery.test.ts", "result": "9/9 each run; 20/20 JavaScript references exact; current PBKDF2 work factor and constant-time webhook comparisons enforced" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons; Stripe/Auth deterministic score 90; H2 reduced from 26 to 20; no H1, H3, H4, or H5" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 600 labs; six missing aligned reference solutions added" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 pages" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped diff; changed-file lint, generator idempotence, real-secret scan, security review, and 21 authoritative-source reachability checks passed" }
+  },
+  "scoreDelta": { "before": 80, "after": 90, "meaning": "deterministic only; promised media integrity and expert review remain pending; not certification" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "media", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundaries": [
+    { "command": "npm audit --audit-level=high", "status": "pre_existing_failure", "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed" },
+    { "command": "npm run lint", "status": "pre_existing_failure", "result": "6 errors and 25 warnings in untouched files; changed Stripe/Auth test and authoring script lint clean" }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-cloud_devops_operations",
+  "baselineRegistryVersion": "sha256:615cb1d35f63ac4d85f55414cb10db5d79ff3739f25da45483b144a38b8cb2ca",
+  "registryVersion": "sha256:7b3acc549182fa4f41c57aae21ffafebb01d75cb2841356fa0ce47ec4b399760",
+  "commit": "a0e22564",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "consecutivePasses": 3,
+      "command": "node --import tsx --test tests/academy/cloud-devops-mastery.test.ts",
+      "result": "6/6 tests passed on each run; 20/20 references matched exact output"
+    },
+    "academyAudit": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:audit:all",
+      "result": "32 courses / 640 lessons audited; Cloud/DevOps deterministic score 100; no H1, H3, H4, or H5"
+    },
+    "registryCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:registry:check",
+      "result": "32 courses / 640 lessons / 430 labs"
+    },
+    "typecheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run typecheck",
+      "result": "0 TypeScript errors"
+    },
+    "build": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run build",
+      "result": "Next.js production build passed; 407 static pages generated"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "git diff --check",
+      "result": "clean scoped course diff; changed-file lint and literal-secret scan passed"
+    }
+  },
+  "scoreDelta": {
+    "before": 77.8,
+    "after": 100,
+    "meaning": "deterministic checks only; not a composite or certification score"
+  },
+  "hardFailCounts": {
+    "H1": 0,
+    "H2": 20,
+    "H3": 0,
+    "H4": 0,
+    "H5": 0
+  },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": [
+    "accessibility",
+    "consistency",
+    "content_correctness",
+    "pedagogy",
+    "performance",
+    "sources",
+    "ux",
+    "visual"
+  ],
+  "knownRepositoryBoundary": {
+    "command": "npm audit --omit=dev --audit-level=high",
+    "status": "pre_existing_failure",
+    "result": "13 production dependency advisories: 11 high and 2 moderate; no dependency files changed"
+  }
+}

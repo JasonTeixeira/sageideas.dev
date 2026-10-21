@@ -33,7 +33,7 @@ export type CatalogCard = {
 const TRACKS: { key: 'all' | TrackKey; label: string; tint: string }[] = [
   { key: 'all', label: 'All tracks', tint: '#8FA0FF' },
   { key: 'foundations', label: 'Foundations', tint: '#6E83FF' },
-  { key: 'engineering', label: 'Engineering', tint: '#3D5AFE' },
+  { key: 'engineering', label: 'Engineering', tint: '#8FA0FF' },
   { key: 'data', label: 'Data', tint: '#18B663' },
   { key: 'ai', label: 'AI Engineering', tint: '#FF2D9B' },
   { key: 'shipit', label: 'Ship-It', tint: '#E0A93E' },

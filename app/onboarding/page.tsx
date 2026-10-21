@@ -2,7 +2,10 @@ import Link from 'next/link';
 import { resendVerification } from '@/app/auth/actions';
 import { BrandPanel, SageLogo } from '@/components/auth/brand-panel';
 import { GradientMesh } from '@/components/auth/gradient-mesh';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import {
+  createSupabaseServerClient,
+  isSupabasePublicConfigured,
+} from '@/lib/supabase/server';
 
 export const metadata = {
   title: 'Welcome · Sage Ideas',
@@ -18,20 +21,21 @@ type Props = {
     pending?: string;
     resent?: string;
     error?: string;
+    audience?: string;
   }>;
 };
 
 export default async function OnboardingPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = isSupabasePublicConfigured()
+    ? (await (await createSupabaseServerClient()).auth.getUser()).data.user
+    : null;
 
   const email = sp.email ?? user?.email ?? '';
   const resent = sp.resent === '1';
   const error = sp.error;
   const verified = !!user;
+  const academy = sp.audience === 'academy';
 
   return (
     <div className="relative min-h-screen flex bg-[#09090B]">
@@ -56,16 +60,24 @@ export default async function OnboardingPage({ searchParams }: Props) {
               <p className="text-sm text-[#A8A29E] leading-relaxed">
                 {verified ? (
                   <>
-                    Your email is verified. An admin reviews every request manually — usually
-                    within 24 hours. We’ll email{' '}
-                    <span className="font-medium text-[#FAFAFA]">{email}</span> the moment your
-                    workspace is ready.
+                    {academy ? (
+                      <>Your email is verified. Continue to the Academy and start building.</>
+                    ) : (
+                      <>
+                        Your email is verified. An admin reviews every request manually — usually
+                        within 24 hours. We’ll email{' '}
+                        <span className="font-medium text-[#FAFAFA]">{email}</span> the moment your
+                        workspace is ready.
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
                     We sent a verification link to{' '}
                     <span className="font-medium text-[#FAFAFA]">{email || 'your email'}</span>.
-                    Click it to confirm, then we’ll review your access.
+                    {academy
+                      ? 'Click it to confirm, then sign in to begin the Academy onboarding path.'
+                      : 'Click it to confirm, then we’ll review your access.'}
                   </>
                 )}
               </p>
@@ -77,7 +89,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
                   role="alert"
                   className="mb-4 rounded-lg border border-[#7F1D1D]/50 bg-[#7F1D1D]/10 px-3 py-2.5 text-sm text-[#FCA5A5]"
                 >
-                  {decodeURIComponent(error)}
+                  {error.slice(0, 300)}
                 </div>
               )}
               {resent && (
@@ -96,14 +108,24 @@ export default async function OnboardingPage({ searchParams }: Props) {
               </div>
               <ol className="space-y-1.5 text-xs text-[#A8A29E] list-decimal list-inside">
                 <li>Click the verification link in your inbox.</li>
-                <li>An admin reviews your request manually (typically same business day).</li>
-                <li>You get an approval email; sign in and land in your workspace.</li>
+                {academy ? (
+                  <>
+                    <li>Return here with a verified session.</li>
+                    <li>Start the Academy onboarding and learning-method walkthrough.</li>
+                  </>
+                ) : (
+                  <>
+                    <li>An admin reviews your request manually (typically same business day).</li>
+                    <li>You get an approval email; sign in and land in your workspace.</li>
+                  </>
+                )}
               </ol>
             </div>
 
             {!verified && email && (
               <form action={resendVerification} className="mb-5">
                 <input type="hidden" name="email" value={email} />
+                <input type="hidden" name="audience" value={academy ? 'academy' : 'studio'} />
                 <button
                   type="submit"
                   className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-4 py-2.5 text-sm font-medium text-[#FAFAFA] hover:border-[#3D5AFE]/50 hover:bg-[#131316] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D5AFE]/60 transition-colors"
@@ -121,7 +143,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
                 ← Back to homepage
               </Link>
               <Link
-                href="/login"
+                href={academy ? '/login?audience=academy&next=/academy/onboarding' : '/login'}
                 className="flex-1 rounded-lg border border-[#2A2826] bg-[#0B0A09] px-4 py-2.5 text-center text-sm font-medium text-[#FAFAFA] hover:border-[#3F3F46] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D5AFE]/60"
               >
                 Sign in

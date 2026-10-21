@@ -1,0 +1,17 @@
+project_name   = "qa-portfolio"
+environment    = "prod"
+aws_region     = "us-east-1"
+hosted_zone_id = "replace-with-route53-zone-id"
+
+api_domain_name  = "api.sageideas.dev"
+site_url         = "https://sageideas.dev"
+ses_from_email   = "sage@sageideas.org"
+contact_to_email = "sage@sageideas.org"
+alarm_email      = "sage@sageideas.org"
+
+# Telemetry proxy (read-only)
+metrics_bucket = "replace-with-metrics-bucket"
+metrics_key    = "metrics/qa-portfolio/latest.json"
+
+# Retrieve from an approved secret manager; never commit the real value.
+metrics_shared_token = "replace-with-secret-managed-token"

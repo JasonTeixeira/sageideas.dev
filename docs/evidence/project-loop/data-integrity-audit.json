@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "data-integrity-v1",
+  "generatedAt": "2026-09-04T20:02:34.267Z",
+  "status": "local_static_green",
+  "migrationAudit": {
+    "ok": true,
+    "findings": [],
+    "summary": {
+      "migrationCount": 117,
+      "baselineFileCount": 14,
+      "foundationFileCount": 2,
+      "schemaFileCount": 133,
+      "incrementalStart": 6,
+      "incrementalEnd": 122,
+      "chainHash": "sha256:1af0cb50b288d95c2e0b143743f071d28703153f12d0b76a7f6b67ef7328bcda",
+      "createdTables": 297,
+      "rlsEnabledTables": 297,
+      "securityDefinerFunctions": 20
+    }
+  },
+  "legacyBaseline": {
+    "mode": "legacy_manifest",
+    "foundationFileCount": 2,
+    "foundationChainHash": "sha256:751263967951f9325b04413ae4091cd85c4e0d2d7d5819801499957d8927dae5",
+    "foundationManifestHash": "sha256:751263967951f9325b04413ae4091cd85c4e0d2d7d5819801499957d8927dae5",
+    "fileCount": 14,
+    "chainHash": "sha256:308d8908891a9e14eac717981a4c3079fd8b0485d256679d9d15adba3707067b",
+    "manifestHash": "sha256:308d8908891a9e14eac717981a4c3079fd8b0485d256679d9d15adba3707067b",
+    "ok": true
+  },
+  "remoteProof": {
+    "status": "pending_external_approval",
+    "required": [
+      "rotate any formerly repository-published test-account passwords",
+      "reconcile the hosted migration ledger and schema against this manifest",
+      "run RLS isolation against an isolated staging project",
+      "complete an isolated backup restore drill and measure RPO/RTO"
+    ]
+  },
+  "trustBoundary": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  }
+}

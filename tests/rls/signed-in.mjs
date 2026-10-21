@@ -9,19 +9,16 @@
 //
 // Run: node tests/rls/signed-in.mjs
 
-const SUPABASE_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://hocrntqhgvmeaxwlhzwl.supabase.co';
-const ANON_KEY =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvY3JudHFoZ3ZtZWF4d2xoendsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NDQ2NDIsImV4cCI6MjA5MzQyMDY0Mn0.JIOiUMprrKENyBgkkHvwM1ZfZikS4NdA1HpsaQl2DNg';
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+import { loadRlsTestConfig } from './config.mjs';
+
+const {
+  supabaseUrl: SUPABASE_URL,
+  anonKey: ANON_KEY,
+  serviceRoleKey: SERVICE_KEY,
+  accounts: ACCOUNTS,
+} = loadRlsTestConfig({ requireAccounts: true, requireServiceRole: true });
 const REST = `${SUPABASE_URL}/rest/v1`;
 const AUTH = `${SUPABASE_URL}/auth/v1`;
-
-const ACCOUNTS = {
-  client1: { email: 'client1+test@sageideas.org', password: 'Test!Client#2026' },
-  client2: { email: 'client2+test@sageideas.org', password: 'Test!Client#2026' },
-};
 
 let pass = 0;
 let fail = 0;

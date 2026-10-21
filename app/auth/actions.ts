@@ -1,23 +1,29 @@
 'use server';
 
-import { headers, cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
-import { attributeReferral } from '@/lib/academy/referrals';
 import { logAudit } from '@/lib/admin-guard';
 import { sendWelcomeEmail } from '@/lib/welcomeEmail';
 import { checkRateLimitFromHeaders } from '@/lib/rate-limit';
+import { safeRelativeRedirect } from '@/lib/security/safe-redirect';
+import { canonicalSiteOrigin } from '@/lib/security/site-origin';
 
 type Provider = 'google' | 'github' | 'linkedin_oidc';
 
 const AUTH_LIMIT = { limit: 5, windowMs: 15 * 60 * 1000 } as const;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const STUDIO_ROLES = new Set(['client', 'vendor', 'other']);
+const STUDIO_GOALS = new Set(['hire', 'quote', 'explore']);
 
 function siteOrigin(reqHeaders: Awaited<ReturnType<typeof headers>>) {
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (envUrl) return envUrl.replace(/\/$/, '');
-  const host = reqHeaders.get('x-forwarded-host') ?? reqHeaders.get('host');
-  const proto = reqHeaders.get('x-forwarded-proto') ?? 'https';
-  return `${proto}://${host}`;
+  return canonicalSiteOrigin({
+    configured: process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL,
+    forwardedHost: reqHeaders.get('x-forwarded-host'),
+    host: reqHeaders.get('host'),
+    forwardedProto: reqHeaders.get('x-forwarded-proto'),
+    production: process.env.NODE_ENV === 'production',
+  });
 }
 
 function rateLimitMessage(retryAfterSeconds: number): string {
@@ -25,21 +31,9 @@ function rateLimitMessage(retryAfterSeconds: number): string {
   return `Too many attempts. Please try again in ${minutes} minute${minutes === 1 ? '' : 's'}.`;
 }
 
-/**
- * Sanitize a post-auth `next` destination. Only same-origin relative paths are allowed —
- * absolute URLs and protocol-relative ('//evil.com', '/\evil.com') are rejected so a crafted
- * login link can't redirect an authenticated user off-site (open-redirect).
- */
-function safeNext(raw: FormDataEntryValue | null | undefined): string {
-  const v = String(raw ?? '/auth/redirect').trim();
-  if (!v.startsWith('/')) return '/auth/redirect';
-  if (v.startsWith('//') || v.startsWith('/\\')) return '/auth/redirect';
-  return v;
-}
-
 export async function signInWithMagicLink(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
-  const next = safeNext(formData.get('next'));
+  const next = safeRelativeRedirect(formData.get('next'), '/auth/redirect');
   if (!email) redirect('/login?error=missing_email');
 
   const h = await headers();
@@ -69,7 +63,7 @@ export async function signInWithMagicLink(formData: FormData): Promise<void> {
 export async function signInWithPassword(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   const password = String(formData.get('password') ?? '');
-  const next = safeNext(formData.get('next'));
+  const next = safeRelativeRedirect(formData.get('next'), '/auth/redirect');
   if (!email || !password) {
     redirect(
       `/login?error=${encodeURIComponent('Email and password are required.')}&next=${encodeURIComponent(next)}`,
@@ -131,7 +125,7 @@ export async function updatePassword(formData: FormData): Promise<void> {
   const password = String(formData.get('password') ?? '');
   const confirm = String(formData.get('confirm_password') ?? '');
 
-  if (!password || password.length < 8) {
+  if (!password || password.length < 8 || password.length > 128) {
     redirect(
       `/auth/reset?error=${encodeURIComponent('Password must be at least 8 characters.')}`,
     );
@@ -152,7 +146,7 @@ export async function updatePassword(formData: FormData): Promise<void> {
 
 export async function signInWithProvider(formData: FormData): Promise<void> {
   const provider = String(formData.get('provider') ?? '') as Provider;
-  const next = safeNext(formData.get('next'));
+  const next = safeRelativeRedirect(formData.get('next'), '/auth/redirect');
   if (!['google', 'github', 'linkedin_oidc'].includes(provider)) {
     redirect('/login?error=invalid_provider');
   }
@@ -177,11 +171,13 @@ export async function signInWithProvider(formData: FormData): Promise<void> {
 
 export async function signUpWithMagicLink(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
-  const fullName = String(formData.get('full_name') ?? '').trim();
-  const company = String(formData.get('company') ?? '').trim();
+  const fullName = String(formData.get('full_name') ?? '').trim().slice(0, 200);
+  const company = String(formData.get('company') ?? '').trim().slice(0, 200);
   const roleInCompany = String(formData.get('role_in_company') ?? '').trim();
-  const goals = formData.getAll('goals').map((g) => String(g)).filter(Boolean);
-  if (!email) redirect('/signup?error=missing_email');
+  const goals = formData.getAll('goals').map(String).filter((goal) => STUDIO_GOALS.has(goal));
+  if (!EMAIL_RE.test(email) || (roleInCompany && !STUDIO_ROLES.has(roleInCompany))) {
+    redirect(`/signup?error=${encodeURIComponent('Check your account details and try again.')}`);
+  }
 
   const h = await headers();
   const rl = await checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:signup-magic' });
@@ -207,7 +203,8 @@ export async function signUpWithMagicLink(formData: FormData): Promise<void> {
   });
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}`);
+    console.error('[auth] studio magic-link signup failed', error);
+    redirect(`/signup?email=${encodeURIComponent(email)}&error=${encodeURIComponent('Could not create your account. Please try again.')}`);
   }
 
   try {
@@ -229,13 +226,15 @@ export async function signUpWithMagicLink(formData: FormData): Promise<void> {
 export async function signUpWithPassword(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   const password = String(formData.get('password') ?? '');
-  const fullName = String(formData.get('full_name') ?? '').trim();
-  const company = String(formData.get('company') ?? '').trim();
+  const fullName = String(formData.get('full_name') ?? '').trim().slice(0, 200);
+  const company = String(formData.get('company') ?? '').trim().slice(0, 200);
   const roleInCompany = String(formData.get('role_in_company') ?? '').trim();
-  const goals = formData.getAll('goals').map((g) => String(g)).filter(Boolean);
+  const goals = formData.getAll('goals').map(String).filter((goal) => STUDIO_GOALS.has(goal));
 
-  if (!email) redirect('/signup?error=missing_email');
-  if (!password || password.length < 8) {
+  if (!EMAIL_RE.test(email) || !fullName || !STUDIO_ROLES.has(roleInCompany)) {
+    redirect(`/signup?email=${encodeURIComponent(email)}&error=${encodeURIComponent('Check your account details and try again.')}`);
+  }
+  if (!password || password.length < 8 || password.length > 128) {
     redirect(`/signup?step=1&email=${encodeURIComponent(email)}&error=${encodeURIComponent('Password must be at least 8 characters.')}`);
   }
 
@@ -263,7 +262,8 @@ export async function signUpWithPassword(formData: FormData): Promise<void> {
   });
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}`);
+    console.error('[auth] studio password signup failed', error);
+    redirect(`/signup?email=${encodeURIComponent(email)}&error=${encodeURIComponent('Could not create your account. Please try again.')}`);
   }
 
   try {
@@ -283,12 +283,14 @@ export async function signUpWithPassword(formData: FormData): Promise<void> {
 
 export async function resendVerification(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
+  const audience = formData.get('audience') === 'academy' ? 'academy' : 'studio';
+  const audienceQuery = audience === 'academy' ? '&audience=academy' : '';
   if (!email) redirect('/onboarding?error=missing_email');
 
   const h = await headers();
   const rl = await checkRateLimitFromHeaders(h, { ...AUTH_LIMIT, prefix: 'auth:resend' });
   if (!rl.ok) {
-    redirect(`/onboarding?email=${encodeURIComponent(email)}&error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
+    redirect(`/onboarding?email=${encodeURIComponent(email)}${audienceQuery}&error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
   }
 
   const supabase = await createSupabaseServerClient();
@@ -297,24 +299,21 @@ export async function resendVerification(formData: FormData): Promise<void> {
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${origin}/auth/callback?next=/onboarding`,
+      emailRedirectTo: audience === 'academy'
+        ? `${origin}/auth/callback?next=/academy/onboarding`
+        : `${origin}/auth/callback?next=/onboarding`,
       shouldCreateUser: false,
     },
   });
 
   if (error) {
-    redirect(`/onboarding?email=${encodeURIComponent(email)}&error=${encodeURIComponent(error.message)}`);
+    redirect(`/onboarding?email=${encodeURIComponent(email)}${audienceQuery}&error=${encodeURIComponent('Could not resend verification. Please try again.')}`);
   }
 
-  redirect(`/onboarding?email=${encodeURIComponent(email)}&resent=1`);
+  redirect(`/onboarding?email=${encodeURIComponent(email)}${audienceQuery}&resent=1`);
 }
 
-/**
- * Self-serve ACADEMY signup — the customer path (distinct from the studio "request access"
- * flow). Creates a CONFIRMED account via the admin API so there's no email round-trip to
- * break (instant access), tags audience='academy' so the post-login router sends them to the
- * learning area, then signs them in. Doubles as a sign-in if the email already exists.
- */
+/** Self-serve Academy signup using Supabase's public, email-verified account flow. */
 export async function signUpAcademy(formData: FormData): Promise<void> {
   const email = String(formData.get('email') ?? '').trim().toLowerCase();
   const password = String(formData.get('password') ?? '');
@@ -335,62 +334,37 @@ export async function signUpAcademy(formData: FormData): Promise<void> {
     redirect(`/academy/signup?error=${encodeURIComponent(rateLimitMessage(rl.retryAfterSeconds))}`);
   }
 
-  const admin = supabaseAdmin();
-  const { error: createError } = await admin.auth.admin.createUser({
+  const supabase = await createSupabaseServerClient();
+  const origin = siteOrigin(h);
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    email_confirm: true,
-    user_metadata: { full_name: fullName, audience: 'academy' },
+    options: {
+      emailRedirectTo: `${origin}/auth/callback?next=/academy/onboarding`,
+      data: { full_name: fullName, audience: 'academy' },
+    },
   });
-  const alreadyExists = createError != null && /already|exists|registered/i.test(createError.message);
-  if (createError && !alreadyExists) {
-    console.error('[auth] academy createUser failed', createError);
+  if (error) {
+    console.error('[auth] academy signup failed', error);
     redirect(
       `/academy/signup?email=${encodeURIComponent(email)}&error=${encodeURIComponent('Could not create your account. Please try again.')}`,
     );
-  }
-
-  const supabase = await createSupabaseServerClient();
-  const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-  if (signInError) {
-    if (alreadyExists) {
-      redirect(
-        `/login?audience=academy&next=/academy/dashboard&error=${encodeURIComponent('That email already has an account — sign in below.')}`,
-      );
-    }
-    redirect(`/academy/signup?email=${encodeURIComponent(email)}&error=${encodeURIComponent('Could not sign you in. Try again.')}`);
   }
 
   if (data.user) {
     await logAudit({
       actorId: data.user.id,
       actorEmail: data.user.email ?? email,
-      action: alreadyExists ? 'auth.login' : 'auth.signup',
-      entityType: 'session',
+      action: 'auth.signup_requested',
+      entityType: 'user',
       entityId: data.user.id,
       after: { method: 'academy_password', audience: 'academy' },
     });
   }
-  if (!alreadyExists) void sendWelcomeEmail({ to: email, fullName }).catch(() => undefined);
 
-  // Referral attribution: a new learner who arrived via a ?ref code (captured to
-  // the `sage_ref` cookie) is credited to their referrer + paid the welcome bonus.
-  if (!alreadyExists && data.user) {
-    const cookieStore = await cookies();
-    const ref = cookieStore.get('sage_ref')?.value;
-    if (ref) {
-      try {
-        await attributeReferral(data.user.id, ref);
-      } catch (err) {
-        console.error('[auth] referral attribution failed', err);
-      }
-      cookieStore.delete('sage_ref');
-    }
-  }
-
-  // New academy learners go through onboarding (the "understand the game" first run);
-  // returning learners go straight to their dashboard.
-  redirect(alreadyExists ? '/academy/dashboard' : '/academy/onboarding');
+  // Referral credit and the custom welcome journey begin only after the email
+  // callback proves ownership. Until then this is an untrusted signup request.
+  redirect(`/onboarding?email=${encodeURIComponent(email)}&pending=1&audience=academy`);
 }
 
 export async function signOut(): Promise<void> {

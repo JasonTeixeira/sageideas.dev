@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
-import { badRequest, fromZodError, notFound } from '@/lib/api-errors';
+import { fromZodError, notFound, serverError } from '@/lib/api-errors';
+import { assertSupabaseSuccess } from '@/lib/billing/integrity';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -33,37 +34,27 @@ export async function POST(
   const body = parsed.data;
 
   const sb = supabaseAdmin();
-  const { data: inv } = await sb
+  const invoiceLookup = await sb
     .from('invoices')
-    .select('id, status, organization_id, total, amount')
+    .select('id, status, organization_id, total, amount_due')
     .eq('id', id)
     .maybeSingle();
+  const inv = assertSupabaseSuccess(invoiceLookup, 'manual payment invoice lookup');
   if (!inv) return notFound('Invoice not found');
 
-  const amount = Number(inv.total ?? inv.amount ?? 0);
-  const paidAt = new Date().toISOString();
-
-  await sb
-    .from('invoices')
-    .update({
-      status: 'paid',
-      paid_at: paidAt,
-      payment_method_used: body.method ?? 'manual',
-      dunning_status: 'current',
-    })
-    .eq('id', id);
-
-  const { error: payErr } = await sb.from('payments').insert({
-    invoice_id: id,
-    organization_id: inv.organization_id,
-    amount,
-    currency: 'usd',
-    status: 'succeeded',
-    paid_at: paidAt,
-    failure_reason: null,
-    raw_event: { manual: true, note: body.note ?? null, by: guard.email },
+  const paymentResult = await sb.rpc('record_manual_invoice_payment', {
+    p_invoice_id: id,
+    p_method: body.method ?? 'manual',
+    p_note: body.note ?? null,
+    p_actor_email: guard.email,
   });
-  if (payErr) return badRequest(payErr.message);
+  let paymentOutcome: unknown;
+  try {
+    paymentOutcome = assertSupabaseSuccess(paymentResult, 'manual invoice payment');
+  } catch (error) {
+    console.error('[admin/invoices/mark-paid]', error);
+    return serverError('Unable to record payment');
+  }
 
   await logAudit({
     actorId: guard.userId,
@@ -72,7 +63,7 @@ export async function POST(
     entityType: 'invoice',
     entityId: id,
     before: { status: inv.status },
-    after: { status: 'paid', method: body.method ?? 'manual' },
+    after: { status: 'paid', method: body.method ?? 'manual', outcome: paymentOutcome },
   });
 
   return NextResponse.json({ ok: true });

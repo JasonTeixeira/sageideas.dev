@@ -9,7 +9,6 @@ import Link from 'next/link'
 const INK = '#F2EFE9'
 const DIM = '#9598A2'
 const LINE = '#1E1E24'
-const ACCENT = '#3D5AFE'
 const ACCENT_INK = '#8FA0FF'
 
 const mono = { fontFamily: 'var(--font-mono), monospace' } as const

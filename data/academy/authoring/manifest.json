@@ -4030,5 +4030,69 @@
     "moduleSort": 0,
     "sort": 4,
     "sourceMdPath": "supabase:python-basics/loops"
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "functions-and-scope",
+    "title": "Functions, Parameters, Return Values, and Scope",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 0
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "collections",
+    "title": "Lists, Dictionaries, Sets, and Comprehensions",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 1
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "exceptions-validation",
+    "title": "Exceptions and Boundary Validation",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 2
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "files-json",
+    "title": "Files, Context Managers, and JSON",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 3
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "modules-venvs",
+    "title": "Modules, Imports, Virtual Environments, and Dependencies",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 4
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "testing-debugging",
+    "title": "Testing, Debugging, and Regression Proof",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 5
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "http-apis",
+    "title": "HTTP APIs, Timeouts, Schemas, and Safe Automation",
+    "moduleTitle": "Module 2 · Python in Practice",
+    "moduleSort": 1,
+    "sort": 6
+  },
+  {
+    "courseSlug": "python-basics",
+    "slug": "automation-capstone",
+    "title": "Capstone: Build a Defensive Python Automation",
+    "moduleTitle": "Module 3 · Production Automation",
+    "moduleSort": 2,
+    "sort": 0
   }
 ]

@@ -1,5 +1,5 @@
-import { Resend } from 'resend'
 import { createEvent } from 'ics'
+import { sendEmail } from '@/lib/email/send'
 
 const FROM = 'Sage Ideas <sage@sageideas.dev>'
 const SITE = 'https://www.sageideas.dev'
@@ -57,8 +57,6 @@ function whenLabel(startUtc: Date): string {
 
 /** Send the booking confirmation with an .ics invite. Best-effort. */
 export async function sendBookingConfirmation(input: ConfirmInput): Promise<{ ok: boolean }> {
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) return { ok: false }
   const when = whenLabel(input.startUtc)
   const greeting = input.name ? `Hi ${escapeHtml(input.name)}` : 'Hi there'
   const ics = buildIcs(input)
@@ -79,16 +77,17 @@ export async function sendBookingConfirmation(input: ConfirmInput): Promise<{ ok
   </td></tr></table></td></tr></table></body></html>`
 
   try {
-    const resend = new Resend(apiKey)
-    const { error } = await resend.emails.send({
+    const result = await sendEmail({
       from: FROM,
       to: input.to,
       subject: `Confirmed: discovery call — ${when}`,
       html,
       text: `${input.name ? `Hi ${input.name}` : 'Hi there'} — your 30-minute discovery call with Sage Ideas is confirmed for ${when}. A calendar invite is attached; I'll send the meeting link before the call. Reply to reschedule.\n\n— Jason, Sage Ideas (${SITE})`,
       attachments: ics ? [{ filename: 'sage-discovery-call.ics', content: Buffer.from(ics).toString('base64') }] : undefined,
+      templateKey: 'booking_confirmation',
+      metadata: { icsUid: input.icsUid, startUtc: input.startUtc.toISOString() },
     })
-    return { ok: !error }
+    return { ok: result.ok }
   } catch {
     return { ok: false }
   }
@@ -96,8 +95,6 @@ export async function sendBookingConfirmation(input: ConfirmInput): Promise<{ ok
 
 /** Notify the operator (you) the moment someone books — with the .ics so it lands on your calendar. */
 export async function sendBookingNotification(input: ConfirmInput): Promise<{ ok: boolean }> {
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) return { ok: false }
   const when = whenLabel(input.startUtc)
   const ics = buildIcs(input)
   const rows = [
@@ -126,8 +123,7 @@ export async function sendBookingNotification(input: ConfirmInput): Promise<{ ok
   </td></tr></table></td></tr></table></body></html>`
 
   try {
-    const resend = new Resend(apiKey)
-    const { error } = await resend.emails.send({
+    const result = await sendEmail({
       from: FROM,
       to: OPERATOR_EMAIL,
       replyTo: input.to,
@@ -135,8 +131,10 @@ export async function sendBookingNotification(input: ConfirmInput): Promise<{ ok
       html,
       text: rows.map(([k, v]) => `${k}: ${v}`).join('\n'),
       attachments: ics ? [{ filename: 'sage-discovery-call.ics', content: Buffer.from(ics).toString('base64') }] : undefined,
+      templateKey: 'booking_operator_notification',
+      metadata: { icsUid: input.icsUid, startUtc: input.startUtc.toISOString() },
     })
-    return { ok: !error }
+    return { ok: result.ok }
   } catch {
     return { ok: false }
   }

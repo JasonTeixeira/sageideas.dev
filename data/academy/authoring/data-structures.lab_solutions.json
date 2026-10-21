@@ -1,0 +1,82 @@
+{
+  "big-o-cost-you-feel": {
+    "language": "python",
+    "code": "def count_repeats_naive(xs):\n    ops = 0\n    repeated = set()\n    for i in range(len(xs)):\n        for j in range(i + 1, len(xs)):\n            ops += 1\n            if xs[i] == xs[j]:\n                repeated.add(xs[i])\n    return len(repeated), ops\n\ndef count_repeats_map(xs):\n    ops = 0\n    counts = {}\n    for x in xs:\n        ops += 1\n        counts[x] = counts.get(x, 0) + 1\n    return sum(1 for v in counts.values() if v > 1), ops\n\ndata = [4, 1, 7, 1, 9, 4, 4, 2, 7, 5, 1, 8]\nprint(\"n:\", len(data))\nprint(\"repeated values:\", count_repeats_naive(data)[0])\nprint(\"naive ops:\", count_repeats_naive(data)[1])\nprint(\"map ops:\", count_repeats_map(data)[1])"
+  },
+  "arrays-dynamic-arrays": {
+    "language": "python",
+    "code": "def simulate(n):\n    cap = 1\n    size = 0\n    copies = 0\n    resizes = 0\n    for _ in range(n):\n        if size == cap:\n            cap *= 2\n            copies += size\n            resizes += 1\n        size += 1\n    return cap, resizes, copies\n\ndef total_copies(n):\n    return simulate(n)[2]\n\nfor n in [10, 100, 1000]:\n    cap, resizes, copies = simulate(n)\n    print(\"n=%d cap=%d resizes=%d copies=%d ratio=%.2f\" % (n, cap, resizes, copies, copies / n))"
+  },
+  "memory-cache-contiguity": {
+    "language": "python",
+    "code": "LINE = 8\n\ndef lines_touched(indices):\n    seen = set()\n    for i in indices:\n        seen.add(i // LINE)\n    return len(seen)\n\nn = 64\nseq = list(range(n))\nstride = list(range(0, n, 8))\nprint(\"n:\", n)\nprint(\"contiguous lines:\", lines_touched(seq))\nprint(\"contiguous accesses:\", len(seq))\nprint(\"strided lines:\", lines_touched(stride))\nprint(\"strided accesses:\", len(stride))\nprint(\"strided lines per access:\", lines_touched(stride) // len(stride))"
+  },
+  "amortized-analysis": {
+    "language": "python",
+    "code": "def total_cost_doubling(n):\n    cap, size, total = 1, 0, 0\n    for _ in range(n):\n        if size == cap:\n            total += size\n            cap *= 2\n        total += 1\n        size += 1\n    return total\n\ndef total_cost_constant(n, step=4):\n    cap, size, total = step, 0, 0\n    for _ in range(n):\n        if size == cap:\n            total += size\n            cap += step\n        total += 1\n        size += 1\n    return total\n\nn = 16\nd = total_cost_doubling(n)\nc = total_cost_constant(n)\nprint(\"doubling total:\", d, \"avg:\", d // n)\nprint(\"constant  total:\", c, \"avg:\", c // n)"
+  },
+  "linked-lists": {
+    "language": "python",
+    "code": "def values_in_order(nodes, head):\n    out = []\n    i = head\n    while i != -1:\n        out.append(nodes[i][0])\n        i = nodes[i][1]\n    return out\n\ndef reverse_links(nodes, head):\n    prev = -1\n    cur = head\n    while cur != -1:\n        nxt = nodes[cur][1]\n        nodes[cur][1] = prev\n        prev = cur\n        cur = nxt\n    return prev\n\nnodes = [[10, 1], [20, 2], [30, 3], [40, -1]]\nhead = 0\nprint(\"forward:\", values_in_order(nodes, head))\nhead = reverse_links(nodes, head)\nprint(\"reversed:\", values_in_order(nodes, head))\nprint(\"new head value:\", nodes[head][0])"
+  },
+  "stacks": {
+    "language": "python",
+    "code": "def max_depth(s):\n    openers = {'(': ')', '[': ']', '{': '}'}\n    closers = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    depth = 0\n    for ch in s:\n        if ch in openers:\n            stack.append(ch)\n            if len(stack) > depth:\n                depth = len(stack)\n        elif ch in closers:\n            if stack and stack[-1] == closers[ch]:\n                stack.pop()\n            else:\n                return -1\n    return depth if not stack else -1\n\ntests = [\"(a[b]{c})\", \"([]{})\", \"((()))\", \"(a]b)\", \"abc\"]\nfor t in tests:\n    print(repr(t), \"->\", max_depth(t))"
+  },
+  "queues-deques": {
+    "language": "python",
+    "code": "from collections import deque\n\ndef window_maxes(xs, w):\n    dq = deque()\n    out = []\n    for i, x in enumerate(xs):\n        while dq and xs[dq[-1]] <= x:\n            dq.pop()\n        dq.append(i)\n        if dq[0] <= i - w:\n            dq.popleft()\n        if i >= w - 1:\n            out.append(xs[dq[0]])\n    return out\n\nnums = [4, 2, 7, 1, 9, 3, 6, 5]\nprint(\"window size:\", 3)\nprint(\"maxes:\", window_maxes(nums, 3))"
+  },
+  "list-vs-linked-decision": {
+    "language": "python",
+    "code": "N = 1000\nCOST = {\n    \"list\":   {\"random_access\": 1, \"push_back\": 1, \"push_front\": N, \"search\": N},\n    \"linked\": {\"random_access\": N, \"push_back\": 1, \"push_front\": 1, \"search\": N},\n    \"deque\":  {\"random_access\": N, \"push_back\": 1, \"push_front\": 1, \"search\": N},\n}\n\ndef cost_of(structure, workload):\n    table = COST[structure]\n    return sum(table[op] * freq for op, freq in workload.items())\n\ndef recommend(workload):\n    return min(COST, key=lambda s: cost_of(s, workload))\n\nwl_a = {\"random_access\": 80, \"search\": 20}\nwl_b = {\"push_front\": 70, \"push_back\": 30}\nfor name, wl in [(\"random-heavy\", wl_a), (\"front-heavy\", wl_b)]:\n    costs = {s: cost_of(s, wl) for s in COST}\n    print(name, costs, \"->\", recommend(wl))"
+  },
+  "hash-maps": {
+    "language": "python",
+    "code": "def poly_hash(s):\n    h = 0\n    for ch in s:\n        h = (h * 31 + ord(ch)) % 1000003\n    return h\n\ndef bucket_index(key, nbuckets):\n    return poly_hash(key) % nbuckets\n\ndef chain_lengths(keys, nbuckets):\n    chains = [0] * nbuckets\n    for k in keys:\n        chains[bucket_index(k, nbuckets)] += 1\n    return chains\n\nkeys = [\"apple\", \"banana\", \"cherry\", \"date\", \"fig\", \"grape\", \"kiwi\", \"lemon\"]\nnb = 4\nchains = chain_lengths(keys, nb)\nprint(\"buckets:\", nb)\nprint(\"chain lengths:\", chains)\nprint(\"longest chain:\", max(chains))\nprint(\"empty buckets:\", chains.count(0))"
+  },
+  "sets-dedup": {
+    "language": "python",
+    "code": "def first_repeat(xs):\n    seen = set()\n    for x in xs:\n        if x in seen:\n            return x\n        seen.add(x)\n    return None\n\ndef only_in_first(a, b):\n    return sorted(set(a) - set(b))\n\nnums = [5, 3, 9, 3, 7, 5]\nprint(\"first repeat:\", first_repeat(nums))\nprint(\"only in first:\", only_in_first([1, 2, 3, 4], [3, 4, 5]))\nprint(\"distinct count:\", len(set(nums)))"
+  },
+  "collisions-load-factor": {
+    "language": "python",
+    "code": "def resize_schedule(num_inserts, start_buckets, max_load):\n    buckets = start_buckets\n    n = 0\n    events = []\n    for _ in range(num_inserts):\n        n += 1\n        if n / buckets > max_load:\n            buckets *= 2\n            events.append((n, buckets))\n    return buckets, events\n\nfinal, events = resize_schedule(12, 4, 0.66)\nprint(\"final buckets:\", final)\nprint(\"resize events:\", events)\nprint(\"final load factor:\", round(12 / final, 3))"
+  },
+  "designing-good-keys": {
+    "language": "python",
+    "code": "def canonical_key(rec):\n    return (rec[\"type\"], round(rec[\"x\"], 2), round(rec[\"y\"], 2))\n\ndef dedup_records(records):\n    seen = set()\n    out = []\n    for r in records:\n        k = canonical_key(r)\n        if k not in seen:\n            seen.add(k)\n            out.append(r[\"id\"])\n    return out\n\nrecords = [\n    {\"id\": \"a\", \"type\": \"pin\", \"x\": 1.001, \"y\": 2.0},\n    {\"id\": \"b\", \"type\": \"pin\", \"x\": 1.004, \"y\": 2.0},\n    {\"id\": \"c\", \"type\": \"pin\", \"x\": 3.0, \"y\": 4.0},\n    {\"id\": \"d\", \"type\": \"flag\", \"x\": 1.0, \"y\": 2.0},\n]\nprint(\"kept ids:\", dedup_records(records))\nprint(\"key of a:\", canonical_key(records[0]))\nprint(\"distinct keys:\", len({canonical_key(r) for r in records}))"
+  },
+  "binary-trees-traversal": {
+    "language": "python",
+    "code": "from collections import deque\n\ndef level_order(tree):\n    out = []\n    q = deque([tree])\n    while q:\n        node = q.popleft()\n        if node is None:\n            continue\n        value, left, right = node\n        out.append(value)\n        q.append(left)\n        q.append(right)\n    return out\n\ndef max_depth(tree):\n    if tree is None:\n        return 0\n    _, left, right = tree\n    return 1 + max(max_depth(left), max_depth(right))\n\ntree = (4,\n        (2, (1, None, None), (3, None, None)),\n        (6, (5, None, None), (7, None, None)))\nprint(\"level order:\", level_order(tree))\nprint(\"max depth:\", max_depth(tree))"
+  },
+  "binary-search-trees": {
+    "language": "python",
+    "code": "def range_query(tree, lo, hi):\n    out = []\n    if tree is None:\n        return out\n    value, left, right = tree\n    if value > lo:\n        out += range_query(left, lo, hi)\n    if lo <= value <= hi:\n        out.append(value)\n    if value < hi:\n        out += range_query(right, lo, hi)\n    return out\n\ndef floor_value(tree, x):\n    best = None\n    node = tree\n    while node is not None:\n        value, left, right = node\n        if value == x:\n            return value\n        if value < x:\n            best = value\n            node = right\n        else:\n            node = left\n    return best\n\nbst = (5,\n       (3, (2, None, None), (4, None, None)),\n       (8, (6, None, None), (9, None, None)))\nprint(\"range [3,6]:\", range_query(bst, 3, 6))\nprint(\"floor of 7:\", floor_value(bst, 7))\nprint(\"floor of 1:\", floor_value(bst, 1))"
+  },
+  "heaps-priority-queues": {
+    "language": "python",
+    "code": "import heapq\n\ntasks = []\njobs = [(3, \"email\"), (1, \"pager\"), (4, \"backup\"), (2, \"ticket\")]\nfor job in jobs:\n    heapq.heappush(tasks, job)\ntop = tasks[0]\norder = []\nwhile tasks:\n    order.append(heapq.heappop(tasks))\n\nprint(\"top (min):\", top)\nprint(\"pop order:\", order)"
+  },
+  "tries": {
+    "language": "python",
+    "code": "END = \"$\"\n\ndef add_word(root, word):\n    node = root\n    for ch in word:\n        node = node.setdefault(ch, {})\n    node[END] = True\n\ndef walk_to(root, prefix):\n    node = root\n    for ch in prefix:\n        if ch not in node:\n            return None\n        node = node[ch]\n    return node\n\ndef completions(root, prefix):\n    node = walk_to(root, prefix)\n    out = []\n    if node is None:\n        return out\n    def collect(n, acc):\n        for ch in sorted(n):\n            if ch == END:\n                out.append(prefix + acc)\n            else:\n                collect(n[ch], acc + ch)\n    collect(node, \"\")\n    return out\n\nroot = {}\nfor w in [\"car\", \"cart\", \"care\", \"cat\", \"dog\"]:\n    add_word(root, w)\nprint(\"under 'ca':\", completions(root, \"ca\"))\nprint(\"under 'car':\", completions(root, \"car\"))\nprint(\"under 'do':\", completions(root, \"do\"))\nprint(\"under 'x':\", completions(root, \"x\"))"
+  },
+  "graph-representations": {
+    "language": "python",
+    "code": "adj = {0: {1, 2}, 1: {2}, 2: {0}, 3: set()}\n\ndef to_matrix(adj, vertex_count):\n    matrix = [[0] * vertex_count for _ in range(vertex_count)]\n    for source, neighbors in adj.items():\n        for target in neighbors:\n            matrix[source][target] = 1\n    return matrix\n\nvertex_count = 4\nmatrix = to_matrix(adj, vertex_count)\nprint(\"neighbors of 0:\", sorted(adj[0]))\nprint(\"edge 0->2?\", matrix[0][2])\nprint(\"edge 2->1?\", matrix[2][1])\nprint(\"matrix row 0:\", matrix[0])"
+  },
+  "bfs-dfs": {
+    "language": "python",
+    "code": "from collections import deque\n\ndef components(adj):\n    seen = set()\n    count = 0\n    for start in adj:\n        if start in seen:\n            continue\n        count += 1\n        stack = [start]\n        while stack:\n            u = stack.pop()\n            if u in seen:\n                continue\n            seen.add(u)\n            for v in adj[u]:\n                if v not in seen:\n                    stack.append(v)\n    return count\n\ndef shortest_path(adj, src, dst):\n    prev = {src: None}\n    q = deque([src])\n    while q:\n        u = q.popleft()\n        if u == dst:\n            break\n        for v in sorted(adj[u]):\n            if v not in prev:\n                prev[v] = u\n                q.append(v)\n    if dst not in prev:\n        return []\n    path = []\n    node = dst\n    while node is not None:\n        path.append(node)\n        node = prev[node]\n    return path[::-1]\n\nadj = {0: {1, 2}, 1: {0, 3}, 2: {0, 3}, 3: {1, 2, 4}, 4: {3}, 5: {6}, 6: {5}}\nprint(\"components:\", components(adj))\nprint(\"path 0->4:\", shortest_path(adj, 0, 4))\nprint(\"path 0->6:\", shortest_path(adj, 0, 6))"
+  },
+  "choosing-the-structure": {
+    "language": "python",
+    "code": "def best_fit(req):\n    if req.get(\"relationships\"):\n        return \"graph\"\n    if req.get(\"prefix\"):\n        return \"trie\"\n    if req.get(\"lifo\"):\n        return \"stack\"\n    if req.get(\"fifo\"):\n        return \"queue / deque\"\n    if req.get(\"repeated_extreme\"):\n        return \"heap\"\n    if req.get(\"ordered\") or req.get(\"range\"):\n        return \"balanced tree / sorted list\"\n    if req.get(\"key_lookup\"):\n        return \"hash map (dict)\"\n    if req.get(\"unique\"):\n        return \"set\"\n    return \"list / array\"\n\nprofiles = {\n    \"undo history\":    {\"lifo\": True},\n    \"task scheduler\":  {\"fifo\": True},\n    \"spell suggest\":   {\"prefix\": True},\n    \"top players\":     {\"repeated_extreme\": True},\n    \"unique visitors\": {\"unique\": True},\n    \"friend network\":  {\"relationships\": True},\n}\nfor name in profiles:\n    print(name, \"->\", best_fit(profiles[name]))"
+  },
+  "capstone-pick-and-implement": {
+    "language": "python",
+    "code": "import heapq\n\ndef index_scores(entries):\n    idx = {}\n    for name, score in entries:\n        idx[name] = score\n    return idx\n\ndef top_k_streaming(entries, k):\n    heap = []\n    max_size = 0\n    ops = 0\n    for name, score in entries:\n        if len(heap) < k:\n            heapq.heappush(heap, (score, name))\n            ops += 1\n        elif score > heap[0][0]:\n            heapq.heapreplace(heap, (score, name))\n            ops += 1\n        if len(heap) > max_size:\n            max_size = len(heap)\n    ordered = sorted(heap, key=lambda p: (-p[0], p[1]))\n    top = [(name, score) for score, name in ordered]\n    return top, max_size, ops\n\nentries = [(\"ana\", 50), (\"bo\", 90), (\"cy\", 75), (\"di\", 90), (\"ed\", 20), (\"fi\", 88)]\nk = 3\nidx = index_scores(entries)\ntop, max_size, ops = top_k_streaming(entries, k)\nprint(\"top 3:\", top)\nprint(\"score_of cy:\", idx.get(\"cy\"))\nprint(\"score_of zz:\", idx.get(\"zz\"))\nprint(\"n scanned:\", len(entries))\nprint(\"max heap size:\", max_size)\nprint(\"heap ops:\", ops)"
+  }
+}

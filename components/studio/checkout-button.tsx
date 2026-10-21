@@ -29,7 +29,7 @@ export function CheckoutButton({
         size="lg"
         className={
           variant === 'primary'
-            ? 'bg-[#3D5AFE] hover:bg-[#2F46D8] text-[#09090B] font-medium'
+            ? 'bg-[#3D5AFE] hover:bg-[#2F46D8] text-white font-medium'
             : 'border border-[var(--sage-border-strong)] bg-transparent text-[var(--sage-ink)] hover:border-[var(--sage-accent)] hover:bg-[rgba(61,90,254,0.10)] hover:text-[var(--sage-ink)]'
         }
       >
@@ -47,7 +47,10 @@ export function CheckoutButton({
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {
+          'content-type': 'application/json',
+          'idempotency-key': crypto.randomUUID(),
+        },
         body: JSON.stringify({ slug: tier.slug }),
       })
       const data = await res.json().catch(() => ({}))
@@ -71,7 +74,7 @@ export function CheckoutButton({
         onClick={onClick}
         className={
           variant === 'primary'
-            ? 'bg-[#3D5AFE] hover:bg-[#2F46D8] text-[#09090B] font-medium'
+            ? 'bg-[#3D5AFE] hover:bg-[#2F46D8] text-white font-medium'
             : 'border border-[var(--sage-border-strong)] bg-transparent text-[var(--sage-ink)] hover:border-[var(--sage-accent)] hover:bg-[rgba(61,90,254,0.10)] hover:text-[var(--sage-ink)]'
         }
       >

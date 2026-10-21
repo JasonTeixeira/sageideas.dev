@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { randomBytes } from 'crypto'
 import { supabaseAdmin } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 import { sendAcademyWaitlistWelcome } from '@/lib/academy/waitlist-welcome'
 import { sendEmail } from '@/lib/email/send'
 
@@ -22,6 +23,9 @@ function genCode(n = 7): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const limited = await rateLimit(req, { limit: 5, windowMs: 60_000, prefix: 'academy-waitlist' })
+    if (limited) return limited
+
     const body = await req.json().catch(() => ({}))
     const email = String(body?.email ?? '').trim().toLowerCase()
     const refRaw = body?.ref ? String(body.ref).trim().toLowerCase().slice(0, 16) : ''

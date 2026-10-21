@@ -5,6 +5,15 @@
 **Inputs:** the alert (page, email, Slack ping, client message).
 **Outputs:** incident resolved, client communicated, postmortem if Sev1/Sev2.
 
+## Roles and command
+
+- **Incident commander:** owns severity, priorities, approval requests, mitigation decisions, and the declaration of resolution.
+- **Operations lead:** investigates and executes approved reversible mitigations.
+- **Communications lead:** publishes factual internal/customer updates on the defined cadence after approval.
+- **Scribe:** maintains the UTC timeline, hypotheses, decisions, deployment identifiers, evidence links, and action items.
+
+One person may hold more than one role on a small team, but every role must be named in the incident record. For a SEV1, update stakeholders **every 15 minutes** until the incident is monitoring or resolved; for SEV2, every 30 minutes. Never claim a cause before evidence establishes it.
+
 ---
 
 ## Severity ladder
@@ -26,6 +35,16 @@
    Heads up — investigating [issue] right now. Will update by [time + 15 min].
    ```
 5. Open an `incidents` row in the admin (or a Linear issue tagged `incident`).
+
+Use this update shape:
+
+```text
+Severity/status: SEV1 · Investigating
+Impact: who and which workflows are affected
+Known: verified facts only
+Actions: completed and in progress
+Next update: exact UTC timestamp
+```
 
 ## Step 2 — Diagnose
 
@@ -68,6 +87,8 @@ Write a one-page postmortem to `docs/incidents/[YYYY-MM-DD]-[short-name].md`:
 6. **Action items** — concrete tasks with owners + due dates.
 
 Postmortems are blameless. The goal is to make the system more resilient, not assign fault.
+
+Every SEV1/SEV2 record must retain the UTC timeline, detection source, time to acknowledge, time to mitigate, time to recover, customer impact, contributing conditions, five-whys analysis, what went well/poorly, and action items with owner, priority, and due date.
 
 ## Common scenarios
 

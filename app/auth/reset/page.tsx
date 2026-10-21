@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { updatePassword } from '@/app/auth/actions';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { createSupabaseServerClient, isSupabasePublicConfigured } from '@/lib/supabase/server';
 import { BrandPanel, SageLogo } from '@/components/auth/brand-panel';
 import { GradientMesh } from '@/components/auth/gradient-mesh';
 
@@ -20,6 +20,9 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
   const sp = await searchParams;
   const error = sp.error;
 
+  if (!isSupabasePublicConfigured()) {
+    redirect('/auth/forgot-password?error=Authentication%20is%20temporarily%20unavailable.');
+  }
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -60,7 +63,7 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
                   role="alert"
                   className="mb-5 rounded-lg border border-[#7F1D1D]/50 bg-[#7F1D1D]/10 px-3 py-2.5 text-sm text-[#FCA5A5]"
                 >
-                  {decodeURIComponent(error)}
+                  {error.slice(0, 300)}
                 </div>
               )}
             </div>
@@ -79,6 +82,7 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
                   type="password"
                   required
                   minLength={8}
+                  maxLength={128}
                   autoComplete="new-password"
                   className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#3D5AFE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D5AFE]/40"
                 />
@@ -96,6 +100,7 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
                   type="password"
                   required
                   minLength={8}
+                  maxLength={128}
                   autoComplete="new-password"
                   className="w-full rounded-lg border border-[#2A2826] bg-[#0B0A09] px-3 py-2.5 text-sm text-[#FAFAFA] placeholder:text-[#52525B] focus:border-[#3D5AFE] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D5AFE]/40"
                 />

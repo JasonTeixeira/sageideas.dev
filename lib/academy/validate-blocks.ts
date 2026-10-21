@@ -85,10 +85,6 @@ function isNumber(v: unknown): v is number {
   return typeof v === 'number' && Number.isFinite(v)
 }
 
-function isBoolean(v: unknown): v is boolean {
-  return typeof v === 'boolean'
-}
-
 function isStringArray(v: unknown): v is string[] {
   return Array.isArray(v) && v.every(isString)
 }
@@ -122,9 +118,6 @@ function validateBlock(block: unknown, where: string, errors: string[]): void {
 
   const reqStr = (field: string): void => {
     if (!isString(block[field])) errors.push(`${where}: ${type} missing '${field}' (string)`)
-  }
-  const reqNum = (field: string): void => {
-    if (!isNumber(block[field])) errors.push(`${where}: ${type} missing '${field}' (number)`)
   }
   const reqEnum = (field: string, allowed: readonly string[]): void => {
     if (!isOneOf(block[field], allowed))

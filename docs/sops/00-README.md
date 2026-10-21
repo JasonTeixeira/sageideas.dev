@@ -11,6 +11,7 @@ Each SOP is a repeatable, version-controlled procedure for a specific recurring 
 | 03 | [Site Starter delivery](03-site-starter-delivery.md) | Every Site Starter (Landing/Marketing/Pro) build |
 | 04 | [Care retainer monthly cycle](04-care-retainer.md) | Each month for every active Care client |
 | 05 | [Incident response](05-incident-response.md) | Site down, payment failed, client escalation |
+| 06 | [Data backup and restore](06-data-backup-restore.md) | Backup governance, recovery preparation, and restore drills |
 
 ## Authoring rules
 

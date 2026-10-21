@@ -600,7 +600,7 @@ function ContactInner() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="group relative inline-flex h-12 items-center gap-2.5 rounded-[3px] bg-[#3D5AFE] px-6 text-[13px] font-medium uppercase tracking-[0.08em] text-[#08110F] transition-[background-color,box-shadow,transform] duration-200 ease-out [font-family:var(--font-mono),ui-monospace,monospace] hover:bg-[#5670ff] hover:shadow-[0_0_28px_-4px_rgba(61,90,254,0.55)] focus-visible:outline-none active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                  className="group relative inline-flex h-12 items-center gap-2.5 rounded-[3px] bg-[#3D5AFE] px-6 text-[13px] font-medium uppercase tracking-[0.08em] text-white transition-[background-color,box-shadow,transform] duration-200 ease-out [font-family:var(--font-mono),ui-monospace,monospace] hover:bg-[#5670ff] hover:shadow-[0_0_28px_-4px_rgba(61,90,254,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                 >
                   {submitting ? (
                     <>

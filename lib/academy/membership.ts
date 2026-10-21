@@ -1,6 +1,7 @@
 import type Stripe from 'stripe'
 import type { supabaseAdmin } from '@/lib/supabase/server'
 import type { PlanInterval } from '@/lib/academy/plans'
+import { assertSupabaseSuccess } from '@/lib/billing/integrity'
 
 type Sb = ReturnType<typeof supabaseAdmin>
 
@@ -38,7 +39,7 @@ export async function upsertAcademyMembershipFromSubscription(sb: Sb, sub: Strip
     throw new Error(`academy_allaccess subscription ${sub.id} missing email metadata`)
   }
 
-  await sb.from('academy_allaccess_subscriptions').upsert(
+  const result = await sb.from('academy_allaccess_subscriptions').upsert(
     {
       user_id: userId,
       email,
@@ -54,15 +55,17 @@ export async function upsertAcademyMembershipFromSubscription(sb: Sb, sub: Strip
     },
     { onConflict: 'stripe_subscription_id' },
   )
+  assertSupabaseSuccess(result, 'academy membership upsert')
   return true
 }
 
 /** Mark a membership canceled. No-op if the subscription id isn't one of ours. */
 export async function cancelAcademyMembership(sb: Sb, subId: string): Promise<void> {
-  await sb
+  const result = await sb
     .from('academy_allaccess_subscriptions')
     .update({ status: 'canceled', cancel_at_period_end: false, updated_at: new Date().toISOString() })
     .eq('stripe_subscription_id', subId)
+  assertSupabaseSuccess(result, 'academy membership cancellation')
 }
 
 /**

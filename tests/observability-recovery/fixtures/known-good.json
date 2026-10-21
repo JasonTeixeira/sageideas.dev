@@ -1,0 +1,28 @@
+{
+  "packageScripts": {
+    "test:observability-recovery": "tsx --test tests/observability-recovery/observability-recovery.test.ts && npm run audit:observability-recovery",
+    "audit:observability-recovery": "tsx tools/observability-recovery/write-audit.ts"
+  },
+  "healthSource": "HEALTH_TIMEOUT_MS publicHealthErrorCode createRequestId Cache-Control no-store",
+  "portalHealthSource": "checkPublicReadiness NEXT_PUBLIC_SUPABASE_ANON_KEY",
+  "sloSource": "observability_unavailable status: 503 unknown lcpP75 == null ? null totalSamples > 0 error_signal_ratio",
+  "errorTelemetrySource": "sanitizeTelemetryUrl redactTelemetryText telemetry_persistence_failed",
+  "perfTelemetrySource": "sanitizeTelemetryUrl WEB_VITAL_BOUNDS telemetry_persistence_failed",
+  "sentrySources": [
+    "sendDefaultPii: false parseTraceSampleRate beforeSend scrubSentryEvent",
+    "sendDefaultPii: false parseTraceSampleRate beforeSend scrubSentryEvent",
+    "sendDefaultPii: false parseTraceSampleRate beforeSend scrubSentryEvent"
+  ],
+  "loggerSource": "requestId traceId release redactTelemetryText JSON.stringify",
+  "observabilityPageSource": "queryUnavailable No samples Diagnostic ratio vital samples",
+  "incidentRunbook": "incident commander communications lead scribe SEV1 every 15 minutes timeline postmortem blameless",
+  "recoveryRunbook": "RPO RTO point-in-time isolated restore drill integrity checks explicit approval live recovery evidence",
+  "rollbackRunbook": "rollback owner second reviewer deployment identifier abort criteria verify health telemetry customer journeys explicit approval",
+  "alertCatalog": [
+    { "id": "availability", "signal": "readiness", "severity": "SEV1", "owner": "platform-on-call", "threshold": "failed twice in five minutes", "runbook": "docs/sops/05-incident-response.md" },
+    { "id": "errors", "signal": "error_rate", "severity": "SEV2", "owner": "platform-on-call", "threshold": ">=5% for five minutes", "runbook": "docs/sops/05-incident-response.md" },
+    { "id": "latency", "signal": "lcp_p75", "severity": "SEV3", "owner": "web-on-call", "threshold": ">2500ms for fifteen minutes", "runbook": "docs/sops/05-incident-response.md" },
+    { "id": "jobs", "signal": "dead_letters", "severity": "SEV2", "owner": "automation-on-call", "threshold": ">0 for five minutes", "runbook": "docs/sops/05-incident-response.md" },
+    { "id": "backups", "signal": "recovery_point_age", "severity": "SEV2", "owner": "data-on-call", "threshold": ">24h", "runbook": "docs/sops/06-data-backup-restore.md" }
+  ]
+}

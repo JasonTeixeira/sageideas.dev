@@ -1,64 +1,28 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AtlasIntake } from './AtlasIntake'
+import { lazy, Suspense, useState } from 'react'
 import { useT } from '@/components/i18n/locale-provider'
 
-const SEEN_KEY = 'sage-atlas-v1'
-/** Auto-open on first visit only — after the splash (~2.1s) clears AND the
- *  visitor has had a couple seconds with the hero, so it invites rather than
- *  interrupts. */
-const AUTO_OPEN_DELAY = 4500
+const AtlasIntake = lazy(async () => {
+  const atlasModule = await import('./AtlasIntake')
+  return { default: atlasModule.AtlasIntake }
+})
 
 /**
- * Mounts the Atlas intake: a persistent "Find your path" launcher plus a
- * one-per-visitor auto-open after the splash. The launcher stays available
- * forever; the auto-open fires once (tracked in localStorage).
+ * Mounts a persistent "Find your path" launcher. The larger intake experience
+ * is fetched only after explicit learner intent, keeping initial navigation
+ * responsive and avoiding an unsolicited first-visit interruption.
  */
 export function AtlasLauncher() {
   const t = useT()
   const [open, setOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    let seen = false
-    try {
-      seen = localStorage.getItem(SEEN_KEY) === '1'
-    } catch {
-      seen = false
-    }
-    if (seen) return
-    const id = window.setTimeout(() => {
-      setOpen(true)
-      try {
-        localStorage.setItem(SEEN_KEY, '1')
-      } catch {
-        /* private mode — fine, it just may re-open next visit */
-      }
-    }, AUTO_OPEN_DELAY)
-    return () => window.clearTimeout(id)
-  }, [])
-
-  function markSeen() {
-    try {
-      localStorage.setItem(SEEN_KEY, '1')
-    } catch {
-      /* ignore */
-    }
-  }
-
-  if (!mounted) return null
 
   return (
     <>
       {open ? (
-        <AtlasIntake
-          onClose={() => {
-            setOpen(false)
-            markSeen()
-          }}
-        />
+        <Suspense fallback={null}>
+          <AtlasIntake onClose={() => setOpen(false)} />
+        </Suspense>
       ) : (
         <button
           onClick={() => setOpen(true)}

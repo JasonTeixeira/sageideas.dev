@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:831a8b962eec5157ce767b2653d5968d2cf677e72d51816e0b1a9da8bde068da",
+  "generatedAt": "2026-09-05T19:40:13.507Z",
+  "ok": true,
+  "fixtureProof": {
+    "knownGoodPassed": true,
+    "deliberatelyBrokenDetected": [
+      "academy_certification_unproven",
+      "dependency_cycle",
+      "duplicate_migration_version",
+      "lab_trust_unproven",
+      "required_script_missing",
+      "required_script_missing",
+      "security_evidence_missing",
+      "unsafe_command"
+    ]
+  },
+  "stateStatus": "blocked",
+  "currentWorkstream": "staging-validation",
+  "boardStatus": "local_production_candidate",
+  "backlogItems": 0,
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "failures": []
+}

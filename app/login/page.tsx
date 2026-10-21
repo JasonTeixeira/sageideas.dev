@@ -33,8 +33,8 @@ const COPY = {
 
 export default async function LoginPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const error = sp.error ? decodeURIComponent(sp.error) : undefined;
-  const email = sp.email ? decodeURIComponent(sp.email) : undefined;
+  const error = sp.error?.slice(0, 300);
+  const email = sp.email?.slice(0, 320);
   const next = sp.next ?? '/auth/redirect';
   const audience: 'studio' | 'academy' =
     sp.audience === 'academy' || next.startsWith('/academy') ? 'academy' : 'studio';

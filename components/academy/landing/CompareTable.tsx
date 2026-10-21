@@ -42,12 +42,15 @@ export async function CompareTable() {
           </p>
         </div>
 
-        <div style={{ marginTop: 40, overflowX: 'auto' }}>
+        <div aria-label={t('Course comparison table')} tabIndex={0} style={{ marginTop: 40, overflowX: 'auto' }}>
           <table style={{ width: '100%', minWidth: 640, borderCollapse: 'separate', borderSpacing: 0 }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', padding: '0 18px 16px 0' }} />
+                <th scope="col" style={{ textAlign: 'left', padding: '0 18px 16px 0' }}>
+                  <span style={{ position: 'absolute', width: 1, height: 1, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0 }}>{t('Comparison criteria')}</span>
+                </th>
                 <th
+                  scope="col"
                   style={{
                     textAlign: 'left',
                     padding: '16px 20px',
@@ -61,13 +64,13 @@ export async function CompareTable() {
                   <div style={{ ...serif, fontSize: 18, fontWeight: 600, color: INK }}>Sage Academy</div>
                   <div style={{ ...mono, fontSize: 10.5, color: '#8FA0FF', marginTop: 2 }}>{t('proof, not paper')}</div>
                 </th>
-                <th style={{ textAlign: 'left', padding: '16px 20px' }}>
+                <th scope="col" style={{ textAlign: 'left', padding: '16px 20px' }}>
                   <div style={{ ...serif, fontSize: 18, fontWeight: 600, color: DIM }}>{t('Bootcamp')}</div>
-                  <div style={{ ...mono, fontSize: 10.5, color: '#5A5A64', marginTop: 2 }}>{t('the big bet')}</div>
+                  <div style={{ ...mono, fontSize: 10.5, color: DIM, marginTop: 2 }}>{t('the big bet')}</div>
                 </th>
-                <th style={{ textAlign: 'left', padding: '16px 20px' }}>
+                <th scope="col" style={{ textAlign: 'left', padding: '16px 20px' }}>
                   <div style={{ ...serif, fontSize: 18, fontWeight: 600, color: DIM }}>{t('Cert / video library')}</div>
-                  <div style={{ ...mono, fontSize: 10.5, color: '#5A5A64', marginTop: 2 }}>{t('the badge')}</div>
+                  <div style={{ ...mono, fontSize: 10.5, color: DIM, marginTop: 2 }}>{t('the badge')}</div>
                 </th>
               </tr>
             </thead>
@@ -76,7 +79,7 @@ export async function CompareTable() {
                 const last = i === ROWS.length - 1
                 return (
                   <tr key={r.label}>
-                    <td style={{ padding: '16px 18px 16px 0', verticalAlign: 'top', fontSize: 13.5, color: DIM, whiteSpace: 'nowrap' }}>{t(r.label)}</td>
+                    <th scope="row" style={{ padding: '16px 18px 16px 0', verticalAlign: 'top', textAlign: 'left', fontSize: 13.5, fontWeight: 500, color: DIM, whiteSpace: 'nowrap' }}>{t(r.label)}</th>
                     <td
                       style={{
                         padding: '16px 20px',

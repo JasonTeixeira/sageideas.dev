@@ -5,6 +5,7 @@
  * without a DSN behaves exactly like before).
  */
 import * as Sentry from '@sentry/nextjs';
+import { parseTraceSampleRate, scrubSentryEvent } from './lib/observability/sentry-policy';
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -14,7 +15,9 @@ if (dsn) {
     environment: process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local',
     release: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? undefined,
     // Conservative defaults — tune via Phase 5.
-    tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE ?? 0.1),
+    tracesSampleRate: parseTraceSampleRate(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
+    sendDefaultPii: false,
+    beforeSend: scrubSentryEvent,
     replaysSessionSampleRate: 0.0,
     replaysOnErrorSampleRate: 0.5,
     integrations: [Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true })],

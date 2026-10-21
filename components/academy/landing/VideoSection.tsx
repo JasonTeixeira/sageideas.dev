@@ -12,7 +12,6 @@ import { useT } from '@/components/i18n/locale-provider'
 
 const INK = '#F2EFE9'
 const LINE = '#1E1E24'
-const ACCENT = '#3D5AFE'
 
 const mono = { fontFamily: 'var(--font-mono), monospace' } as const
 const serif = { fontFamily: 'var(--font-serif), Georgia, serif' } as const

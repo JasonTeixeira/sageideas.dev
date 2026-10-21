@@ -1,6 +1,8 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { isAdminPagePath } from '@/lib/admin/route-policy';
+
 type CookieToSet = { name: string; value: string; options?: CookieOptions };
 
 const PUBLIC_PATHS = new Set(['/login', '/signup']);
@@ -46,38 +48,6 @@ const PORTAL_VALID_SEGMENTS = new Set([
   'not-found-render',
 ]);
 
-/**
- * Marketing pages whose ANONYMOUS server render is identical for every visitor —
- * safe to CDN edge-cache. Vercel only shares a cached response when it carries no
- * Set-Cookie, so signed-in requests (which bear auth cookies) are never cached and
- * stay personalized automatically. This turns a repeat anonymous hit from a full
- * ~300ms–1.5s dynamic render into a ~20ms edge HIT.
- */
-function isCacheableMarketing(pathname: string): boolean {
-  // ONLY the pages that render their own static client nav (AcademyChrome) and
-  // are NOT wrapped in the studio MarketingChrome — MarketingChrome reads server
-  // auth (getUser), so caching a page it wraps could serve a stale/anon nav to a
-  // signed-in visitor. This list mirrors the `isAcademyHome` set in the root
-  // layout (the pages the studio chrome never wraps); keep them in sync.
-  return (
-    pathname === '/' ||
-    pathname === '/academy' ||
-    pathname === '/academy/pricing' ||
-    pathname === '/academy/catalog' ||
-    pathname === '/academy/why-proof' ||
-    pathname === '/academy/how-we-audit' ||
-    pathname === '/academy/method' ||
-    pathname === '/academy/projects' ||
-    pathname === '/academy/try' ||
-    pathname === '/academy/map' ||
-    pathname === '/academy/starter' ||
-    pathname === '/academy/about' ||
-    pathname === '/academy/proof-not-paper' ||
-    pathname === '/academy/help' ||
-    pathname === '/how-it-works'
-  );
-}
-
 function isPublic(pathname: string) {
   if (PUBLIC_PATHS.has(pathname)) return true;
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + '/'));
@@ -120,6 +90,51 @@ function isPortalChrome(pathname: string) {
   );
 }
 
+function isAcademyPublicRoute(pathname: string): boolean {
+  return (
+    pathname === '/academy' ||
+    pathname === '/academy/opengraph-image' ||
+    /^\/academy\/(catalog|pricing|why-proof|how-we-audit)\/opengraph-image$/.test(pathname) ||
+    pathname === '/academy/how-we-audit' ||
+    pathname === '/academy/signup' ||
+    pathname === '/academy/join' ||
+    pathname === '/academy/engine' ||
+    pathname === '/academy/engine/lab' ||
+    pathname === '/academy/resources/sprint-loop' ||
+    pathname === '/academy/efficacy' ||
+    pathname === '/academy/legal' ||
+    pathname === '/academy/guarantee' ||
+    pathname === '/academy/interview/guarantee' ||
+    pathname === '/academy/starter' ||
+    pathname === '/academy/map' ||
+    pathname === '/academy/method' ||
+    pathname === '/academy/projects' ||
+    pathname === '/academy/try' ||
+    pathname === '/academy/catalog' ||
+    pathname === '/academy/why-proof' ||
+    pathname === '/academy/pricing' ||
+    pathname === '/academy/about' ||
+    pathname === '/academy/proof-not-paper' ||
+    pathname === '/academy/help' ||
+    pathname === '/academy/interview/mastery' ||
+    pathname.startsWith('/academy/voice/') ||
+    pathname.startsWith('/academy/u/') ||
+    pathname.startsWith('/academy/certificate/') ||
+    pathname === '/academy/concepts' ||
+    pathname.startsWith('/academy/concepts/') ||
+    pathname === '/academy/labs' ||
+    pathname.startsWith('/academy/labs/') ||
+    /^\/academy\/course\/[^/]+$/.test(pathname)
+  );
+}
+
+export function requiresConfiguredAuth(pathname: string): boolean {
+  return isAdminPagePath(pathname)
+    || pathname === '/portal'
+    || pathname.startsWith('/portal/')
+    || (pathname.startsWith('/academy/') && !isAcademyPublicRoute(pathname));
+}
+
 // Build a redirect response that carries any refreshed-session cookies from
 // `source` (the response that the supabase-ssr setAll callback writes to).
 // Without this, redirects from middleware drop the refresh-cookie set, which
@@ -142,14 +157,19 @@ export async function updateSession(request: NextRequest) {
 
   let response = NextResponse.next({ request: { headers: forwardedHeaders } });
 
-  // Resilience: when Supabase env is absent (local dev without keys, or a prod
-  // misconfig), skip auth entirely instead of 500-ing every request. Public
-  // marketing pages still render; auth-gated zones simply won't have a user.
-  // In production with env configured, behavior is unchanged.
+  // Public pages remain available without local Supabase configuration, but an
+  // auth-gated route must never become public because credentials are missing.
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     response.headers.set('x-pathname', pathname + (search || ''));
     if (isPortalChrome(pathname)) {
       response.headers.set('x-portal', '1');
+    }
+    const localAdminPreview = pathname.startsWith('/admin')
+      && process.env.NODE_ENV !== 'production'
+      && process.env.LOCAL_ADMIN_BYPASS === 'job-os-preview'
+      && !process.env.VERCEL;
+    if (requiresConfiguredAuth(pathname) && !localAdminPreview) {
+      return NextResponse.json({ error: 'Authentication unavailable' }, { status: 503 });
     }
     return response;
   }
@@ -198,63 +218,17 @@ export async function updateSession(request: NextRequest) {
   }
 
   // Protected zones.
-  const needsAdmin = pathname === '/admin' || pathname.startsWith('/admin/');
+  const needsAdmin = isAdminPagePath(pathname);
   const needsApprovedUser = pathname === '/portal' || pathname.startsWith('/portal/');
-  // Academy authoring studio: must at least be signed in to reach it (the page-level
-  // getAdminUser enforces the academy admin/owner role — the canonical check). Gating
-  // anon here keeps the admin UI bundle/RSC payload from rendering to the public.
-  const needsAcademyAdmin = pathname === '/academy-admin' || pathname.startsWith('/academy-admin/');
   // The academy PRODUCT (catalog, courses, lessons, labs, dashboard, build, evidence,
   // resources) requires a signed-in account — you must log in to see the actual academy.
   // Public stays: the marketing landing (/academy), signup, pricing (/join), the sprint
   // demo (/engine), the printable sprint-loop, and shareable certificates.
-  const isAcademyPublic =
-    pathname === '/academy' ||
-    // Metadata image routes must stay reachable by link-unfurl crawlers.
-    pathname === '/academy/opengraph-image' ||
-    /^\/academy\/(catalog|pricing|why-proof|how-we-audit)\/opengraph-image$/.test(pathname) ||
-    pathname === '/academy/how-we-audit' ||
-    pathname === '/academy/signup' ||
-    pathname === '/academy/join' ||
-    pathname === '/academy/engine' ||
-    pathname === '/academy/engine/lab' ||
-    pathname === '/academy/resources/sprint-loop' ||
-    pathname === '/academy/efficacy' ||
-    pathname === '/academy/legal' ||
-    pathname === '/academy/guarantee' ||
-    pathname === '/academy/interview/guarantee' ||
-    pathname === '/academy/starter' ||
-    pathname === '/academy/map' ||
-    pathname === '/academy/method' ||
-    pathname === '/academy/projects' ||
-    pathname === '/academy/try' ||
-    // Main-menu marketing pages: public sell surfaces in the academy skin.
-    pathname === '/academy/catalog' ||
-    pathname === '/academy/why-proof' ||
-    pathname === '/academy/pricing' ||
-    pathname === '/academy/about' ||
-    pathname === '/academy/proof-not-paper' ||
-    pathname === '/academy/help' ||
-    // Interview Mastery add-on: the marketing/pricing landing is public (like /academy + /join).
-    // Every other /academy/interview/* surface stays behind needsAcademyLogin.
-    pathname === '/academy/interview/mastery' ||
-    pathname.startsWith('/academy/voice/') ||
-    pathname.startsWith('/academy/u/') ||
-    pathname.startsWith('/academy/certificate/') ||
-    // Concept pages: programmatic-SEO lesson previews — public by design.
-    pathname === '/academy/concepts' ||
-    pathname.startsWith('/academy/concepts/') ||
-    // The Labs — the public workshop of buildable projects + per-lab specs.
-    pathname === '/academy/labs' ||
-    pathname.startsWith('/academy/labs/') ||
-    // Course landings are the per-course sell pages — public like /academy.
-    // Exactly one segment after /course/: the lesson player, map, and every
-    // deeper surface stay behind needsAcademyLogin.
-    /^\/academy\/course\/[^/]+$/.test(pathname);
+  const isAcademyPublic = isAcademyPublicRoute(pathname);
   const needsAcademyLogin = pathname.startsWith('/academy/') && !isAcademyPublic;
 
   if (
-    needsAdmin &&
+    (pathname === '/admin' || pathname.startsWith('/admin/')) &&
     process.env.NODE_ENV !== 'production' &&
     process.env.LOCAL_ADMIN_BYPASS === 'job-os-preview' &&
     !process.env.VERCEL
@@ -271,7 +245,7 @@ export async function updateSession(request: NextRequest) {
     return redirectWithSessionCookies(url, response);
   }
 
-  if (!user && (needsAdmin || needsApprovedUser || needsAcademyAdmin)) {
+  if (!user && (needsAdmin || needsApprovedUser)) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.search = `?next=${encodeURIComponent(pathname + (search || ''))}`;
@@ -304,7 +278,10 @@ export async function updateSession(request: NextRequest) {
 
     // Admin-only hardening: MFA step-up + sliding idle timeout.
     if (needsAdmin && isAdmin) {
-      const mfaRequired = process.env.MFA_REQUIRED_FOR_ADMIN === 'true';
+      // Production admin access always requires step-up MFA. The environment
+      // switch only exists so local/preview development can opt into the flow.
+      const mfaRequired =
+        process.env.NODE_ENV === 'production' || process.env.MFA_REQUIRED_FOR_ADMIN === 'true';
       if (mfaRequired) {
         const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
         // currentLevel === 'aal1' means the session has not satisfied the
@@ -339,7 +316,7 @@ export async function updateSession(request: NextRequest) {
         url.search = `?reason=idle&next=${encodeURIComponent(pathname + (search || ''))}`;
         const r = redirectWithSessionCookies(url, response);
         r.cookies.set('admin_last_active', '', {
-          path: '/admin',
+          path: '/',
           maxAge: 0,
         });
         return r;
@@ -348,7 +325,7 @@ export async function updateSession(request: NextRequest) {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        path: '/admin',
+        path: '/',
         maxAge: Math.ceil(IDLE_MS / 1000),
       });
     }
@@ -379,13 +356,6 @@ export async function updateSession(request: NextRequest) {
       response.cookies.getAll().forEach((c) => rewrite.cookies.set(c));
       return rewrite;
     }
-  }
-
-  // Edge-cache anonymous hits on identical-for-everyone marketing pages. Vercel
-  // won't share-cache a response that sets a cookie, so this only ever caches the
-  // truly-anonymous render; signed-in visitors stay private + personalized.
-  if (request.method === 'GET' && isCacheableMarketing(pathname)) {
-    response.headers.set('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=600');
   }
 
   // Pass through (with refreshed cookies) for everything else, public or otherwise.

@@ -26,7 +26,7 @@
  *   - Engagements carry `tags` including `test_run_id:phase-0-seed`
  *
  * Run with:
- *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npx tsx scripts/seed-test-data.ts
+ *   SAGE_ALLOW_TEST_DATA_MUTATION=approved npm run seed:test-data
  */
 
 // Node 20 ships without a global WebSocket; supabase-js v2 imports the realtime
@@ -42,23 +42,26 @@ const ORG_SLUG = 'acme-test-co';
 const ORG_NAME = 'Acme Test Co';
 const TEST_TAG = `test_run_id:${TEST_RUN_ID}`;
 
+function need(name: string) {
+  const value = process.env[name]?.trim();
+  if (!value) throw new Error(`Missing required env: ${name}`);
+  return value;
+}
+
+if (process.env.SAGE_ALLOW_TEST_DATA_MUTATION !== 'approved') {
+  throw new Error(
+    'Test-data mutation is disabled. Obtain approval and set SAGE_ALLOW_TEST_DATA_MUTATION=approved.',
+  );
+}
+
 const ACCOUNTS = {
-  admin: { email: 'sage+admin@sageideas.org', password: 'Test!Admin#2026', full_name: 'Sage Admin (Test)' },
-  client1: { email: 'client1+test@sageideas.org', password: 'Test!Client#2026', full_name: 'Client One Test' },
-  client2: { email: 'client2+test@sageideas.org', password: 'Test!Client#2026', full_name: 'Client Two Test' },
-  pending: { email: 'pending+test@sageideas.org', password: 'Test!Pending#2026', full_name: 'Pending User Test' },
+  admin: { email: process.env.SAGE_TEST_ADMIN_EMAIL?.trim() || 'sage+admin@sageideas.org', password: need('SAGE_TEST_ADMIN_PASSWORD'), full_name: 'Sage Admin (Test)' },
+  client1: { email: process.env.SAGE_TEST_CLIENT1_EMAIL?.trim() || 'client1+test@sageideas.org', password: need('SAGE_TEST_CLIENT1_PASSWORD'), full_name: 'Client One Test' },
+  client2: { email: process.env.SAGE_TEST_CLIENT2_EMAIL?.trim() || 'client2+test@sageideas.org', password: need('SAGE_TEST_CLIENT2_PASSWORD'), full_name: 'Client Two Test' },
+  pending: { email: process.env.SAGE_TEST_PENDING_EMAIL?.trim() || 'pending+test@sageideas.org', password: need('SAGE_TEST_PENDING_PASSWORD'), full_name: 'Pending User Test' },
 } as const;
 
 type AccountKey = keyof typeof ACCOUNTS;
-
-function need(name: string) {
-  const v = process.env[name];
-  if (!v) {
-    console.error(`Missing required env: ${name}`);
-    process.exit(1);
-  }
-  return v;
-}
 
 async function ensureAuthUser(
   sb: SupabaseClient,

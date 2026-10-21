@@ -333,6 +333,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that prints the exact line \"Hello, world!\" — run it yourself and read the output it produced.",
+        "Diagnose and repair the broken case: This program is meant to print a greeting, but pressing Run gives an error instead of showing the text.",
+        "Confirm every observable check: You pressed Run and your line actually appeared in the output (you saw it, not just read about it) · The output is EXACTLY:  Hello, world!  — same comma, same space, same exclamation mark · Your text is wrapped in matching quotes inside print(...) · You changed the text once, re-ran, and watched the output change to match (the edit, run, see loop)",
+        "Complete the transfer without copying the worked example: Open the lab again and print three lines of your own: your name, your goal for learning to code, and one thing you are curious about. Run it and read all three. You just made the machine say exactly what you told it to — that is the entire job, scaled up."
+      ]
     }
   ],
   "variables-and-values": [
@@ -623,6 +632,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that stores a computed total in a variable and prints it — the right number appears in the output.",
+        "Diagnose and repair the broken case: This program should print the final score (start 5, then add 3), but it prints the wrong number.",
+        "Confirm every observable check: You created variables with  name = value  (assignment), not just printed raw numbers · You used a variable in a calculation (e.g. per_crate * crates) · The stored total is correct and your program prints it (output: 48) · You can explain that = means \"store the right side into the name on the left\", not \"is equal to\" · You reassigned a variable at least once and saw the latest value win",
+        "Complete the transfer without copying the worked example: In the lab, model something from your own life: store a price in a variable, store a quantity, compute and print the total. Then reassign the quantity to a bigger number, re-run, and watch the total update. That \"change an input, the result follows\" is the heartbeat of every program you will build."
+      ]
     }
   ],
   "numbers-and-strings": [
@@ -647,6 +665,20 @@
       "type": "pretest",
       "prompt": "Before you read on: what do you think  \"2\" + \"3\"  gives — and what does  2 + 3  give? Are they the same?",
       "reveal": "2 + 3 is 5 (numbers add). But \"2\" + \"3\" is \"23\" — with quotes they are TEXT, and + on text means \"join end to end\" (concatenation), not \"add\". Same symbol, different meaning, decided entirely by the TYPE of the values. Text that looks like a number is still text until you convert it."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Compute on numbers, format with an f-string. Do the math first, then drop the values into text with { }.",
+      "code": "price = 4\nqty = 3\ntotal = price * qty          # numbers -> arithmetic -> 12 (an int)\n\nline = f\"Total for {qty} items: ${total}\"\nprint(line)                  # -> Total for 3 items: $12",
+      "language": "python",
+      "steps": [
+        "These are numbers (int): No quotes, so price and qty are ints — ready for arithmetic.",
+        "Multiply the numbers: price * qty does real multiplication → 12, an int.",
+        "An f-string starts with f: The f before the opening quote turns on substitution; anything in { } is evaluated and dropped in.",
+        "Only the { } parts get replaced: {qty} → 3, {total} → 12. The dollar sign and words are plain text. Numbers become text automatically here.",
+        "Print the finished line: Output: Total for 3 items: $12 — numbers computed, then formatted."
+      ],
+      "commonMistake": "This is supposed to add two quantities and show 5, but it prints 23."
     },
     {
       "text": "int is a whole number (4); float has a decimal (3.14); str is text in quotes (\"4\"). The type decides what + means — numbers add, strings join. Convert deliberately: int(\"4\") gives 4; str(4) gives \"4\".",
@@ -681,53 +713,6 @@
       "title": "The same + sign, two meanings",
       "caption": "\"4\" with quotes is text; 4 without is a number. They look alike and behave completely differently.",
       "subtitle": "The TYPE of the values decides what + does. This is the whole lesson."
-    },
-    {
-      "code": "price = 4\nqty = 3\ntotal = price * qty          # numbers -> arithmetic -> 12 (an int)\n\nline = f\"Total for {qty} items: ${total}\"\nprint(line)                  # -> Total for 3 items: $12",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "No quotes, so price and qty are ints — ready for arithmetic.",
-          "label": "These are numbers (int)",
-          "lines": [
-            1,
-            2
-          ]
-        },
-        {
-          "note": "price * qty does real multiplication → 12, an int.",
-          "label": "Multiply the numbers",
-          "lines": [
-            3
-          ]
-        },
-        {
-          "note": "The f before the opening quote turns on substitution; anything in { } is evaluated and dropped in.",
-          "label": "An f-string starts with f",
-          "lines": [
-            5
-          ]
-        },
-        {
-          "note": "{qty} → 3, {total} → 12. The dollar sign and words are plain text. Numbers become text automatically here.",
-          "label": "Only the { } parts get replaced",
-          "lines": [
-            5
-          ]
-        },
-        {
-          "note": "Output: Total for 3 items: $12 — numbers computed, then formatted.",
-          "label": "Print the finished line",
-          "lines": [
-            6
-          ]
-        }
-      ],
-      "title": "Compute on numbers, format with an f-string",
-      "caption": "Joining a number to text with + (like \"Total: \" + total) errors — use an f-string, which converts for you.",
-      "filename": "receipt.py",
-      "language": "python",
-      "subtitle": "Do the math first, then drop the values into text with { }."
     },
     {
       "type": "diagram",
@@ -904,12 +889,72 @@
       "language": "python"
     },
     {
+      "code": "price = 4\nqty = 3\ntotal = price * qty          # numbers -> arithmetic -> 12 (an int)\n\nline = f\"Total for {qty} items: ${total}\"\nprint(line)                  # -> Total for 3 items: $12",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "No quotes, so price and qty are ints — ready for arithmetic.",
+          "label": "These are numbers (int)",
+          "lines": [
+            1,
+            2
+          ]
+        },
+        {
+          "note": "price * qty does real multiplication → 12, an int.",
+          "label": "Multiply the numbers",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "note": "The f before the opening quote turns on substitution; anything in { } is evaluated and dropped in.",
+          "label": "An f-string starts with f",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "note": "{qty} → 3, {total} → 12. The dollar sign and words are plain text. Numbers become text automatically here.",
+          "label": "Only the { } parts get replaced",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "note": "Output: Total for 3 items: $12 — numbers computed, then formatted.",
+          "label": "Print the finished line",
+          "lines": [
+            6
+          ]
+        }
+      ],
+      "title": "Compute on numbers, format with an f-string",
+      "caption": "Joining a number to text with + (like \"Total: \" + total) errors — use an f-string, which converts for you.",
+      "filename": "receipt.py",
+      "language": "python",
+      "subtitle": "Do the math first, then drop the values into text with { }."
+    },
+    {
       "fix": "a and b are strings (\"2\" and \"3\"), and + on strings joins them → \"23\". They look like numbers but they are text. Convert each to an int first, then add:  print(int(a) + int(b))  → 5. Form and keyboard input is text; convert before you do math.",
       "task": "Find why it joins instead of adds.",
       "type": "debug",
       "symptom": "This is supposed to add two quantities and show 5, but it prints 23.",
       "language": "python",
       "brokenCode": "a = \"2\"          # came from a form, so it's text\nb = \"3\"\nprint(a + b)     # meant to add -> prints \"23\", not 5"
+    },
+    {
+      "type": "tradeoff",
+      "question": "The same + sign, two meanings",
+      "optionA": {
+        "label": "Strings — joins",
+        "text": "\"2\" + \"3\" · both are text (in quotes) · + on text glues end to end · result: \"23\" Outcome: Concatenation, not addition"
+      },
+      "optionB": {
+        "label": "Numbers — adds",
+        "text": "2 + 3 · both are int (no quotes) · + on numbers does arithmetic · result: 5 Outcome: Real addition"
+      },
+      "guidance": "\"4\" with quotes is text; 4 without is a number. They look alike and behave completely differently."
     },
     {
       "type": "quiz",
@@ -955,6 +1000,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that combines numbers and text into one exact formatted line and prints it.",
+        "Diagnose and repair the broken case: This is supposed to add two quantities and show 5, but it prints 23.",
+        "Confirm every observable check: You can state the type of 4 (int), 4.0 (float), and \"4\" (str) · You computed total with arithmetic on numbers (price * qty), not by typing 12 into the text · Your output line is EXACTLY:  Coffee x3 = $12 · You built the line with an f-string, dropping the numbers in with { } · You saw the difference firsthand: \"2\" + \"3\" joins to \"23\", but 2 + 3 adds to 5",
+        "Complete the transfer without copying the worked example: In the lab, build a one-line summary about yourself by mixing types: a name (str), an age or a count (int), maybe a height (float), combined into one sentence with an f-string. Then take a number that arrived as text (like \"5\"), convert it with int(), and use it in a calculation. You have just done the core move behind handling any real-world input."
+      ]
     }
   ],
   "reading-input": [
@@ -981,48 +1035,22 @@
       "reveal": "It does NOT give 4 — it errors. input() ALWAYS hands back text, so count is the string \"3\", not the number 3. And you cannot add a number to text, so  \"3\" + 1  stops with a TypeError. This is the catch that gets every beginner: a thing that LOOKS like a number on screen is still text until you convert it. Wrap it in int() first — count = int(input()) — and then count + 1 is 4. Read as text, convert before you do math."
     },
     {
+      "type": "worked-example",
+      "intro": "Read · convert · use. Two lines come in as text; only the numeric one is converted. Watch where int() goes.",
+      "code": "name = input()              # reads a line -> text, e.g. \"Sam\"\nage_text = input()          # reads the next line -> text, e.g. \"30\"\nage = int(age_text)         # convert that text to a real number -> 30\n\nprint(f\"Hi {name}, next year you turn {age + 1}.\")",
+      "language": "python",
+      "steps": [
+        "First input() → text: Reads one line and returns it as a string; name becomes \"Sam\". The prompt argument, if any, is just a hint — not part of the value.",
+        "Second input() → next line: Each call reads the NEXT line in order; age_text becomes the text \"30\".",
+        "Convert the numeric one: int(age_text) crosses the text \"30\" into the number 30, stored in age.",
+        "Now arithmetic works: Because age is a real number, age + 1 → 31 (on text it would error). The f-string drops name and 31 into the sentence."
+      ],
+      "commonMistake": "This should read a count and print \"You have 4 items.\" (3 typed, plus 1), but it crashes with a TypeError instead."
+    },
+    {
       "text": "input() reads one line the user provides and hands it back as a string — always text. Convert when you need a number: int(input()) turns \"3\" into 3. It is the \"2\" vs 2 type difference from Lesson 3, at the boundary.",
       "type": "concept",
       "title": "input() reads a line as text; convert with int() to get a number"
-    },
-    {
-      "code": "name = input()              # reads a line -> text, e.g. \"Sam\"\nage_text = input()          # reads the next line -> text, e.g. \"30\"\nage = int(age_text)         # convert that text to a real number -> 30\n\nprint(f\"Hi {name}, next year you turn {age + 1}.\")",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "Reads one line and returns it as a string; name becomes \"Sam\". The prompt argument, if any, is just a hint — not part of the value.",
-          "label": "First input() → text",
-          "lines": [
-            1
-          ]
-        },
-        {
-          "note": "Each call reads the NEXT line in order; age_text becomes the text \"30\".",
-          "label": "Second input() → next line",
-          "lines": [
-            2
-          ]
-        },
-        {
-          "note": "int(age_text) crosses the text \"30\" into the number 30, stored in age.",
-          "label": "Convert the numeric one",
-          "lines": [
-            3
-          ]
-        },
-        {
-          "note": "Because age is a real number, age + 1 → 31 (on text it would error). The f-string drops name and 31 into the sentence.",
-          "label": "Now arithmetic works",
-          "lines": [
-            5
-          ]
-        }
-      ],
-      "title": "Read · convert · use",
-      "caption": "int(input()) is right; int(input() + 1) errors — it tries to + text and a number BEFORE converting. Convert first, then compute.",
-      "filename": "reading_input.py",
-      "language": "python",
-      "subtitle": "Two lines come in as text; only the numeric one is converted. Watch where int() goes."
     },
     {
       "type": "diagram",
@@ -1253,12 +1281,64 @@
       "language": "python"
     },
     {
+      "code": "name = input()              # reads a line -> text, e.g. \"Sam\"\nage_text = input()          # reads the next line -> text, e.g. \"30\"\nage = int(age_text)         # convert that text to a real number -> 30\n\nprint(f\"Hi {name}, next year you turn {age + 1}.\")",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "Reads one line and returns it as a string; name becomes \"Sam\". The prompt argument, if any, is just a hint — not part of the value.",
+          "label": "First input() → text",
+          "lines": [
+            1
+          ]
+        },
+        {
+          "note": "Each call reads the NEXT line in order; age_text becomes the text \"30\".",
+          "label": "Second input() → next line",
+          "lines": [
+            2
+          ]
+        },
+        {
+          "note": "int(age_text) crosses the text \"30\" into the number 30, stored in age.",
+          "label": "Convert the numeric one",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "note": "Because age is a real number, age + 1 → 31 (on text it would error). The f-string drops name and 31 into the sentence.",
+          "label": "Now arithmetic works",
+          "lines": [
+            5
+          ]
+        }
+      ],
+      "title": "Read · convert · use",
+      "caption": "int(input()) is right; int(input() + 1) errors — it tries to + text and a number BEFORE converting. Convert first, then compute.",
+      "filename": "reading_input.py",
+      "language": "python",
+      "subtitle": "Two lines come in as text; only the numeric one is converted. Watch where int() goes."
+    },
+    {
       "fix": "input() returns TEXT, so count is the string \"3\", not the number 3 — and  \"3\" + 1  cannot add a number to text, so Python raises a TypeError. Convert the input to a number first:  count = int(input()). Now count is the real number 3, count + 1 is 4, and the line prints \"You have 4 items.\" Numeric input must be passed through int() before you do any math with it.",
       "task": "Find why adding 1 to the count crashes.",
       "type": "debug",
       "symptom": "This should read a count and print \"You have 4 items.\" (3 typed, plus 1), but it crashes with a TypeError instead.",
       "language": "python",
       "brokenCode": "count = input()              # the user typed 3\nprint(f\"You have {count + 1} items.\")   # meant to add 1 -> errors"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Math on raw input vs convert first",
+      "optionA": {
+        "label": "Raw input — crashes",
+        "text": "count = input()        # \"3\", a string · count + 1 · # cannot + text and a number · TypeError Outcome: Input is still text"
+      },
+      "optionB": {
+        "label": "Convert at the boundary",
+        "text": "count = int(input())   # 3, a number · count + 1 · # real arithmetic · result: 4 Outcome: Convert the FIRST thing you do"
+      },
+      "guidance": "int(input()) is right; int(input() + 1) errors — it + text and a number before converting. Convert first, then compute."
     },
     {
       "type": "quiz",
@@ -1304,6 +1384,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that reads a name and a count from input, then prints one exact formatted line built from both — the numbers used as numbers, not text.",
+        "Diagnose and repair the broken case: This should read a count and print \"You have 4 items.\" (3 typed, plus 1), but it crashes with a TypeError instead.",
+        "Confirm every observable check: Your program reads its values with input() — it does not hardcode the name or the number · You converted the numeric input with int() (not left it as text) · You built the output with an f-string, dropping name and count in with { } · Your output is EXACTLY:  Sam, you have 3 items. · You can explain why input() gives back text, and why count needs int() before any math",
+        "Complete the transfer without copying the worked example: In the lab, make the program ask for something real: read a person’s name and their age, convert the age with int(), and print a line that uses the age in a calculation (years until they turn 100, say). Then change the provided input and re-run — watch the SAME program produce a new, correct answer for new data. That is the leap from a program that knows its answer to one that works for anyone. Next, your program will look at what it read and DECIDE — greet differently, allow or deny, grade the number — which is exactly what Booleans & Decisions is for."
+      ]
     }
   ],
   "booleans-and-logic": [
@@ -1330,51 +1419,22 @@
       "reveal": "It runs. age >= 18 is a question — \"is age at least 18?\" — and it answers with a boolean: True or False. Here 18 >= 18 is True, so the indented block runs. Note >= uses two characters and includes \"equal to\", so 18 counts. A comparison does NOT store anything; it produces a True/False answer that if then acts on. That answer — that yes/no value — is the whole idea today."
     },
     {
+      "type": "worked-example",
+      "intro": "One value picks exactly one branch. Read it top to bottom, the way Python does — the first True condition wins.",
+      "code": "temp = 50\n\nif temp > 85:\n    print(\"Hot\")          # skipped: 50 > 85 is False\nelif temp >= 60:\n    print(\"Comfortable\")  # skipped: 50 >= 60 is False\nelse:\n    print(\"Cold\")         # runs: nothing above matched -> Cold",
+      "language": "python",
+      "steps": [
+        "The value under test: temp is 50. Python will check each condition against it in order.",
+        "Check the if first: temp > 85 → 50 > 85 → False, so this block is skipped entirely.",
+        "Then the elif: Only checked because the if was False. temp >= 60 → 50 >= 60 → False, so skipped too.",
+        "else catches the rest: Nothing above matched, so else runs and prints Cold. Change temp to 90 and the very first branch wins instead."
+      ],
+      "commonMistake": "This should print Adult for age 20, but it prints nothing — or errors — instead."
+    },
+    {
       "text": "A comparison (==, !=, <, >, <=, >=) produces a boolean: True or False. if runs its block when its condition is True; elif checks the next only if earlier ones were False; else catches the rest. Python takes the FIRST True branch.",
       "type": "concept",
       "title": "Comparisons make booleans; if / elif / else branch on them"
-    },
-    {
-      "code": "temp = 50\n\nif temp > 85:\n    print(\"Hot\")          # skipped: 50 > 85 is False\nelif temp >= 60:\n    print(\"Comfortable\")  # skipped: 50 >= 60 is False\nelse:\n    print(\"Cold\")         # runs: nothing above matched -> Cold",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "temp is 50. Python will check each condition against it in order.",
-          "label": "The value under test",
-          "lines": [
-            1
-          ]
-        },
-        {
-          "note": "temp > 85 → 50 > 85 → False, so this block is skipped entirely.",
-          "label": "Check the if first",
-          "lines": [
-            3,
-            4
-          ]
-        },
-        {
-          "note": "Only checked because the if was False. temp >= 60 → 50 >= 60 → False, so skipped too.",
-          "label": "Then the elif",
-          "lines": [
-            5,
-            6
-          ]
-        },
-        {
-          "note": "Nothing above matched, so else runs and prints Cold. Change temp to 90 and the very first branch wins instead.",
-          "label": "else catches the rest",
-          "lines": [
-            7,
-            8
-          ]
-        }
-      ],
-      "title": "One value picks exactly one branch",
-      "caption": "Exactly ONE branch runs — the first True one, or else if none are True.",
-      "filename": "decide.py",
-      "language": "python",
-      "subtitle": "Read it top to bottom, the way Python does — the first True condition wins."
     },
     {
       "type": "diagram",
@@ -1582,12 +1642,67 @@
       "language": "python"
     },
     {
+      "code": "temp = 50\n\nif temp > 85:\n    print(\"Hot\")          # skipped: 50 > 85 is False\nelif temp >= 60:\n    print(\"Comfortable\")  # skipped: 50 >= 60 is False\nelse:\n    print(\"Cold\")         # runs: nothing above matched -> Cold",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "temp is 50. Python will check each condition against it in order.",
+          "label": "The value under test",
+          "lines": [
+            1
+          ]
+        },
+        {
+          "note": "temp > 85 → 50 > 85 → False, so this block is skipped entirely.",
+          "label": "Check the if first",
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "note": "Only checked because the if was False. temp >= 60 → 50 >= 60 → False, so skipped too.",
+          "label": "Then the elif",
+          "lines": [
+            5,
+            6
+          ]
+        },
+        {
+          "note": "Nothing above matched, so else runs and prints Cold. Change temp to 90 and the very first branch wins instead.",
+          "label": "else catches the rest",
+          "lines": [
+            7,
+            8
+          ]
+        }
+      ],
+      "title": "One value picks exactly one branch",
+      "caption": "Exactly ONE branch runs — the first True one, or else if none are True.",
+      "filename": "decide.py",
+      "language": "python",
+      "subtitle": "Read it top to bottom, the way Python does — the first True condition wins."
+    },
+    {
       "fix": "The condition uses a single =, which means \"store 18 into age\" — but you cannot store inside an if, so Python errors. A condition must ASK a question, which needs a comparison. Here you want \"is age at least 18?\", so write  if age >= 18:. (A single == would test \"exactly 18\"; >= is the right test for \"adult\".) Now the block runs and prints Adult.",
       "task": "Find why this if does not work.",
       "type": "debug",
       "symptom": "This should print Adult for age 20, but it prints nothing — or errors — instead.",
       "language": "python",
       "brokenCode": "age = 20\nif age = 18:\n    print(\"Adult\")"
+    },
+    {
+      "type": "tradeoff",
+      "question": "= stores, == asks",
+      "optionA": {
+        "label": "Single = — error",
+        "text": "if temp = 50: · = means \"store 50 into temp\" · you cannot store inside an if · SyntaxError Outcome: A store, not a question"
+      },
+      "optionB": {
+        "label": "Double == — asks",
+        "text": "if temp == 50: · == asks \"are these equal?\" · produces True or False · the if can act on it Outcome: A real comparison"
+      },
+      "guidance": "One equals stores, two equals asks. Combine conditions with and (both True), or (either True), not (flip)."
     },
     {
       "type": "quiz",
@@ -1633,6 +1748,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — Produce and run the required artifact: A program that prints ONE of several exact lines depending on a value — change the value, and a different (correct) branch runs.",
+        "Diagnose and repair the broken case: This should print Adult for age 20, but it prints nothing — or errors — instead.",
+        "Confirm every observable check: You used a comparison (==, !=, <, >, <=, or >=) to produce a True/False answer · You wrote if / elif / else with a colon on each line and the body indented underneath · Your program printed EXACTLY one line for the given value (Grade: B for score 84) · You changed the value at least once, re-ran, and watched a DIFFERENT correct branch run · You can explain why == (compare) is not the same as = (store)",
+        "Complete the transfer without copying the worked example: In the lab, model a real rule from your life as a decision: a budget check (print \"Over budget\" or \"OK\"), a sign-in check (right name AND right code with and), or a weather call. Set the input value, run it, then change the value so a different branch wins. Making a program react to its input is the core of every interactive thing you will ever build."
+      ]
     }
   ],
   "lists": [
@@ -1657,6 +1781,20 @@
       "type": "pretest",
       "prompt": "Before you read on: you have  fruits = [\"apple\", \"banana\", \"cherry\"]. Which one does  fruits[0]  give you — and why might that surprise you?",
       "reveal": "fruits[0] is \"apple\" — the FIRST item. Positions (indexes) start at 0, not 1: index 0 is the first, 1 is the second, 2 is the third. So the last item of a 3-item list is at index 2, not 3. Counting from zero trips up every beginner once; after that it is automatic. The number in the [ ] is \"how many steps from the start\", and the start is zero steps away."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Build · read · measure · grow. Watch the length change as the list grows in place.",
+      "code": "names = [\"Ann\", \"Ben\"]   # a list of two strings, in order\nprint(names[0])          # index 0 = the first item -> Ann\nprint(len(names))        # how many items -> 2\n\nnames.append(\"Cy\")       # add \"Cy\" to the END (changes names in place)\nprint(len(names))        # the list grew -> 3\nprint(names[2])          # the new last item is at index 2 -> Cy",
+      "language": "python",
+      "steps": [
+        "Create with [ ]: Two items in order: \"Ann\" at index 0, \"Ben\" at index 1.",
+        "Read by index: names[0] reads position 0 → \"Ann\". Indexes start at zero.",
+        "Count with len(): len(names) → 2, the number of items.",
+        "append grows it in place: The dot means append is something the list does to itself; it adds \"Cy\" to the END and changes the list — it does not return a new one.",
+        "The list is now longer: len(names) → 3, and names[2] (the new last slot) is \"Cy\". The last valid index is always len - 1."
+      ],
+      "commonMistake": "This should print the last color, \"green\", but it errors with \"list index out of range\"."
     },
     {
       "text": "Write values in square brackets: scores = [90, 75, 88]. Reach one by index (starting at 0): scores[0] is 90. Count with len(scores). Grow with scores.append(100) — it changes the list in place. Test membership with 75 in scores.",
@@ -1793,6 +1931,48 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "Hardcoded position — fragile",
+        "lines": [
+          "colors = [\"red\", \"blue\", \"green\"]",
+          "colors[3]  # guessing the last index",
+          "list has indexes 0, 1, 2 only",
+          "IndexError: list index out of range"
+        ],
+        "verdict": "Breaks the moment the length changes"
+      },
+      "mono": true,
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "Negative index — robust",
+        "lines": [
+          "colors = [\"red\", \"blue\", \"green\"]",
+          "colors[-1]  # count from the end",
+          "-1 is always the final item",
+          "result: green"
+        ],
+        "verdict": "Always the last, whatever the length"
+      },
+      "title": "Index from the front vs from the end",
+      "caption": "For \"the last one\", list[-1] beats guessing the number. Use \"in\" to test membership: \"milk\" in cart.",
+      "subtitle": "Two ways to grab the last item of a list. One breaks when the length changes."
+    },
+    {
+      "text": "Indexes start at 0, so the last item is at len(list) - 1, never len(list). If a list has 5 items, the valid indexes are 0 through 4 — asking for [5] errors. When you want \"the last one\", a clean trick is list[-1]: negative indexes count from the end, so [-1] is always the final item no matter how long the list is.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "check": "milk\n4",
+      "title": "Grow a cart and read it",
+      "starter": "# Below is a list of three cart items.\n# 1. Add  \"eggs\"  to the END of the list (use .append).\n# 2. Print the FIRST item in the list (index 0).\n# 3. Print how many items are in the list now (use len()).\n# Expected output, two lines:\n#   milk\n#   4\n\ncart = [\"milk\", \"bread\", \"apples\"]\n  # your code here\n",
+      "summary": "Start with cart = [\"milk\", \"bread\", \"apples\"]. Append \"eggs\" to the end with cart.append(\"eggs\"), then print the first item with cart[0], then print the number of items with len(cart). The output must be exactly two lines: milk on the first line, then 4 on the second (the list has 4 items after the append).",
+      "language": "python"
+    },
+    {
       "code": "names = [\"Ann\", \"Ben\"]   # a list of two strings, in order\nprint(names[0])          # index 0 = the first item -> Ann\nprint(len(names))        # how many items -> 2\n\nnames.append(\"Cy\")       # add \"Cy\" to the END (changes names in place)\nprint(len(names))        # the list grew -> 3\nprint(names[2])          # the new last item is at index 2 -> Cy",
       "type": "code-walkthrough",
       "steps": [
@@ -1840,54 +2020,25 @@
       "subtitle": "Watch the length change as the list grows in place."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "Hardcoded position — fragile",
-        "lines": [
-          "colors = [\"red\", \"blue\", \"green\"]",
-          "colors[3]  # guessing the last index",
-          "list has indexes 0, 1, 2 only",
-          "IndexError: list index out of range"
-        ],
-        "verdict": "Breaks the moment the length changes"
-      },
-      "mono": true,
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "Negative index — robust",
-        "lines": [
-          "colors = [\"red\", \"blue\", \"green\"]",
-          "colors[-1]  # count from the end",
-          "-1 is always the final item",
-          "result: green"
-        ],
-        "verdict": "Always the last, whatever the length"
-      },
-      "title": "Index from the front vs from the end",
-      "caption": "For \"the last one\", list[-1] beats guessing the number. Use \"in\" to test membership: \"milk\" in cart.",
-      "subtitle": "Two ways to grab the last item of a list. One breaks when the length changes."
-    },
-    {
-      "text": "Indexes start at 0, so the last item is at len(list) - 1, never len(list). If a list has 5 items, the valid indexes are 0 through 4 — asking for [5] errors. When you want \"the last one\", a clean trick is list[-1]: negative indexes count from the end, so [-1] is always the final item no matter how long the list is.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "check": "milk\n4",
-      "title": "Grow a cart and read it",
-      "starter": "# Below is a list of three cart items.\n# 1. Add  \"eggs\"  to the END of the list (use .append).\n# 2. Print the FIRST item in the list (index 0).\n# 3. Print how many items are in the list now (use len()).\n# Expected output, two lines:\n#   milk\n#   4\n\ncart = [\"milk\", \"bread\", \"apples\"]\n  # your code here\n",
-      "summary": "Start with cart = [\"milk\", \"bread\", \"apples\"]. Append \"eggs\" to the end with cart.append(\"eggs\"), then print the first item with cart[0], then print the number of items with len(cart). The output must be exactly two lines: milk on the first line, then 4 on the second (the list has 4 items after the append).",
-      "language": "python"
-    },
-    {
       "fix": "The list has 3 items, so the valid indexes are 0, 1, and 2 — there is no index 3. Because counting starts at 0, the LAST item lives at len(list) - 1, which is 2 here. Use  print(colors[2])  to get \"green\" — or, more robust, print(colors[-1]), which always grabs the final item.",
       "task": "Find why index 3 fails on this list.",
       "type": "debug",
       "symptom": "This should print the last color, \"green\", but it errors with \"list index out of range\".",
       "language": "python",
       "brokenCode": "colors = [\"red\", \"blue\", \"green\"]\nprint(colors[3])     # meant to print the last one"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Index from the front vs from the end",
+      "optionA": {
+        "label": "Hardcoded position — fragile",
+        "text": "colors = [\"red\", \"blue\", \"green\"] · colors[3]  # guessing the last index · list has indexes 0, 1, 2 only · IndexError: list index out of range Outcome: Breaks the moment the length changes"
+      },
+      "optionB": {
+        "label": "Negative index — robust",
+        "text": "colors = [\"red\", \"blue\", \"green\"] · colors[-1]  # count from the end · -1 is always the final item · result: green Outcome: Always the last, whatever the length"
+      },
+      "guidance": "For \"the last one\", list[-1] beats guessing the number. Use \"in\" to test membership: \"milk\" in cart."
     },
     {
       "type": "quiz",
@@ -1933,6 +2084,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that builds or modifies a list and prints a required value from it (a specific item and the list’s length).",
+        "Diagnose and repair the broken case: This should print the last color, \"green\", but it errors with \"list index out of range\".",
+        "Confirm every observable check: You created a list with square brackets and comma-separated values · You read an item by its index, remembering that the first item is [0] · You used len() to count the items · You used .append() to add an item and saw the length increase · Your output is exactly two lines: milk then 4",
+        "Complete the transfer without copying the worked example: In the lab, build a list that means something to you — songs, tasks, weekly expenses. Print the first one with [0] and the last one with [-1], count them with len(), then append a new one and print the count again. You have just done the create → read → measure → grow cycle that sits under every list-backed feature you will build."
+      ]
     }
   ],
   "loops": [
@@ -1959,55 +2119,23 @@
       "reveal": "Because the loop body runs once per item, and you want to keep adding onto the same running total. If total = 0 were inside the loop, it would reset to 0 on every pass and wipe out your progress — you would end with just the last value. Setting it to 0 once, before the loop, gives you an empty bucket; each pass pours one more value in. Start outside, accumulate inside."
     },
     {
+      "type": "worked-example",
+      "intro": "A running total, pass by pass. The bucket is created once; each pass pours one more value in.",
+      "code": "nums = [4, 6, 10]\ntotal = 0                # the bucket, created ONCE before the loop\n\nfor n in nums:           # n becomes 4, then 6, then 10\n    total = total + n    # add the current item onto the running total\n\nprint(total)             # after all passes -> 20",
+      "language": "python",
+      "steps": [
+        "Create the accumulator first: total = 0 runs ONCE, before the loop — the empty bucket.",
+        "The loop variable changes each pass: n becomes 4, then 6, then 10 — the next item of the list on every pass.",
+        "Pass 1 and 2: n=4: total = 0 + 4 → 4. n=6: total = 4 + 6 → 10. The body re-runs with the new n.",
+        "Pass 3: n=10: total = 10 + 10 → 20. Each pass builds on the last because total lives OUTSIDE the loop.",
+        "After the loop: print(total) shows 20 — the sum built one item at a time."
+      ],
+      "commonMistake": "This should add [5, 5, 5] to get 15, but it prints 5."
+    },
+    {
       "text": "for n in nums: runs the indented body once per item, with n set to each value in turn. The accumulator pattern: create a result (total = 0) BEFORE the loop, update it (total = total + n) INSIDE — when the loop ends, it holds the answer.",
       "type": "concept",
       "title": "A for-loop repeats a block once per item"
-    },
-    {
-      "code": "nums = [4, 6, 10]\ntotal = 0                # the bucket, created ONCE before the loop\n\nfor n in nums:           # n becomes 4, then 6, then 10\n    total = total + n    # add the current item onto the running total\n\nprint(total)             # after all passes -> 20",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "total = 0 runs ONCE, before the loop — the empty bucket.",
-          "label": "Create the accumulator first",
-          "lines": [
-            2
-          ]
-        },
-        {
-          "note": "n becomes 4, then 6, then 10 — the next item of the list on every pass.",
-          "label": "The loop variable changes each pass",
-          "lines": [
-            4
-          ]
-        },
-        {
-          "note": "n=4: total = 0 + 4 → 4. n=6: total = 4 + 6 → 10. The body re-runs with the new n.",
-          "label": "Pass 1 and 2",
-          "lines": [
-            5
-          ]
-        },
-        {
-          "note": "n=10: total = 10 + 10 → 20. Each pass builds on the last because total lives OUTSIDE the loop.",
-          "label": "Pass 3",
-          "lines": [
-            5
-          ]
-        },
-        {
-          "note": "print(total) shows 20 — the sum built one item at a time.",
-          "label": "After the loop",
-          "lines": [
-            7
-          ]
-        }
-      ],
-      "title": "A running total, pass by pass",
-      "caption": "Put total = 0 inside the loop and it resets every pass, leaving only the last item (10). Start outside, accumulate inside.",
-      "filename": "loops.py",
-      "language": "python",
-      "subtitle": "The bucket is created once; each pass pours one more value in."
     },
     {
       "type": "diagram",
@@ -2209,12 +2337,71 @@
       "language": "python"
     },
     {
+      "code": "nums = [4, 6, 10]\ntotal = 0                # the bucket, created ONCE before the loop\n\nfor n in nums:           # n becomes 4, then 6, then 10\n    total = total + n    # add the current item onto the running total\n\nprint(total)             # after all passes -> 20",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "total = 0 runs ONCE, before the loop — the empty bucket.",
+          "label": "Create the accumulator first",
+          "lines": [
+            2
+          ]
+        },
+        {
+          "note": "n becomes 4, then 6, then 10 — the next item of the list on every pass.",
+          "label": "The loop variable changes each pass",
+          "lines": [
+            4
+          ]
+        },
+        {
+          "note": "n=4: total = 0 + 4 → 4. n=6: total = 4 + 6 → 10. The body re-runs with the new n.",
+          "label": "Pass 1 and 2",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "note": "n=10: total = 10 + 10 → 20. Each pass builds on the last because total lives OUTSIDE the loop.",
+          "label": "Pass 3",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "note": "print(total) shows 20 — the sum built one item at a time.",
+          "label": "After the loop",
+          "lines": [
+            7
+          ]
+        }
+      ],
+      "title": "A running total, pass by pass",
+      "caption": "Put total = 0 inside the loop and it resets every pass, leaving only the last item (10). Start outside, accumulate inside.",
+      "filename": "loops.py",
+      "language": "python",
+      "subtitle": "The bucket is created once; each pass pours one more value in."
+    },
+    {
       "fix": "total = 0 is INSIDE the loop, so it resets to 0 on every pass — wiping out everything added before. Each pass becomes 0 + n, so you keep only the last item. Move  total = 0  ABOVE the loop (run it once), and leave only  total = total + n  inside. Now total accumulates: 5 → 10 → 15.",
       "task": "Find why only the last number survives.",
       "type": "debug",
       "symptom": "This should add [5, 5, 5] to get 15, but it prints 5.",
       "language": "python",
       "brokenCode": "nums = [5, 5, 5]\nfor n in nums:\n    total = 0            # meant to total the list\n    total = total + n\nprint(total)             # prints 5, not 15"
+    },
+    {
+      "type": "tradeoff",
+      "question": "for item vs for i in range",
+      "optionA": {
+        "label": "for item in list — the value",
+        "text": "for score in scores: ·     if score >= 60: ·         passes = passes + 1 · # reads like English; you get each value Outcome: Default when you want each item"
+      },
+      "optionB": {
+        "label": "for i in range(n) — a count",
+        "text": "for i in range(5): ·     print(i) · # runs 5 times: i = 0,1,2,3,4 · # use when you need the position / a count Outcome: When you need to repeat N times"
+      },
+      "guidance": "A loop and an if together count matches: loop the scores, test each with if, bump a counter — passes ends at 2."
     },
     {
       "type": "quiz",
@@ -2260,6 +2447,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that loops over a list and prints a single computed result — a total or a count — that is only correct if the loop actually ran over every item.",
+        "Diagnose and repair the broken case: This should add [5, 5, 5] to get 15, but it prints 5.",
+        "Confirm every observable check: You wrote a for-loop with a colon and an indented body · You created your accumulator (total = 0) BEFORE the loop, not inside it · You updated the accumulator inside the loop (total = total + price) · Your output is the single line 60, computed by the loop (not typed in) · You can explain why the accumulator resets if you put it inside the loop",
+        "Complete the transfer without copying the worked example: In the lab, take a list that matters to you — daily steps, expenses, quiz scores — and use a loop to compute something real: the total, the average (total divided by len), or a count of items over a threshold using an if inside the loop. The \"set up an accumulator, loop, update it, print the result\" pattern is one of the most reused moves in all of programming."
+      ]
     }
   ],
   "functions-basics": [
@@ -2286,56 +2482,23 @@
       "reveal": "bill is None — NOT 42. print() shows a value on screen but does not hand it BACK to the caller. To get a value out of a function so you can store and reuse it, the function must return it. A function that only prints can show you something; a function that returns gives you something. This difference — print vs return — is the single most important idea in this lesson."
     },
     {
+      "type": "worked-example",
+      "intro": "Define once, call many. Watch the arguments fill the parameters and the value come back to the caller.",
+      "code": "def area(width, height):     # width and height are parameters (inputs)\n    return width * height    # hand the result back to the caller\n\nroom = area(3, 4)            # arguments 3, 4 fill width, height -> returns 12\nprint(room)                  # -> 12\n\nprint(area(10, 2))           # call again with new inputs -> returns 20",
+      "language": "python",
+      "steps": [
+        "def names the function: Two parameters, width and height — placeholders for the inputs the caller supplies. Nothing runs yet; defining is not calling.",
+        "return hands a value back: Computes width * height and sends it to whoever called the function, ending it.",
+        "Calling fills the parameters: area(3, 4): the arguments 3 and 4 fill width and height in order; the call becomes the returned 12.",
+        "Store and use the result: room = area(3, 4) stores 12, so print(room) shows 12. The call evaluates to its return value.",
+        "Reuse with new inputs: area(10, 2) runs the SAME function again → 20. One definition, many calls — the whole point."
+      ],
+      "commonMistake": "This should print 42, but it prints None instead."
+    },
+    {
       "text": "def total_price(unit_price, qty): names a function; the names in parentheses are parameters. return sends a value back to the caller and ends the function. Call it with arguments — total_price(7, 6) — and the call becomes whatever was returned.",
       "type": "concept",
       "title": "def names a block; parameters feed it; return hands a value back"
-    },
-    {
-      "code": "def area(width, height):     # width and height are parameters (inputs)\n    return width * height    # hand the result back to the caller\n\nroom = area(3, 4)            # arguments 3, 4 fill width, height -> returns 12\nprint(room)                  # -> 12\n\nprint(area(10, 2))           # call again with new inputs -> returns 20",
-      "type": "code-walkthrough",
-      "steps": [
-        {
-          "note": "Two parameters, width and height — placeholders for the inputs the caller supplies. Nothing runs yet; defining is not calling.",
-          "label": "def names the function",
-          "lines": [
-            1
-          ]
-        },
-        {
-          "note": "Computes width * height and sends it to whoever called the function, ending it.",
-          "label": "return hands a value back",
-          "lines": [
-            2
-          ]
-        },
-        {
-          "note": "area(3, 4): the arguments 3 and 4 fill width and height in order; the call becomes the returned 12.",
-          "label": "Calling fills the parameters",
-          "lines": [
-            4
-          ]
-        },
-        {
-          "note": "room = area(3, 4) stores 12, so print(room) shows 12. The call evaluates to its return value.",
-          "label": "Store and use the result",
-          "lines": [
-            4,
-            5
-          ]
-        },
-        {
-          "note": "area(10, 2) runs the SAME function again → 20. One definition, many calls — the whole point.",
-          "label": "Reuse with new inputs",
-          "lines": [
-            7
-          ]
-        }
-      ],
-      "title": "Define once, call many",
-      "caption": "Defining a function does NOT run it; only calling it does.",
-      "filename": "functions.py",
-      "language": "python",
-      "subtitle": "Watch the arguments fill the parameters and the value come back to the caller."
     },
     {
       "type": "diagram",
@@ -2526,9 +2689,56 @@
       "type": "lab",
       "check": "6 items = $42",
       "title": "Write and call a function",
-      "starter": "# A function packages a block of code under a name so you can reuse it.\n# 1. Define a function  total_price(unit_price, qty)  that RETURNS unit_price * qty.\n# 2. Call it with unit_price = 7 and qty = 6, and store the result in a variable  bill.\n# 3. Print EXACTLY this line, using an f-string:\n#       6 items = $42\n\n  # your code here\n",
-      "summary": "Define a function total_price(unit_price, qty) that RETURNS unit_price * qty (use return, do not just print inside it). Call it with 7 and 6, store the returned value in a variable bill, then print exactly this line with an f-string: 6 items = $42. The 42 must come from your function’s return value — do not hardcode it.",
+      "starter": "import json\nimport sys\n\n# Define total_price(unit_price, qty) so it RETURNS the computed total.\ndef total_price(unit_price, qty):\n    ...  # your code here\n\n# The browser uses the visible example. The controlled evaluator supplies other\n# JSON cases over stdin, so hardcoding 42 cannot pass mastery.\nraw = sys.stdin.read().strip()\ncase = json.loads(raw) if raw else {\"unitPrice\": 7, \"qty\": 6}\nbill = total_price(case[\"unitPrice\"], case[\"qty\"])\nprint(f\"{case['qty']} items = ${bill}\")\n",
+      "summary": "Define total_price(unit_price, qty) so it returns unit_price × qty. The visible example is 7 × 6, while the controlled evaluator supplies different JSON inputs over stdin. Print the quantity and computed return value; a hardcoded 42 will fail the hidden cases.",
       "language": "python"
+    },
+    {
+      "code": "def area(width, height):     # width and height are parameters (inputs)\n    return width * height    # hand the result back to the caller\n\nroom = area(3, 4)            # arguments 3, 4 fill width, height -> returns 12\nprint(room)                  # -> 12\n\nprint(area(10, 2))           # call again with new inputs -> returns 20",
+      "type": "code-walkthrough",
+      "steps": [
+        {
+          "note": "Two parameters, width and height — placeholders for the inputs the caller supplies. Nothing runs yet; defining is not calling.",
+          "label": "def names the function",
+          "lines": [
+            1
+          ]
+        },
+        {
+          "note": "Computes width * height and sends it to whoever called the function, ending it.",
+          "label": "return hands a value back",
+          "lines": [
+            2
+          ]
+        },
+        {
+          "note": "area(3, 4): the arguments 3 and 4 fill width and height in order; the call becomes the returned 12.",
+          "label": "Calling fills the parameters",
+          "lines": [
+            4
+          ]
+        },
+        {
+          "note": "room = area(3, 4) stores 12, so print(room) shows 12. The call evaluates to its return value.",
+          "label": "Store and use the result",
+          "lines": [
+            4,
+            5
+          ]
+        },
+        {
+          "note": "area(10, 2) runs the SAME function again → 20. One definition, many calls — the whole point.",
+          "label": "Reuse with new inputs",
+          "lines": [
+            7
+          ]
+        }
+      ],
+      "title": "Define once, call many",
+      "caption": "Defining a function does NOT run it; only calling it does.",
+      "filename": "functions.py",
+      "language": "python",
+      "subtitle": "Watch the arguments fill the parameters and the value come back to the caller."
     },
     {
       "fix": "The line  unit_price * qty  computes 42 but throws it away — the function never returns anything, so the call hands back None. Add return:  return unit_price * qty. Now total_price(7, 6) evaluates to 42, bill stores 42, and print(bill) shows 42. A function with no return gives back None.",
@@ -2537,6 +2747,19 @@
       "symptom": "This should print 42, but it prints None instead.",
       "language": "python",
       "brokenCode": "def total_price(unit_price, qty):\n    unit_price * qty          # meant to give back the total\n\nbill = total_price(7, 6)\nprint(bill)                   # prints None, not 42"
+    },
+    {
+      "type": "tradeoff",
+      "question": "print shows; return gives back",
+      "optionA": {
+        "label": "Only prints — bill is None",
+        "text": "def total_price(u, q): ·     print(u * q)   # shows 42 on screen · bill = total_price(7, 6) · print(bill)        # None — nothing was handed back Outcome: Shows a value, gives back nothing"
+      },
+      "optionB": {
+        "label": "Returns — bill is 42",
+        "text": "def total_price(u, q): ·     return u * q   # hands 42 back · bill = total_price(7, 6) · print(bill)        # 42 — stored and reusable Outcome: The caller can store and reuse it"
+      },
+      "guidance": "Does the caller need to USE the result? return it. Does it only need to appear on screen? print it."
     },
     {
       "type": "quiz",
@@ -2582,6 +2805,15 @@
         "7 days",
         "16 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A program that defines a function, calls it with arguments, and prints a computed result that the function returned.",
+        "Diagnose and repair the broken case: This should print 42, but it prints None instead.",
+        "Confirm every observable check: You defined a function with def, a name, and parameters in parentheses · Your function uses return to hand a value back (not just print inside it) · You called the function with arguments and stored the returned value in a variable · Your output is EXACTLY:  6 items = $42  — with the 42 coming from the function’s return · You can explain the difference between print (show) and return (hand back)",
+        "Complete the transfer without copying the worked example: In the lab, turn a repeated calculation from earlier into a function: a tip calculator tip(bill, percent), a grader grade(score) using your if/elif/else, or a total summer that loops over a list. Then call it two or three times with different inputs and print each result. The moment you reuse one definition with new inputs, you have crossed from \"scripting\" into \"building\"."
+      ]
     }
   ],
   "build-a-tiny-program": [
@@ -2606,6 +2838,20 @@
       "type": "pretest",
       "prompt": "Before you read on: you need a passing COUNT and a running TOTAL from one list. Do you need two separate loops over the scores, or can one loop do both jobs at the same time?",
       "reveal": "One loop is enough — and better. On each pass you can add the score to your total AND, with an if, bump the passing count when it qualifies. Two accumulators (total = 0 and passed = 0) set up before the loop, both updated inside the same loop, both ready when it ends. Looping the data twice would work but wastes effort; real programs do as much as they can in one well-organised pass."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The gradebook, every line earning its place. One program — variable, list, loop, if, function — working as a team.",
+      "code": "def summarize(scores):\n    total = 0\n    passed = 0\n    for s in scores:             # one pass over the data\n        total = total + s        # running total\n        if s >= 60:              # decision\n            passed = passed + 1  # count the passes\n    print(f\"Passed: {passed} of {len(scores)}\")\n    return total / len(scores)   # hand back the average\n\nscores = [40, 80, 95, 50, 85]\navg = summarize(scores)\nprint(f\"Average: {int(avg)}\")    # -> Passed: 3 of 5 / Average: 70",
+      "language": "python",
+      "steps": [
+        "Wrap the job in a function (L8): summarize(scores) names the whole task and lets you reuse it on any list of scores.",
+        "Two accumulators, set up first (L2 & L7): total and passed created BEFORE the loop — the empty buckets. Inside the loop they would reset every pass.",
+        "One loop, running total (L7): Walk the list once; total grows on every pass.",
+        "A decision inside the loop (L5): The if counts only scores >= 60 — loop and if working together.",
+        "Compute and report after (L1, L3, L8): After the loop: print the count, then return the average (total / len). The caller prints it with an f-string and int(avg)."
+      ],
+      "commonMistake": "This gradebook should print \"Average: 70\", but it prints \"Average: 17\" — far too low."
     },
     {
       "text": "No new syntax — just arranging what you have: start with data, set up result holders before the loop, loop once (update the total, use an if to count), compute final figures after, then report. Wrap it in a function to name and reuse the whole job.",
@@ -2818,6 +3064,50 @@
       ]
     },
     {
+      "left": {
+        "tone": "warning",
+        "label": "total = 0 inside — wrong",
+        "lines": [
+          "for s in scores:",
+          "    total = 0          # resets every pass",
+          "    total = total + s",
+          "return total / len(scores)",
+          "# total ends as just 85 -> 85/5 = 17"
+        ],
+        "verdict": "Keeps only the last score"
+      },
+      "mono": true,
+      "type": "compare",
+      "right": {
+        "tone": "success",
+        "label": "total = 0 outside — right",
+        "lines": [
+          "total = 0              # once, before the loop",
+          "for s in scores:",
+          "    total = total + s",
+          "return total / len(scores)",
+          "# total = 350 -> 350/5 = 70"
+        ],
+        "verdict": "Accumulates across every score"
+      },
+      "title": "Accumulator outside vs inside the loop",
+      "caption": "Set up accumulators once before the loop; compute final figures once after it. The loop body should only UPDATE.",
+      "subtitle": "The capstone's make-or-break bug. One line's placement changes the answer."
+    },
+    {
+      "text": "When a task feels big, name the steps in plain words first: \"loop the scores, total them, count the passes, average it, print.\" That sentence IS your program’s outline — turn each clause into a line or two of code. Real engineers do exactly this: decompose the job into small steps you already know how to write, then assemble them. You are not memorising new magic; you are arranging familiar pieces.",
+      "tone": "tip",
+      "type": "callout"
+    },
+    {
+      "type": "lab",
+      "check": "Passed: 3 of 5\nAverage: 70",
+      "title": "Ship the gradebook",
+      "starter": "# CAPSTONE — ship a tiny gradebook in one small program.\n# scores below are quiz results (0-100). Build ONE program that:\n#   1. defines a function  summarize(scores)  which LOOPS over the scores and,\n#      inside the loop, builds a running total AND counts how many are >= 60 (passing);\n#   2. computes the average  (total divided by how many scores there are);\n#   3. prints the passing-count line, then RETURNS the average.\n#   4. OUTSIDE the function: call summarize(scores), store the returned average in  avg,\n#      and print the average line. Print the average as a whole number with  int(avg).\n# Required output — EXACTLY two lines (use f-strings):\n#   Passed: 3 of 5\n#   Average: 70\n\nscores = [40, 80, 95, 50, 85]\n  # your code here\n",
+      "summary": "Build one program over scores = [40, 80, 95, 50, 85]. Define summarize(scores) that loops once, builds a running total, counts scores >= 60, prints \"Passed: 3 of 5\", and RETURNS the average (total / len). Outside the function, call it, store the average in avg, and print \"Average: 70\" (use int(avg)). Output must be exactly two lines: Passed: 3 of 5 then Average: 70 — every number computed from the data, nothing hardcoded.",
+      "language": "python"
+    },
+    {
       "code": "def summarize(scores):\n    total = 0\n    passed = 0\n    for s in scores:             # one pass over the data\n        total = total + s        # running total\n        if s >= 60:              # decision\n            passed = passed + 1  # count the passes\n    print(f\"Passed: {passed} of {len(scores)}\")\n    return total / len(scores)   # hand back the average\n\nscores = [40, 80, 95, 50, 85]\navg = summarize(scores)\nprint(f\"Average: {int(avg)}\")    # -> Passed: 3 of 5 / Average: 70",
       "type": "code-walkthrough",
       "steps": [
@@ -2868,56 +3158,25 @@
       "subtitle": "One program — variable, list, loop, if, function — working as a team."
     },
     {
-      "left": {
-        "tone": "warning",
-        "label": "total = 0 inside — wrong",
-        "lines": [
-          "for s in scores:",
-          "    total = 0          # resets every pass",
-          "    total = total + s",
-          "return total / len(scores)",
-          "# total ends as just 85 -> 85/5 = 17"
-        ],
-        "verdict": "Keeps only the last score"
-      },
-      "mono": true,
-      "type": "compare",
-      "right": {
-        "tone": "success",
-        "label": "total = 0 outside — right",
-        "lines": [
-          "total = 0              # once, before the loop",
-          "for s in scores:",
-          "    total = total + s",
-          "return total / len(scores)",
-          "# total = 350 -> 350/5 = 70"
-        ],
-        "verdict": "Accumulates across every score"
-      },
-      "title": "Accumulator outside vs inside the loop",
-      "caption": "Set up accumulators once before the loop; compute final figures once after it. The loop body should only UPDATE.",
-      "subtitle": "The capstone's make-or-break bug. One line's placement changes the answer."
-    },
-    {
-      "text": "When a task feels big, name the steps in plain words first: \"loop the scores, total them, count the passes, average it, print.\" That sentence IS your program’s outline — turn each clause into a line or two of code. Real engineers do exactly this: decompose the job into small steps you already know how to write, then assemble them. You are not memorising new magic; you are arranging familiar pieces.",
-      "tone": "tip",
-      "type": "callout"
-    },
-    {
-      "type": "lab",
-      "check": "Passed: 3 of 5\nAverage: 70",
-      "title": "Ship the gradebook",
-      "starter": "# CAPSTONE — ship a tiny gradebook in one small program.\n# scores below are quiz results (0-100). Build ONE program that:\n#   1. defines a function  summarize(scores)  which LOOPS over the scores and,\n#      inside the loop, builds a running total AND counts how many are >= 60 (passing);\n#   2. computes the average  (total divided by how many scores there are);\n#   3. prints the passing-count line, then RETURNS the average.\n#   4. OUTSIDE the function: call summarize(scores), store the returned average in  avg,\n#      and print the average line. Print the average as a whole number with  int(avg).\n# Required output — EXACTLY two lines (use f-strings):\n#   Passed: 3 of 5\n#   Average: 70\n\nscores = [40, 80, 95, 50, 85]\n  # your code here\n",
-      "summary": "Build one program over scores = [40, 80, 95, 50, 85]. Define summarize(scores) that loops once, builds a running total, counts scores >= 60, prints \"Passed: 3 of 5\", and RETURNS the average (total / len). Outside the function, call it, store the average in avg, and print \"Average: 70\" (use int(avg)). Output must be exactly two lines: Passed: 3 of 5 then Average: 70 — every number computed from the data, nothing hardcoded.",
-      "language": "python"
-    },
-    {
       "fix": "total = 0 sits INSIDE the loop, so it resets every pass — after the final pass total is just the last score (85), not the sum. The function then returns 85 / 5 = 17. Move  total = 0  ABOVE the loop so it runs once, and leave only  total = total + s  inside. Now total accumulates 40+80+95+50+85 = 350, and 350 / 5 = 70. Accumulators are created before the loop, updated inside it.",
       "task": "Find why the average comes out as 17 instead of 70.",
       "type": "debug",
       "symptom": "This gradebook should print \"Average: 70\", but it prints \"Average: 17\" — far too low.",
       "language": "python",
       "brokenCode": "def summarize(scores):\n    for s in scores:\n        total = 0                # meant to total the scores\n        total = total + s\n    return total / len(scores)\n\nscores = [40, 80, 95, 50, 85]\nprint(f\"Average: {int(summarize(scores))}\")"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Accumulator outside vs inside the loop",
+      "optionA": {
+        "label": "total = 0 inside — wrong",
+        "text": "for s in scores: ·     total = 0          # resets every pass ·     total = total + s · return total / len(scores) · # total ends as just 85 -> 85/5 = 17 Outcome: Keeps only the last score"
+      },
+      "optionB": {
+        "label": "total = 0 outside — right",
+        "text": "total = 0              # once, before the loop · for s in scores: ·     total = total + s · return total / len(scores) · # total = 350 -> 350/5 = 70 Outcome: Accumulates across every score"
+      },
+      "guidance": "Set up accumulators once before the loop; compute final figures once after it. The loop body should only UPDATE."
     },
     {
       "type": "quiz",
@@ -2952,6 +3211,14 @@
       ]
     },
     {
+      "type": "calibration",
+      "artifact": "A single working program that defines a function, loops over a list with a decision inside, and prints two exact lines computed from the data (a passing count and an average).",
+      "weak": "The program only handles the demonstration input, hardcodes a required result, or cannot explain a failing case.",
+      "passing": "The artifact satisfies every verification item: Your program defines a function and CALLS it (Lesson 7) · It loops over the list once, with an accumulator set up before the loop (Lessons 2 & 6) · It uses an if INSIDE the loop to count only the passing scores (Lessons 4 & 6) · It computes the average AFTER the loop and formats output with f-strings (Lessons 3 & 6) · It prints EXACTLY two lines — Passed: 3 of 5 then Average: 70 — with every number computed from the data, nothing typed in",
+      "excellent": "Passing evidence plus an independently chosen edge case, a regression test, and the transfer challenge: You just shipped a real program — stop and own that, because most people who say \"I want to learn to code\" never get here. Now make it yours: change the pass mark, track the \"top score\" by keeping the largest value as you loop, or point summarize() at a completely different list and watch it still work — that reuse is the whole payoff of a function. Then build a sibling from scratch: a tiny expense report, a step-count week, a quiz scorer. Same shape, your data. Everything ahead — files, the web, data, AI — is this exact move at larger scale: take data, process it in a loop with decisions, report a useful result. You do not just know some syntax now. You can build. Welcome.",
+      "note": "Judge the artifact from executable evidence and explanation. A polished output cannot compensate for a hardcoded answer or an untested failure path."
+    },
+    {
       "text": "You just shipped a real program — stop and own that, because most people who say \"I want to learn to code\" never get here. Now make it yours: change the pass mark, track the \"top score\" by keeping the largest value as you loop, or point summarize() at a completely different list and watch it still work — that reuse is the whole payoff of a function. Then build a sibling from scratch: a tiny expense report, a step-count week, a quiz scorer. Same shape, your data. Everything ahead — files, the web, data, AI — is this exact move at larger scale: take data, process it in a loop with decisions, report a useful result. You do not just know some syntax now. You can build. Welcome.",
       "type": "transfer"
     },
@@ -2962,6 +3229,15 @@
         "3 days",
         "7 days",
         "16 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Produce and run the required artifact: A single working program that defines a function, loops over a list with a decision inside, and prints two exact lines computed from the data (a passing count and an average).",
+        "Diagnose and repair the broken case: This gradebook should print \"Average: 70\", but it prints \"Average: 17\" — far too low.",
+        "Confirm every observable check: Your program defines a function and CALLS it (Lesson 7) · It loops over the list once, with an accumulator set up before the loop (Lessons 2 & 6) · It uses an if INSIDE the loop to count only the passing scores (Lessons 4 & 6) · It computes the average AFTER the loop and formats output with f-strings (Lessons 3 & 6) · It prints EXACTLY two lines — Passed: 3 of 5 then Average: 70 — with every number computed from the data, nothing typed in",
+        "Complete the transfer without copying the worked example: You just shipped a real program — stop and own that, because most people who say \"I want to learn to code\" never get here. Now make it yours: change the pass mark, track the \"top score\" by keeping the largest value as you loop, or point summarize() at a completely different list and watch it still work — that reuse is the whole payoff of a function. Then build a sibling from scratch: a tiny expense report, a step-count week, a quiz scorer. Same shape, your data. Everything ahead — files, the web, data, AI — is this exact move at larger scale: take data, process it in a loop with decisions, report a useful result. You do not just know some syntax now. You can build. Welcome."
       ]
     }
   ],
@@ -2987,6 +3263,20 @@
       "type": "pretest",
       "prompt": "Before you read on: a teammate says \"the frontend already validates the form, so the API doesn't need to.\" Why is that dangerous?",
       "reveal": "The client is untrusted. Anyone can call the API directly — curl, a script, a malicious client — and skip the UI entirely. Validation must happen server-side, at the boundary. Client validation is only a UX nicety; it is never a security control."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The boundary pattern, one check at a time. Parse into a known shape, then check type → presence → length → range, rejecting with an actionable error.",
+      "code": "def validate_signup(data):\n    if not isinstance(data, dict):\n        raise ValueError(\"signup must be an object\")\n    email = data.get(\"email\")\n    if not isinstance(email, str) or \"@\" not in email:\n        raise ValueError(\"email must be a valid address\")\n    name = data.get(\"name\", \"\")\n    if not isinstance(name, str) or not (1 <= len(name) <= 100):\n        raise ValueError(\"name must be 1-100 characters\")\n    age = data.get(\"age\")\n    if not isinstance(age, int) or not (0 <= age <= 120):\n        raise ValueError(\"age must be an integer 0-120\")\n    return {\"email\": email, \"name\": name.strip(), \"age\": age}",
+      "language": "python",
+      "steps": [
+        "Shape first: Parse into a known shape before trusting any field. If it is not even a dict, reject immediately.",
+        "Presence + type: `data.get(\"email\")` is missing-safe; the isinstance check rejects non-strings before you ever call a string method.",
+        "Length (stops DoS / overflow): A 50,000-char name is a denial-of-service vector. Bound it at the edge.",
+        "Range: age = -3 is the bug from the mission. isinstance(age, int) also blocks the hostile string \"25\".",
+        "Normalize only when safe: Return a clean shape; `.strip()` is an explicit, safe transform — never silently coerce a wrong type."
+      ],
+      "commonMistake": "This \"validator\" accepts the string \"25\" and even -3 silently — bad data flows downstream."
     },
     {
       "text": "A trust boundary is any line where untrusted data crosses into your system. At that edge, confirm shape → type → presence → range → length → rules before the system believes a word of it. Reject by default; normalize only when the transform is safe and explicit.",
@@ -3173,6 +3463,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "accepted: 25\nrejected: age must be an integer\nrejected: age must be between 0 and 120\nrejected: age must be between 0 and 120",
+      "title": "Write the validator",
+      "starter": "import json\nimport sys\n\ndef validate_age(value):\n    # Reject bool and every non-int with: age must be an integer\n    # Reject integers outside 0..120 with: age must be between 0 and 120\n    ...  # your code here\n\nraw = sys.stdin.read().strip()\nvalues = [json.loads(raw)] if raw else [25, \"25\", -3, 200]\nfor value in values:\n    try:\n        print(f\"accepted: {validate_age(value)!r}\")\n    except ValueError as error:\n        print(f\"rejected: {error}\")\n",
+      "summary": "Implement validate_age(value): accept only a real integer in 0–120, rejecting booleans, strings, and out-of-range values with the specified errors. The browser shows four examples; the controlled evaluator supplies additional JSON values over stdin.",
+      "language": "python"
+    },
+    {
       "code": "def validate_signup(data):\n    if not isinstance(data, dict):\n        raise ValueError(\"signup must be an object\")\n    email = data.get(\"email\")\n    if not isinstance(email, str) or \"@\" not in email:\n        raise ValueError(\"email must be a valid address\")\n    name = data.get(\"name\", \"\")\n    if not isinstance(name, str) or not (1 <= len(name) <= 100):\n        raise ValueError(\"name must be 1-100 characters\")\n    age = data.get(\"age\")\n    if not isinstance(age, int) or not (0 <= age <= 120):\n        raise ValueError(\"age must be an integer 0-120\")\n    return {\"email\": email, \"name\": name.strip(), \"age\": age}",
       "type": "code-walkthrough",
       "steps": [
@@ -3226,20 +3524,25 @@
       "subtitle": "Parse into a known shape, then check type → presence → length → range, rejecting with an actionable error."
     },
     {
-      "type": "lab",
-      "check": "rejected '25'",
-      "title": "Write the validator",
-      "starter": "def validate_age(value):\n    # Accept ONLY an int in 0..120. Otherwise raise ValueError with a clear message.\n    # Tip: check the TYPE first, then the range. Don't coerce — reject.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\nfor v in [25, \"25\", -3, 200]:\n    try:\n        validate_age(v)\n        print(f\"accepted: {v!r}\")\n    except ValueError as e:\n        print(f\"rejected {v!r}: {e}\")\n",
-      "summary": "Implement validate_age(value): accept only an int in 0–120, otherwise raise ValueError with a clear message. The harness then throws four inputs at it — including the hostile string \"25\". Make it reject what should be rejected.",
-      "language": "python"
-    },
-    {
       "fix": "Truthiness is not validation: \"25\" and -3 are both truthy, and 0 is falsy (a valid age!). Check the TYPE explicitly with isinstance(value, int), then the range. Reject, don't coerce.",
       "task": "Find why hostile input slips through.",
       "type": "debug",
       "symptom": "This \"validator\" accepts the string \"25\" and even -3 silently — bad data flows downstream.",
       "language": "python",
       "brokenCode": "def validate_age(value):\n    if value:                     # truthiness, not a real check\n        return value\n    raise ValueError(\"bad age\")"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Invalid input at the boundary: reject vs normalize",
+      "optionA": {
+        "label": "Reject (default)",
+        "text": "isinstance + range check fails · raise ValueError(\"age 0-120\") · Caller sees exactly what was wrong · Hostile input never enters the system · Friction: the user must resend Outcome: Safe, explicit, preserves intent"
+      },
+      "optionB": {
+        "label": "Over-normalize",
+        "text": "age = int(value or 0) · \"-3\" silently becomes 0 or -3 · No error — looks like it worked · Hides attacks; corrupts the real value · Smoother UX, wrong data Outcome: Quietly changes what the user meant"
+      },
+      "guidance": "Reject by default at trust boundaries. Normalize only when the transform is safe AND explicit — like trimming whitespace."
     },
     {
       "left": {
@@ -3321,7 +3624,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — the validator rejects the hostile string input",
+        "Observable evidence — Lab checkpoint passed — the validator rejects the hostile string input",
         "Broken case understood and fixed (truthiness ≠ validation)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -3351,6 +3654,19 @@
       "type": "pretest",
       "prompt": "Before you read on: why is `except Exception: pass` one of the most dangerous lines you can write?",
       "reveal": "It swallows EVERY error — including ones you never anticipated (a real bug, disk-full, a typo). The program keeps running as if nothing happened, so the failure becomes invisible and undebuggable. Catch narrowly, handle deliberately, and never silently pass."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Catch deliberately — one branch at a time. Specific catches, operator context logged, a safe user message, retry only where it is safe.",
+      "code": "import logging\n\ndef charge_card(user_id, amount):\n    try:\n        return payment_api.charge(user_id, amount)\n    except TransientNetworkError as e:\n        logging.warning(\"charge retryable: user=%s amount=%s (%s)\", user_id, amount, e)\n        raise RetryableError(\"payment temporarily unavailable\") from e\n    except CardDeclinedError as e:\n        logging.error(\"charge declined: user=%s amount=%s (%s)\", user_id, amount, e)\n        raise UserError(\"Your card was declined.\") from e",
+      "language": "python",
+      "steps": [
+        "The risky call: Only the line that can fail goes in the try. Wrapping more would catch bugs you meant to let crash.",
+        "Transient → retryable: A network blip is recoverable. Log operator context, then re-raise a typed RetryableError — retry only if the call is idempotent.",
+        "Declined → non-retryable: Retrying a declined card just fails again. Surface a safe user message; log the real error for the operator.",
+        "Chain with `from e`: Python keeps the original as `__cause__`, so the operator sees the true root cause — not just your wrapper."
+      ],
+      "commonMistake": "This \"handles\" errors — and hid a week of silent data loss."
     },
     {
       "text": "Good error handling answers four questions: recoverable or fatal? retryable or not? what does the USER safely see? what does the OPERATOR need logged? Safe failure = the system fails in a known, observable state — loudly, with context — never silently.",
@@ -3551,6 +3867,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "ok: 5.0\nerror surfaced: cannot divide by zero",
+      "title": "Make the failure loud",
+      "starter": "def safe_divide(a, b):\n    # Don't swallow it. Catch ZeroDivisionError, log operator context (print a line),\n    # then chain a clear error:  raise ValueError(\"cannot divide by zero\") from e\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ntry:\n    print(\"ok:\", safe_divide(10, 2))\n    safe_divide(10, 0)\n    print(\"BUG: no error raised — it was swallowed!\")\nexcept ValueError as e:\n    print(f\"error surfaced: {e}\")\n",
+      "summary": "Implement safe_divide(a, b) like the worked example: catch ZeroDivisionError, log operator context, and `raise ValueError(\"cannot divide by zero\") from e` — never swallow it. The checkpoint proves the error SURFACES; the verification list below then confirms you caught, logged, and chained it.",
+      "language": "python"
+    },
+    {
       "code": "import logging\n\ndef charge_card(user_id, amount):\n    try:\n        return payment_api.charge(user_id, amount)\n    except TransientNetworkError as e:\n        logging.warning(\"charge retryable: user=%s amount=%s (%s)\", user_id, amount, e)\n        raise RetryableError(\"payment temporarily unavailable\") from e\n    except CardDeclinedError as e:\n        logging.error(\"charge declined: user=%s amount=%s (%s)\", user_id, amount, e)\n        raise UserError(\"Your card was declined.\") from e",
       "type": "code-walkthrough",
       "steps": [
@@ -3596,20 +3920,25 @@
       "subtitle": "Specific catches, operator context logged, a safe user message, retry only where it is safe."
     },
     {
-      "type": "lab",
-      "check": "error surfaced: cannot divide by zero",
-      "title": "Make the failure loud",
-      "starter": "def safe_divide(a, b):\n    # Don't swallow it. Catch ZeroDivisionError, log operator context (print a line),\n    # then chain a clear error:  raise ValueError(\"cannot divide by zero\") from e\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ntry:\n    print(\"ok:\", safe_divide(10, 2))\n    safe_divide(10, 0)\n    print(\"BUG: no error raised — it was swallowed!\")\nexcept ValueError as e:\n    print(f\"error surfaced: {e}\")\n",
-      "summary": "Implement safe_divide(a, b) like the worked example: catch ZeroDivisionError, log operator context, and `raise ValueError(\"cannot divide by zero\") from e` — never swallow it. The checkpoint proves the error SURFACES; the verification list below then confirms you caught, logged, and chained it.",
-      "language": "python"
-    },
-    {
       "fix": "A bare/overbroad `except` + `pass` swallows everything. Catch the specific recoverable error, log operator context (which record, the real error), and either re-raise or record the failure to a dead-letter list — never `pass`.",
       "task": "Find why failures became invisible.",
       "type": "debug",
       "symptom": "This \"handles\" errors — and hid a week of silent data loss.",
       "language": "python",
       "brokenCode": "for record in batch:\n    try:\n        process(record)\n    except Exception:\n        pass   # \"it won't crash now\""
+    },
+    {
+      "type": "tradeoff",
+      "question": "An external API call fails: retry vs fail fast",
+      "optionA": {
+        "label": "Retry",
+        "text": "Right for transient failures (timeout, 503) · ONLY if the call is idempotent · Idempotent = safe to repeat, same effect · Trap: retrying a timeout that may have charged · Wrong for a declined card (400) — fails again Outcome: Recovers blips a single retry would fix"
+      },
+      "optionB": {
+        "label": "Fail fast",
+        "text": "Surface the error immediately · Right for non-retryable errors · A declined card should NOT be retried · Gives up on a transient blip too early · Safe default when outcome is unknown Outcome: Safe, but abandons recoverable failures"
+      },
+      "guidance": "The double-charge trap is not the declined card — it is retrying a timeout whose real outcome you do not know."
     },
     {
       "left": {
@@ -3689,7 +4018,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — the error surfaces, it is not swallowed",
+        "Observable evidence — Lab checkpoint passed — the error surfaces, it is not swallowed",
         "Broken case understood (a bare `except` hides failures)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -3719,6 +4048,19 @@
       "type": "pretest",
       "prompt": "Before you read on: why is a function that reads a global variable harder to test than one that takes everything as a parameter?",
       "reveal": "A function that depends on hidden global state behaves differently depending on what ran before it — tests become order-dependent and flaky. A function that takes its inputs as parameters and returns a value (a pure function) gives the same output for the same input every time, so a test is just `assert f(x) == expected`."
+    },
+    {
+      "type": "worked-example",
+      "intro": "A module: related functions behind one interface. Group the pure functions in a file; other code imports the contract, not the internals.",
+      "code": "# pricing.py - a MODULE: related functions, one clear interface\ndef line_total(price, qty):\n    return price * qty\n\ndef cart_total(items):\n    return sum(line_total(i[\"price\"], i[\"qty\"]) for i in items)\n\n\n# main.py - import only what you need from the module\nfrom pricing import cart_total\n\nprint(cart_total([{\"price\": 10, \"qty\": 3}]))   # -> 30",
+      "language": "python",
+      "steps": [
+        "The smallest pure unit: `line_total` does one job: price * qty. Nothing hidden, nothing printed.",
+        "Compose, do not repeat: `cart_total` reuses `line_total` — small pure pieces wired together, each testable alone.",
+        "Import the contract: main.py pulls in only `cart_total`. It depends on the interface, not the internals.",
+        "The caller does the I/O: Printing lives here, OUTSIDE the pure functions — so the core stays deterministic and reusable."
+      ],
+      "commonMistake": "This function \"works\" in the REPL but its test is flaky — it passes or fails depending on what ran first."
     },
     {
       "text": "Its name says what it does, its parameters declare what it needs, its return value is what it promises. PURE functions (output depends only on inputs, no side effects) are trivial to test and reuse. A MODULE groups related functions behind a clear interface.",
@@ -3977,6 +4319,14 @@
       "subtitle": "In one file the AFTER def replaces the BEFORE. Only one can be tested with a single assert."
     },
     {
+      "type": "lab",
+      "check": "correct: True\npure (survives a changed global): True\nPASS: True",
+      "title": "Refactor it to be pure",
+      "starter": "# This \"works\" in the REPL but FAILS in tests when another part of the app\n# changes `discount`. Refactor line_total to be PURE: depend ONLY on its\n# parameters (price, qty), RETURN the total, read no globals, no print.\ndiscount = 0\n\ndef line_total(price, qty):\n    return (price * qty) - discount   # <-- hidden dependency on a global; fix this\n\n\n# --- test harness (do not edit) ---\ncases = [(10, 3, 30), (5, 4, 20), (0, 9, 0)]\ncorrect = all(line_total(p, q) == exp for p, q, exp in cases)\nglobals()[\"discount\"] = 7             # another module changes the global mid-run\npure = all(line_total(p, q) == exp for p, q, exp in cases)  # only a PURE fn survives\nprint(f\"correct: {correct}\")\nprint(f\"pure (survives a changed global): {pure}\")\nprint(f\"PASS: {correct and pure}\")\n",
+      "summary": "`line_total` reads a global `discount`, so it breaks when another part of the app changes it. Refactor it to depend ONLY on its parameters and RETURN the total. The harness changes the global mid-run — only a pure function survives both checks.",
+      "language": "python"
+    },
+    {
       "code": "# pricing.py - a MODULE: related functions, one clear interface\ndef line_total(price, qty):\n    return price * qty\n\ndef cart_total(items):\n    return sum(line_total(i[\"price\"], i[\"qty\"]) for i in items)\n\n\n# main.py - import only what you need from the module\nfrom pricing import cart_total\n\nprint(cart_total([{\"price\": 10, \"qty\": 3}]))   # -> 30",
       "type": "code-walkthrough",
       "steps": [
@@ -4019,20 +4369,25 @@
       "subtitle": "Group the pure functions in a file; other code imports the contract, not the internals."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Refactor it to be pure",
-      "starter": "# This \"works\" in the REPL but FAILS in tests when another part of the app\n# changes `discount`. Refactor line_total to be PURE: depend ONLY on its\n# parameters (price, qty), RETURN the total, read no globals, no print.\ndiscount = 0\n\ndef line_total(price, qty):\n    return (price * qty) - discount   # <-- hidden dependency on a global; fix this\n\n\n# --- test harness (do not edit) ---\ncases = [(10, 3, 30), (5, 4, 20), (0, 9, 0)]\ncorrect = all(line_total(p, q) == exp for p, q, exp in cases)\nglobals()[\"discount\"] = 7             # another module changes the global mid-run\npure = all(line_total(p, q) == exp for p, q, exp in cases)  # only a PURE fn survives\nprint(f\"correct: {correct}\")\nprint(f\"pure (survives a changed global): {pure}\")\nprint(f\"PASS: {correct and pure}\")\n",
-      "summary": "`line_total` reads a global `discount`, so it breaks when another part of the app changes it. Refactor it to depend ONLY on its parameters and RETURN the total. The harness changes the global mid-run — only a pure function survives both checks.",
-      "language": "python"
-    },
-    {
       "fix": "It reads the global `tax_rate` — if another test changed it, this one breaks. Pass `tax_rate` as a parameter (`def price_with_tax(amount, tax_rate):`) and return the value. No hidden state → deterministic test.",
       "task": "Why does the test depend on what ran before it?",
       "type": "debug",
       "symptom": "This function \"works\" in the REPL but its test is flaky — it passes or fails depending on what ran first.",
       "language": "python",
       "brokenCode": "tax_rate = 0.0   # a global other code mutates\n\ndef price_with_tax(amount):\n    return amount + amount * tax_rate   # depends on hidden global state"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Same job, side-effecting vs pure",
+      "optionA": {
+        "label": "Before — reads a global, prints",
+        "text": "cart = [{\"price\": 10, \"qty\": 3}] · def calculate_total(): ·     total = 0 ·     for item in cart:   # hidden global ·         total += item[\"price\"] * item[\"qty\"] ·     print(\"Total:\", total)   # side effect Outcome: Untestable: depends on a global, returns nothing"
+      },
+      "optionB": {
+        "label": "After — inputs in, value out",
+        "text": "def calculate_total(items): ·     return sum( ·         i[\"price\"] * i[\"qty\"] ·         for i in items ·     ) · # assert calculate_total(cart) == 30 Outcome: Pure: same inputs → same output, one assert"
+      },
+      "guidance": "Common mistake: doing two things in one function (compute AND print/save). Split it — the function returns a value; a thin caller does the I/O."
     },
     {
       "type": "verification",
@@ -4114,6 +4469,20 @@
       "type": "pretest",
       "prompt": "Before you read on: in Python, what is `'2' + '3'`? And `2 + 3`? Why does the first one surprise people?",
       "reveal": "`'2' + '3'` is `'23'` (string concatenation); `2 + 3` is `5` (integer addition). `+` does different things depending on the operand TYPE. Input from forms, files, and APIs usually arrives as STRINGS — so you must convert deliberately (`int('2')`) before doing math."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Convert at the boundary, then compute on real types. Parse strings to int/float at the edge, handle the failure, then math is safe.",
+      "code": "def order_total(qty_str, price_str):\n    try:\n        qty = int(qty_str)\n        price = float(price_str)\n    except ValueError:\n        raise ValueError(\"quantity and price must be numbers\")\n    if qty < 0 or price < 0:\n        raise ValueError(\"quantity and price must be non-negative\")\n    return qty * price",
+      "language": "python",
+      "steps": [
+        "Know the incoming type: qty_str and price_str are STRINGS — form/file/API data almost always is.",
+        "Convert explicitly at the edge: `int(...)` and `float(...)` parse deliberately. Past this point the code works with real numbers.",
+        "Handle conversion failure: `int(\"oops\")` raises ValueError — catch it and reject with a clear message, exactly like Lesson 1.",
+        "Validate the real value: Now that they are numbers, a range check makes sense (negatives rejected).",
+        "Compute on the real type: qty * price — never `str + int`, which would raise TypeError, or `str + str`, which would concatenate."
+      ],
+      "commonMistake": "This sums quantities but returns '235' instead of 10."
     },
     {
       "text": "Core types: int, float, str, bool, list, dict, set, None. TYPE decides `+`, `==`, truthiness — `'2'+'3'` concatenates, `2+3` adds. Truthiness traps: 0, '', [], {} are all falsy. Pick structures by access: list (order), dict (lookup), set (uniqueness).",
@@ -4312,6 +4681,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "sum: 10\nPASS: True",
+      "title": "Don't be fooled by a string",
+      "starter": "def total_quantity(values):\n    # values is a list of STRINGS, e.g. [\"2\", \"3\", \"5\"]. Convert each to an int\n    # and RETURN the integer sum. If a value isn't a whole number, raise ValueError.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\nprint(\"sum:\", total_quantity([\"2\", \"3\", \"5\"]))     # must be 10 (int), not \"235\"\nok = total_quantity([\"2\", \"3\", \"5\"]) == 10\ntry:\n    total_quantity([\"2\", \"oops\"])\n    rejected = False\nexcept ValueError:\n    rejected = True\nprint(f\"PASS: {ok and rejected}\")\n",
+      "summary": "Implement total_quantity(values) where values is a list of strings like ['2','3','5']. Convert each to an int and RETURN the sum — '2'+'3' must give 5, not '23'. Reject any value that isn't a whole number.",
+      "language": "python"
+    },
+    {
       "code": "def order_total(qty_str, price_str):\n    try:\n        qty = int(qty_str)\n        price = float(price_str)\n    except ValueError:\n        raise ValueError(\"quantity and price must be numbers\")\n    if qty < 0 or price < 0:\n        raise ValueError(\"quantity and price must be non-negative\")\n    return qty * price",
       "type": "code-walkthrough",
       "steps": [
@@ -4361,20 +4738,25 @@
       "subtitle": "Parse strings to int/float at the edge, handle the failure, then math is safe."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Don't be fooled by a string",
-      "starter": "def total_quantity(values):\n    # values is a list of STRINGS, e.g. [\"2\", \"3\", \"5\"]. Convert each to an int\n    # and RETURN the integer sum. If a value isn't a whole number, raise ValueError.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\nprint(\"sum:\", total_quantity([\"2\", \"3\", \"5\"]))     # must be 10 (int), not \"235\"\nok = total_quantity([\"2\", \"3\", \"5\"]) == 10\ntry:\n    total_quantity([\"2\", \"oops\"])\n    rejected = False\nexcept ValueError:\n    rejected = True\nprint(f\"PASS: {ok and rejected}\")\n",
-      "summary": "Implement total_quantity(values) where values is a list of strings like ['2','3','5']. Convert each to an int and RETURN the sum — '2'+'3' must give 5, not '23'. Reject any value that isn't a whole number.",
-      "language": "python"
-    },
-    {
       "fix": "`values` are strings, and `+` on strings concatenates. Convert each to int first: `return sum(int(v) for v in values)` — and let `int()` reject non-numbers.",
       "task": "Why does it concatenate instead of add?",
       "type": "debug",
       "symptom": "This sums quantities but returns '235' instead of 10.",
       "language": "python",
       "brokenCode": "def total_quantity(values):\n    result = values[0]\n    for v in values[1:]:\n        result = result + v     # values are strings -> this concatenates\n    return result"
+    },
+    {
+      "type": "tradeoff",
+      "question": "String input: convert at the boundary vs pass it around",
+      "optionA": {
+        "label": "Convert at the boundary",
+        "text": "Parse to int/float/date the moment it enters · One place handles conversion failure · Everything downstream works with real types · A type error surfaces at the edge, near the cause · Cost: an explicit parse + error path up front Outcome: Bugs caught at the source"
+      },
+      "optionB": {
+        "label": "Keep it a string",
+        "text": "Pass the raw string deeper into the code · Every caller must remember to convert · One forgotten int() → silent concatenation · Bugs hide far from where input arrived · Simpler at the edge, fragile everywhere else Outcome: Stringly-typed — bugs hide downstream"
+      },
+      "guidance": "Convert at the boundary; once past the edge, code should work with real types, not stringly-typed data."
     },
     {
       "left": {
@@ -4454,7 +4836,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — ['2','3'] sums to 5 and a non-number is rejected",
+        "Observable evidence — Lab checkpoint passed — ['2','3'] sums to 5 and a non-number is rejected",
         "Broken case understood (string `+` concatenates)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -4484,6 +4866,19 @@
       "type": "pretest",
       "prompt": "Before you read on: what goes wrong if you loop over a list and remove items from it as you go?",
       "reveal": "Removing an item shifts the later indices, so the loop skips the element right after each removal — you end up processing every other item. Iterate over a COPY, or (better) build a NEW list with the items you want to keep (a comprehension)."
+    },
+    {
+      "type": "worked-example",
+      "intro": "The guard-clause version, line by line. Each guard is one reason to stop; the happy path lands flat at the end.",
+      "code": "def charge(order):\n    if order is None:\n        return \"missing\"\n    if order[\"total\"] <= 0:\n        return \"empty\"\n    if order[\"status\"] != \"open\":\n        return \"not open\"\n    return pay(order)",
+      "language": "python",
+      "steps": [
+        "Reject the bad case early: Handle missing first with its own return — no nesting, one reason to stop.",
+        "Next invalid case: Empty order: another flat guard. Read top to bottom like a checklist.",
+        "Last guard: Wrong status bails out here. Every failure mode is named and unindented.",
+        "Happy path, flat: Once the guards pass, the real work runs at the base indent — obvious and impossible to miss."
+      ],
+      "commonMistake": "This loop should remove cancelled orders but leaves half of them behind."
     },
     {
       "text": "A guard clause handles an invalid case and returns immediately, so the happy path stays flat (nesting past ~3 levels is a refactor signal). The three loop traps: off-by-one, infinite loop, and mutate-while-iterating. To prune a list, build a new one — never remove in place.",
@@ -4694,6 +5089,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "kept ids: [1, 4]\nPASS: True",
+      "title": "Filter without skipping",
+      "starter": "def active_orders(orders):\n    # Return only the orders whose status != 'cancelled'.\n    # Do NOT remove from `orders` while looping over it — build a NEW list.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ndata = [\n    {\"id\": 1, \"status\": \"active\"},\n    {\"id\": 2, \"status\": \"cancelled\"},\n    {\"id\": 3, \"status\": \"cancelled\"},   # adjacent cancelled -> trips the skip bug\n    {\"id\": 4, \"status\": \"active\"},\n]\nids = [o[\"id\"] for o in active_orders(data)]\nids2 = [o[\"id\"] for o in active_orders([\n    {\"id\": 9, \"status\": \"cancelled\"},\n    {\"id\": 8, \"status\": \"active\"},\n])]\nprint(\"kept ids:\", ids)\nprint(f\"PASS: {ids == [1, 4] and ids2 == [8] and len(data) == 4}\")\n",
+      "summary": "Implement active_orders(orders): return only the orders whose status != 'cancelled'. Do NOT mutate the input while iterating. The harness puts two cancelled orders next to each other (the case that trips the skip bug) and checks none slip through — across two datasets.",
+      "language": "python"
+    },
+    {
       "code": "def charge(order):\n    if order is None:\n        return \"missing\"\n    if order[\"total\"] <= 0:\n        return \"empty\"\n    if order[\"status\"] != \"open\":\n        return \"not open\"\n    return pay(order)",
       "type": "code-walkthrough",
       "steps": [
@@ -4736,20 +5139,25 @@
       "subtitle": "Each guard is one reason to stop; the happy path lands flat at the end."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Filter without skipping",
-      "starter": "def active_orders(orders):\n    # Return only the orders whose status != 'cancelled'.\n    # Do NOT remove from `orders` while looping over it — build a NEW list.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ndata = [\n    {\"id\": 1, \"status\": \"active\"},\n    {\"id\": 2, \"status\": \"cancelled\"},\n    {\"id\": 3, \"status\": \"cancelled\"},   # adjacent cancelled -> trips the skip bug\n    {\"id\": 4, \"status\": \"active\"},\n]\nids = [o[\"id\"] for o in active_orders(data)]\nids2 = [o[\"id\"] for o in active_orders([\n    {\"id\": 9, \"status\": \"cancelled\"},\n    {\"id\": 8, \"status\": \"active\"},\n])]\nprint(\"kept ids:\", ids)\nprint(f\"PASS: {ids == [1, 4] and ids2 == [8] and len(data) == 4}\")\n",
-      "summary": "Implement active_orders(orders): return only the orders whose status != 'cancelled'. Do NOT mutate the input while iterating. The harness puts two cancelled orders next to each other (the case that trips the skip bug) and checks none slip through — across two datasets.",
-      "language": "python"
-    },
-    {
       "fix": "`remove` shifts every later index down by one, so the loop skips the item right after each removal (and it mutates the caller's list). Build a new list instead: `[o for o in orders if o['status'] != 'cancelled']`.",
       "task": "Why does it skip some cancelled orders?",
       "type": "debug",
       "symptom": "This loop should remove cancelled orders but leaves half of them behind.",
       "language": "python",
       "brokenCode": "def active_orders(orders):\n    for o in orders:\n        if o[\"status\"] == \"cancelled\":\n            orders.remove(o)     # mutating the list we're iterating\n    return orders"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Same logic: deep nesting vs guard clauses",
+      "optionA": {
+        "label": "Before — deep nesting",
+        "text": "def charge(order): ·     if order is not None: ·         if order[\"total\"] > 0: ·             if order[\"status\"] == \"open\": ·                 return pay(order) ·             else: return \"not open\" ·         else: return \"empty\" ·     else: return \"missing\" Outcome: Which path runs? Buried in indentation"
+      },
+      "optionB": {
+        "label": "After — guard clauses",
+        "text": "def charge(order): ·     if order is None: ·         return \"missing\" ·     if order[\"total\"] <= 0: ·         return \"empty\" ·     if order[\"status\"] != \"open\": ·         return \"not open\" ·     return pay(order)   # happy path, flat Outcome: Reject bad cases first; the win is unindented"
+      },
+      "guidance": "Common mistake: each `if` adding another level. Invert it — `if not valid: return` early, keep the happy path flat."
     },
     {
       "type": "verification",
@@ -4799,7 +5207,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — adjacent cancelled orders are both dropped, input not mutated",
+        "Observable evidence — Lab checkpoint passed — adjacent cancelled orders are both dropped, input not mutated",
         "Broken case understood (mutating while iterating skips items)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -4829,6 +5237,20 @@
       "type": "pretest",
       "prompt": "Before you read on: why is `f = open('x'); data = f.read()` riskier than `with open('x') as f:`?",
       "reveal": "If anything between `open` and `f.close()` raises, the file is never closed — you leak a file handle (and on some systems keep the file locked). `with open(...) as f:` guarantees the file closes even when an error occurs. Always use `with` for files."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Read a config safely, line by line. A context manager that always closes, streams the file, and lets a missing file surface.",
+      "code": "def read_config(path):\n    config = {}\n    with open(path) as f:\n        for line in f:\n            line = line.strip()\n            if not line:\n                continue\n            key, value = line.split(\"=\", 1)\n            config[key] = value\n    return config",
+      "language": "python",
+      "steps": [
+        "Open with `with`: Closes the file on every path — success or error. A missing file raises FileNotFoundError here, never a silent {}.",
+        "Stream, do not slurp: Iterating the file object reads ONE line at a time. A `.read()` would load a multi-gigabyte file into memory.",
+        "Skip blanks defensively: Strip whitespace; ignore empty lines so a stray blank does not crash the parse.",
+        "Parse with a bound: `split(\"=\", 1)` splits on the FIRST `=` only — a value containing `=` survives intact.",
+        "Return a real value: The handle is already closed by the time we return — the `with` block exited."
+      ],
+      "commonMistake": "This config reader leaks file handles and silently returns {} when the file is missing."
     },
     {
       "text": "A context manager (`with`) closes its resource when the block exits — even on an exception. Iterate a file object to STREAM line by line; never `.read()` a multi-gigabyte file into memory. Surface I/O failures (missing, permission, encoding); never swallow them.",
@@ -5028,6 +5450,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "config: {'host': 'localhost', 'port': '8080'}\nPASS: True",
+      "title": "Read it safely",
+      "starter": "def read_config(path):\n    # Open the file with a `with` block (it always closes), read \"key=value\"\n    # lines into a dict, skipping blank lines. If the file is MISSING, let it\n    # raise FileNotFoundError — do NOT silently return {}.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\nwith open(\"app.conf\", \"w\") as f:\n    f.write(\"host=localhost\\n\\nport=8080\\n\")\ncfg = read_config(\"app.conf\")\nok = cfg == {\"host\": \"localhost\", \"port\": \"8080\"}\ntry:\n    read_config(\"missing.conf\")\n    missing_handled = False\nexcept FileNotFoundError:\n    missing_handled = True\nprint(\"config:\", cfg)\nprint(f\"PASS: {ok and missing_handled}\")\n",
+      "summary": "Implement read_config(path): open with a `with` block, parse \"key=value\" lines into a dict (skip blanks), and let a MISSING file raise FileNotFoundError — never a silent {}. The harness writes a file, reads it back, and checks the missing-file case.",
+      "language": "python"
+    },
+    {
       "code": "def read_config(path):\n    config = {}\n    with open(path) as f:\n        for line in f:\n            line = line.strip()\n            if not line:\n                continue\n            key, value = line.split(\"=\", 1)\n            config[key] = value\n    return config",
       "type": "code-walkthrough",
       "steps": [
@@ -5077,20 +5507,25 @@
       "subtitle": "A context manager that always closes, streams the file, and lets a missing file surface."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Read it safely",
-      "starter": "def read_config(path):\n    # Open the file with a `with` block (it always closes), read \"key=value\"\n    # lines into a dict, skipping blank lines. If the file is MISSING, let it\n    # raise FileNotFoundError — do NOT silently return {}.\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\nwith open(\"app.conf\", \"w\") as f:\n    f.write(\"host=localhost\\n\\nport=8080\\n\")\ncfg = read_config(\"app.conf\")\nok = cfg == {\"host\": \"localhost\", \"port\": \"8080\"}\ntry:\n    read_config(\"missing.conf\")\n    missing_handled = False\nexcept FileNotFoundError:\n    missing_handled = True\nprint(\"config:\", cfg)\nprint(f\"PASS: {ok and missing_handled}\")\n",
-      "summary": "Implement read_config(path): open with a `with` block, parse \"key=value\" lines into a dict (skip blanks), and let a MISSING file raise FileNotFoundError — never a silent {}. The harness writes a file, reads it back, and checks the missing-file case.",
-      "language": "python"
-    },
-    {
       "fix": "(1) No `with`/close → the handle leaks if an error occurs mid-read. (2) `except Exception: return {}` swallows the missing-file (and parse) errors, so the job runs with empty config and fails mysteriously later. Use `with open(path)` and let FileNotFoundError surface.",
       "task": "Find the two bugs.",
       "type": "debug",
       "symptom": "This config reader leaks file handles and silently returns {} when the file is missing.",
       "language": "python",
       "brokenCode": "def read_config(path):\n    try:\n        f = open(path)                 # no `with` -> never closed on error\n        cfg = {}\n        for line in f.readlines():     # loads the whole file into memory\n            key, value = line.split(\"=\", 1)\n            cfg[key] = value\n        return cfg\n    except Exception:\n        return {}                      # swallows missing-file / parse errors"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Reading a large file: load it all vs stream it",
+      "optionA": {
+        "label": "Read all",
+        "text": "data = f.read() · # or f.readlines() · Whole file into memory at once · Random access — but a big file OOMs · Fine only when the file is small Outcome: Simple, but blows up on large files"
+      },
+      "optionB": {
+        "label": "Stream",
+        "text": "for line in f: ·     process(line) · One line in memory at a time · Constant memory, handles huge files · Sequential, single pass Outcome: Constant memory — the safe default"
+      },
+      "guidance": "Stream by default (`for line in f:`). Only load the whole file when it is small and you genuinely need random access."
     },
     {
       "left": {
@@ -5171,7 +5606,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — valid file parses, missing file raises",
+        "Observable evidence — Lab checkpoint passed — valid file parses, missing file raises",
         "Broken case understood (no `with` leaks; swallowed missing-file hides failures)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -5201,6 +5636,20 @@
       "type": "pretest",
       "prompt": "Before you read on: `average()` works on [2, 4, 6] and passes its test. What input might still crash it in production?",
       "reveal": "The empty list: `sum([]) / len([])` is `0 / 0` → ZeroDivisionError. The happy-path test never tried it. Edge cases (empty, zero, negative, huge, missing) are where bugs hide — test those, not just the obvious case."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Test the risk — Arrange / Act / Assert with the edge that bites. Guard the empty case, then a tiny suite that includes the regression case.",
+      "code": "def safe_average(numbers):\n    if not numbers:\n        return 0\n    return sum(numbers) / len(numbers)\n\ndef test_safe_average():\n    assert safe_average([2, 4, 6]) == 4\n    assert safe_average([10]) == 10\n    assert safe_average([]) == 0\n    assert safe_average([-2, 2]) == 0",
+      "language": "python",
+      "steps": [
+        "The edge the happy path forgot: An empty list short-circuits to 0 — `sum([]) / len([])` would be 0/0, a ZeroDivisionError.",
+        "The normal computation: Only reached once the edge is handled. Order matters: guard first, compute second.",
+        "Assert behavior, not internals: Normal and single-element cases. We check input → output, so a refactor of the body cannot break the test.",
+        "The regression case: The empty list — the exact input that crashed prod. This line is why the bug can never silently return.",
+        "Negatives too: Edge inputs (empty, zero, negative, huge, missing) are where bugs hide — test those, not just the obvious case."
+      ],
+      "commonMistake": "average() works in tests but crashed in production."
     },
     {
       "text": "Spend test effort where a failure would hurt. The pyramid — many fast unit, fewer integration, a few E2E — keeps feedback fast. Assert BEHAVIOR (inputs → outputs), not internals, so a refactor does not break them. Every prod bug becomes a regression test.",
@@ -5400,6 +5849,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "all assertions passed\nPASS: True",
+      "title": "Catch the edge case",
+      "starter": "def safe_average(numbers):\n    # Return the average of the numbers. EDGE CASE: an EMPTY list must return 0,\n    # not crash with ZeroDivisionError (sum([]) / len([]) is 0 / 0).\n    ...  # your code here\n\n\n# --- test harness: a tiny suite (happy path + the edge that bites) ---\nassert safe_average([2, 4, 6]) == 4, \"normal case\"\nassert safe_average([10]) == 10, \"single element\"\nassert safe_average([]) == 0, \"EMPTY list must return 0, not crash\"   # regression\nprint(\"all assertions passed\")\nprint(\"PASS: True\")\n",
+      "summary": "Implement safe_average(numbers): return the mean, but an EMPTY list must return 0 — not crash with ZeroDivisionError. The harness is a tiny test suite that includes the empty-list regression case; make every assertion pass.",
+      "language": "python"
+    },
+    {
       "code": "def safe_average(numbers):\n    if not numbers:\n        return 0\n    return sum(numbers) / len(numbers)\n\ndef test_safe_average():\n    assert safe_average([2, 4, 6]) == 4\n    assert safe_average([10]) == 10\n    assert safe_average([]) == 0\n    assert safe_average([-2, 2]) == 0",
       "type": "code-walkthrough",
       "steps": [
@@ -5448,20 +5905,25 @@
       "subtitle": "Guard the empty case, then a tiny suite that includes the regression case."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Catch the edge case",
-      "starter": "def safe_average(numbers):\n    # Return the average of the numbers. EDGE CASE: an EMPTY list must return 0,\n    # not crash with ZeroDivisionError (sum([]) / len([]) is 0 / 0).\n    ...  # your code here\n\n\n# --- test harness: a tiny suite (happy path + the edge that bites) ---\nassert safe_average([2, 4, 6]) == 4, \"normal case\"\nassert safe_average([10]) == 10, \"single element\"\nassert safe_average([]) == 0, \"EMPTY list must return 0, not crash\"   # regression\nprint(\"all assertions passed\")\nprint(\"PASS: True\")\n",
-      "summary": "Implement safe_average(numbers): return the mean, but an EMPTY list must return 0 — not crash with ZeroDivisionError. The harness is a tiny test suite that includes the empty-list regression case; make every assertion pass.",
-      "language": "python"
-    },
-    {
       "fix": "An empty list → `sum([]) / len([])` → `0 / 0` → ZeroDivisionError. The happy-path test never tried `[]`. Guard it (`if not nums: return 0`) and add `assert average([]) == 0` as a regression test.",
       "task": "What input crashes it, and what test was missing?",
       "type": "debug",
       "symptom": "average() works in tests but crashed in production.",
       "language": "python",
       "brokenCode": "def average(nums):\n    return sum(nums) / len(nums)   # passes on [2,4,6]...\n\n# the only test:\nassert average([2, 4, 6]) == 4"
+    },
+    {
+      "type": "tradeoff",
+      "question": "You found a bug: just fix it vs fix it AND add a test",
+      "optionA": {
+        "label": "Fix + regression test",
+        "text": "Write the failing test FIRST (reproduces the bug) · Then fix until it is green · Test fails before the fix, passes after · The next refactor can never silently break it · Cost: one extra test Outcome: The bug can never silently return"
+      },
+      "optionB": {
+        "label": "Just fix it",
+        "text": "Patch the bug and move on · No test documents what was wrong · Faster right now · Same bug reappears in the next refactor · Nobody knows it was ever fixed Outcome: Fast today, the bug returns tomorrow"
+      },
+      "guidance": "Always turn a bug into a regression test — the failing-test-first loop produces the test most likely to catch a real failure."
     },
     {
       "left": {
@@ -5571,6 +6033,18 @@
       "type": "pretest",
       "prompt": "Before you read on: why is it dangerous for a destructive command to DEFAULT to executing — or to default the environment to production?",
       "reveal": "Defaults are what run when someone forgets a flag. If \"execute\" or \"production\" is the default, a tired engineer who omits a flag destroys real data. Safe tools default to dry-run and require explicit opt-in for destructive, production actions."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Safe by default — the decision gate. Dry-run unless explicitly told to execute; production needs confirmation.",
+      "code": "def decide(args):\n    if not args.get(\"execute\"):\n        return \"dry-run\"\n    if args.get(\"env\") == \"production\" and not args.get(\"confirmed\"):\n        return \"blocked: confirm production\"\n    return \"execute\"",
+      "language": "python",
+      "steps": [
+        "Default to dry-run: The FIRST check: no explicit execute → preview only. A forgotten flag can never destroy data.",
+        "Guard production: Even with execute=True, production without confirmed=True is blocked. No accidental prod, ever.",
+        "Execute only when earned: Reached only when the caller explicitly opted in AND (non-prod or confirmed). The safe path is the default; the dangerous path is opt-in."
+      ],
+      "commonMistake": "This deploy tool deleted production records when it was run with no arguments."
     },
     {
       "text": "Safe tools default to the harmless option: a DRY-RUN that previews the exact target set first. Limit BLAST RADIUS (explicit scope, no bare wildcards). Require CONFIRMATION for high-impact actions; never default env to production. Keep an AUDIT TRAIL. The default is what runs when a flag is forgotten.",
@@ -5776,6 +6250,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "{'execute': False, 'env': 'staging'} -> 'dry-run'\n{'execute': True, 'env': 'staging'} -> 'execute'\n{'execute': True, 'env': 'production'} -> 'blocked: confirm production'\n{'execute': True, 'env': 'production', 'confirmed': True} -> 'execute'\nPASS: True",
+      "title": "Make it safe by default",
+      "starter": "def decide(args):\n    # args is a dict, e.g. {\"execute\": False, \"env\": \"staging\", \"confirmed\": False}\n    # SAFETY RULES:\n    #   - Default to \"dry-run\" unless execute is explicitly True.\n    #   - Production requires confirmed=True (no accidental prod) -> else block it.\n    #   - Otherwise -> \"execute\".\n    # Return one of: \"dry-run\", \"execute\", \"blocked: confirm production\"\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ({\"execute\": False, \"env\": \"staging\"}, \"dry-run\"),\n    ({\"execute\": True, \"env\": \"staging\"}, \"execute\"),\n    ({\"execute\": True, \"env\": \"production\"}, \"blocked: confirm production\"),\n    ({\"execute\": True, \"env\": \"production\", \"confirmed\": True}, \"execute\"),\n]\nok = all(decide(a) == exp for a, exp in cases)\nfor a, exp in cases:\n    print(f\"{a} -> {decide(a)!r}\")\nprint(f\"PASS: {ok}\")\n",
+      "summary": "Implement decide(args): default to \"dry-run\" unless execute is True; block a production action that isn't confirmed (\"blocked: confirm production\"); otherwise \"execute\". The harness checks all four paths — a forgotten execute must NOT run.",
+      "language": "python"
+    },
+    {
       "code": "def decide(args):\n    if not args.get(\"execute\"):\n        return \"dry-run\"\n    if args.get(\"env\") == \"production\" and not args.get(\"confirmed\"):\n        return \"blocked: confirm production\"\n    return \"execute\"",
       "type": "code-walkthrough",
       "steps": [
@@ -5810,20 +6292,25 @@
       "subtitle": "Dry-run unless explicitly told to execute; production needs confirmation."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Make it safe by default",
-      "starter": "def decide(args):\n    # args is a dict, e.g. {\"execute\": False, \"env\": \"staging\", \"confirmed\": False}\n    # SAFETY RULES:\n    #   - Default to \"dry-run\" unless execute is explicitly True.\n    #   - Production requires confirmed=True (no accidental prod) -> else block it.\n    #   - Otherwise -> \"execute\".\n    # Return one of: \"dry-run\", \"execute\", \"blocked: confirm production\"\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ({\"execute\": False, \"env\": \"staging\"}, \"dry-run\"),\n    ({\"execute\": True, \"env\": \"staging\"}, \"execute\"),\n    ({\"execute\": True, \"env\": \"production\"}, \"blocked: confirm production\"),\n    ({\"execute\": True, \"env\": \"production\", \"confirmed\": True}, \"execute\"),\n]\nok = all(decide(a) == exp for a, exp in cases)\nfor a, exp in cases:\n    print(f\"{a} -> {decide(a)!r}\")\nprint(f\"PASS: {ok}\")\n",
-      "summary": "Implement decide(args): default to \"dry-run\" unless execute is True; block a production action that isn't confirmed (\"blocked: confirm production\"); otherwise \"execute\". The harness checks all four paths — a forgotten execute must NOT run.",
-      "language": "python"
-    },
-    {
       "fix": "Both defaults are unsafe: `env='production'` means a forgotten flag targets prod, and `execute=True` means it acts with no opt-in. Default `env=None` (require an explicit choice) and `execute=False` (dry-run), and require confirmation before touching production.",
       "task": "Find the two dangerous defaults.",
       "type": "debug",
       "symptom": "This deploy tool deleted production records when it was run with no arguments.",
       "language": "python",
       "brokenCode": "def run(env=\"production\", execute=True):   # dangerous defaults\n    if execute:\n        delete_records(env)"
+    },
+    {
+      "type": "tradeoff",
+      "question": "A destructive command: dry-run first vs execute immediately",
+      "optionA": {
+        "label": "Dry-run first",
+        "text": "Show exactly what WOULD change · Require an explicit second step to execute · Confirmation gate for production · Accidental data loss becomes very hard · Cost: one extra deliberate step Outcome: Cheap step; a deleted table is not"
+      },
+      "optionB": {
+        "label": "Execute immediately",
+        "text": "One command does it all · Fast for the happy path · No preview of the target set · A typo or forgotten flag → no undo · The cleanup-script outage from the mission Outcome: One mistake away from an outage"
+      },
+      "guidance": "Default to dry-run for anything destructive: preview the exact target set, then require an explicit execute (and confirmation for prod)."
     },
     {
       "left": {
@@ -5903,7 +6390,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — a forgotten execute dry-runs; unconfirmed prod is blocked",
+        "Observable evidence — Lab checkpoint passed — a forgotten execute dry-runs; unconfirmed prod is blocked",
         "Broken case understood (defaulting to prod / execute is dangerous)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",
@@ -5933,6 +6420,19 @@
       "type": "pretest",
       "prompt": "Before you read on: why is one giant commit titled 'wip' worse than five small commits with clear messages?",
       "reveal": "A giant 'wip' commit can't be reviewed, can't be reverted in part, and tells you nothing about what changed or why. Small atomic commits (one logical change each, with a clear message) let you review, revert just the bad one, and bisect to find which change introduced a bug."
+    },
+    {
+      "type": "worked-example",
+      "intro": "A commit gate, one rule at a time. The exact logic your lab implements: reject the empty and the lazy commit, accept the clear one.",
+      "code": "LAZY = {\"\", \"wip\", \"fix\", \"stuff\", \"update\", \".\", \"asdf\"}\n\ndef check_commit(staged_files, message):\n    if not staged_files:\n        return \"nothing to commit\"\n    if message in LAZY or len(message) < 10:\n        return \"weak message\"\n    return \"ok\"",
+      "language": "python",
+      "steps": [
+        "Name the lazy messages: A set of the throwaway messages that say nothing — \"wip\", \"fix\", \"stuff\". Set membership is the fast, readable check.",
+        "Atomic: there must be a change: No staged files → nothing to commit. A commit with no content is not a commit.",
+        "Reject the weak message: Lazy text OR under 10 chars fails — that is what makes history unreviewable later.",
+        "Otherwise it is good: Staged change + a real message = \"ok\". This gate is exactly what a pre-commit hook would enforce on a team."
+      ],
+      "commonMistake": "A bug appeared and the team couldn't revert just the change that caused it."
     },
     {
       "text": "An ATOMIC commit is one logical change you could revert on its own. A good MESSAGE says what changed and why. Use a BRANCH per task. Recover with `git revert` (safe undo) and `git reflog` (find \"lost\" commits). The one rule: NEVER force-push a shared branch.",
@@ -6153,6 +6653,14 @@
       ]
     },
     {
+      "type": "lab",
+      "check": "'add user validation' -> 'nothing to commit'\n'wip' -> 'weak message'\n'fix' -> 'weak message'\n'add input validation to signup' -> 'ok'\nPASS: True",
+      "title": "Reject the lazy commit",
+      "starter": "LAZY = {\"\", \"wip\", \"fix\", \"stuff\", \"update\", \".\", \"asdf\"}\n\ndef check_commit(staged_files, message):\n    # A good commit is ATOMIC (has staged changes) with a clear message.\n    #   - no staged files            -> \"nothing to commit\"\n    #   - empty/lazy or < 10 chars   -> \"weak message\"\n    #   - otherwise                  -> \"ok\"\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ([], \"add user validation\", \"nothing to commit\"),\n    ([\"a.py\"], \"wip\", \"weak message\"),\n    ([\"a.py\"], \"fix\", \"weak message\"),\n    ([\"a.py\"], \"add input validation to signup\", \"ok\"),\n]\nok = all(check_commit(f, m) == exp for f, m, exp in cases)\nfor f, m, exp in cases:\n    print(f\"{m!r} -> {check_commit(f, m)!r}\")\nprint(f\"PASS: {ok}\")\n",
+      "summary": "Implement check_commit(staged_files, message): return \"nothing to commit\" with no staged files, \"weak message\" for an empty/lazy message (in LAZY) or under 10 chars, else \"ok\". The harness checks all four cases — a \"wip\" commit must be rejected.",
+      "language": "python"
+    },
+    {
       "code": "LAZY = {\"\", \"wip\", \"fix\", \"stuff\", \"update\", \".\", \"asdf\"}\n\ndef check_commit(staged_files, message):\n    if not staged_files:\n        return \"nothing to commit\"\n    if message in LAZY or len(message) < 10:\n        return \"weak message\"\n    return \"ok\"",
       "type": "code-walkthrough",
       "steps": [
@@ -6194,20 +6702,25 @@
       "subtitle": "The exact logic your lab implements: reject the empty and the lazy commit, accept the clear one."
     },
     {
-      "type": "lab",
-      "check": "PASS: True",
-      "title": "Reject the lazy commit",
-      "starter": "LAZY = {\"\", \"wip\", \"fix\", \"stuff\", \"update\", \".\", \"asdf\"}\n\ndef check_commit(staged_files, message):\n    # A good commit is ATOMIC (has staged changes) with a clear message.\n    #   - no staged files            -> \"nothing to commit\"\n    #   - empty/lazy or < 10 chars   -> \"weak message\"\n    #   - otherwise                  -> \"ok\"\n    ...  # your code here\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ([], \"add user validation\", \"nothing to commit\"),\n    ([\"a.py\"], \"wip\", \"weak message\"),\n    ([\"a.py\"], \"fix\", \"weak message\"),\n    ([\"a.py\"], \"add input validation to signup\", \"ok\"),\n]\nok = all(check_commit(f, m) == exp for f, m, exp in cases)\nfor f, m, exp in cases:\n    print(f\"{m!r} -> {check_commit(f, m)!r}\")\nprint(f\"PASS: {ok}\")\n",
-      "summary": "Implement check_commit(staged_files, message): return \"nothing to commit\" with no staged files, \"weak message\" for an empty/lazy message (in LAZY) or under 10 chars, else \"ok\". The harness checks all four cases — a \"wip\" commit must be rejected.",
-      "language": "python"
-    },
-    {
       "fix": "Everything is in one non-atomic commit, so `git revert` would undo all 12 changes and `git bisect` can't narrow it down. Commit one logical change at a time with a clear message — then you can revert or bisect precisely.",
       "task": "Why can't they isolate and revert the bad change?",
       "type": "debug",
       "symptom": "A bug appeared and the team couldn't revert just the change that caused it.",
       "language": "bash",
       "brokenCode": "git add .\ngit commit -m \"wip\"   # 12 unrelated changes blended into one commit"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Atomic commits vs the \"wip\" blob",
+      "optionA": {
+        "label": "Atomic — one logical change",
+        "text": "git add signup.py · git commit -m \"validate signup: ·   reject empty email + bad age\" · # stage deliberately, describe what + why · # revert THIS change alone, bisect to it Outcome: Reviewable, revertable, bisectable"
+      },
+      "optionB": {
+        "label": "Blob — everything at once",
+        "text": "git add . · git commit -m \"wip\" · # 12 unrelated changes in one commit · # revert undoes ALL twelve · # bisect can not narrow it down Outcome: Unreviewable, all-or-nothing"
+      },
+      "guidance": "One logical change per commit, staged deliberately (not a blind `git add .`), with an imperative message: \"add\", \"fix\", \"validate\"."
     },
     {
       "type": "verification",
@@ -6257,7 +6770,7 @@
     {
       "type": "unlock-gate",
       "criteria": [
-        "Lab checkpoint passed — a \"wip\"/empty commit is rejected, a clear one is \"ok\"",
+        "Observable evidence — Lab checkpoint passed — a \"wip\"/empty commit is rejected, a clear one is \"ok\"",
         "Broken case understood (a giant commit can't be reverted or bisected)",
         "All verification checks confirmed",
         "Teach-back delivered with a concrete example",

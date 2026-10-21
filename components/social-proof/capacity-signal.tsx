@@ -58,11 +58,11 @@ export function CapacitySignal({
         <span className="block w-2 h-2 rounded-full bg-[#3D5AFE] animate-ping" />
       </span>
       <span className="text-xs font-mono uppercase tracking-widest text-[#A8A29E] flex-1">
-        <span className="text-[#3D5AFE]">{message}</span>
+        <span className="text-[#8FA0FF]">{message}</span>
       </span>
       <a
         href={ctaHref}
-        className="text-xs font-mono uppercase tracking-widest text-[#3D5AFE] hover:text-[#FAFAFA] transition-colors"
+        className="text-xs font-mono uppercase tracking-widest text-[#8FA0FF] hover:text-[#FAFAFA] transition-colors"
       >
         {ctaLabel} →
       </a>

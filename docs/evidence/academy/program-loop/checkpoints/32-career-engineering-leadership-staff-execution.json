@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-engineering_leadership_staff_execution",
+  "baselineRegistryVersion": "sha256:4a0676eb6e9bbab08de97ce0a1bf0b8205b6995d737ce59802703c3cb59632e8",
+  "registryVersion": "sha256:5c7ce476d1e41e251525749bacddbdf2ce516128257cbb3c96acebcc29fb72ee",
+  "commit": "e11dd2d4",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/engineering-leadership-mastery.test.ts", "result": "8/8 each run; 20/20 Python references exact; evidence, ownership, reversal, escalation, and systemic repair enforced" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons; Engineering Leadership deterministic score 100; no H1, H3, H4, or H5; 20 expected practice-runtime H2 flags" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 640 labs; 20 novice-scaffolded staff-execution labs added" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 pages" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped diff; changed-file lint, generator idempotence, and 20 authoritative-source reachability checks passed" }
+  },
+  "scoreDelta": { "before": 77.8, "after": 100, "meaning": "deterministic only; stakeholder, organizational-outcome, and expert leadership review remain pending; not certification" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundaries": [
+    { "command": "npm audit --audit-level=high", "status": "pre_existing_failure", "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed" },
+    { "command": "npm run lint", "status": "pre_existing_failure", "result": "6 errors and 25 warnings in untouched files; changed Engineering Leadership test and authoring script lint clean" }
+  ]
+}

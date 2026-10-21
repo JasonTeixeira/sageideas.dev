@@ -14,6 +14,8 @@
  * Required env (load from `vercel env pull` or `.env.local`):
  *   - NEXT_PUBLIC_SUPABASE_URL
  *   - SUPABASE_SERVICE_ROLE_KEY
+ *   - SAGE_TEST_ADMIN_PASSWORD, SAGE_TEST_CLIENT1_PASSWORD,
+ *     SAGE_TEST_CLIENT2_PASSWORD, SAGE_TEST_PENDING_PASSWORD
  *
  * Usage:
  *   import { test, expect } from '../fixtures/auth';
@@ -26,11 +28,17 @@
 import { test as base, type Page, type BrowserContext } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 
+function requireTestCredential(name: string): string {
+  const value = process.env[name]?.trim();
+  if (!value) throw new Error(`${name} is required for authenticated E2E tests`);
+  return value;
+}
+
 export const TEST_USERS = {
-  admin: { email: 'sage+admin@sageideas.org', password: 'Test!Admin#2026' },
-  client: { email: 'client1+test@sageideas.org', password: 'Test!Client#2026' },
-  client2: { email: 'client2+test@sageideas.org', password: 'Test!Client#2026' },
-  pending: { email: 'pending+test@sageideas.org', password: 'Test!Pending#2026' },
+  admin: { email: process.env.SAGE_TEST_ADMIN_EMAIL?.trim() || 'sage+admin@sageideas.org', password: requireTestCredential('SAGE_TEST_ADMIN_PASSWORD') },
+  client: { email: process.env.SAGE_TEST_CLIENT1_EMAIL?.trim() || 'client1+test@sageideas.org', password: requireTestCredential('SAGE_TEST_CLIENT1_PASSWORD') },
+  client2: { email: process.env.SAGE_TEST_CLIENT2_EMAIL?.trim() || 'client2+test@sageideas.org', password: requireTestCredential('SAGE_TEST_CLIENT2_PASSWORD') },
+  pending: { email: process.env.SAGE_TEST_PENDING_EMAIL?.trim() || 'pending+test@sageideas.org', password: requireTestCredential('SAGE_TEST_PENDING_PASSWORD') },
 } as const;
 
 type UserKey = keyof typeof TEST_USERS;

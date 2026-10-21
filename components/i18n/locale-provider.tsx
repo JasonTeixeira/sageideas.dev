@@ -2,7 +2,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react'
 import { defaultLocale, type Locale } from '@/lib/i18n/config'
-import { translate, type Messages } from '@/lib/i18n/messages'
+import type { Messages } from '@/lib/i18n/messages'
 
 interface LocaleContextValue {
   locale: Locale
@@ -31,5 +31,5 @@ export function useLocale(): Locale {
 /** Translate a source (English) string in the active locale; falls back to the source. */
 export function useT(): (source: string) => string {
   const { messages } = useContext(LocaleContext)
-  return (source: string) => translate(messages, source)
+  return (source: string) => messages[source] ?? source
 }

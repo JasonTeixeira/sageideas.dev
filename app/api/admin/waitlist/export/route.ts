@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/auth'
+import { requireAdminApi } from '@/lib/admin-guard'
 import { supabaseAdmin } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
@@ -11,7 +11,8 @@ function csvCell(v: unknown): string {
 }
 
 export async function GET() {
-  await requireAdmin() // redirects non-admins
+  const guard = await requireAdminApi()
+  if (guard instanceof NextResponse) return guard
 
   const sb = supabaseAdmin()
   const { data, error } = await sb

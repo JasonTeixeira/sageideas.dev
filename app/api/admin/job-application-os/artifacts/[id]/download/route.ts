@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { PassThrough } from 'node:stream';
 import archiver from 'archiver';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
-import { getUserWithProfile } from '@/lib/auth';
+import { requireAdminApi } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
@@ -109,10 +109,8 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const actor = await getUserWithProfile();
-  if (!actor || actor.profile.app_role !== 'admin') {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-  }
+  const guard = await requireAdminApi();
+  if (guard instanceof NextResponse) return guard;
 
   const { id } = await params;
   const sb = supabaseAdmin();

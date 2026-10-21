@@ -4,7 +4,6 @@ import { fsrs, generatorParameters } from 'ts-fsrs'
 import { supabaseAdmin, createSupabaseServerClient } from '@/lib/supabase/server'
 import { getMasteryMap } from '@/lib/academy/mastery'
 import {
-  deriveUnitState,
   deriveSignals,
   hasOpenRepair,
   type EvidenceEvent,

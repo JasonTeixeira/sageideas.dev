@@ -233,7 +233,7 @@ a:focus-visible { outline: 2px solid #8FA0FF; outline-offset: 2px; border-radius
             position: 'relative',
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
           <img
             id="pricing-hero-art"
             src="/art/academy/pricing-hero-right.webp"
@@ -253,7 +253,7 @@ a:focus-visible { outline: 2px solid #8FA0FF; outline-offset: 2px; border-radius
               maskImage: 'radial-gradient(70% 68% at 50% 50%, #000 25%, transparent 80%)',
             }}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
           <img
             id="pricing-hero-art2"
             src="/art/academy/pricing-hero-left.webp"

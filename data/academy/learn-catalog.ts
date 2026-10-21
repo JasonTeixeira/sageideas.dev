@@ -1,6 +1,9 @@
 import type { TopicKey } from '@/lib/academy/topics'
 
-/** Schema-shaped catalog data. Payload produces these types later → swap = data-source change. */
+/**
+ * Prototype learning-path fixture. Canonical course identities live in
+ * data/academy/registry.json. This file cannot define public counts or status.
+ */
 export type Level = 'Beginner' | 'Intermediate' | 'Advanced'
 
 export type PathItem = {

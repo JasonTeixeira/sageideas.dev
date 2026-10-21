@@ -1,5 +1,7 @@
 # Sage Academy — Product Build Plan
 
+> **Historical architecture proposal.** This document is not current authority. Supabase and the existing Academy runtimes are locked by [ADR 0001](./adr/0001-canonical-curriculum-registry.md); Payload CMS/WebContainers and prices in this file require new approved ADRs.
+
 **Status:** planning locked, pre-build. This doc is the single source of truth for building the Academy *product* (the post-login learning app). The marketing/waitlist landing already lives at `/academy`; this plan covers everything *behind the login*.
 
 > Build principle: **get the expensive-to-change foundations right first (model → schema → access), then prove a vertical slice end-to-end, then pour in content.** Do not author 100 lessons against an unproven model.

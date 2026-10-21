@@ -132,13 +132,46 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
       {
         key: `${dateKey}:daily-question`,
         dayOffset: offset,
-        targetChannelBaseName: 'questions',
+        targetChannelBaseName: 'the-floor',
         draftType: 'announcement',
         title: `Daily Question - ${topic.label}`,
         topic: topic.label,
         objective: 'Create a useful discussion that can become future source material.',
         actionLabel: 'Question',
         deliverable: topic.question,
+      },
+      {
+        key: `${dateKey}:daily-lesson`,
+        dayOffset: offset,
+        targetChannelBaseName: 'playbooks',
+        draftType: 'lesson',
+        title: `Mini Playbook - ${topic.label}`,
+        topic: topic.label,
+        objective: 'Teach one reusable principle and ask members to apply it to a current build.',
+        actionLabel: 'Apply it',
+        deliverable: `${topic.resource} Explain where you used it and what changed.`,
+      },
+      {
+        key: `${dateKey}:daily-quiz`,
+        dayOffset: offset,
+        targetChannelBaseName: 'quiz-room',
+        draftType: 'quiz',
+        title: `Retrieval Check - ${topic.label}`,
+        topic: topic.label,
+        objective: 'Create one scenario-based retrieval prompt with a clear explanation after the attempt.',
+        actionLabel: 'Question',
+        deliverable: topic.question,
+      },
+      {
+        key: `${dateKey}:daily-challenge`,
+        dayOffset: offset,
+        targetChannelBaseName: 'challenges',
+        draftType: 'challenge',
+        title: `Daily Challenge - ${topic.label}`,
+        topic: topic.label,
+        objective: 'Turn the lesson into one small artifact that can be reviewed instead of self-attested.',
+        actionLabel: 'Deliverable',
+        deliverable: topic.build,
       },
       {
         key: `${dateKey}:build-lab`,
@@ -170,7 +203,7 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
     {
       key: `${weekKey}:weekly-announcement`,
       dayOffset: 0,
-      targetChannelBaseName: 'announcements',
+      targetChannelBaseName: 'the-floor',
       draftType: 'announcement',
       title: 'Weekly Launch - what to build, ask, and submit',
       topic: 'Weekly operating rhythm',
@@ -181,7 +214,7 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
     {
       key: `${weekKey}:intro-prompt`,
       dayOffset: 0,
-      targetChannelBaseName: 'introductions',
+      targetChannelBaseName: 'the-floor',
       draftType: 'announcement',
       title: 'Intro Prompt - make your first ask useful',
       topic: 'Member activation',
@@ -214,9 +247,9 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
     {
       key: `${weekKey}:content-queue`,
       dayOffset: 4,
-      targetChannelBaseName: 'content-queue',
+      targetChannelBaseName: 'saved-answers',
       draftType: 'lesson',
-      title: 'Content Queue - turn a question into a durable asset',
+      title: 'Saved Answer - turn a question into a durable asset',
       topic: 'Content engine from real activity',
       objective: 'Capture reusable lessons from questions, answers, builds, and reviews.',
       actionLabel: 'Content candidate',
@@ -236,7 +269,7 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
     {
       key: `${weekKey}:accountability`,
       dayOffset: 5,
-      targetChannelBaseName: 'accountability',
+      targetChannelBaseName: 'challenges',
       draftType: 'announcement',
       title: 'Accountability Check - what shipped this week',
       topic: 'Shipping rhythm',
@@ -247,13 +280,24 @@ export function buildDiscordContentFactorySlots(startDate = new Date(), days = 7
     {
       key: `${weekKey}:weekly-recap`,
       dayOffset: 6,
-      targetChannelBaseName: 'wins-showcase',
+      targetChannelBaseName: 'weekly-recap',
       draftType: 'weekly_recap',
       title: 'Weekly Recap - builds, questions, wins, and next challenge',
       topic: 'Weekly synthesis',
       objective: 'Summarize the operating loop and point members at the next useful action.',
       actionLabel: 'Weekly recap',
       deliverable: 'Select one useful question, one build prompt, one resource, one win, and one next-week challenge.',
+    },
+    {
+      key: `${weekKey}:live-room`,
+      dayOffset: 5,
+      targetChannelBaseName: 'live-room',
+      draftType: 'announcement',
+      title: 'Live Room - prepare one decision for the session',
+      topic: 'Live implementation support',
+      objective: 'Make the live session useful by collecting concrete artifacts and decisions in advance.',
+      actionLabel: 'Prepare',
+      deliverable: 'Bring one artifact, the blocker, what you tried, and the exact decision you want help making.',
     },
   );
 
@@ -290,7 +334,7 @@ export function buildDiscordContentFactoryOperatingContract(
       proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
       pointsEligibleAfterReview: true,
     },
-    questions: {
+    'the-floor': {
       expectedMemberResponse: 'A specific question with context, attempted solution, blocker, and desired decision.',
       proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
       pointsEligibleAfterReview: true,
@@ -303,6 +347,36 @@ export function buildDiscordContentFactoryOperatingContract(
     resources: {
       expectedMemberResponse: 'A reusable checklist, template, link, or tool with why it is useful.',
       proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
+      pointsEligibleAfterReview: true,
+    },
+    'playbooks': {
+      expectedMemberResponse: 'One concrete application of the playbook plus the result, failure, or missing step.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
+      pointsEligibleAfterReview: true,
+    },
+    'quiz-room': {
+      expectedMemberResponse: 'One scenario answer followed by a correction or explanation after the attempt.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
+      pointsEligibleAfterReview: true,
+    },
+    challenges: {
+      expectedMemberResponse: 'A reviewable challenge artifact submitted through the idempotent review workflow.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'public_proof_candidate'],
+      pointsEligibleAfterReview: true,
+    },
+    'saved-answers': {
+      expectedMemberResponse: 'A correction, practical application, or freshness concern for an approved answer.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'rag_candidate'],
+      pointsEligibleAfterReview: false,
+    },
+    'live-room': {
+      expectedMemberResponse: 'A live-session artifact, blocker, attempted solution, and exact decision needed.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'content_queue_candidate', 'weekly_recap_input'],
+      pointsEligibleAfterReview: false,
+    },
+    'weekly-recap': {
+      expectedMemberResponse: 'A reviewed win, correction, next action, or useful contribution from the completed week.',
+      proofPromotionPath: ['member_reply', 'admin_review', 'public_proof_candidate', 'weekly_recap_input'],
       pointsEligibleAfterReview: true,
     },
     announcements: {
@@ -480,6 +554,25 @@ export function evaluateDiscordContentFactorySlot(
   };
 }
 
+function isUniqueViolation(error: unknown): boolean {
+  return Boolean(error && typeof error === 'object' && 'code' in error && error.code === '23505');
+}
+
+async function findContentFactoryDraftByKey(sb: SupabaseClient<any>, factoryKey: string): Promise<{
+  id: string;
+  quality_score: number | null;
+} | null> {
+  const { data, error } = await sb
+    .from('discord_content_drafts')
+    .select('id, quality_score')
+    .contains('metadata', { factory_key: factoryKey })
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? { id: String(data.id), quality_score: data.quality_score == null ? null : Number(data.quality_score) } : null;
+}
+
 export async function runDiscordContentFactory(
   sb: SupabaseClient<any>,
   input: {
@@ -530,14 +623,7 @@ export async function runDiscordContentFactory(
       }
 
       if (!input.force) {
-        const { data: existing, error: existingError } = await sb
-          .from('discord_content_drafts')
-          .select('id, quality_score')
-          .contains('metadata', { factory_key: factoryKey })
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-        if (existingError) throw existingError;
+        const existing = await findContentFactoryDraftByKey(sb, factoryKey);
         if (existing?.id) {
           drafts.push({
             factoryKey,
@@ -602,6 +688,25 @@ export async function runDiscordContentFactory(
         error: null,
       });
     } catch (error) {
+      if (!input.force && isUniqueViolation(error)) {
+        const existing = await findContentFactoryDraftByKey(sb, factoryKey);
+        if (existing?.id) {
+          drafts.push({
+            factoryKey,
+            draftId: existing.id,
+            status: 'skipped',
+            title: slot.title,
+            targetChannelBaseName: slot.targetChannelBaseName,
+            draftType: slot.draftType,
+            topic: slot.topic,
+            dayOffset: slot.dayOffset,
+            qualityScore: existing.quality_score,
+            operatingContract: planned.operatingContract,
+            error: null,
+          });
+          continue;
+        }
+      }
       drafts.push({
         factoryKey,
         draftId: null,

@@ -60,7 +60,7 @@ export default async function InvoiceDetailPage({
   const { data: inv } = await sb
     .from('invoices')
     .select(
-      'id, number, status, amount, total, subtotal, tax, due_date, sent_at, paid_at, notes, created_at, organization_id, engagement_id, dunning_status, last_reminder_at, reminder_count, stripe_payment_intent_id, stripe_checkout_session_id, payment_method_used, organizations(name), engagements(title)',
+      'id, number, status, amount_due, total, subtotal, tax, due_date, sent_at, paid_at, notes, created_at, organization_id, engagement_id, dunning_status, last_reminder_at, reminder_count, stripe_payment_intent_id, stripe_checkout_session_id, payment_method_used, organizations(name), engagements(title)',
     )
     .eq('id', id)
     .maybeSingle();
@@ -113,9 +113,9 @@ export default async function InvoiceDetailPage({
           <Stat label="Due" value={inv.due_date ? formatDate(inv.due_date) : '—'} />
           <Stat
             label="Subtotal"
-            value={formatCurrency(Number(inv.subtotal ?? inv.amount ?? 0))}
+            value={formatCurrency(Number(inv.subtotal ?? inv.amount_due ?? 0))}
           />
-          <Stat label="Total" value={formatCurrency(Number(inv.total ?? inv.amount ?? 0))} />
+          <Stat label="Total" value={formatCurrency(Number(inv.total ?? inv.amount_due ?? 0))} />
         </div>
 
         <div className="rounded-xl border border-[#27272a] bg-[#0f0f12] p-5">

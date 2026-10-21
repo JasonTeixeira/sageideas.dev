@@ -1,0 +1,3105 @@
+{
+  "schemaVersion": 2,
+  "harnessVersion": "2.0.0",
+  "registryVersion": "sha256:fbcfb4642f5f5239fa36e072fc24f3a9cbe19afc03b43261bbc863222edce828",
+  "generatedAt": "2026-09-05T19:32:28.816Z",
+  "authority": "scripts/academy/quality/v2/run.ts",
+  "labTrust": "untrusted_current_runtime",
+  "certificationPolicy": "No course is certified by this audit. Eligibility requires zero hard fails and zero required pending checks.",
+  "summary": {
+    "coursesAudited": 32,
+    "lessonsAudited": 640,
+    "coursesEligible": 0,
+    "coursesBlocked": 32,
+    "coursesNeedsRemediation": 0,
+    "coursesPendingReview": 0,
+    "coursesCertified": 0,
+    "hardFailCounts": {
+      "H1": 0,
+      "H2": 640,
+      "H3": 0,
+      "H4": 0,
+      "H5": 0
+    }
+  },
+  "executionCoverage": {
+    "staticAuthoring": {
+      "scope": "full",
+      "courses": 32,
+      "lessons": 640,
+      "note": "Every registered Git-resident bundle was parsed and evaluated independently."
+    },
+    "currentLabExecution": {
+      "scope": "none_by_policy",
+      "executed": 0,
+      "note": "No verified activation attestation was supplied; every current lab remains untrusted by policy."
+    },
+    "externalLinkReachability": {
+      "scope": "none_by_policy",
+      "checked": 0,
+      "note": "The default audit is deterministic and offline; external reachability evidence remains pending."
+    },
+    "renderedAccessibility": {
+      "scope": "no_evidence_supplied",
+      "lessons": 0,
+      "note": "Static transcript readiness runs for all lessons; rendered axe, keyboard, contrast, and reduced-motion evidence remains pending."
+    },
+    "renderedPerformance": {
+      "scope": "no_evidence_supplied",
+      "lessons": 0,
+      "note": "No production-like Lighthouse evidence is inferred from source files."
+    },
+    "expertAndHumanReview": {
+      "scope": "no_evidence_supplied",
+      "lessons": 0,
+      "note": "Correctness, pedagogy, visual teaching, and UX judgments remain explicitly pending."
+    }
+  },
+  "courses": [
+    {
+      "courseSlug": "career-engineering_judgment_foundation",
+      "title": "Engineering Judgment and Learning How to Learn",
+      "lessonCount": 16,
+      "contentHash": "sha256:8161a71345d7116c14e3d5b65bbd3f0e7369fa4d25640740a09e78e55d5fed77",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 16,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 16,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-engineering_judgment_foundation.json",
+        "lessons": "lesson-scorecards/career-engineering_judgment_foundation.json"
+      }
+    },
+    {
+      "courseSlug": "career-concept_maps_real_world_engineering",
+      "title": "Think Like a Senior Engineer: Concept Maps",
+      "lessonCount": 30,
+      "contentHash": "sha256:ec6f5fe57cd1024bb1d83fbecfc55887850b82fae93e89158738802b37f3fe7d",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 30,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 30,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-concept_maps_real_world_engineering.json",
+        "lessons": "lesson-scorecards/career-concept_maps_real_world_engineering.json"
+      }
+    },
+    {
+      "courseSlug": "programming-fundamentals",
+      "title": "Programming Fundamentals",
+      "lessonCount": 18,
+      "contentHash": "sha256:ab2989c125bb36a33132ea91536e39bd2ef02bcd4f10e5cf5938b0308ed41d0c",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 18,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 18,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/programming-fundamentals.json",
+        "lessons": "lesson-scorecards/programming-fundamentals.json"
+      }
+    },
+    {
+      "courseSlug": "career-programming_cs_foundations",
+      "title": "Programming and Computer Science Foundations",
+      "lessonCount": 20,
+      "contentHash": "sha256:70ea39669c9d7608ccad1583d39cdcce903514e1501fd4e76a6b8a4107d00b35",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-programming_cs_foundations.json",
+        "lessons": "lesson-scorecards/career-programming_cs_foundations.json"
+      }
+    },
+    {
+      "courseSlug": "python-basics",
+      "title": "Python Basics",
+      "lessonCount": 12,
+      "contentHash": "sha256:71286c589fe575459bdc03def429efdf81e04d33c285616bcf9113381b2edbb5",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 12,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 12,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/python-basics.json",
+        "lessons": "lesson-scorecards/python-basics.json"
+      }
+    },
+    {
+      "courseSlug": "git-the-terminal",
+      "title": "Git and the Terminal",
+      "lessonCount": 20,
+      "contentHash": "sha256:9747ce4d3370d210c092c2c2976fb74da155588ba07e87ebac610ad63c134bfe",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 90,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "media",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "pending",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/git-the-terminal.json",
+        "lessons": "lesson-scorecards/git-the-terminal.json"
+      }
+    },
+    {
+      "courseSlug": "data-structures",
+      "title": "Data Structures",
+      "lessonCount": 20,
+      "contentHash": "sha256:9779f0b641e48637d3feb7c7c39d5c9b504f7bb664897b603d10b9c087b23209",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 90,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "media",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "pending",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/data-structures.json",
+        "lessons": "lesson-scorecards/data-structures.json"
+      }
+    },
+    {
+      "courseSlug": "career-backend_engineering",
+      "title": "Backend Engineering",
+      "lessonCount": 20,
+      "contentHash": "sha256:02bf3131491b5dd6806c6a06e276a686eeb7ca4a00eee54dd2a4191207a41d02",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-backend_engineering.json",
+        "lessons": "lesson-scorecards/career-backend_engineering.json"
+      }
+    },
+    {
+      "courseSlug": "career-frontend_fullstack",
+      "title": "Frontend and Fullstack Product Engineering",
+      "lessonCount": 20,
+      "contentHash": "sha256:796abb52dcdc0b0437cf8b231edfe0a2f1f902d2136c39f0011be6fe22a7ef16",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-frontend_fullstack.json",
+        "lessons": "lesson-scorecards/career-frontend_fullstack.json"
+      }
+    },
+    {
+      "courseSlug": "career-architecture_system_design",
+      "title": "Architecture and System Design",
+      "lessonCount": 20,
+      "contentHash": "sha256:51cf3c890fe53f93616fbc2d1eb3c85bc8760da363088a63bcccd47843f23de2",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-architecture_system_design.json",
+        "lessons": "lesson-scorecards/career-architecture_system_design.json"
+      }
+    },
+    {
+      "courseSlug": "system-design",
+      "title": "System Design",
+      "lessonCount": 24,
+      "contentHash": "sha256:76b3ed80b2b108ac59b8535633972ef2dd3d88de2d082a73981b719a760adc97",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 90,
+      "compositeScore": null,
+      "hardFailCount": 24,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 24,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "media",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "pending",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/system-design.json",
+        "lessons": "lesson-scorecards/system-design.json"
+      }
+    },
+    {
+      "courseSlug": "career-security_identity",
+      "title": "Security and Identity Engineering",
+      "lessonCount": 20,
+      "contentHash": "sha256:6a52afa00d20c957ebc9ac89cfb164f4123e30cc1b4ad4113594109c24308204",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-security_identity.json",
+        "lessons": "lesson-scorecards/career-security_identity.json"
+      }
+    },
+    {
+      "courseSlug": "career-mobile_engineering_deep_dive",
+      "title": "Mobile Engineering Deep Dive",
+      "lessonCount": 20,
+      "contentHash": "sha256:6d27be01e2a3f5acf3981534f86e4a3ea9d74300ad6a91c835aed1699e531263",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-mobile_engineering_deep_dive.json",
+        "lessons": "lesson-scorecards/career-mobile_engineering_deep_dive.json"
+      }
+    },
+    {
+      "courseSlug": "career-qa_sdet_test_automation_engineering",
+      "title": "QA, SDET, and Test Automation Engineering",
+      "lessonCount": 20,
+      "contentHash": "sha256:d2827b43f558bbd9c6d5f98c4a577f7280ae6fde2cfb55c9771a2a5a5d399dee",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-qa_sdet_test_automation_engineering.json",
+        "lessons": "lesson-scorecards/career-qa_sdet_test_automation_engineering.json"
+      }
+    },
+    {
+      "courseSlug": "career-networking_fundamentals_advanced_networking",
+      "title": "Networking Fundamentals and Advanced Networking",
+      "lessonCount": 20,
+      "contentHash": "sha256:85811b49c922aa01b136533cc0bc673b59347ffa1bac54f311bd58858b05cf2a",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-networking_fundamentals_advanced_networking.json",
+        "lessons": "lesson-scorecards/career-networking_fundamentals_advanced_networking.json"
+      }
+    },
+    {
+      "courseSlug": "career-ux_ui_product_design_for_engineers",
+      "title": "UX, UI, and Product Design for Engineers",
+      "lessonCount": 20,
+      "contentHash": "sha256:bb21a90e91c6b9fd0f4bf5e114bada8ed3a94bde838fbc8138cdb1d016e68a19",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-ux_ui_product_design_for_engineers.json",
+        "lessons": "lesson-scorecards/career-ux_ui_product_design_for_engineers.json"
+      }
+    },
+    {
+      "courseSlug": "career-databases_data_modeling",
+      "title": "Databases and Data Modeling",
+      "lessonCount": 20,
+      "contentHash": "sha256:6fc268e4be2fb8f076eedadf8069ec075c662c598924c52f587847b7973612a1",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-databases_data_modeling.json",
+        "lessons": "lesson-scorecards/career-databases_data_modeling.json"
+      }
+    },
+    {
+      "courseSlug": "career-data_engineering_analytics",
+      "title": "Data Engineering and Analytics Platforms",
+      "lessonCount": 20,
+      "contentHash": "sha256:7db977ba805fb2f0129ed130b0a5c3817b77dbf3a8fb4a3e0521224bd43324c1",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-data_engineering_analytics.json",
+        "lessons": "lesson-scorecards/career-data_engineering_analytics.json"
+      }
+    },
+    {
+      "courseSlug": "career-ai_engineering_rag_eval",
+      "title": "AI Engineering, RAG, Evals, Safety, and LLMOps",
+      "lessonCount": 20,
+      "contentHash": "sha256:8e8c50fd77027777b0400c8007eabaa6597366e01bf2e32d51b1d8bc8c366a79",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-ai_engineering_rag_eval.json",
+        "lessons": "lesson-scorecards/career-ai_engineering_rag_eval.json"
+      }
+    },
+    {
+      "courseSlug": "the-llm-api",
+      "title": "The LLM API",
+      "lessonCount": 20,
+      "contentHash": "sha256:968667a335925117c8de314a545d8d9bafff9471aa8dd3551043abd4d118ad8b",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/the-llm-api.json",
+        "lessons": "lesson-scorecards/the-llm-api.json"
+      }
+    },
+    {
+      "courseSlug": "prompt-engineering",
+      "title": "Prompt Engineering",
+      "lessonCount": 20,
+      "contentHash": "sha256:7369ac61002ebb340a00fef79f150868997aa364d1871335ba160c0d1c3b5d86",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/prompt-engineering.json",
+        "lessons": "lesson-scorecards/prompt-engineering.json"
+      }
+    },
+    {
+      "courseSlug": "rag-retrieval",
+      "title": "RAG and Retrieval",
+      "lessonCount": 20,
+      "contentHash": "sha256:e18cf9df442f6439d962a874ce0f177ad60dd2bb1c4ce9b5ab2fe71eebafb571",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/rag-retrieval.json",
+        "lessons": "lesson-scorecards/rag-retrieval.json"
+      }
+    },
+    {
+      "courseSlug": "agents-tool-use",
+      "title": "Agents and Tool Use",
+      "lessonCount": 20,
+      "contentHash": "sha256:beefc8970401326e06dfc14f4b2e1f4dc44d55407e3e4bf035fc5ae86f558396",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/agents-tool-use.json",
+        "lessons": "lesson-scorecards/agents-tool-use.json"
+      }
+    },
+    {
+      "courseSlug": "career-cloud_devops_operations",
+      "title": "Cloud, DevOps, and Production Operations",
+      "lessonCount": 20,
+      "contentHash": "sha256:7593186981c6b2ac6b897784deb5a8c244119add14fac843c33c4c27c613d080",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-cloud_devops_operations.json",
+        "lessons": "lesson-scorecards/career-cloud_devops_operations.json"
+      }
+    },
+    {
+      "courseSlug": "career-observability_reliability_performance",
+      "title": "Observability, Reliability, and Performance",
+      "lessonCount": 20,
+      "contentHash": "sha256:ceba36f7ba5505c07e16170d4d31cac7fe1f04c8c1804308def69c13c92c5c59",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-observability_reliability_performance.json",
+        "lessons": "lesson-scorecards/career-observability_reliability_performance.json"
+      }
+    },
+    {
+      "courseSlug": "career-platform_engineering_internal_developer_platforms",
+      "title": "Platform Engineering and Internal Developer Platforms",
+      "lessonCount": 20,
+      "contentHash": "sha256:700e2fa036aece863f9f518c14ae70f49c015f634c96fdf99b747ad8c8880d60",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-platform_engineering_internal_developer_platforms.json",
+        "lessons": "lesson-scorecards/career-platform_engineering_internal_developer_platforms.json"
+      }
+    },
+    {
+      "courseSlug": "career-enterprise_it_saas_admin_business_systems",
+      "title": "Enterprise IT, SaaS Administration, and Business Systems",
+      "lessonCount": 20,
+      "contentHash": "sha256:c5683e738160f68e43eeffd8b1a5d7fe396fbb06252ba50548c1a222ab65340e",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-enterprise_it_saas_admin_business_systems.json",
+        "lessons": "lesson-scorecards/career-enterprise_it_saas_admin_business_systems.json"
+      }
+    },
+    {
+      "courseSlug": "nextjs-supabase",
+      "title": "Next.js and Supabase",
+      "lessonCount": 20,
+      "contentHash": "sha256:9550b521a0da383e290d874c758cf1db93156c2f5f8668ab9fc4193c94747f2d",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 90,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "media",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "pending",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/nextjs-supabase.json",
+        "lessons": "lesson-scorecards/nextjs-supabase.json"
+      }
+    },
+    {
+      "courseSlug": "stripe-auth",
+      "title": "Stripe and Authentication",
+      "lessonCount": 20,
+      "contentHash": "sha256:00e504f38f0a97fd878705039235198af0d0c8f12d1c56bd152ac6d176b6a3f9",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 90,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "media",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "pending",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/stripe-auth.json",
+        "lessons": "lesson-scorecards/stripe-auth.json"
+      }
+    },
+    {
+      "courseSlug": "career-interview_career_portfolio",
+      "title": "Interview, Career, and Portfolio",
+      "lessonCount": 20,
+      "contentHash": "sha256:c05eb144d4f84be5f6527760ee4306329a1283b9a5d37b900c752667223e796c",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-interview_career_portfolio.json",
+        "lessons": "lesson-scorecards/career-interview_career_portfolio.json"
+      }
+    },
+    {
+      "courseSlug": "career-product_execution_market_feedback",
+      "title": "Product Execution and Market Feedback",
+      "lessonCount": 20,
+      "contentHash": "sha256:5959c9d06df8645f28b28b16521855c8606c95368c752fffcf75cf65694caedb",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-product_execution_market_feedback.json",
+        "lessons": "lesson-scorecards/career-product_execution_market_feedback.json"
+      }
+    },
+    {
+      "courseSlug": "career-engineering_leadership_staff_execution",
+      "title": "Engineering Leadership and Staff-Level Execution",
+      "lessonCount": 20,
+      "contentHash": "sha256:e52187bd97edf6e9c674d6addd73e0e28751f19005eb44b9b74a4def1497a415",
+      "labTrust": "untrusted_current_runtime",
+      "decision": "blocked",
+      "certificationStatus": "uncertified",
+      "deterministicScore": 100,
+      "compositeScore": null,
+      "hardFailCount": 20,
+      "hardFailCounts": {
+        "H1": 0,
+        "H2": 20,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0
+      },
+      "requiredPending": [
+        "accessibility",
+        "consistency",
+        "content_correctness",
+        "pedagogy",
+        "performance",
+        "sources",
+        "ux",
+        "visual"
+      ],
+      "dimensions": {
+        "content_correctness": {
+          "status": "pending",
+          "score": null
+        },
+        "structure": {
+          "status": "pass",
+          "score": 100
+        },
+        "pedagogy": {
+          "status": "pending",
+          "score": null
+        },
+        "assessments": {
+          "status": "pass",
+          "score": 100
+        },
+        "sources": {
+          "status": "pending",
+          "score": null
+        },
+        "labs": {
+          "status": "fail",
+          "score": null
+        },
+        "accessibility": {
+          "status": "pending",
+          "score": null
+        },
+        "media": {
+          "status": "not_applicable",
+          "score": null
+        },
+        "references": {
+          "status": "pass",
+          "score": 100
+        },
+        "metadata": {
+          "status": "pass",
+          "score": 100
+        },
+        "duplication": {
+          "status": "pass",
+          "score": 100
+        },
+        "visual": {
+          "status": "pending",
+          "score": null
+        },
+        "ux": {
+          "status": "pending",
+          "score": null
+        },
+        "performance": {
+          "status": "pending",
+          "score": null
+        },
+        "consistency": {
+          "status": "pending",
+          "score": null
+        }
+      },
+      "scorecards": {
+        "course": "course-scorecards/career-engineering_leadership_staff_execution.json",
+        "lessons": "lesson-scorecards/career-engineering_leadership_staff_execution.json"
+      }
+    }
+  ]
+}

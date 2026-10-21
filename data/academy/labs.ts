@@ -68,7 +68,7 @@ export interface LabProject {
 
 export const LAB_TRACKS: Record<LabTrack, { label: string; tint: string }> = {
   'ai-engineering': { label: 'AI Engineering', tint: '#8FA0FF' },
-  backend: { label: 'Backend', tint: '#3D5AFE' },
+  backend: { label: 'Backend', tint: '#8FA0FF' },
   frontend: { label: 'Frontend', tint: '#18B663' },
   data: { label: 'Data', tint: '#22C7A9' },
   cloud: { label: 'Cloud', tint: '#E0A93E' },

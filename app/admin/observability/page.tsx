@@ -65,7 +65,7 @@ export default async function ObservabilityPage({
 
   const horizon = new Date(Date.now() - RANGE_HOURS[range] * 60 * 60 * 1000).toISOString();
 
-  const [{ data: perfRowsData }, { data: errorRowsData }] = await Promise.all([
+  const [perfResult, errorResult] = await Promise.all([
     sb
       .from('performance_events')
       .select('occurred_at, metric_name, metric_value, rating')
@@ -80,8 +80,9 @@ export default async function ObservabilityPage({
       .limit(200),
   ]);
 
-  const perfRows = (perfRowsData ?? []) as PerfRow[];
-  const errorRows = (errorRowsData ?? []) as ErrorRow[];
+  const queryUnavailable = Boolean(perfResult.error || errorResult.error);
+  const perfRows = (perfResult.data ?? []) as PerfRow[];
+  const errorRows = (errorResult.data ?? []) as ErrorRow[];
 
   const lcpValues = perfRows.filter((r) => r.metric_name === 'LCP').map((r) => Number(r.metric_value));
   const inpValues = perfRows.filter((r) => r.metric_name === 'INP').map((r) => Number(r.metric_value));
@@ -111,8 +112,9 @@ export default async function ObservabilityPage({
     .sort((a, b) => b.count - a.count)
     .slice(0, 10);
 
-  const totalSamples = perfRows.length;
-  const errorRate = totalSamples > 0 ? errorRows.length / totalSamples : 0;
+  const last24Hours = Date.now() - 24 * 60 * 60 * 1000;
+  const vitalSamples24h = perfRows.filter((row) => Date.parse(row.occurred_at) >= last24Hours).length;
+  const errorSignalRatio = vitalSamples24h > 0 ? errorRows.length / vitalSamples24h : null;
 
   return (
     <>
@@ -131,7 +133,7 @@ export default async function ObservabilityPage({
               Observability
             </h1>
             <p className="text-sm text-[#a1a1aa] mt-1">
-              Real-user metrics, error rate, and SLO posture.
+              Real-user metrics, diagnostic error signals, and SLO posture.
             </p>
           </div>
           <RangeTabs current={range} />
@@ -141,25 +143,31 @@ export default async function ObservabilityPage({
           <SloCard
             label="LCP p75"
             value={lcpP75 == null ? '—' : `${(lcpP75 / 1000).toFixed(2)} s`}
-            ok={lcpP75 == null || lcpP75 <= 2500}
+            ok={queryUnavailable || lcpP75 == null ? null : lcpP75 <= 2500}
             target="≤ 2.5s"
             testid="slo-lcp"
           />
           <SloCard
             label="INP p75"
             value={inpP75 == null ? '—' : `${Math.round(inpP75)} ms`}
-            ok={inpP75 == null || inpP75 <= 200}
+            ok={queryUnavailable || inpP75 == null ? null : inpP75 <= 200}
             target="≤ 200 ms"
             testid="slo-inp"
           />
           <SloCard
-            label="Error rate (24h)"
-            value={`${(errorRate * 100).toFixed(2)}%`}
-            ok={errorRate < 0.05}
-            target="< 5%"
+            label="Diagnostic ratio (24h)"
+            value={errorSignalRatio == null ? 'No samples' : `${(errorSignalRatio * 100).toFixed(2)}%`}
+            ok={queryUnavailable || errorSignalRatio == null ? null : errorSignalRatio < 0.05}
+            target="< 5% errors per vital sample"
             testid="slo-error-rate"
           />
         </div>
+
+        {queryUnavailable && (
+          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200" role="alert">
+            Telemetry is unavailable. Values remain unknown until the query succeeds; this state is not healthy evidence.
+          </div>
+        )}
 
         <Card>
           <CardContent className="p-5">
@@ -179,11 +187,15 @@ export default async function ObservabilityPage({
             <div className="flex items-baseline justify-between mb-3">
               <h2 className="text-sm font-medium text-[#fafafa]">Top errors (24h)</h2>
               <span className="text-xs text-[#71717a]">
-                CLS p75: {clsP75 != null ? clsP75.toFixed(3) : '—'} · {totalSamples}{' '}
+                CLS p75: {clsP75 != null ? clsP75.toFixed(3) : '—'} · {perfRows.length}{' '}
                 vital samples
               </span>
             </div>
-            {topErrors.length === 0 ? (
+            {queryUnavailable ? (
+              <p className="text-xs text-amber-300" data-testid="observability-unavailable">
+                Error telemetry could not be read. Follow the incident runbook before making an SLO claim.
+              </p>
+            ) : topErrors.length === 0 ? (
               <p className="text-xs text-[#71717a]" data-testid="observability-no-errors">
                 No errors logged in the last 24 hours.
               </p>
@@ -229,7 +241,7 @@ function SloCard({
 }: {
   label: string;
   value: string;
-  ok: boolean;
+  ok: boolean | null;
   target: string;
   testid: string;
 }) {
@@ -238,7 +250,8 @@ function SloCard({
       <CardContent className="p-5" data-testid={testid}>
         <div className="flex items-center gap-2 mb-1">
           <span
-            className={`h-2 w-2 rounded-full ${ok ? 'bg-emerald-400' : 'bg-rose-400'}`}
+            className={`h-2 w-2 rounded-full ${ok == null ? 'bg-zinc-500' : ok ? 'bg-emerald-400' : 'bg-rose-400'}`}
+            aria-label={ok == null ? 'Unknown' : ok ? 'Within target' : 'Outside target'}
           />
           <span className="text-[10px] uppercase tracking-wider text-[#52525b]">
             {label}

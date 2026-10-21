@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "courses": [
+    {
+      "slug": "career-engineering_judgment_foundation",
+      "title": "Engineering Judgment and Learning How to Learn",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "fallbackVisibility": "public",
+      "aliases": []
+    },
+    {
+      "slug": "career-concept_maps_real_world_engineering",
+      "title": "Think Like a Senior Engineer: Concept Maps",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "programming-fundamentals",
+      "title": "Programming Fundamentals",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "fallbackVisibility": "public",
+      "aliases": []
+    },
+    {
+      "slug": "career-programming_cs_foundations",
+      "title": "Programming and Computer Science Foundations",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "python-basics",
+      "title": "Python Basics",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "git-the-terminal",
+      "title": "Git and the Terminal",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "data-structures",
+      "title": "Data Structures",
+      "topic": "foundations",
+      "level": "Beginner",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-backend_engineering",
+      "title": "Backend Engineering",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-frontend_fullstack",
+      "title": "Frontend and Fullstack Product Engineering",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-architecture_system_design",
+      "title": "Architecture and System Design",
+      "topic": "engineering",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "system-design",
+      "title": "System Design",
+      "topic": "engineering",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-security_identity",
+      "title": "Security and Identity Engineering",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-mobile_engineering_deep_dive",
+      "title": "Mobile Engineering Deep Dive",
+      "topic": "engineering",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-qa_sdet_test_automation_engineering",
+      "title": "QA, SDET, and Test Automation Engineering",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-networking_fundamentals_advanced_networking",
+      "title": "Networking Fundamentals and Advanced Networking",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-ux_ui_product_design_for_engineers",
+      "title": "UX, UI, and Product Design for Engineers",
+      "topic": "engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-databases_data_modeling",
+      "title": "Databases and Data Modeling",
+      "topic": "data",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-data_engineering_analytics",
+      "title": "Data Engineering and Analytics Platforms",
+      "topic": "data",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-ai_engineering_rag_eval",
+      "title": "AI Engineering, RAG, Evals, Safety, and LLMOps",
+      "topic": "ai-engineering",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "the-llm-api",
+      "title": "The LLM API",
+      "topic": "ai-engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "prompt-engineering",
+      "title": "Prompt Engineering",
+      "topic": "ai-engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "rag-retrieval",
+      "title": "RAG and Retrieval",
+      "topic": "ai-engineering",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "agents-tool-use",
+      "title": "Agents and Tool Use",
+      "topic": "ai-engineering",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-cloud_devops_operations",
+      "title": "Cloud, DevOps, and Production Operations",
+      "topic": "ship-it",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-observability_reliability_performance",
+      "title": "Observability, Reliability, and Performance",
+      "topic": "ship-it",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-platform_engineering_internal_developer_platforms",
+      "title": "Platform Engineering and Internal Developer Platforms",
+      "topic": "ship-it",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-enterprise_it_saas_admin_business_systems",
+      "title": "Enterprise IT, SaaS Administration, and Business Systems",
+      "topic": "ship-it",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "nextjs-supabase",
+      "title": "Next.js and Supabase",
+      "topic": "ship-it",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "stripe-auth",
+      "title": "Stripe and Authentication",
+      "topic": "ship-it",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-interview_career_portfolio",
+      "title": "Interview, Career, and Portfolio",
+      "topic": "growth",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-product_execution_market_feedback",
+      "title": "Product Execution and Market Feedback",
+      "topic": "growth",
+      "level": "Intermediate",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    },
+    {
+      "slug": "career-engineering_leadership_staff_execution",
+      "title": "Engineering Leadership and Staff-Level Execution",
+      "topic": "growth",
+      "level": "Advanced",
+      "lifecycleStatus": "draft",
+      "certificationStatus": "uncertified",
+      "aliases": []
+    }
+  ]
+}

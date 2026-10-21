@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createHash } from 'crypto'
-import { Resend } from 'resend'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import { rateLimit } from '@/lib/rate-limit'
 import { captureLead } from '@/lib/leads/capture'
 import { readAttributionFromRequest } from '@/lib/analytics/server-attribution'
 import { mergeAttributionMetadata } from '@/lib/analytics/attribution'
+import { sendEmail } from '@/lib/email/send'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -156,14 +156,11 @@ export async function POST(request: NextRequest) {
     })
 
     // Resend: notification to studio + confirmation to inquirer
-    const resendKey = process.env.RESEND_API_KEY
-    if (resendKey) {
-      const resend = new Resend(resendKey)
-      const FROM = 'Sage Ideas <sage@sageideas.dev>'
-      const STUDIO = 'sage@sageideas.dev'
-      const typeLabel = ENGAGEMENT_LABEL[engagement_type]
+    const FROM = 'Sage Ideas <sage@sageideas.dev>'
+    const STUDIO = 'sage@sageideas.dev'
+    const typeLabel = ENGAGEMENT_LABEL[engagement_type]
 
-      const adminHtml = `<!doctype html><html><body style="margin:0;padding:0;background:#09090B;font-family:-apple-system,system-ui,sans-serif">
+    const adminHtml = `<!doctype html><html><body style="margin:0;padding:0;background:#09090B;font-family:-apple-system,system-ui,sans-serif">
 <div style="max-width:600px;margin:0 auto;padding:32px 16px;color:#FAFAFA">
   <div style="font:11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:0.12em;color:#06B6D4;margin-bottom:8px">New ${escapeHtml(typeLabel)} inquiry</div>
   <h1 style="font-size:22px;margin:0 0 24px;color:#FAFAFA">${escapeHtml(name)} — ${escapeHtml(company || 'no company listed')}</h1>
@@ -184,7 +181,7 @@ export async function POST(request: NextRequest) {
   <p style="font-size:12px;color:#71717A;margin-top:24px">Reply directly to ${escapeHtml(email)}.</p>
 </div></body></html>`
 
-      const userHtml = `<!doctype html><html><body style="margin:0;padding:0;background:#09090B;font-family:-apple-system,system-ui,sans-serif">
+    const userHtml = `<!doctype html><html><body style="margin:0;padding:0;background:#09090B;font-family:-apple-system,system-ui,sans-serif">
 <div style="max-width:600px;margin:0 auto;padding:32px 16px;color:#FAFAFA">
   <div style="font:11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:0.12em;color:#06B6D4;margin-bottom:8px">Sage Ideas Studio</div>
   <h1 style="font-size:24px;margin:0 0 16px;color:#FAFAFA">Got it, ${escapeHtml(name.split(' ')[0])}.</h1>
@@ -201,28 +198,29 @@ export async function POST(request: NextRequest) {
   <p style="font-size:12px;color:#52525B;margin:32px 0 0">Sage Ideas LLC · Orlando, FL · sageideas.dev</p>
 </div></body></html>`
 
-      try {
-        await Promise.allSettled([
-          resend.emails.send({
+    try {
+      await Promise.allSettled([
+        sendEmail({
             from: FROM,
             to: STUDIO,
             replyTo: email,
             subject: `[${typeLabel}] ${name}${company ? ` · ${company}` : ''}`,
             html: adminHtml,
+            templateKey: 'inquiry_operator',
+            metadata: { inquiryId, engagementType: engagement_type },
           }),
-          resend.emails.send({
+        sendEmail({
             from: FROM,
             to: email,
             replyTo: STUDIO,
             subject: `Got your ${typeLabel.toLowerCase()} inquiry — Sage Ideas`,
             html: userHtml,
+            templateKey: 'inquiry_confirmation',
+            metadata: { inquiryId, engagementType: engagement_type },
           }),
-        ])
-      } catch (e) {
-        console.error('[inquiry] resend send failed', e)
-      }
-    } else {
-      console.warn('[inquiry] RESEND_API_KEY missing — skipped emails')
+      ])
+    } catch (e) {
+      console.error('[inquiry] email delivery failed', e)
     }
 
     return NextResponse.json({ ok: true, id: inquiryId }, { status: 200 })

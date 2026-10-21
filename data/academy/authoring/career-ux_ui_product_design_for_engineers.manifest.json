@@ -1,0 +1,182 @@
+[
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "problem-framing",
+    "title": "Problem Framing",
+    "moduleTitle": "Module 1 · Product Problem And User Journey",
+    "moduleSort": 0,
+    "sort": 0,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "user-journey-mapping",
+    "title": "User Journey Mapping",
+    "moduleTitle": "Module 1 · Product Problem And User Journey",
+    "moduleSort": 0,
+    "sort": 1,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "information-architecture",
+    "title": "Information Architecture",
+    "moduleTitle": "Module 1 · Product Problem And User Journey",
+    "moduleSort": 0,
+    "sort": 2,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "non-goals",
+    "title": "Non-Goals",
+    "moduleTitle": "Module 1 · Product Problem And User Journey",
+    "moduleSort": 0,
+    "sort": 3,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "workflow-structure",
+    "title": "Workflow Structure",
+    "moduleTitle": "Module 2 · Interaction Design And States",
+    "moduleSort": 1,
+    "sort": 0,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "forms-and-validation",
+    "title": "Forms And Validation",
+    "moduleTitle": "Module 2 · Interaction Design And States",
+    "moduleSort": 1,
+    "sort": 1,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "empty-loading-error-states",
+    "title": "Empty Loading Error States",
+    "moduleTitle": "Module 2 · Interaction Design And States",
+    "moduleSort": 1,
+    "sort": 2,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "edge-case-ux",
+    "title": "Edge-Case Ux",
+    "moduleTitle": "Module 2 · Interaction Design And States",
+    "moduleSort": 1,
+    "sort": 3,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "layout-hierarchy",
+    "title": "Layout Hierarchy",
+    "moduleTitle": "Module 3 · Visual Systems For Engineers",
+    "moduleSort": 2,
+    "sort": 0,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "design-tokens",
+    "title": "Design Tokens",
+    "moduleTitle": "Module 3 · Visual Systems For Engineers",
+    "moduleSort": 2,
+    "sort": 1,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "component-states",
+    "title": "Component States",
+    "moduleTitle": "Module 3 · Visual Systems For Engineers",
+    "moduleSort": 2,
+    "sort": 2,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "data-ui-clarity",
+    "title": "Data Ui Clarity",
+    "moduleTitle": "Module 3 · Visual Systems For Engineers",
+    "moduleSort": 2,
+    "sort": 3,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "wcag-principles",
+    "title": "Wcag Principles",
+    "moduleTitle": "Module 4 · Accessibility And Usability",
+    "moduleSort": 3,
+    "sort": 0,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "keyboard-and-screen-reader-flows",
+    "title": "Keyboard And Screen Reader Flows",
+    "moduleTitle": "Module 4 · Accessibility And Usability",
+    "moduleSort": 3,
+    "sort": 1,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "usability-test-plan",
+    "title": "Usability Test Plan",
+    "moduleTitle": "Module 4 · Accessibility And Usability",
+    "moduleSort": 3,
+    "sort": 2,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "critique-loop",
+    "title": "Critique Loop",
+    "moduleTitle": "Module 4 · Accessibility And Usability",
+    "moduleSort": 3,
+    "sort": 3,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "prototype-to-code-handoff",
+    "title": "Prototype-To-Code Handoff",
+    "moduleTitle": "Module 5 · Implementation And Measurement",
+    "moduleSort": 4,
+    "sort": 0,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "instrumentation-plan",
+    "title": "Instrumentation Plan",
+    "moduleTitle": "Module 5 · Implementation And Measurement",
+    "moduleSort": 4,
+    "sort": 1,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "metric-tree",
+    "title": "Metric Tree",
+    "moduleTitle": "Module 5 · Implementation And Measurement",
+    "moduleSort": 4,
+    "sort": 2,
+    "sourceMdPath": ""
+  },
+  {
+    "courseSlug": "career-ux_ui_product_design_for_engineers",
+    "slug": "design-review-packet",
+    "title": "Design Review Packet",
+    "moduleTitle": "Module 5 · Implementation And Measurement",
+    "moduleSort": 4,
+    "sort": 3,
+    "sourceMdPath": ""
+  }
+]

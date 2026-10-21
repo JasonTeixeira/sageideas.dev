@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:47:47.810Z",
+  "status": "pass",
+  "classification": "stateless_staging_verified",
+  "expected": {
+    "baseURL": "https://sageideas-academy-staging-js73jqntw-sage-ideas.vercel.app",
+    "deploymentId": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+    "commitSha": "8e3c083901911a8eedc6823082eab0fb88d457f5",
+    "branch": "production/01-program-loop-v1"
+  },
+  "deployment": {
+    "id": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+    "name": "sageideas-academy-staging",
+    "url": "sageideas-academy-staging-js73jqntw-sage-ideas.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "meta": {
+      "gitCommitSha": "8e3c083901911a8eedc6823082eab0fb88d457f5",
+      "gitCommitRef": "production/01-program-loop-v1"
+    }
+  },
+  "summary": {
+    "requiredProbes": 22,
+    "passedProbes": 22,
+    "requiredHeaders": 7,
+    "passedHeaders": 7
+  },
+  "probes": [
+    {
+      "method": "GET",
+      "route": "/",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/services",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/work",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/pricing",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/blog",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/contact",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/academy",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/academy/catalog",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/academy/method",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/academy/labs",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/academy/try",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/login",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/api/quality",
+      "expectedStatus": 200,
+      "actualStatus": 200
+    },
+    {
+      "method": "GET",
+      "route": "/portal",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "GET",
+      "route": "/admin",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "GET",
+      "route": "/api/health",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "GET",
+      "route": "/api/cron/discord/daily/publish",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "POST",
+      "route": "/api/academy/billing/portal",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "POST",
+      "route": "/api/checkout",
+      "expectedStatus": 400,
+      "actualStatus": 400
+    },
+    {
+      "method": "POST",
+      "route": "/api/stripe/webhook",
+      "expectedStatus": 503,
+      "actualStatus": 503
+    },
+    {
+      "method": "POST",
+      "route": "/api/academy/waitlist",
+      "expectedStatus": 400,
+      "actualStatus": 400
+    },
+    {
+      "method": "POST",
+      "route": "/api/contact",
+      "expectedStatus": 400,
+      "actualStatus": 400
+    }
+  ],
+  "headers": {
+    "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
+    "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://*.sentry.io https://va.vercel-scripts.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://*.sentry.io https://*.ingest.sentry.io https://va.vercel-scripts.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com; frame-ancestors 'self'; form-action 'self' https://checkout.stripe.com; base-uri 'self'; object-src 'none'",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "permissions-policy": "camera=(), microphone=(), geolocation=(self)",
+    "x-robots-tag": "noindex"
+  },
+  "publicProtection": {
+    "expectedStatus": 302,
+    "actualStatus": 302,
+    "robotsTag": "noindex",
+    "location": "https://vercel.com/sso-api"
+  },
+  "findings": [],
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "blockedCapabilities": [
+    "hosted_migrations",
+    "database_restore",
+    "authenticated_integrations",
+    "controlled_lab_runtime",
+    "human_review_beta",
+    "production_deployment"
+  ]
+}

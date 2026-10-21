@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import { ACADEMY_SEQUENCE, sendSequenceStep } from '@/lib/academy/waitlist-sequence'
+import { DELIVERED_EMAIL_STATUSES } from '@/lib/communications/delivery-policy'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -38,16 +39,25 @@ export async function GET(req: Request) {
       .lte('created_at', cutoff)
       .order('created_at', { ascending: true })
       .limit(PER_STEP_CAP * 3)
-    if (candErr || !candidates?.length) {
+    if (candErr) {
+      console.error('[academy-sequence] candidate query failed', candErr)
+      return NextResponse.json({ error: 'persistence_failed' }, { status: 500 })
+    }
+    if (!candidates?.length) {
       results[step.key] = 0
       continue
     }
 
     // Who already received this step (dedup via email_log).
-    const { data: sentRows } = await sb
+    const { data: sentRows, error: sentError } = await sb
       .from('email_log')
       .select('recipient')
       .eq('template_key', step.key)
+      .in('status', DELIVERED_EMAIL_STATUSES)
+    if (sentError) {
+      console.error('[academy-sequence] delivery ledger query failed', sentError)
+      return NextResponse.json({ error: 'persistence_failed' }, { status: 500 })
+    }
     const sent = new Set((sentRows ?? []).map((r) => (r.recipient as string)?.toLowerCase()))
 
     const due = candidates
@@ -57,8 +67,8 @@ export async function GET(req: Request) {
     let count = 0
     for (const c of due) {
       try {
-        await sendSequenceStep(step, { email: c.email as string, refCode: c.ref_code as string })
-        count++
+        const delivery = await sendSequenceStep(step, { email: c.email as string, refCode: c.ref_code as string })
+        if (delivery.ok) count++
       } catch {
         // Individual send failure shouldn't abort the run.
       }

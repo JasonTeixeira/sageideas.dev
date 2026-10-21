@@ -96,6 +96,7 @@ const CHANNEL_PURPOSES: Record<string, string> = {
 
 export async function buildCareerContentHarness(options: {
   sourceRoot?: string;
+  sourceFiles?: readonly SourceFile[];
   maxFiles?: number;
   candidateLimit?: number;
 } = {}): Promise<CareerContentHarnessResult> {
@@ -105,11 +106,13 @@ export async function buildCareerContentHarness(options: {
   const maxFiles = options.maxFiles ?? 12000;
   const candidateLimit = options.candidateLimit ?? 50;
 
-  let files: SourceFile[] = [];
-  try {
-    files = await collectSourceFiles(sourceRoot, { maxFiles });
-  } catch (error) {
-    failures.push(error instanceof Error ? error.message : String(error));
+  let files: SourceFile[] = options.sourceFiles ? options.sourceFiles.map((file) => ({ ...file })) : [];
+  if (!options.sourceFiles) {
+    try {
+      files = await collectSourceFiles(sourceRoot, { maxFiles });
+    } catch (error) {
+      failures.push(error instanceof Error ? error.message : String(error));
+    }
   }
 
   const scoredCandidates = files

@@ -35,38 +35,6 @@ function declaredFns(code) {
   return names
 }
 
-// Does `code` define `name` with a REAL body (not just a stub / TODO / one comment)?
-function hasRealDefinition(code, name) {
-  if (!code) return false
-  const s = String(code)
-  // grab from the declaration to a plausible end, count substantive lines
-  const decl = new RegExp(`(function\\s+${name}\\s*\\(|(?:const|let|var)\\s+${name}\\s*=|def\\s+${name}\\s*\\()`)
-  const idx = s.search(decl)
-  if (idx < 0) return false
-  const after = s.slice(idx)
-  const bodyLines = after.split('\n').slice(0, 40)
-    .map((l) => l.replace(/\/\/.*$|#.*$/, '').trim())
-    .filter((l) => l && !/^[{}]$/.test(l) && !/^\/\*|\*\/|\*/.test(l))
-  // real if it has control flow or a return with an expression, beyond the signature line
-  const body = bodyLines.slice(1).join(' ')
-  return /\breturn\s+\S|\bif\s*\(|\bfor\s*\(|\bwhile\s*\(|=>|\bawait\b|\.push\(|\.map\(|[-+*/%]=/.test(body) && bodyLines.length >= 2
-}
-
-// Is a starter a STUB for `name` (declared but empty / TODO / comment-only body)?
-function isStub(starter, name) {
-  if (!starter) return false
-  const s = String(starter)
-  const decl = new RegExp(`(function\\s+${name}\\s*\\([^)]*\\)|(?:const|let|var)\\s+${name}\\s*=[^;\\n]*|def\\s+${name}\\s*\\([^)]*\\):)`)
-  const idx = s.search(decl)
-  if (idx < 0) return false
-  const after = s.slice(idx).split('\n').slice(0, 8).join('\n')
-  // stub if the body is only comments / TODO / pass / ... / whitespace / braces
-  const body = after.replace(new RegExp(`.*${name}[^{:]*[{:]`), '').replace(/^[\s\S]*?(\{|:)/, '')
-  const real = body.split('\n').map((l) => l.replace(/\/\/.*|#.*|\/\*[\s\S]*?\*\//g, '').trim())
-    .filter((l) => l && !/^[{}]$/.test(l) && !/^(pass|\.\.\.|return;?|TODO)/i.test(l))
-  return real.length <= 1
-}
-
 const q = sb.from('academy_lessons').select('course_slug,slug,blocks,module_sort,sort').eq('status', 'published')
 const { data: lessons, error } = only ? await q.eq('course_slug', only) : await q
 if (error) { console.error('supabase:', error.message); process.exit(1) }

@@ -189,7 +189,10 @@ function PlanCta({ tier }: { tier: Tier }) {
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {
+          'content-type': 'application/json',
+          'idempotency-key': crypto.randomUUID(),
+        },
         body: JSON.stringify({ kind: 'academy_allaccess', interval: tier.interval }),
       })
       const data = await res.json().catch(() => ({}))

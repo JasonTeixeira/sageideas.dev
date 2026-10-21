@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json().catch(() => ({}))
     const email = normalizeEmail(String(body?.email ?? ''))
-    const source = body?.source ? String(body.source) : ''
+    const source = body?.source ? String(body.source).trim().slice(0, 64) : ''
     const honey = body?.honey ? String(body.honey) : ''
 
     // Honeypot: bots fill it — accept silently, do nothing.
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     // Stateless double opt-in: the confirm link carries a signed token, so no
     // pending record is stored anywhere.
-    const token = signToken(email, source)
+    const token = signToken(email, source, 'confirm')
     const confirmUrl = `${SITE}/api/newsletter/confirm?token=${encodeURIComponent(token)}`
 
     const result = await sendEmail({

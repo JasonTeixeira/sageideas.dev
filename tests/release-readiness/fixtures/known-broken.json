@@ -1,0 +1,29 @@
+{
+  "packageScripts": {},
+  "manifest": {
+    "schemaVersion": 1,
+    "programVersion": "wrong",
+    "releaseId": "",
+    "releaseCommit": "main",
+    "inventoryHash": "sha256:stale",
+    "status": "production_ready",
+    "trust": { "academyCertification": "certified", "labTrust": "trusted", "labEvidence": "mastery" },
+    "localProof": { "observationCount": 1, "failedCommands": 1, "dependencyVulnerabilities": 2, "completedSafeWorkstreams": 12, "totalSafeWorkstreams": 12 },
+    "checkpoints": [{ "workstreamId": "repository-foundation", "commit": "", "inventoryHash": "bad" }],
+    "evidenceHashes": { "observations": { "path": "observations.json", "sha256": "not-a-hash" } },
+    "runtimeRequirements": ["SECRET_KEY=actual-secret"],
+    "rollback": { "runbook": "", "triggers": [], "verification": [] },
+    "externalBoundaries": [{ "id": "staging_deployment", "status": "complete" }]
+  },
+  "canonical": {
+    "programVersion": "sageideas-production-program-loop-v1",
+    "inventoryHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "safeWorkstreamIds": ["repository-foundation", "release-readiness"],
+    "completedIds": ["repository-foundation"],
+    "currentId": "release-readiness",
+    "currentBoundary": "safe_local",
+    "observations": { "ok": false, "inventoryHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "commands": [{ "id": "build", "exitCode": 1 }] },
+    "dependencyAudit": { "production": { "total": 1 }, "devOnly": { "total": 1 } }
+  },
+  "handoffSource": "ship it"
+}

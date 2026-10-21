@@ -5,7 +5,7 @@
 // beat i is on screen for exactly the length of VO clip i.
 import { chromium } from 'playwright';
 import { execSync } from 'node:child_process';
-import { mkdirSync, rmSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 

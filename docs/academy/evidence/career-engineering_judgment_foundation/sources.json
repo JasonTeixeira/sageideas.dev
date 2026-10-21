@@ -1,0 +1,171 @@
+[
+  {
+    "source_id": "nasa-systems-engineering",
+    "title": "NASA Systems Engineering Handbook",
+    "organization": "NASA",
+    "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "problem framing",
+      "verification",
+      "tradeoffs"
+    ]
+  },
+  {
+    "source_id": "nist-rmf",
+    "title": "Risk Management Framework",
+    "organization": "NIST",
+    "url": "https://csrc.nist.gov/projects/risk-management/about-rmf",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "risk",
+      "evidence",
+      "monitoring"
+    ]
+  },
+  {
+    "source_id": "nist-csf",
+    "title": "Cybersecurity Framework",
+    "organization": "NIST",
+    "url": "https://www.nist.gov/cyberframework",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "governance",
+      "risk",
+      "recovery"
+    ]
+  },
+  {
+    "source_id": "cisa-playbooks",
+    "title": "Incident and Vulnerability Response Playbooks",
+    "organization": "CISA",
+    "url": "https://www.cisa.gov/news-events/news/incident-and-vulnerability-response-playbooks",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "diagnosis",
+      "response",
+      "repair"
+    ]
+  },
+  {
+    "source_id": "google-postmortems",
+    "title": "Postmortem Culture: Learning from Failure",
+    "organization": "Google SRE",
+    "url": "https://sre.google/sre-book/postmortem-culture/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "failure",
+      "learning",
+      "repair"
+    ]
+  },
+  {
+    "source_id": "google-code-review",
+    "title": "Google Engineering Practices: Code Review",
+    "organization": "Google",
+    "url": "https://google.github.io/eng-practices/review/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "review",
+      "feedback",
+      "quality"
+    ]
+  },
+  {
+    "source_id": "dora-capabilities",
+    "title": "DORA Capabilities",
+    "organization": "DORA",
+    "url": "https://dora.dev/capabilities/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "delivery",
+      "measurement",
+      "learning"
+    ]
+  },
+  {
+    "source_id": "aws-well-architected",
+    "title": "AWS Well-Architected Framework",
+    "organization": "AWS",
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "tradeoffs",
+      "reliability",
+      "review"
+    ]
+  },
+  {
+    "source_id": "azure-architecture",
+    "title": "Azure Architecture Center",
+    "organization": "Microsoft",
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "architecture",
+      "decisions",
+      "patterns"
+    ]
+  },
+  {
+    "source_id": "ietf-consensus",
+    "title": "RFC 7282: On Consensus and Humming in the IETF",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc7282.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "decisions",
+      "objections",
+      "consensus"
+    ]
+  },
+  {
+    "source_id": "us-digital-playbook",
+    "title": "U.S. Digital Services Playbook",
+    "organization": "U.S. CIO Council",
+    "url": "https://playbook.cio.gov/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "outcomes",
+      "delivery",
+      "evidence"
+    ]
+  },
+  {
+    "source_id": "ieee-ethics",
+    "title": "IEEE Code of Ethics",
+    "organization": "IEEE",
+    "url": "https://www.ieee.org/about/ethics/code-of-ethics.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "responsibility",
+      "honesty",
+      "harm"
+    ]
+  },
+  {
+    "source_id": "google-tech-writing",
+    "title": "Technical Writing Courses",
+    "organization": "Google for Developers",
+    "url": "https://developers.google.com/tech-writing",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "explanation",
+      "clarity",
+      "audience"
+    ]
+  }
+]

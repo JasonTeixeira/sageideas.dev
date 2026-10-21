@@ -19,6 +19,11 @@ export type AcademyProduct = {
 
 const baseRequirements = ['Stripe product and price IDs'] as const
 
+export function isAcademyPaidEnrollmentEnabled(): boolean {
+  return process.env.ACADEMY_PAID_ENROLLMENT_ENABLED === 'true'
+    && process.env.ACADEMY_CERTIFICATION_STATE === 'certified'
+}
+
 const stripeEnvByTrack: Record<string, string> = {
   'ai-native-product-building': 'STRIPE_PRICE_ACADEMY_PRODUCT_BUILDING',
   'premium-conversion-sites': 'STRIPE_PRICE_ACADEMY_CONVERSION_SITES',
@@ -75,29 +80,37 @@ const refundPolicy =
   '14-day refund window after purchase, provided less than 20% of the course has been completed or downloaded. Cohort/live-session access is non-transferable.'
 
 const accessPolicy =
-  'Self-paced access opens immediately after checkout when Stripe products are configured. Updates to the purchased track are included for at least 12 months.'
+  'Self-paced access opens only after the track is certified, paid enrollment is explicitly approved, and checkout completes. Updates to the purchased track are included for at least 12 months.'
 
-export const academyProducts: AcademyProduct[] = academyTracks.map((track) => ({
-  trackSlug: track.slug,
-  name: `${track.title} — Founding Access`,
-  status: process.env[stripeEnvByTrack[track.slug]] ? 'checkout_ready' : 'early_access',
-  priceCents: packageByTrack[track.slug]?.priceCents ?? 49700,
-  priceLabel: formatPrice(packageByTrack[track.slug]?.priceCents ?? 49700),
-  checkoutLabel: process.env[stripeEnvByTrack[track.slug]] ? 'Stripe checkout' : 'early access',
-  stripeEnvVar: stripeEnvByTrack[track.slug] ?? `STRIPE_PRICE_ACADEMY_${track.slug.toUpperCase().replaceAll('-', '_')}`,
-  stripePriceId: process.env[stripeEnvByTrack[track.slug]],
-  packageIncludes: packageByTrack[track.slug]?.packageIncludes ?? [
-    'Course curriculum',
-    'Templates and worksheets',
-    'Build notes from the studio',
-    'Launch checklist',
-  ],
-  refundPolicy,
-  accessPolicy,
-  requirements: process.env[stripeEnvByTrack[track.slug]]
-    ? []
-    : [...baseRequirements, `Set ${stripeEnvByTrack[track.slug]}`],
-}))
+export const academyProducts: AcademyProduct[] = academyTracks.map((track) => {
+  const checkoutReady = Boolean(process.env[stripeEnvByTrack[track.slug]])
+    && isAcademyPaidEnrollmentEnabled()
+  return {
+    trackSlug: track.slug,
+    name: `${track.title} — Founding Access`,
+    status: checkoutReady ? 'checkout_ready' : 'early_access',
+    priceCents: packageByTrack[track.slug]?.priceCents ?? 49700,
+    priceLabel: formatPrice(packageByTrack[track.slug]?.priceCents ?? 49700),
+    checkoutLabel: checkoutReady ? 'Stripe checkout' : 'early access',
+    stripeEnvVar: stripeEnvByTrack[track.slug] ?? `STRIPE_PRICE_ACADEMY_${track.slug.toUpperCase().replaceAll('-', '_')}`,
+    stripePriceId: process.env[stripeEnvByTrack[track.slug]],
+    packageIncludes: packageByTrack[track.slug]?.packageIncludes ?? [
+      'Course curriculum',
+      'Templates and worksheets',
+      'Build notes from the studio',
+      'Launch checklist',
+    ],
+    refundPolicy,
+    accessPolicy,
+    requirements: checkoutReady
+      ? []
+      : [
+          ...baseRequirements,
+          `Set ${stripeEnvByTrack[track.slug]}`,
+          'Complete Academy certification and explicitly approve paid enrollment',
+        ],
+  }
+})
 
 export function getAcademyProduct(track: AcademyTrack): AcademyProduct {
   return (

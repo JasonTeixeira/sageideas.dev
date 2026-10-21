@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
 const SIZE = { width: 1200, height: 630 } as const
 const ACCENT = '#3D6BFF'

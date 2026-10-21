@@ -1,5 +1,5 @@
 // #3 Embeddings & vector search — CLEAR REWRITE
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn how AI search understands meaning instead of just matching words — and how to make it actually return the right thing. This is the engine behind almost every AI search feature, so let's break it down simply."],
   ['02', "Let me start with the problem. You search your help docs for the word refund, and you miss the page that says money back. Same meaning, different words. Regular keyword search matches letters, but what you actually want is to match meaning."],
   ['03', "So here's the core idea: embeddings. An embedding takes a piece of text and turns it into a list of numbers, called a vector. The trick is that text with similar meaning gets similar numbers — so it lands nearby."],
@@ -11,3 +11,5 @@ export default [
   ['09', "So let's recap. Embeddings turn text into vectors that capture meaning. You search by finding the nearest vectors, then you re-rank them for real relevance, and add keywords for exact matches. Just remember: nearest is a guess, and relevance is the goal."],
   ['10', "If you want to build vector search that actually works, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

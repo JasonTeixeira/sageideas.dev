@@ -67,7 +67,7 @@ export async function createWeeklyRecapDraft(input: WeeklyRecapDraftInput = {}):
   const qualityScore = Math.min(scoreWeeklyRecap(body), policyScore.score);
   const draft = await createDiscordContentDraft({
     draftType: 'weekly_recap',
-    targetChannelBaseName: 'wins-showcase',
+    targetChannelBaseName: 'weekly-recap',
     title: `Weekly Recap - ${weekKey}`,
     body,
     promptVersion: DISCORD_WEEKLY_RECAP_PROMPT_VERSION,

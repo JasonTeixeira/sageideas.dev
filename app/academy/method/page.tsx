@@ -7,7 +7,6 @@ import { getT } from '@/lib/i18n/t'
 import { getLocale } from '@/lib/i18n/server'
 import { localizedAlternates } from '@/lib/i18n/alternates'
 
-const SITE = 'https://www.sageideas.dev'
 const INK = '#F2EFE9'
 const DIM = '#9C9CA6'
 const LINE = '#1E1E24'
@@ -70,7 +69,7 @@ export default async function MethodPage() {
   return (
     <>
       <AcademyNav />
-      <div style={{ background: '#0B0B0E', color: INK, fontFamily: 'var(--font-sans), sans-serif', overflowX: 'clip' }}>
+      <main id="main-content" tabIndex={-1} style={{ background: '#0B0B0E', color: INK, fontFamily: 'var(--font-sans), sans-serif', overflowX: 'clip' }}>
         {/* ── HERO ── */}
         <header className="sage-rise" style={{ ...container, backgroundImage: 'radial-gradient(90% 55% at 50% -8%, rgba(61,90,254,0.09) 0%, transparent 58%)' }}>
           <div style={kicker}>{t('The method')}</div>
@@ -193,7 +192,7 @@ export default async function MethodPage() {
             </div>
           </div>
         </section>
-      </div>
+      </main>
       <EcosystemBand current="method" />
       <AcademyFooter />
     </>

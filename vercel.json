@@ -4,6 +4,7 @@
     { "path": "/api/cron/weekly-digest", "schedule": "0 13 * * 1" },
     { "path": "/api/cron/revenue-os/daily", "schedule": "0 12 * * *" },
     { "path": "/api/cron/discord/daily", "schedule": "0 13 * * 1-6" },
+    { "path": "/api/cron/discord/content-factory", "schedule": "15 13 * * 1-6" },
     { "path": "/api/cron/discord/daily/publish", "schedule": "0 21 * * 1-6" },
     { "path": "/api/cron/discord/learning-lab", "schedule": "30 13 * * 1-6" },
     { "path": "/api/cron/discord/learning-lab/publish", "schedule": "30 21 * * 1-6" },

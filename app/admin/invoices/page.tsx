@@ -8,13 +8,13 @@ import { formatCurrency, formatDate } from '@/lib/utils';
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Invoices' };
 
-const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'void'] as const;
+const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'refunded', 'void'] as const;
 
 type Invoice = {
   id: string;
   number: string | null;
   status: string;
-  amount: number | string | null;
+  amount_due: number | string | null;
   total: number | string | null;
   due_date: string | null;
   created_at: string;
@@ -51,7 +51,7 @@ export default async function AdminInvoicesPage({
   let query = sb
     .from('invoices')
     .select(
-      'id, number, status, amount, total, due_date, created_at, organization_id, engagement_id, organizations(name), engagements(title)',
+      'id, number, status, amount_due, total, due_date, created_at, organization_id, engagement_id, organizations(name), engagements(title)',
     )
     .order('created_at', { ascending: false })
     .limit(200);
@@ -63,7 +63,7 @@ export default async function AdminInvoicesPage({
 
   const totalOutstanding = list
     .filter((i) => i.status === 'sent' || i.status === 'overdue')
-    .reduce((sum, i) => sum + Number(i.total ?? i.amount ?? 0), 0);
+    .reduce((sum, i) => sum + Number(i.total ?? i.amount_due ?? 0), 0);
 
   const [{ data: orgRows }, { data: engRows }] = await Promise.all([
     sb.from('organizations').select('id, name').order('name', { ascending: true }).limit(500),
@@ -176,7 +176,7 @@ export default async function AdminInvoicesPage({
                     {i.due_date ? formatDate(i.due_date) : '—'}
                   </div>
                   <div className="col-span-2 text-sm font-semibold text-[#fafafa] tabular-nums text-right">
-                    {formatCurrency(Number(i.total ?? i.amount ?? 0))}
+                    {formatCurrency(Number(i.total ?? i.amount_due ?? 0))}
                   </div>
                 </Link>
               ))}

@@ -1,0 +1,21 @@
+{
+  "migrations": [
+    {
+      "filename": "0006_accounts.sql",
+      "sql": "create table public.accounts (id uuid primary key); grant all on public.accounts to anon;"
+    },
+    {
+      "filename": "0006_duplicate.sql",
+      "sql": "create or replace function public.unsafe_count() returns bigint language sql security definer as $$ select 1::bigint $$; drop table public.accounts;"
+    }
+  ],
+  "manifest": {
+    "schemaVersion": 1,
+    "incrementalStart": 6,
+    "incrementalEnd": 7,
+    "migrationCount": 2,
+    "chainHash": "sha256:deliberately-wrong",
+    "destructiveMigrationAllowlist": [],
+    "allowedAnonGrants": []
+  }
+}

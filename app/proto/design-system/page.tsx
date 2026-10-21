@@ -16,16 +16,11 @@ import samples from '../diagram-preview/samples.json'
 // ── exact palette ────────────────────────────────────────────────────────────
 const BG = '#0B0B0E'
 const SURFACE = '#111115'
-const SURFACE_2 = '#141418'
 const SURFACE_3 = '#2A2A33'
 const INK = '#F2EFE9'
 const MUTE = '#9598A2'
 const LINE = '#1E1E24'
 const BLUE = '#83AFFF' // blueprint annotation ink
-const ACCENT = '#3D5AFE'
-const GREEN = '#18B663'
-const GOLD = '#E0A93E'
-const RED = '#E5484D'
 
 const MONO = 'var(--font-mono), monospace'
 const SERIF = 'var(--font-serif), Georgia, serif'

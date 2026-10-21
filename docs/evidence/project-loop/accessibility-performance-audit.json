@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:40:05.697Z",
+  "standard": "WCAG 2.2 Level AA automated subset",
+  "status": "pass",
+  "routeCoverage": {
+    "axeKeyboardResponsive": [
+      "/",
+      "/services",
+      "/work",
+      "/pricing",
+      "/blog",
+      "/contact",
+      "/login",
+      "/signup",
+      "/academy/catalog",
+      "/academy/method",
+      "/academy/labs",
+      "/academy/try",
+      "/checkout/audit"
+    ],
+    "lighthouseDesktopMobile": [
+      "/",
+      "/services",
+      "/work",
+      "/pricing",
+      "/blog",
+      "/contact"
+    ]
+  },
+  "deterministicChecks": [
+    "viewport zoom remains enabled",
+    "visible focus and skip navigation contracts",
+    "global reduced-motion fallback",
+    "loopback-only axe/keyboard/responsive browser proof",
+    "desktop and mobile Lighthouse accessibility and Core Web Vitals budgets",
+    "known-good and deliberately broken fixtures"
+  ],
+  "executionEvidence": {
+    "browser": {
+      "status": "passed",
+      "expected": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "lighthouseDesktop": {
+      "status": "passed",
+      "routes": 6,
+      "failures": []
+    },
+    "lighthouseMobile": {
+      "status": "passed",
+      "routes": 6,
+      "failures": []
+    }
+  },
+  "humanEvidenceNotClaimed": [
+    "No VoiceOver, NVDA, JAWS, or TalkBack session was performed",
+    "No user testing with people with disabilities was performed",
+    "Automated checks do not establish complete WCAG conformance",
+    "Field Core Web Vitals were not measured; Lighthouse results are local lab evidence"
+  ],
+  "findings": []
+}

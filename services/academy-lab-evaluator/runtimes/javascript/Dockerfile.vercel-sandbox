@@ -1,0 +1,22 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+RUN apk upgrade --no-cache \
+  && apk add --no-cache \
+    bash \
+    coreutils \
+    nodejs \
+    setpriv \
+  && command -v node >/dev/null \
+  && command -v bash >/dev/null \
+  && command -v timeout >/dev/null \
+  && command -v setpriv >/dev/null \
+  && cp /bin/setpriv /usr/local/bin/academy-setpriv \
+  && /usr/local/bin/academy-setpriv --version \
+  && addgroup -S academy-evaluator \
+  && adduser -S -D -H -s /sbin/nologin -G academy-evaluator academy-evaluator \
+  && mkdir -p /vercel/sandbox \
+  && chmod 0555 /vercel/sandbox
+
+WORKDIR /vercel/sandbox
+USER academy-evaluator

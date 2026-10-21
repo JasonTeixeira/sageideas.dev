@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "description": "Immutable local migration-chain contract. Updating a historical SQL file requires an explicit review and chain-hash update.",
+  "baseline": {
+    "mode": "legacy_manifest",
+    "requiresLiveReconciliation": true,
+    "foundationFiles": [
+      "schema_part1_tables.sql",
+      "schema_part2_seed.sql"
+    ],
+    "foundationChainHash": "sha256:751263967951f9325b04413ae4091cd85c4e0d2d7d5819801499957d8927dae5",
+    "chainHash": "sha256:308d8908891a9e14eac717981a4c3079fd8b0485d256679d9d15adba3707067b",
+    "allowedAnonGrants": [
+      {
+        "file": "phase26_studio_schema_and_rls.sql",
+        "contains": "grant execute on function public.is_org_member(uuid) to anon, authenticated, service_role",
+        "reason": "Authorization helper returns false for anonymous callers and is required by RLS policy evaluation."
+      },
+      {
+        "file": "phase26_studio_schema_and_rls.sql",
+        "contains": "grant execute on function public.can_access_engagement(uuid) to anon, authenticated, service_role",
+        "reason": "Authorization helper returns false for anonymous callers and is required by RLS policy evaluation."
+      }
+    ],
+    "destructiveMigrationAllowlist": [],
+    "files": [
+      "phase25_profiles_and_auth.sql",
+      "phase25b_fix_profiles_recursion.sql",
+      "phase26_studio_schema_and_rls.sql",
+      "phase26c_advisor_hardening.sql",
+      "phase29_studio_settings.sql",
+      "phase30_pipeline_settings.sql",
+      "phase30b_status_reports.sql",
+      "phase31_esign_fields.sql",
+      "phase32_stripe_fields.sql",
+      "phase33_email_log.sql",
+      "phase34_document_storage_policies.sql",
+      "phase35_studio_settings_branding.sql",
+      "phase36_advisor_sweep.sql",
+      "phase36b_advisor_cleanup.sql"
+    ]
+  },
+  "incrementalStart": 6,
+  "incrementalEnd": 122,
+  "migrationCount": 117,
+  "chainHash": "sha256:1af0cb50b288d95c2e0b143743f071d28703153f12d0b76a7f6b67ef7328bcda",
+  "destructiveMigrationAllowlist": [
+    {
+      "file": "0006_app_users_dedupe.sql",
+      "reason": "Reviewed, transaction-wrapped duplicate repair; data changes require an explicit session apply flag."
+    },
+    {
+      "file": "0007_align_app_users_to_auth.sql",
+      "reason": "Reviewed transactional identity alignment with conditional duplicate removal."
+    },
+    {
+      "file": "0010_storage_buckets_and_rls.sql",
+      "reason": "Replaces a derived storage-usage view while establishing canonical storage policy."
+    },
+    {
+      "file": "0020_phase2f_security_definer_view_fix.sql",
+      "reason": "Replaces the same view with security-invoker semantics and pins the function search path."
+    },
+    {
+      "file": "0027_phase2g_drop_legacy_after_dark.sql",
+      "reason": "Explicit reviewed retirement of the unreferenced legacy Sage After Dark schema."
+    },
+    {
+      "file": "0120_academy_lab_release_binding.sql",
+      "reason": "Replaces the trusted-lab receipt function with the release-bound v3 contract."
+    }
+  ],
+  "allowedAnonGrants": [
+    {
+      "file": "0021_phase2f_telemetry_tables.sql",
+      "contains": "grant insert on public.error_events to anon, authenticated",
+      "reason": "Bounded public error beacon ingestion; table reads remain restricted."
+    },
+    {
+      "file": "0021_phase2f_telemetry_tables.sql",
+      "contains": "grant insert on public.performance_events to anon, authenticated",
+      "reason": "Bounded public Web Vitals beacon ingestion; table reads remain restricted."
+    },
+    {
+      "file": "0077_blog_documents_fts_search.sql",
+      "contains": "grant execute on function public.search_blog_documents(text, int) to anon, authenticated",
+      "reason": "Public read-only blog search function with a server-side result cap."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "agents-tool-use",
+  "baselineRegistryVersion": "sha256:bfe0f70773136fb1f62f97d4c3cca9e196094aa1b31945fba94ff84c4277fcfa",
+  "registryVersion": "sha256:265afc7c79d58da76548b0e6ece3825a1bab3a42186826fed147c409547ec70f",
+  "commit": "b509c864",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "consecutivePasses": 3,
+      "command": "npx tsx --test tests/academy/agents-tool-use-mastery.test.ts",
+      "result": "7/7 each run; 20/20 references exact; 140 narration transcripts retained with zero unresolved audio promises"
+    },
+    "academyAudit": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:audit:all",
+      "result": "32 courses / 640 lessons; Agents & Tool Use deterministic score 100; no H1, H3, H4, or H5"
+    },
+    "registryCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:registry:check",
+      "result": "32 courses / 640 lessons / 470 labs"
+    },
+    "typecheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run typecheck",
+      "result": "0 TypeScript errors"
+    },
+    "build": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run build",
+      "result": "Next.js production build passed; 407 pages"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "git diff --check",
+      "result": "clean scoped diff; changed-file lint, 20 primary-source reachability checks, and literal-secret scan passed"
+    }
+  },
+  "scoreDelta": {
+    "before": 80,
+    "after": 100,
+    "meaning": "deterministic only; not certification"
+  },
+  "hardFailCounts": {
+    "H1": 0,
+    "H2": 20,
+    "H3": 0,
+    "H4": 0,
+    "H5": 0
+  },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": [
+    "accessibility",
+    "consistency",
+    "content_correctness",
+    "pedagogy",
+    "performance",
+    "sources",
+    "ux",
+    "visual"
+  ],
+  "knownRepositoryBoundary": {
+    "command": "npm audit --audit-level=high",
+    "status": "pre_existing_failure",
+    "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed"
+  }
+}

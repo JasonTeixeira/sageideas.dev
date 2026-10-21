@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -96,18 +96,18 @@ export function VerdictScorecard({ sessionId, verdict }: Props) {
 
 /** The reveal phase — split out so hooks run unconditionally once a row exists. */
 function Reveal({ sessionId, verdict }: { sessionId: string; verdict: VerdictRow }) {
-  const reduced = useRef(prefersReducedMotion())
-  const [phase, setPhase] = useState<'processing' | 'reveal'>(reduced.current ? 'reveal' : 'processing')
+  const [reduced] = useState(prefersReducedMotion)
+  const [phase, setPhase] = useState<'processing' | 'reveal'>(reduced ? 'reveal' : 'processing')
   const [lineIdx, setLineIdx] = useState(0)
-  const [count, setCount] = useState(reduced.current ? verdict.score : 0)
+  const [count, setCount] = useState(reduced ? verdict.score : 0)
   // The ring starts empty and arms after mount so the CSS transition draws the arc.
-  const [armed, setArmed] = useState(reduced.current)
+  const [armed, setArmed] = useState(reduced)
 
   const bar = barForLevel(verdict.level)
 
   // Cycle the processing lines, then flip to reveal after a short beat.
   useEffect(() => {
-    if (reduced.current) return
+    if (reduced) return
     const lineTimer = setInterval(() => setLineIdx((i) => (i + 1) % PROCESSING_LINES.length), 1000)
     const revealTimer = setTimeout(() => {
       clearInterval(lineTimer)
@@ -117,18 +117,18 @@ function Reveal({ sessionId, verdict }: { sessionId: string; verdict: VerdictRow
       clearInterval(lineTimer)
       clearTimeout(revealTimer)
     }
-  }, [])
+  }, [reduced])
 
   // Arm the ring one frame into the reveal so the stroke-dashoffset transition runs.
   useEffect(() => {
-    if (phase !== 'reveal' || reduced.current) return
+    if (phase !== 'reveal' || reduced) return
     const raf = requestAnimationFrame(() => setArmed(true))
     return () => cancelAnimationFrame(raf)
-  }, [phase])
+  }, [phase, reduced])
 
   // Count the score up to its real value on reveal.
   useEffect(() => {
-    if (phase !== 'reveal' || reduced.current) return
+    if (phase !== 'reveal' || reduced) return
     let raf = 0
     const start = performance.now()
     const duration = 1100
@@ -141,7 +141,7 @@ function Reveal({ sessionId, verdict }: { sessionId: string; verdict: VerdictRow
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [phase, verdict.score])
+  }, [phase, reduced, verdict.score])
 
   // Weakest dimension = the min-cap driver (label for the "capped by" framing).
   const weakest = useMemo(() => {

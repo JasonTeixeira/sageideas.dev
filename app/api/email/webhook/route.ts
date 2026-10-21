@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { NextResponse, type NextRequest } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { mapResendWebhookToRevenueEmailEvent } from '@/lib/revenue-os/email-delivery';
@@ -8,6 +9,7 @@ import {
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+const MAX_WEBHOOK_BYTES = 1_000_000;
 
 type ResendEvent = {
   type: string;
@@ -36,7 +38,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'webhook_not_configured' }, { status: 503 });
   }
 
+  const declaredLength = Number(req.headers.get('content-length') ?? 0);
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_WEBHOOK_BYTES) {
+    return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
+  }
   const rawBody = await req.text();
+  if (Buffer.byteLength(rawBody, 'utf8') > MAX_WEBHOOK_BYTES) {
+    return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
+  }
   const signature = verifyResendWebhookSignature({
     secret,
     svixId: req.headers.get('svix-id'),
@@ -63,11 +72,40 @@ export async function POST(req: NextRequest) {
   }
 
   const sb = supabaseAdmin();
-  const { data: existing } = await sb
+  const providerEventId = req.headers.get('svix-id')!;
+  const leaseToken = randomUUID();
+  const { data: claimAction, error: claimError } = await sb.rpc('claim_email_webhook_event', {
+    p_provider_event_id: providerEventId,
+    p_event_type: event.type,
+    p_provider_message_id: messageId,
+    p_lease_token: leaseToken,
+  });
+  if (claimError) {
+    console.error('[email-webhook] claim failed', claimError);
+    return NextResponse.json({ error: 'persistence_failed' }, { status: 500 });
+  }
+  if (claimAction === 'duplicate') {
+    return NextResponse.json({ ok: true, webhook_duplicate: true });
+  }
+  if (claimAction !== 'process') {
+    return NextResponse.json({ error: 'webhook_retry_later' }, { status: 409 });
+  }
+
+  const failProcessing = async (stage: string, error: unknown) => {
+    console.error(`[email-webhook] ${stage} failed`, error);
+    await sb
+      .from('email_webhook_events')
+      .update({ last_error: stage })
+      .eq('provider_event_id', providerEventId)
+      .eq('lease_token', leaseToken);
+    return NextResponse.json({ error: 'persistence_failed' }, { status: 500 });
+  };
+  const { data: existing, error: existingError } = await sb
     .from('email_log')
     .select('id, metadata')
     .eq('provider_message_id', messageId)
     .maybeSingle();
+  if (existingError) return failProcessing('email_log_lookup', existingError);
 
   const prevMeta = ((existing?.metadata as Record<string, unknown> | null) ?? {}) as Record<string, unknown>;
   const merged: Record<string, unknown> = { ...prevMeta };
@@ -87,112 +125,133 @@ export async function POST(req: NextRequest) {
     const isTerminal = ['bounced', 'complained', 'unsubscribed', 'failed'].includes(status);
     const update: Record<string, unknown> = { metadata: merged };
     if (isTerminal || status === 'delivered') update.status = status;
-    await sb.from('email_log').update(update).eq('id', existing.id);
+    const { error } = await sb.from('email_log').update(update).eq('id', existing.id);
+    if (error) return failProcessing('email_log_update', error);
   } else {
     // Webhook arrived without a prior log row — record it for trace.
     const recipient = Array.isArray(event.data?.to) ? event.data?.to?.[0] : (event.data?.to ?? '');
-    await sb.from('email_log').insert({
+    const { error } = await sb.from('email_log').insert({
       recipient: recipient ?? 'unknown',
       subject: event.data?.subject ?? null,
       status,
       provider_message_id: messageId,
       metadata: merged,
     });
+    if (error) return failProcessing('email_log_insert', error);
   }
 
   const revenueEvent = mapResendWebhookToRevenueEmailEvent(event);
   if (revenueEvent) {
-    const providerEventId = buildResendWebhookEventId({
+    const revenueProviderEventId = buildResendWebhookEventId({
       svixId: req.headers.get('svix-id') ?? 'missing',
       eventType: event.type,
       providerMessageId: revenueEvent.providerMessageId,
     });
-    const { data: duplicate } = await sb
+    const { data: duplicate, error: duplicateError } = await sb
       .from('revenue_email_events')
       .select('id')
-      .eq('provider_event_id', providerEventId)
+      .eq('provider_event_id', revenueProviderEventId)
       .maybeSingle();
-    if (duplicate?.id) {
-      return NextResponse.json({ ok: true, duplicate: true });
-    }
+    if (duplicateError) return failProcessing('revenue_event_lookup', duplicateError);
+    if (!duplicate?.id) {
+      const { data: queueItem, error: queueLookupError } = await sb
+        .from('revenue_email_queue')
+        .select('id, sequence_key, metadata')
+        .eq('provider_message_id', revenueEvent.providerMessageId)
+        .maybeSingle();
+      if (queueLookupError) return failProcessing('revenue_queue_lookup', queueLookupError);
 
-    const { data: queueItem } = await sb
-      .from('revenue_email_queue')
-      .select('id, sequence_key, metadata')
-      .eq('provider_message_id', revenueEvent.providerMessageId)
-      .maybeSingle();
-
-    if (queueItem?.id) {
-      await sb.from('revenue_email_events').insert({
-        email_queue_id: queueItem.id,
-        provider_event_id: providerEventId,
-        event_type: revenueEvent.eventType,
-        occurred_at: revenueEvent.occurredAt,
-        requires_suppression: revenueEvent.requiresSuppression,
-        metadata: {
-          provider: 'resend',
-          providerMessageId: revenueEvent.providerMessageId,
-          recipientEmail: revenueEvent.recipientEmail,
-          raw: revenueEvent.raw,
-        },
-      });
-
-      const patch: Record<string, unknown> = {
-        metadata: {
-          ...(((queueItem.metadata as Record<string, unknown> | null) ?? {}) as Record<string, unknown>),
-          lastProviderEvent: {
-            type: revenueEvent.eventType,
-            occurredAt: revenueEvent.occurredAt,
-            requiresSuppression: revenueEvent.requiresSuppression,
+      if (queueItem?.id) {
+        const { error: eventInsertError } = await sb.from('revenue_email_events').insert({
+          email_queue_id: queueItem.id,
+          provider_event_id: revenueProviderEventId,
+          event_type: revenueEvent.eventType,
+          occurred_at: revenueEvent.occurredAt,
+          requires_suppression: revenueEvent.requiresSuppression,
+          metadata: {
+            provider: 'resend',
+            providerMessageId: revenueEvent.providerMessageId,
+            recipientEmail: revenueEvent.recipientEmail,
+            raw: revenueEvent.raw,
           },
-        },
-      };
-      if (revenueEvent.queueStatus) patch.status = revenueEvent.queueStatus;
-      if (revenueEvent.queueStatus === 'sent') patch.sent_at = revenueEvent.occurredAt;
-      await sb.from('revenue_email_queue').update(patch).eq('id', queueItem.id);
+        });
+        if (eventInsertError) return failProcessing('revenue_event_insert', eventInsertError);
 
-      if (revenueEvent.requiresSuppression && queueItem.sequence_key) {
-        const reason = revenueEvent.eventType === 'bounced'
-          ? 'bounce_received'
-          : revenueEvent.eventType === 'complained'
-            ? 'complaint_received'
-            : revenueEvent.eventType === 'unsubscribed'
-              ? 'unsubscribe_received'
-              : null;
-        if (reason) {
-          await sb.from('revenue_sequence_stop_events').insert({
-            run_key: ((queueItem.metadata as Record<string, unknown> | null)?.runKey as string | undefined)
-              ?? `webhook-${new Date().toISOString().slice(0, 10)}`,
-            sequence_key: queueItem.sequence_key,
-            reason,
-            message_id: queueItem.id,
-            occurred_at: revenueEvent.occurredAt,
-            metadata: {
-              provider: 'resend',
-              providerMessageId: revenueEvent.providerMessageId,
-              providerEventId,
-              recipientEmail: revenueEvent.recipientEmail,
-              source: 'resend_webhook',
+        const patch: Record<string, unknown> = {
+          metadata: {
+            ...(((queueItem.metadata as Record<string, unknown> | null) ?? {}) as Record<string, unknown>),
+            lastProviderEvent: {
+              type: revenueEvent.eventType,
+              occurredAt: revenueEvent.occurredAt,
+              requiresSuppression: revenueEvent.requiresSuppression,
             },
+          },
+        };
+        if (revenueEvent.queueStatus) patch.status = revenueEvent.queueStatus;
+        if (revenueEvent.queueStatus === 'sent') patch.sent_at = revenueEvent.occurredAt;
+        const { error: queueUpdateError } = await sb.from('revenue_email_queue').update(patch).eq('id', queueItem.id);
+        if (queueUpdateError) return failProcessing('revenue_queue_update', queueUpdateError);
+
+        if (revenueEvent.requiresSuppression && queueItem.sequence_key) {
+          const reason = revenueEvent.eventType === 'bounced'
+            ? 'bounce_received'
+            : revenueEvent.eventType === 'complained'
+              ? 'complaint_received'
+              : revenueEvent.eventType === 'unsubscribed'
+                ? 'unsubscribe_received'
+                : null;
+          if (reason) {
+            const { error: stopEventError } = await sb.from('revenue_sequence_stop_events').insert({
+              run_key: ((queueItem.metadata as Record<string, unknown> | null)?.runKey as string | undefined)
+                ?? `webhook-${new Date().toISOString().slice(0, 10)}`,
+              sequence_key: queueItem.sequence_key,
+              reason,
+              message_id: queueItem.id,
+              occurred_at: revenueEvent.occurredAt,
+              metadata: {
+                provider: 'resend',
+                providerMessageId: revenueEvent.providerMessageId,
+                providerEventId: revenueProviderEventId,
+                recipientEmail: revenueEvent.recipientEmail,
+                source: 'resend_webhook',
+              },
+            });
+            if (stopEventError) return failProcessing('revenue_stop_event_insert', stopEventError);
+          }
+        }
+      }
+
+      if (revenueEvent.suppression) {
+        const { data: existingSuppression, error: suppressionLookupError } = await sb
+          .from('acquisition_suppression_list')
+          .select('id')
+          .eq('email', revenueEvent.suppression.email)
+          .maybeSingle();
+        if (suppressionLookupError) return failProcessing('suppression_lookup', suppressionLookupError);
+        if (!existingSuppression?.id) {
+          const { error: suppressionInsertError } = await sb.from('acquisition_suppression_list').insert({
+            email: revenueEvent.suppression.email,
+            reason: revenueEvent.suppression.reason,
           });
+          if (suppressionInsertError) return failProcessing('suppression_insert', suppressionInsertError);
         }
       }
     }
-
-    if (revenueEvent.suppression) {
-      const { data: existingSuppression } = await sb
-        .from('acquisition_suppression_list')
-        .select('id')
-        .eq('email', revenueEvent.suppression.email)
-        .maybeSingle();
-      if (!existingSuppression?.id) {
-        await sb.from('acquisition_suppression_list').insert({
-            email: revenueEvent.suppression.email,
-            reason: revenueEvent.suppression.reason,
-        });
-      }
-    }
   }
+
+  const { data: completedEvent, error: completionError } = await sb
+    .from('email_webhook_events')
+    .update({
+      status: 'processed',
+      processed_at: new Date().toISOString(),
+      lease_expires_at: new Date().toISOString(),
+      last_error: null,
+    })
+    .eq('provider_event_id', providerEventId)
+    .eq('lease_token', leaseToken)
+    .select('provider_event_id')
+    .maybeSingle();
+  if (completionError || !completedEvent) return failProcessing('webhook_completion', completionError);
 
   return NextResponse.json({ ok: true });
 }

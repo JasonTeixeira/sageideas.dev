@@ -5,7 +5,6 @@ import { deepSeekChat } from '@/lib/rag/deepseek'
 import {
   buildDrillPlanMessages,
   parseDrills,
-  DRILL_COUNT,
   type AvailableScenario,
   type WeakDimension,
 } from '@/lib/academy/interview/drill-logic'
@@ -52,8 +51,6 @@ type ScheduleStatus = (typeof SCHEDULE_STATUS)[number]
 
 const TRACKS = ['coding', 'system_design', 'behavioral', 'negotiation'] as const
 type Track = (typeof TRACKS)[number]
-
-const STORY_GRADES = ['lands', 'rough', 'gap'] as const
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 

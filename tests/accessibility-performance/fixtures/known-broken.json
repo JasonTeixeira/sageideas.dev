@@ -1,0 +1,26 @@
+{
+  "packageScripts": {},
+  "desktopConfig": {
+    "ci": {
+      "collect": {
+        "url": ["https://www.sageideas.dev/"],
+        "settings": { "onlyCategories": ["performance"] }
+      },
+      "assert": { "assertions": { "categories:accessibility": ["warn", { "minScore": 0.5 }] } }
+    }
+  },
+  "mobileConfig": {
+    "ci": {
+      "collect": {
+        "url": ["http://127.0.0.1:4173/"],
+        "settings": { "onlyCategories": ["performance"] }
+      },
+      "assert": { "assertions": {} }
+    }
+  },
+  "layoutSource": "export const viewport = { maximumScale: 1, userScalable: false }",
+  "globalCss": "*:focus { outline: none; } html { scroll-behavior: smooth; }",
+  "chromeSource": "<div>{children}</div>",
+  "browserConfigSource": "export default { use: { baseURL: process.env.URL } }",
+  "browserSpecSource": "test('pretty page', async ({ page }) => page.goto('https://example.com'))"
+}

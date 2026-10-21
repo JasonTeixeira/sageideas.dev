@@ -65,7 +65,7 @@ export function formatAskSageDiscordAnswer(question: string, result: RagAnswerRe
     });
 
   const content = [
-    '# SageBot answer',
+    '# Sage reply',
     `**Question:** ${question.trim()}`,
     '',
     result.answer.trim(),

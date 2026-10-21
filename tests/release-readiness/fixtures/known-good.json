@@ -1,0 +1,56 @@
+{
+  "packageScripts": {
+    "test:release-readiness": "node --test tests/release-readiness/release-readiness.test.mjs",
+    "audit:release-readiness": "node tools/release-readiness/write-manifest.mjs",
+    "project:release:verify": "node tools/project-program/cli.mjs release-verify"
+  },
+  "manifest": {
+    "schemaVersion": 1,
+    "programVersion": "sageideas-production-program-loop-v1",
+    "releaseId": "local-candidate-2026-09-04-abcdef12",
+    "releaseCommit": "abcdef1234567890abcdef1234567890abcdef12",
+    "inventoryHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": "ready_for_release_checkpoint",
+    "trust": { "academyCertification": "uncertified", "labTrust": "untrusted_current_runtime", "labEvidence": "practice_only" },
+    "localProof": { "observationCount": 1, "failedCommands": 0, "dependencyVulnerabilities": 0, "completedSafeWorkstreams": 11, "totalSafeWorkstreams": 12 },
+    "checkpoints": [
+      { "workstreamId": "repository-foundation", "commit": "1111111", "inventoryHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" },
+      { "workstreamId": "build-quality", "commit": "2222222", "inventoryHash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" },
+      { "workstreamId": "auth-security", "commit": "3333333", "inventoryHash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" },
+      { "workstreamId": "data-integrity", "commit": "4444444", "inventoryHash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" },
+      { "workstreamId": "billing", "commit": "5555555", "inventoryHash": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" },
+      { "workstreamId": "critical-user-journeys", "commit": "6666666", "inventoryHash": "sha256:1111111111111111111111111111111111111111111111111111111111111111" },
+      { "workstreamId": "academy", "commit": "7777777", "inventoryHash": "sha256:2222222222222222222222222222222222222222222222222222222222222222" },
+      { "workstreamId": "admin-portal", "commit": "8888888", "inventoryHash": "sha256:3333333333333333333333333333333333333333333333333333333333333333" },
+      { "workstreamId": "communications-jobs", "commit": "9999999", "inventoryHash": "sha256:4444444444444444444444444444444444444444444444444444444444444444" },
+      { "workstreamId": "accessibility-performance", "commit": "aaaaaaa", "inventoryHash": "sha256:5555555555555555555555555555555555555555555555555555555555555555" },
+      { "workstreamId": "observability-recovery", "commit": "bbbbbbb", "inventoryHash": "sha256:6666666666666666666666666666666666666666666666666666666666666666" }
+    ],
+    "evidenceHashes": {
+      "observations": { "path": "observations.json", "sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111" },
+      "securityReview": { "path": "security.json", "sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222" },
+      "accessibilityPerformance": { "path": "accessibility.json", "sha256": "sha256:3333333333333333333333333333333333333333333333333333333333333333" },
+      "observabilityRecovery": { "path": "observability.json", "sha256": "sha256:4444444444444444444444444444444444444444444444444444444444444444" }
+    },
+    "runtimeRequirements": ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "STRIPE_SECRET_KEY"],
+    "rollback": { "runbook": "docs/sops/07-deployment-rollback.md", "triggers": ["readiness failure", "critical journey failure", "data integrity regression"], "verification": ["health", "telemetry", "critical journeys"] },
+    "externalBoundaries": [
+      { "id": "staging_deployment", "status": "approval_required" },
+      { "id": "hosted_migrations", "status": "approval_required" },
+      { "id": "live_integrations", "status": "approval_required" },
+      { "id": "controlled_lab_runtime", "status": "approval_required" },
+      { "id": "human_review_beta", "status": "approval_required" }
+    ]
+  },
+  "canonical": {
+    "programVersion": "sageideas-production-program-loop-v1",
+    "inventoryHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "safeWorkstreamIds": ["repository-foundation", "build-quality", "auth-security", "data-integrity", "billing", "critical-user-journeys", "academy", "admin-portal", "communications-jobs", "accessibility-performance", "observability-recovery", "release-readiness"],
+    "completedIds": ["repository-foundation", "build-quality", "auth-security", "data-integrity", "billing", "critical-user-journeys", "academy", "admin-portal", "communications-jobs", "accessibility-performance", "observability-recovery"],
+    "currentId": "release-readiness",
+    "currentBoundary": "safe_local",
+    "observations": { "ok": true, "inventoryHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "commands": [{ "id": "build", "exitCode": 0 }] },
+    "dependencyAudit": { "production": { "total": 0 }, "devOnly": { "total": 0 } }
+  },
+  "handoffSource": "Local Production Candidate is not deployment approval. Pre-deploy Staging Post-deploy Rollback triggers External approval Academy remains uncertified Labs remain practice-only Evidence hashes"
+}

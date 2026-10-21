@@ -16,6 +16,9 @@ export default defineConfig([
     "playwright-report/**",
     "test-results/**",
     "docs/design-reference/**",
+    // Archived design-kit source snapshots are provenance inputs, not shipped
+    // application modules. Lint the Sage-owned adapters in content-studio/library.
+    "content-studio/library/source/**",
     "public/projects/**",
     "**/venv/**",
     "**/.venv/**",

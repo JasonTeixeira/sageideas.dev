@@ -264,6 +264,14 @@
       "check": "Hello, world!"
     },
     {
+      "type": "debug",
+      "symptom": "Crashes before running — a typo, not a disaster",
+      "brokenCode": "print(\"Hello, world!)\n\nOnly ONE quote — the closing \" is gone.\nPython: SyntaxError: unterminated string literal\nIt could not tell where your text was meant to end.",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Broken (a quote is missing) approach and repair it before continuing.",
+      "fix": "print(\"Hello, world!\")\n\nOpening \" and closing \" both there.\nOutput: Hello, world!\nPython knew exactly where the text began and ended.\nRuns — the text appears on screen"
+    },
+    {
       "type": "quiz",
       "question": "You run a file and see this: SyntaxError: unterminated string literal. What does it most likely mean?",
       "options": [
@@ -304,6 +312,15 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (Hello, world!): A .py file with a print(...) line that, when run, shows your exact text on the screen — and a moment where you deliberately break it, read the SyntaxError, and understand what the message means.",
+        "Diagnose and repair the broken case: Crashes before running — a typo, not a disaster",
+        "Confirm every verification item: You wrote a print(\"...\") line in a .py file and ran it, and your exact text appeared on the screen. · You can point to the two quotes in your line and explain that they mark where your text starts and ends — and that they do NOT appear in the output. · You deliberately deleted one quote, ran it, and got a SyntaxError — and you read the last line of the error instead of panicking. · You can say, in one sentence, what a program is: a list of instructions the computer runs top to bottom.",
+        "Complete the transfer without copying the worked example: print() is not just a first-day toy — it stays with you for your whole coding life. When a program misbehaves later, the fastest way to see what it is actually doing is to drop a print() in and watch the value appear, exactly like you just did. And reading an error's last line instead of fearing it is the single habit that separates people who get unstuck from people who quit. You made the computer speak and you read it when it complained back. Next lesson, you'll give your text a name you can reuse — that's a variable — so your program can remember things instead of just saying them once."
       ]
     }
   ],
@@ -637,6 +654,14 @@
       "check": "Ada is 36 years old."
     },
     {
+      "type": "debug",
+      "symptom": "Prints the word, not the value",
+      "brokenCode": "name = \"Ada\"\nprint(\"name\")\nOutput:  name\nThe quotes make it literal text\nPython never looks up the variable",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Quoting the variable name approach and repair it before continuing.",
+      "fix": "name = \"Ada\"\nprint(name)\nOutput:  Ada\nNo quotes -> Python looks up name\nGets the value you stored\nPrints Ada, the stored value"
+    },
+    {
       "type": "quiz",
       "question": "After age = 25 runs, the next line is age = age + 1. What does print(age) show?",
       "options": [
@@ -679,6 +704,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (Ada is 36 years old.): A tiny program that assigns two variables, reassigns one, and prints a labeled sentence that mixes text and a number — output you can read and recognize as yours.",
+        "Diagnose and repair the broken case: Prints the word, not the value",
+        "Confirm every verification item: Point to a line that is an assignment: a name, an =, then a value. If every value only lives inside print's quotes, you have no variables yet. · Reassign one variable and print it before and after. The two prints must differ — that's proof the name re-pointed. · Name the type of each value you stored: int, float, str, or bool. If you can't, look at it — quotes mean str, True/False mean bool, a dot means float. · Print a variable with NO quotes around its name and confirm you see the value, not the letters of the name. · In the lab, confirm the output is exactly Ada is 36 years old. — same words, same spacing, same period.",
+        "Complete the transfer without copying the worked example: Variables are where every program's memory begins — a game's score, a shopping cart's total, a login's username all live in named values you reassign as things change. You printed a fixed line in Lesson 1; now your program can hold values and change them. Next lesson, Logic & conditionals, uses exactly these variables to make the program DECIDE — 'if score > 10, print a win' — so the code reacts instead of just remembering."
+      ]
     }
   ],
   "logic-conditionals": [
@@ -703,6 +737,20 @@
       "type": "pretest",
       "prompt": "x = 100. You write: if x > 0: print(\"positive\") then elif x > 50: print(\"big\"). What prints — \"positive\", \"big\", or both? Decide before reading.",
       "reveal": "Only \"positive\". Python checks branches top to bottom and stops at the FIRST true one — x > 0 is true, so it prints \"positive\" and never even looks at elif x > 50. That second branch is dead code: 100 is greater than 50, but it can never fire because the branch above it already caught every positive number. Order is not decoration — it decides the answer."
+    },
+    {
+      "type": "worked-example",
+      "intro": "One value, one branch — line by line. temp is 58. Watch which test catches it and which lines never run.",
+      "code": "temp = 58\nif temp > 75:\n    print(\"Warm — t-shirt weather.\")\nelif temp > 50:\n    print(\"Mild — bring a jacket.\")\nelse:\n    print(\"Cold — bundle up.\")",
+      "language": "python",
+      "steps": [
+        "The value: temp holds 58 — a variable, exactly like last lesson. The conditionals below read it; they never change it.",
+        "First test: temp > 75: 58 > 75 is False. The indented print on line 3 is skipped entirely — Python does not run it and moves on.",
+        "elif temp > 50: Only checked because the first test failed. 58 > 50 is True — so THIS branch wins.",
+        "The line that prints: \"Mild — bring a jacket.\" is the one and only output. The colon + 4-space indent is what marks a line as belonging to its branch.",
+        "else never runs: A branch already fired, so else is skipped. It would only catch a temp of 50 or below."
+      ],
+      "commonMistake": "95 gets a D — the wide net caught it first"
     },
     {
       "type": "concept",
@@ -929,6 +977,52 @@
       ]
     },
     {
+      "type": "compare",
+      "title": "Order matters: the same branches, one broken",
+      "subtitle": "Grading a score of 95. Both use the right comparisons — only one gives the right grade.",
+      "left": {
+        "label": "Loosest test first (bug)",
+        "tone": "warning",
+        "lines": [
+          "if score >= 60:",
+          "    print(\"D or better\")",
+          "elif score >= 90:",
+          "    print(\"A\")",
+          "score = 95 → prints \"D or better\"",
+          "The elif >= 90 can NEVER fire"
+        ],
+        "verdict": "95 gets a D — the wide net caught it first"
+      },
+      "right": {
+        "label": "Strictest test first (correct)",
+        "tone": "success",
+        "lines": [
+          "if score >= 90:",
+          "    print(\"A\")",
+          "elif score >= 60:",
+          "    print(\"D or better\")",
+          "score = 95 → prints \"A\"",
+          "Each branch guards the ones below it"
+        ],
+        "verdict": "95 gets an A — the narrow test wins"
+      },
+      "mono": true,
+      "caption": "Overlapping ranges must go strictest-to-loosest. Put the widest condition first and it swallows every case below it before they get a turn."
+    },
+    {
+      "type": "callout",
+      "tone": "tip",
+      "text": "The classic beginner trap: writing = when you mean ==. A single = assigns a value (grade = \"A\"), but == asks 'are these equal?' (if grade == \"A\":). In a Python if, using = is a syntax error — a small mercy, because it fails loudly instead of silently overwriting your variable."
+    },
+    {
+      "type": "lab",
+      "title": "Build a grade classifier",
+      "summary": "A score is already in the variable. Add an if / elif / else chain — ordered strictest-first — so the program prints the right letter grade. Run it in the browser.",
+      "language": "python",
+      "starter": "score = 72\ngrade = \"\"\n# your code here\nprint(\"Grade: \" + grade)",
+      "check": "Grade: C"
+    },
+    {
       "type": "code-walkthrough",
       "title": "One value, one branch — line by line",
       "subtitle": "temp is 58. Watch which test catches it and which lines never run.",
@@ -976,50 +1070,25 @@
       "caption": "Output: Mild — bring a jacket. Change temp to 80 and \"Warm\" prints instead; change it to 40 and \"Cold\" does. One value, one line."
     },
     {
-      "type": "compare",
-      "title": "Order matters: the same branches, one broken",
-      "subtitle": "Grading a score of 95. Both use the right comparisons — only one gives the right grade.",
-      "left": {
-        "label": "Loosest test first (bug)",
-        "tone": "warning",
-        "lines": [
-          "if score >= 60:",
-          "    print(\"D or better\")",
-          "elif score >= 90:",
-          "    print(\"A\")",
-          "score = 95 → prints \"D or better\"",
-          "The elif >= 90 can NEVER fire"
-        ],
-        "verdict": "95 gets a D — the wide net caught it first"
-      },
-      "right": {
-        "label": "Strictest test first (correct)",
-        "tone": "success",
-        "lines": [
-          "if score >= 90:",
-          "    print(\"A\")",
-          "elif score >= 60:",
-          "    print(\"D or better\")",
-          "score = 95 → prints \"A\"",
-          "Each branch guards the ones below it"
-        ],
-        "verdict": "95 gets an A — the narrow test wins"
-      },
-      "mono": true,
-      "caption": "Overlapping ranges must go strictest-to-loosest. Put the widest condition first and it swallows every case below it before they get a turn."
-    },
-    {
-      "type": "callout",
-      "tone": "tip",
-      "text": "The classic beginner trap: writing = when you mean ==. A single = assigns a value (grade = \"A\"), but == asks 'are these equal?' (if grade == \"A\":). In a Python if, using = is a syntax error — a small mercy, because it fails loudly instead of silently overwriting your variable."
-    },
-    {
-      "type": "lab",
-      "title": "Build a grade classifier",
-      "summary": "A score is already in the variable. Add an if / elif / else chain — ordered strictest-first — so the program prints the right letter grade. Run it in the browser.",
+      "type": "debug",
+      "symptom": "95 gets a D — the wide net caught it first",
+      "brokenCode": "if score >= 60:\n    print(\"D or better\")\nelif score >= 90:\n    print(\"A\")\nscore = 95 → prints \"D or better\"\nThe elif >= 90 can NEVER fire",
       "language": "python",
-      "starter": "score = 72\ngrade = \"\"\n# your code here\nprint(\"Grade: \" + grade)",
-      "check": "Grade: C"
+      "task": "Find the violated invariant in the weaker Loosest test first (bug) approach and repair it before continuing.",
+      "fix": "if score >= 90:\n    print(\"A\")\nelif score >= 60:\n    print(\"D or better\")\nscore = 95 → prints \"A\"\nEach branch guards the ones below it\n95 gets an A — the narrow test wins"
+    },
+    {
+      "type": "tradeoff",
+      "question": "Order matters: the same branches, one broken",
+      "optionA": {
+        "label": "Loosest test first (bug)",
+        "text": "if score >= 60: ·     print(\"D or better\") · elif score >= 90: ·     print(\"A\") · score = 95 → prints \"D or better\" · The elif >= 90 can NEVER fire Outcome: 95 gets a D — the wide net caught it first"
+      },
+      "optionB": {
+        "label": "Strictest test first (correct)",
+        "text": "if score >= 90: ·     print(\"A\") · elif score >= 60: ·     print(\"D or better\") · score = 95 → prints \"A\" · Each branch guards the ones below it Outcome: 95 gets an A — the narrow test wins"
+      },
+      "guidance": "Overlapping ranges must go strictest-to-loosest. Put the widest condition first and it swallows every case below it before they get a turn."
     },
     {
       "type": "quiz",
@@ -1064,6 +1133,15 @@
         "7 days",
         "30 days"
       ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (Grade: C): A runnable Python file where changing the starting value changes which line prints, and the branches are ordered so the right one always wins. You can point to the single branch that fired and say why the others did not.",
+        "Diagnose and repair the broken case: 95 gets a D — the wide net caught it first",
+        "Confirm every verification item: Run it with the given value and confirm exactly ONE line prints, not zero and not two. · Change the starting value to land in each branch (top, middle, else) and confirm the output changes to match every time. · Read your conditions top to bottom: is any lower branch impossible to reach because a wider test above already catches its cases? If so, reorder strictest-first. · Check every comparison uses == for equality (not a single =), and every branch line ends in a colon with its body indented 4 spaces. · Confirm else has no condition — it is the catch-all, and it should fire only when every test above was False.",
+        "Complete the transfer without copying the worked example: This one move — test in order, first match wins — is everywhere: a login form deciding 'wrong password' vs 'account locked', a game reacting to a keypress, a checkout choosing a shipping tier by cart total. You just taught the program to choose. Next lesson you'll teach it to REPEAT — loops run a branch like this over and over, so your conditional can decide once per item in a whole list."
+      ]
     }
   ],
   "loops": [
@@ -1088,6 +1166,19 @@
       "type": "pretest",
       "prompt": "total = 0\nfor n in [1, 2, 3]:\n    total = total + n\nprint(total)\n\nWhat does this print? Guess before you read on.",
       "reveal": "6. The loop runs three times. total starts at 0, then becomes 0+1=1, then 1+2=3, then 3+3=6. The key is that total is declared ONCE before the loop and survives each pass — the loop body just keeps adding to what is already there. That surviving variable is the whole trick behind accumulation."
+    },
+    {
+      "type": "worked-example",
+      "intro": "A real running total, stepped. Sum three game scores with a for loop — watch total grow one pass at a time.",
+      "code": "total = 0\nfor score in [8, 5, 9]:\n    total = total + score\nprint('Points:', total)",
+      "language": "python",
+      "steps": [
+        "Init OUTSIDE the loop: total is born once, at 0, BEFORE the loop. This is the accumulator — the memory the loop writes into. Its indentation is flush-left, so it is not part of the repeated body.",
+        "The for loop over a list: 'for score in [8, 5, 9]' hands you one item at a time. Pass 1 score is 8, pass 2 it is 5, pass 3 it is 9. The list decides how many times the body runs.",
+        "Update INSIDE the loop: Indented, so it repeats every pass. total = total + score means 'take the total so far and add this score.' 0+8=8, then 8+5=13, then 13+9=22.",
+        "Print AFTER the loop: Flush-left again, so it runs once, after all passes finish. total is now 22. The loop did the repeating; this line reports the result."
+      ],
+      "commonMistake": "Prints 9, not 22 — amnesia every pass"
     },
     {
       "type": "concept",
@@ -1263,45 +1354,6 @@
       ]
     },
     {
-      "type": "code-walkthrough",
-      "title": "A real running total, stepped",
-      "subtitle": "Sum three game scores with a for loop — watch total grow one pass at a time.",
-      "filename": "scores.py",
-      "language": "python",
-      "code": "total = 0\nfor score in [8, 5, 9]:\n    total = total + score\nprint('Points:', total)",
-      "steps": [
-        {
-          "lines": [
-            1
-          ],
-          "label": "Init OUTSIDE the loop",
-          "note": "total is born once, at 0, BEFORE the loop. This is the accumulator — the memory the loop writes into. Its indentation is flush-left, so it is not part of the repeated body."
-        },
-        {
-          "lines": [
-            2
-          ],
-          "label": "The for loop over a list",
-          "note": "'for score in [8, 5, 9]' hands you one item at a time. Pass 1 score is 8, pass 2 it is 5, pass 3 it is 9. The list decides how many times the body runs."
-        },
-        {
-          "lines": [
-            3
-          ],
-          "label": "Update INSIDE the loop",
-          "note": "Indented, so it repeats every pass. total = total + score means 'take the total so far and add this score.' 0+8=8, then 8+5=13, then 13+9=22."
-        },
-        {
-          "lines": [
-            4
-          ],
-          "label": "Print AFTER the loop",
-          "note": "Flush-left again, so it runs once, after all passes finish. total is now 22. The loop did the repeating; this line reports the result."
-        }
-      ],
-      "caption": "Line 1 runs once, line 3 runs three times, line 4 runs once. Indentation is what puts a line inside or outside the loop."
-    },
-    {
       "type": "compare",
       "title": "The bug every beginner writes: init inside the loop",
       "subtitle": "Same list [8, 5, 9], same goal. Only the placement of 'total = 0' changes — and it changes everything.",
@@ -1348,6 +1400,66 @@
       "check": "Total: 60"
     },
     {
+      "type": "code-walkthrough",
+      "title": "A real running total, stepped",
+      "subtitle": "Sum three game scores with a for loop — watch total grow one pass at a time.",
+      "filename": "scores.py",
+      "language": "python",
+      "code": "total = 0\nfor score in [8, 5, 9]:\n    total = total + score\nprint('Points:', total)",
+      "steps": [
+        {
+          "lines": [
+            1
+          ],
+          "label": "Init OUTSIDE the loop",
+          "note": "total is born once, at 0, BEFORE the loop. This is the accumulator — the memory the loop writes into. Its indentation is flush-left, so it is not part of the repeated body."
+        },
+        {
+          "lines": [
+            2
+          ],
+          "label": "The for loop over a list",
+          "note": "'for score in [8, 5, 9]' hands you one item at a time. Pass 1 score is 8, pass 2 it is 5, pass 3 it is 9. The list decides how many times the body runs."
+        },
+        {
+          "lines": [
+            3
+          ],
+          "label": "Update INSIDE the loop",
+          "note": "Indented, so it repeats every pass. total = total + score means 'take the total so far and add this score.' 0+8=8, then 8+5=13, then 13+9=22."
+        },
+        {
+          "lines": [
+            4
+          ],
+          "label": "Print AFTER the loop",
+          "note": "Flush-left again, so it runs once, after all passes finish. total is now 22. The loop did the repeating; this line reports the result."
+        }
+      ],
+      "caption": "Line 1 runs once, line 3 runs three times, line 4 runs once. Indentation is what puts a line inside or outside the loop."
+    },
+    {
+      "type": "debug",
+      "symptom": "Prints 9, not 22 — amnesia every pass",
+      "brokenCode": "for score in [8, 5, 9]:\n    total = 0\n    total = total + score\nprint(total)  ->  9\nEvery pass wipes the total back to 0\nOnly the LAST score survives",
+      "language": "python",
+      "task": "Find the violated invariant in the weaker Broken: total = 0 INSIDE approach and repair it before continuing.",
+      "fix": "total = 0\nfor score in [8, 5, 9]:\n    total = total + score\nprint(total)  ->  22\nInit runs once, before the loop\nEach pass adds to what is already there\nPrints 22 — the running total survives"
+    },
+    {
+      "type": "tradeoff",
+      "question": "The bug every beginner writes: init inside the loop",
+      "optionA": {
+        "label": "Broken: total = 0 INSIDE",
+        "text": "for score in [8, 5, 9]: ·     total = 0 ·     total = total + score · print(total)  ->  9 · Every pass wipes the total back to 0 · Only the LAST score survives Outcome: Prints 9, not 22 — amnesia every pass"
+      },
+      "optionB": {
+        "label": "Correct: total = 0 OUTSIDE",
+        "text": "total = 0 · for score in [8, 5, 9]: ·     total = total + score · print(total)  ->  22 · Init runs once, before the loop · Each pass adds to what is already there Outcome: Prints 22 — the running total survives"
+      },
+      "guidance": "Init inside the loop resets your memory on every pass. The accumulator must be born ABOVE the loop, once."
+    },
+    {
       "type": "quiz",
       "question": "You want to sum a list with a running total. Where must the line 'total = 0' go?",
       "options": [
@@ -1389,6 +1501,1312 @@
         "3 days",
         "7 days",
         "30 days"
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — run the practical artifact and satisfy its check (Total: 60): A Pyodide lab that prints the exact line 'Total: 60' — produced only by a loop that accumulates. Your accumulator starts at 0 OUTSIDE the loop and grows INSIDE it.",
+        "Diagnose and repair the broken case: Prints 9, not 22 — amnesia every pass",
+        "Confirm every verification item: You can write a for loop over a list ('for x in [1, 2, 3]:') and know it runs once per item. · Your accumulator (total = 0) sits OUTSIDE the loop, above it, and runs exactly once. · The update line (total = total + x) is INDENTED inside the loop, so it repeats every pass. · You can predict the output of a 3-item running-total loop by hand before running it. · You know why moving 'total = 0' inside the loop breaks the result — and what it prints instead.",
+        "Complete the transfer without copying the worked example: Roll-call the whole course. In Lesson 1 you made the computer speak with print. In Lesson 2 you gave it memory with variables. In Lesson 3 you taught it to choose with if / elif / else. Today you taught it to repeat with for and while, and to remember across passes with a running total. Put those four together and you have the entire skeleton of real software: a program reads a value, decides something with it, and repeats — over a list of prices, a file of rows, a stream of users. That IS a program. You are not 'learning to code' anymore; you can write a small one, by hand, that actually works. Everything ahead — data structures, files, APIs — is just more interesting things to read, decide about, and loop over. Same four moves. You already own them."
+      ]
+    }
+  ],
+  "functions-and-scope": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Design a small pure function with explicit inputs and a reusable return value.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: Total: 42",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "A pricing rule is copied into three files and already disagrees. Replace the copies with one named contract that every caller can test."
+    },
+    {
+      "type": "context",
+      "text": "Functions are the unit of decomposition in Python: a name, explicit inputs, one responsibility, and a value returned to the caller."
+    },
+    {
+      "type": "pretest",
+      "prompt": "What is the difference between print(total) and return total inside a function?",
+      "reveal": "print shows a value to a human; return hands it to the caller so code can store, test, and compose it."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Functions, Parameters, Return Values, and Scope model before editing it.",
+      "code": "def line_total(unit_price, quantity):\n    return unit_price * quantity\n\ntotal = line_total(7, 6)\nprint(f\"Total: {total}\")",
+      "language": "python",
+      "steps": [
+        "Define the contract with two parameters.",
+        "Compute from parameters rather than globals.",
+        "Return the value.",
+        "The caller decides how to display it."
+      ],
+      "commonMistake": "Printing inside the function and accidentally returning None."
+    },
+    {
+      "type": "concept",
+      "title": "Inputs in, value out, hidden state out",
+      "text": "Prefer functions whose result depends only on their parameters. Keep printing, files, and network calls in thin boundary code."
+    },
+    {
+      "type": "diagram",
+      "title": "Functions, Parameters, Return Values, and Scope: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Inputs in, value out, hidden state out",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Total: 42",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Build a reusable line-total function",
+      "summary": "Implement line_total(price, quantity) and call it for 7 × 6.",
+      "language": "python",
+      "starter": "def line_total(price, quantity):\n    # TODO: return the computed total\n    pass\n\nprint(f\"Total: {line_total(7, 6)}\")",
+      "check": "Total: 42"
+    },
+    {
+      "type": "debug",
+      "symptom": "The calculation appears on screen, then the caller prints None.",
+      "brokenCode": "def line_total(price, quantity):\n    print(price * quantity)\n\ntotal = line_total(7, 6)\nprint(total)",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Return price * quantity; let the caller print the returned value."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Functions, Parameters, Return Values, and Scope?",
+      "optionA": {
+        "label": "One pure calculation function",
+        "text": "One pure calculation function"
+      },
+      "optionB": {
+        "label": "A function that calculates, prints, reads input, and changes a global",
+        "text": "A function that calculates, prints, reads input, and changes a global"
+      },
+      "guidance": "Use the pure function when callers need reuse and tests. Keep I/O at the boundary."
+    },
+    {
+      "type": "quiz",
+      "question": "What is the difference between print(total) and return total inside a function?",
+      "options": [
+        "print shows a value to a human; return hands it to the caller so code can store, test, and compose it.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "print shows a value to a human; return hands it to the caller so code can store, test, and compose it."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "line_total(7, 6) returns 42.",
+        "The function reads no globals.",
+        "The function returns rather than prints.",
+        "A second input works without editing the function."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain inputs in, value out, hidden state out without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Extract one duplicated calculation from a real script into a pure function and test two inputs."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Total: 42",
+        "A regression check demonstrates the broken case is repaired: The calculation appears on screen, then the caller prints None.",
+        "Every verification item is satisfied: line_total(7, 6) returns 42. · The function reads no globals. · The function returns rather than prints. · A second input works without editing the function.",
+        "The transfer is completed without copying the example: Extract one duplicated calculation from a real script into a pure function and test two inputs."
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Choose a collection by access pattern and transform structured records without losing meaning.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: Paid orders: 2 | Revenue: $45",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "An automation receives order records. You need ordered rows, lookup by field, unique customer IDs, and a filtered report—without parallel mystery lists."
+    },
+    {
+      "type": "context",
+      "text": "Python collections encode intent: list for ordered sequences, dict for named fields and keyed lookup, set for uniqueness."
+    },
+    {
+      "type": "pretest",
+      "prompt": "Which structure answers “have I seen this ID?” most directly: list, dict, or set?",
+      "reveal": "A set represents membership and uniqueness directly; a dict is right when each key also maps to data."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Lists, Dictionaries, Sets, and Comprehensions model before editing it.",
+      "code": "orders = [{\"id\": 1, \"paid\": True, \"total\": 20}, {\"id\": 2, \"paid\": False, \"total\": 10}]\npaid = [order for order in orders if order[\"paid\"]]\nrevenue = sum(order[\"total\"] for order in paid)",
+      "language": "python",
+      "steps": [
+        "Each dict names the fields.",
+        "The list preserves record order.",
+        "The comprehension filters paid orders.",
+        "sum reduces the filtered values."
+      ],
+      "commonMistake": "Keeping related fields in parallel lists that drift out of alignment."
+    },
+    {
+      "type": "concept",
+      "title": "Choose the structure that makes the operation obvious",
+      "text": "Model each record as a dict, records as a list, and uniqueness as a set. Use comprehensions when the transform remains readable."
+    },
+    {
+      "type": "diagram",
+      "title": "Lists, Dictionaries, Sets, and Comprehensions: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Choose the structure that makes the operation obvious",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Paid orders: 2 | Revenue: $45",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Summarize paid orders",
+      "summary": "Count paid records and total their revenue from a list of dictionaries.",
+      "language": "python",
+      "starter": "orders = [{\"id\": 1, \"paid\": True, \"total\": 20}, {\"id\": 2, \"paid\": False, \"total\": 10}, {\"id\": 3, \"paid\": True, \"total\": 25}]\n# TODO: derive paid_count and revenue\npaid_count = 0\nrevenue = 0\nprint(f\"Paid orders: {paid_count} | Revenue: ${revenue}\")",
+      "check": "Paid orders: 2 | Revenue: $45"
+    },
+    {
+      "type": "debug",
+      "symptom": "Parallel lists have different lengths and the report crashes or pairs the wrong values.",
+      "brokenCode": "ids = [1, 2, 3]\npaid = [True, False]\nfor index, order_id in enumerate(ids):\n    print(order_id, paid[index])",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Use one list of dictionaries so every record carries its own named fields."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Lists, Dictionaries, Sets, and Comprehensions?",
+      "optionA": {
+        "label": "List of dictionaries",
+        "text": "List of dictionaries"
+      },
+      "optionB": {
+        "label": "Parallel lists for every field",
+        "text": "Parallel lists for every field"
+      },
+      "guidance": "Use records when fields belong together; use a set only for uniqueness or membership."
+    },
+    {
+      "type": "quiz",
+      "question": "Which structure answers “have I seen this ID?” most directly: list, dict, or set?",
+      "options": [
+        "A set represents membership and uniqueness directly; a dict is right when each key also maps to data.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "A set represents membership and uniqueness directly; a dict is right when each key also maps to data."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "Paid order count is 2.",
+        "Revenue is 45.",
+        "The source list is not mutated.",
+        "Adding another unpaid order does not change revenue."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain choose the structure that makes the operation obvious without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Turn a CSV-shaped set of parallel columns into records, then produce one filtered summary."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Paid orders: 2 | Revenue: $45",
+        "A regression check demonstrates the broken case is repaired: Parallel lists have different lengths and the report crashes or pairs the wrong values.",
+        "Every verification item is satisfied: Paid order count is 2. · Revenue is 45. · The source list is not mutated. · Adding another unpaid order does not change revenue.",
+        "The transfer is completed without copying the example: Turn a CSV-shaped set of parallel columns into records, then produce one filtered summary."
+      ]
+    }
+  ],
+  "exceptions-validation": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Convert and validate untrusted input at the boundary while preserving useful failure context.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: Port: 8080",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "A deployment port arrives as text. “eighty” and 70000 must fail before they reach infrastructure code, with an error a caller can act on."
+    },
+    {
+      "type": "context",
+      "text": "Exceptions are control flow for exceptional states, not a broom that hides every failure. Catch only what you can handle."
+    },
+    {
+      "type": "pretest",
+      "prompt": "Should a parser return 0 when it receives “eighty,” or raise a specific error?",
+      "reveal": "Raise a specific error. Returning 0 invents data and moves the failure farther from its cause."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Exceptions and Boundary Validation model before editing it.",
+      "code": "def parse_port(raw):\n    try:\n        port = int(raw)\n    except ValueError as error:\n        raise ValueError(\"port must be an integer\") from error\n    if not 1 <= port <= 65535:\n        raise ValueError(\"port must be 1-65535\")\n    return port",
+      "language": "python",
+      "steps": [
+        "Convert once at the boundary.",
+        "Catch only conversion failure.",
+        "Validate the real integer.",
+        "Return a trusted value."
+      ],
+      "commonMistake": "Using bare except and silently substituting a default."
+    },
+    {
+      "type": "concept",
+      "title": "Parse, validate, then return—or fail loudly",
+      "text": "Convert at the boundary, validate the domain constraint, and chain a safe error from the original cause when useful."
+    },
+    {
+      "type": "diagram",
+      "title": "Exceptions and Boundary Validation: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Parse, validate, then return—or fail loudly",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Port: 8080",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Parse a safe network port",
+      "summary": "Implement parse_port and prove valid, nonnumeric, and out-of-range behavior.",
+      "language": "python",
+      "starter": "def parse_port(raw):\n    # TODO: convert, validate 1..65535, and raise clear ValueError messages\n    pass\n\nprint(f\"Port: {parse_port(\"8080\")}\")",
+      "check": "Port: 8080"
+    },
+    {
+      "type": "debug",
+      "symptom": "Invalid input silently becomes port 0 and the real error disappears.",
+      "brokenCode": "def parse_port(raw):\n    try:\n        return int(raw)\n    except:\n        return 0",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Catch ValueError specifically, raise a clear error, and validate the allowed range."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Exceptions and Boundary Validation?",
+      "optionA": {
+        "label": "Reject invalid input",
+        "text": "Reject invalid input"
+      },
+      "optionB": {
+        "label": "Silently coerce to a default",
+        "text": "Silently coerce to a default"
+      },
+      "guidance": "Reject at trust boundaries unless a normalization is explicit, safe, and reversible."
+    },
+    {
+      "type": "quiz",
+      "question": "Should a parser return 0 when it receives “eighty,” or raise a specific error?",
+      "options": [
+        "Raise a specific error. Returning 0 invents data and moves the failure farther from its cause.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "Raise a specific error. Returning 0 invents data and moves the failure farther from its cause."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "\"8080\" returns integer 8080.",
+        "\"eighty\" raises ValueError.",
+        "70000 raises ValueError.",
+        "No bare except or silent default exists."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain parse, validate, then return—or fail loudly without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Apply the same parse-and-validate boundary to a timeout, date, or environment variable."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Port: 8080",
+        "A regression check demonstrates the broken case is repaired: Invalid input silently becomes port 0 and the real error disappears.",
+        "Every verification item is satisfied: \"8080\" returns integer 8080. · \"eighty\" raises ValueError. · 70000 raises ValueError. · No bare except or silent default exists.",
+        "The transfer is completed without copying the example: Apply the same parse-and-validate boundary to a timeout, date, or environment variable."
+      ]
+    }
+  ],
+  "files-json": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Read structured data safely, validate its shape, and produce a deterministic result.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: Active: Ada, Lin",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "An automation reads a JSON export every morning. One malformed file must fail clearly; one open handle must never leak."
+    },
+    {
+      "type": "context",
+      "text": "with owns resource cleanup. json turns text into Python values, but parsing success does not prove the expected schema exists."
+    },
+    {
+      "type": "pretest",
+      "prompt": "If json.loads succeeds, is data[\"users\"] guaranteed to be a list?",
+      "reveal": "No. Valid JSON can still have the wrong shape. Syntax validation and schema validation are separate checks."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Files, Context Managers, and JSON model before editing it.",
+      "code": "import json\n\ndef active_names(raw):\n    data = json.loads(raw)\n    users = data.get(\"users\")\n    if not isinstance(users, list):\n        raise ValueError(\"users must be a list\")\n    return [user[\"name\"] for user in users if user.get(\"active\") is True]",
+      "language": "python",
+      "steps": [
+        "Parse JSON text.",
+        "Read the expected key safely.",
+        "Validate the collection shape.",
+        "Filter and return names."
+      ],
+      "commonMistake": "Assuming valid JSON automatically means valid application data."
+    },
+    {
+      "type": "concept",
+      "title": "Own the resource, parse the syntax, validate the shape",
+      "text": "Use with for files, json.load/loads for parsing, then explicitly validate keys and types before processing."
+    },
+    {
+      "type": "diagram",
+      "title": "Files, Context Managers, and JSON: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Own the resource, parse the syntax, validate the shape",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Active: Ada, Lin",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Extract active users from JSON",
+      "summary": "Parse a supplied payload, validate users is a list, and print active names.",
+      "language": "python",
+      "starter": "import json\n\nRAW = '{\"users\":[{\"name\":\"Ada\",\"active\":true},{\"name\":\"Grace\",\"active\":false},{\"name\":\"Lin\",\"active\":true}]}'\n\ndef active_names(raw):\n    # TODO: parse, validate, filter, and return names\n    return []\n\nprint(\"Active: \" + \", \".join(active_names(RAW)))",
+      "check": "Active: Ada, Lin"
+    },
+    {
+      "type": "debug",
+      "symptom": "A syntactically valid payload with users={} crashes deep inside the comprehension.",
+      "brokenCode": "import json\n\ndef names(raw):\n    data = json.loads(raw)\n    return [user[\"name\"] for user in data[\"users\"]]",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Validate that users exists and is a list before iterating; raise a boundary error."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Files, Context Managers, and JSON?",
+      "optionA": {
+        "label": "Stream a large file",
+        "text": "Stream a large file"
+      },
+      "optionB": {
+        "label": "Read the whole file",
+        "text": "Read the whole file"
+      },
+      "guidance": "Stream when size is unbounded; load whole small documents when atomic parsing is required."
+    },
+    {
+      "type": "quiz",
+      "question": "If json.loads succeeds, is data[\"users\"] guaranteed to be a list?",
+      "options": [
+        "No. Valid JSON can still have the wrong shape. Syntax validation and schema validation are separate checks.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "No. Valid JSON can still have the wrong shape. Syntax validation and schema validation are separate checks."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "The valid payload returns Ada and Lin.",
+        "Grace is filtered out.",
+        "A missing or non-list users value raises.",
+        "The function returns data rather than only printing."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain own the resource, parse the syntax, validate the shape without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Read a small real JSON file with with open(...) and run the same shape validation."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Active: Ada, Lin",
+        "A regression check demonstrates the broken case is repaired: A syntactically valid payload with users={} crashes deep inside the comprehension.",
+        "Every verification item is satisfied: The valid payload returns Ada and Lin. · Grace is filtered out. · A missing or non-list users value raises. · The function returns data rather than only printing.",
+        "The transfer is completed without copying the example: Read a small real JSON file with with open(...) and run the same shape validation."
+      ]
+    }
+  ],
+  "modules-venvs": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Separate reusable code from execution and describe a reproducible dependency boundary.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: Area: 12.57",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "A script works on one laptop and fails everywhere else. Turn “works on my machine” into an importable module plus an explicit environment contract."
+    },
+    {
+      "type": "context",
+      "text": "Modules organize code; virtual environments isolate installed packages; dependency locks make a working environment reproducible."
+    },
+    {
+      "type": "pretest",
+      "prompt": "Why place executable code under if __name__ == \"__main__\"?",
+      "reveal": "So importing the module exposes functions without accidentally running the script’s side effects."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Modules, Imports, Virtual Environments, and Dependencies model before editing it.",
+      "code": "import math\n\ndef circle_area(radius):\n    if radius < 0:\n        raise ValueError(\"radius must be nonnegative\")\n    return math.pi * radius ** 2\n\nif __name__ == \"__main__\":\n    print(f\"Area: {circle_area(2):.2f}\")",
+      "language": "python",
+      "steps": [
+        "Import a standard-library module.",
+        "Expose a reusable function.",
+        "Validate its contract.",
+        "Run output only at the entry point."
+      ],
+      "commonMistake": "Installing packages globally and running side effects during import."
+    },
+    {
+      "type": "concept",
+      "title": "Importable core, explicit entry point, isolated environment",
+      "text": "Put reusable functions in modules, execution behind a main guard, and third-party packages in a project-local environment with pinned versions."
+    },
+    {
+      "type": "diagram",
+      "title": "Modules, Imports, Virtual Environments, and Dependencies: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Importable core, explicit entry point, isolated environment",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Area: 12.57",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Build an import-safe geometry module",
+      "summary": "Implement circle_area and keep display code behind the main guard.",
+      "language": "python",
+      "starter": "import math\n\ndef circle_area(radius):\n    # TODO: reject negative radius and return the area\n    pass\n\nif __name__ == \"__main__\":\n    print(f\"Area: {circle_area(2):.2f}\")",
+      "check": "Area: 12.57"
+    },
+    {
+      "type": "debug",
+      "symptom": "Importing the module immediately performs a side effect.",
+      "brokenCode": "print(\"connecting to production\")\n\ndef circle_area(radius):\n    return 3.14 * radius * radius",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Keep reusable definitions at module scope and execution inside a main function guarded by __name__."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Modules, Imports, Virtual Environments, and Dependencies?",
+      "optionA": {
+        "label": "Pin direct and transitive dependencies",
+        "text": "Pin direct and transitive dependencies"
+      },
+      "optionB": {
+        "label": "Use whatever versions happen to be installed",
+        "text": "Use whatever versions happen to be installed"
+      },
+      "guidance": "Pin for reproducible releases; schedule explicit upgrades rather than accepting invisible drift."
+    },
+    {
+      "type": "quiz",
+      "question": "Why place executable code under if __name__ == \"__main__\"?",
+      "options": [
+        "So importing the module exposes functions without accidentally running the script’s side effects.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "So importing the module exposes functions without accidentally running the script’s side effects."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "circle_area(2) rounds to 12.57.",
+        "Negative radius raises.",
+        "Importing defines functions without printing.",
+        "You can explain what the virtual environment isolates."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain importable core, explicit entry point, isolated environment without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Create a fresh virtual environment for a tiny project and document the exact recreate-and-run commands."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Area: 12.57",
+        "A regression check demonstrates the broken case is repaired: Importing the module immediately performs a side effect.",
+        "Every verification item is satisfied: circle_area(2) rounds to 12.57. · Negative radius raises. · Importing defines functions without printing. · You can explain what the virtual environment isolates.",
+        "The transfer is completed without copying the example: Create a fresh virtual environment for a tiny project and document the exact recreate-and-run commands."
+      ]
+    }
+  ],
+  "testing-debugging": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Reproduce a bug with a failing test, repair it, and keep the regression permanently executable.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: 3 tests passed",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "average([]) crashed in production. A patch without a test is only a promise that the same failure will return later."
+    },
+    {
+      "type": "context",
+      "text": "A regression test proves the bug existed, proves the fix, and protects future refactors. Debugging starts by reducing a symptom to one repeatable case."
+    },
+    {
+      "type": "pretest",
+      "prompt": "Should you fix the function first or write the smallest failing test first?",
+      "reveal": "Write the reproducer first. A test that never failed might not exercise the bug you think it does."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Testing, Debugging, and Regression Proof model before editing it.",
+      "code": "def safe_average(values):\n    if not values:\n        return 0\n    return sum(values) / len(values)\n\nassert safe_average([2, 4, 6]) == 4\nassert safe_average([]) == 0",
+      "language": "python",
+      "steps": [
+        "Name the behavior.",
+        "Guard the empty edge.",
+        "Test the normal case.",
+        "Keep the regression case forever."
+      ],
+      "commonMistake": "Patching the crash without first proving a test catches it."
+    },
+    {
+      "type": "concept",
+      "title": "Red reproduces, green repairs, refactor preserves",
+      "text": "Arrange the input, act once, and assert observable behavior. Keep tests deterministic, isolated, and named after the risk."
+    },
+    {
+      "type": "diagram",
+      "title": "Testing, Debugging, and Regression Proof: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Red reproduces, green repairs, refactor preserves",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "3 tests passed",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Lock an empty-input regression",
+      "summary": "Implement safe_average and make three behavior assertions pass.",
+      "language": "python",
+      "starter": "def safe_average(values):\n    # TODO: return 0 for empty input and the arithmetic mean otherwise\n    pass\n\nassert safe_average([2, 4, 6]) == 4\nassert safe_average([]) == 0\nassert safe_average([10]) == 10\nprint(\"3 tests passed\")",
+      "check": "3 tests passed"
+    },
+    {
+      "type": "debug",
+      "symptom": "The happy path works, but an empty list raises ZeroDivisionError.",
+      "brokenCode": "def average(values):\n    return sum(values) / len(values)\n\nprint(average([]))",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Add the failing empty-list assertion, then define and test the intended empty behavior."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Testing, Debugging, and Regression Proof?",
+      "optionA": {
+        "label": "Assert public behavior",
+        "text": "Assert public behavior"
+      },
+      "optionB": {
+        "label": "Assert internal implementation details",
+        "text": "Assert internal implementation details"
+      },
+      "guidance": "Behavior tests survive refactors; inspect internals only when the internal contract is itself the product."
+    },
+    {
+      "type": "quiz",
+      "question": "Should you fix the function first or write the smallest failing test first?",
+      "options": [
+        "Write the reproducer first. A test that never failed might not exercise the bug you think it does.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "Write the reproducer first. A test that never failed might not exercise the bug you think it does."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "All three assertions pass.",
+        "The empty case failed before the fix.",
+        "No test depends on execution order.",
+        "The function has no hidden state or I/O."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain red reproduces, green repairs, refactor preserves without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Turn the next bug you encounter into a fail-before/pass-after regression test."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: 3 tests passed",
+        "A regression check demonstrates the broken case is repaired: The happy path works, but an empty list raises ZeroDivisionError.",
+        "Every verification item is satisfied: All three assertions pass. · The empty case failed before the fix. · No test depends on execution order. · The function has no hidden state or I/O.",
+        "The transfer is completed without copying the example: Turn the next bug you encounter into a fail-before/pass-after regression test."
+      ]
+    }
+  ],
+  "http-apis": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Treat an API response as untrusted input and normalize it behind a small tested boundary.",
+      "intensity": "standard",
+      "time": "45-75 min",
+      "proof": "A runnable Python artifact that satisfies the observable check: User: ada | Active: True",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "A 200 response changes shape and silently corrupts an automation. Make status, timeout, schema, and retry policy explicit before data reaches the workflow."
+    },
+    {
+      "type": "context",
+      "text": "Network success is layered: transport completed, status is acceptable, body parses, schema matches, and the operation is safe to retry."
+    },
+    {
+      "type": "pretest",
+      "prompt": "Does HTTP 200 prove the JSON body has every field your code expects?",
+      "reveal": "No. Status and schema are separate contracts; both require checks."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete HTTP APIs, Timeouts, Schemas, and Safe Automation model before editing it.",
+      "code": "def normalize_user(response):\n    if response.get(\"status\") != 200:\n        raise RuntimeError(\"request failed\")\n    body = response.get(\"json\")\n    if not isinstance(body, dict) or not isinstance(body.get(\"name\"), str):\n        raise ValueError(\"invalid user schema\")\n    return {\"name\": body[\"name\"].strip().lower(), \"active\": body.get(\"active\") is True}",
+      "language": "python",
+      "steps": [
+        "Classify status.",
+        "Validate body type.",
+        "Validate required fields.",
+        "Return a small internal model."
+      ],
+      "commonMistake": "Calling response.json() and trusting every key because status was 200."
+    },
+    {
+      "type": "concept",
+      "title": "Timeout, status, parse, validate, then act",
+      "text": "Wrap external calls in a boundary that sets a timeout, classifies status, validates response shape, and retries only safe operations."
+    },
+    {
+      "type": "diagram",
+      "title": "HTTP APIs, Timeouts, Schemas, and Safe Automation: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Timeout, status, parse, validate, then act",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "User: ada | Active: True",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Normalize an API fixture safely",
+      "summary": "Validate a server-owned response fixture without making network access part of the lab.",
+      "language": "python",
+      "starter": "RESPONSE = {\"status\": 200, \"json\": {\"name\": \" Ada \", \"active\": True}}\n\ndef normalize_user(response):\n    # TODO: validate status and schema, normalize name, return name + active\n    return {}\n\nuser = normalize_user(RESPONSE)\nprint(f\"User: {user[\"name\"]} | Active: {user[\"active\"]}\")",
+      "check": "User: ada | Active: True"
+    },
+    {
+      "type": "debug",
+      "symptom": "A timeout, non-200 status, missing body, or numeric name crashes far from the request boundary.",
+      "brokenCode": "def user_name(response):\n    return response[\"json\"][\"name\"].lower()",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Classify each layer at the boundary and raise a specific error before returning normalized data."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for HTTP APIs, Timeouts, Schemas, and Safe Automation?",
+      "optionA": {
+        "label": "Retry a bounded idempotent read",
+        "text": "Retry a bounded idempotent read"
+      },
+      "optionB": {
+        "label": "Retry every failed operation automatically",
+        "text": "Retry every failed operation automatically"
+      },
+      "guidance": "Retry only classified transient failures when repeating the operation cannot duplicate harmful effects."
+    },
+    {
+      "type": "quiz",
+      "question": "Does HTTP 200 prove the JSON body has every field your code expects?",
+      "options": [
+        "No. Status and schema are separate contracts; both require checks.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "No. Status and schema are separate contracts; both require checks."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "The valid fixture normalizes Ada.",
+        "Non-200 status raises.",
+        "Missing or non-string name raises.",
+        "The lab makes no network request and assumes no network access."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain timeout, status, parse, validate, then act without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "transfer",
+      "text": "Wrap one real read-only API call with a timeout and the same status/schema boundary outside the sandbox."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: User: ada | Active: True",
+        "A regression check demonstrates the broken case is repaired: A timeout, non-200 status, missing body, or numeric name crashes far from the request boundary.",
+        "Every verification item is satisfied: The valid fixture normalizes Ada. · Non-200 status raises. · Missing or non-string name raises. · The lab makes no network request and assumes no network access.",
+        "The transfer is completed without copying the example: Wrap one real read-only API call with a timeout and the same status/schema boundary outside the sandbox."
+      ]
+    }
+  ],
+  "automation-capstone": [
+    {
+      "type": "sprint-contract",
+      "outcome": "Integrate parsing, validation, functions, collections, tests, and deterministic reporting into one defensible automation.",
+      "intensity": "capstone",
+      "time": "2-4 hrs",
+      "proof": "A runnable Python artifact that satisfies the observable check: Revenue: $45",
+      "unlock": "The lab passes, the failure is repaired, and you can defend the transfer.",
+      "doNotClaim": "Do not claim mastery from the happy path. The debug case, transfer, and delayed retrieval remain required evidence."
+    },
+    {
+      "type": "mission",
+      "text": "Operations needs a daily order report. The input includes malformed and duplicate records; the output must be reproducible, tested, and safe to rerun."
+    },
+    {
+      "type": "context",
+      "text": "Production automation is not “a script that ran once.” It has an input contract, deterministic core, explicit failures, regression tests, and an operator-readable result."
+    },
+    {
+      "type": "pretest",
+      "prompt": "What should happen when one record has a missing ID: silently skip, crash with no context, or record a rejection?",
+      "reveal": "Record a specific rejection while preserving deterministic processing of valid records, unless policy requires the whole batch to fail atomically."
+    },
+    {
+      "type": "worked-example",
+      "intro": "Trace the complete Capstone: Build a Defensive Python Automation model before editing it.",
+      "code": "def build_report(records):\n    seen = set()\n    accepted, rejected = [], []\n    for record in records:\n        order_id = record.get(\"id\")\n        if not isinstance(order_id, str) or not order_id:\n            rejected.append(\"missing-id\")\n            continue\n        if order_id in seen:\n            rejected.append(f\"duplicate:{order_id}\")\n            continue\n        seen.add(order_id)\n        accepted.append(record)\n    return accepted, rejected",
+      "language": "python",
+      "steps": [
+        "Own deduplication state.",
+        "Validate identity first.",
+        "Name every rejection.",
+        "Return evidence for reconciliation."
+      ],
+      "commonMistake": "Silently dropping bad records and reporting a total nobody can reconcile."
+    },
+    {
+      "type": "concept",
+      "title": "Validate → normalize → deduplicate → compute → prove",
+      "text": "Separate the pure transformation from I/O. Return both accepted results and explicit rejections so an operator can reconcile the batch."
+    },
+    {
+      "type": "diagram",
+      "title": "Capstone: Build a Defensive Python Automation: evidence flow",
+      "subtitle": "Every arrow must be observable or testable.",
+      "rankdir": "LR",
+      "nodes": [
+        {
+          "id": "input",
+          "label": "Untrusted input",
+          "kind": "external",
+          "tone": "warning"
+        },
+        {
+          "id": "boundary",
+          "label": "Validate → normalize → deduplicate → compute → prove",
+          "kind": "process",
+          "tone": "accent"
+        },
+        {
+          "id": "proof",
+          "label": "Revenue: $45",
+          "kind": "process",
+          "tone": "success"
+        }
+      ],
+      "edges": [
+        {
+          "from": "input",
+          "to": "boundary",
+          "label": "validate"
+        },
+        {
+          "from": "boundary",
+          "to": "proof",
+          "label": "verify"
+        }
+      ],
+      "caption": "A production-practical lesson ends in evidence, not merely code that looks plausible."
+    },
+    {
+      "type": "lab",
+      "title": "Ship a reconciled order report",
+      "summary": "Process valid, duplicate, and malformed records into exact accepted/rejected/revenue evidence.",
+      "language": "python",
+      "starter": "RECORDS = [{\"id\":\"A1\",\"total\":20},{\"id\":\"A1\",\"total\":20},{\"id\":\"B2\",\"total\":25},{\"total\":99}]\n\ndef build_report(records):\n    # TODO: validate IDs and numeric totals, reject duplicates, compute revenue\n    return {\"accepted\": 0, \"rejected\": [], \"revenue\": 0}\n\nreport = build_report(RECORDS)\nprint(f\"Accepted: {report[\"accepted\"]}\")\nprint(\"Rejected: \" + \", \".join(report[\"rejected\"]))\nprint(f\"Revenue: ${report[\"revenue\"]}\")",
+      "check": "Revenue: $45"
+    },
+    {
+      "type": "debug",
+      "symptom": "The report double-counts duplicates and crashes on malformed data without identifying the record.",
+      "brokenCode": "def revenue(records):\n    return sum(record[\"total\"] for record in records)",
+      "language": "python",
+      "task": "Reproduce the failure, explain its cause, then repair it without weakening the contract.",
+      "fix": "Validate and deduplicate before aggregation; return named rejections beside the computed result."
+    },
+    {
+      "type": "tradeoff",
+      "question": "Which design is safer for Capstone: Build a Defensive Python Automation?",
+      "optionA": {
+        "label": "Continue with explicit per-record rejections",
+        "text": "Continue with explicit per-record rejections"
+      },
+      "optionB": {
+        "label": "Fail the entire batch atomically",
+        "text": "Fail the entire batch atomically"
+      },
+      "guidance": "Choose from business risk: reconciliation pipelines may continue; money movement may require atomic failure. Never silently skip."
+    },
+    {
+      "type": "quiz",
+      "question": "What should happen when one record has a missing ID: silently skip, crash with no context, or record a rejection?",
+      "options": [
+        "Record a specific rejection while preserving deterministic processing of valid records, unless policy requires the whole batch to fail atomically.",
+        "The opposite is always true.",
+        "It depends only on variable names."
+      ],
+      "answer": 0,
+      "explanation": "Record a specific rejection while preserving deterministic processing of valid records, unless policy requires the whole batch to fail atomically."
+    },
+    {
+      "type": "verification",
+      "intro": "Prove the behavior—no vibes:",
+      "items": [
+        "Exactly two records are accepted.",
+        "A1 is rejected as duplicate.",
+        "The missing-ID record is rejected explicitly.",
+        "Revenue is 45.",
+        "Running twice produces identical output."
+      ]
+    },
+    {
+      "type": "teachback",
+      "prompts": [
+        "Explain validate → normalize → deduplicate → compute → prove without reading the lesson.",
+        "Explain why the broken case fails and how the repair preserves the contract.",
+        "Name the evidence that would convince a skeptical reviewer."
+      ]
+    },
+    {
+      "type": "calibration",
+      "artifact": "A runnable Python artifact that satisfies the observable check: Revenue: $45",
+      "weak": "The artifact follows the visible shape but cannot survive a failure case, independent check, or reviewer challenge.",
+      "passing": "The artifact satisfies every verification item: Exactly two records are accepted. · A1 is rejected as duplicate. · The missing-ID record is rejected explicitly. · Revenue is 45. · Running twice produces identical output.",
+      "excellent": "Passing evidence plus a novel constraint, a documented repair, and this transfer: Adapt the automation to a new record schema and add one unseen rejection rule without weakening old tests.",
+      "note": "Score only inspectable evidence. Confidence, polish, and completion time cannot substitute for a passing artifact and defensible reasoning."
+    },
+    {
+      "type": "transfer",
+      "text": "Adapt the automation to a new record schema and add one unseen rejection rule without weakening old tests."
+    },
+    {
+      "type": "spaced-review",
+      "schedule": [
+        "Day 2: reproduce the core function from memory.",
+        "Day 7: repair the broken case without notes.",
+        "Day 21: apply the pattern to a new data shape.",
+        "Day 45: defend the tradeoff and rerun the evidence."
+      ]
+    },
+    {
+      "type": "unlock-gate",
+      "criteria": [
+        "Observable evidence — the lab output includes: Revenue: $45",
+        "A regression check demonstrates the broken case is repaired: The report double-counts duplicates and crashes on malformed data without identifying the record.",
+        "Every verification item is satisfied: Exactly two records are accepted. · A1 is rejected as duplicate. · The missing-ID record is rejected explicitly. · Revenue is 45. · Running twice produces identical output.",
+        "The transfer is completed without copying the example: Adapt the automation to a new record schema and add one unseen rejection rule without weakening old tests."
       ]
     }
   ]

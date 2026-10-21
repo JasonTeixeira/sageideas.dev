@@ -37,6 +37,20 @@ const shouldApply = process.argv.includes('--apply')
 const COURSES_ROOT = '/Users/Sage/AI_CAREER_OPERATING_SYSTEM/courses'
 const SLUG_PREFIX = 'career-'
 const SUMMARY_MAX = 600
+const ACADEMY_REGISTRY = JSON.parse(
+  readFileSync(join(process.cwd(), 'data/academy/registry.json'), 'utf8'),
+) as {
+  courses: Array<{
+    slug: string
+    aliases: string[]
+    lessons: Array<{ slug: string }>
+  }>
+}
+const REGISTRY_BY_IDENTITY = new Map(
+  ACADEMY_REGISTRY.courses.flatMap((course) =>
+    [course.slug, ...course.aliases].map((id) => [id, course] as const),
+  ),
+)
 
 // The one course whose first lesson is a free preview.
 const FREE_PREVIEW_COURSE_SLUG = 'career-engineering_judgment_foundation'
@@ -136,14 +150,24 @@ const H1_RE = /^#\s+(.+?)\s*$/m
 const LESSON_PACK_RE = /^Lesson Pack\s+\d+\s*:\s*/i
 const LESSON_PREFIX_RE = /^Lesson\s*:\s*/i
 // Summary sections we prefer, in priority order, across the source formats.
-const SUMMARY_HEADINGS = ['Real-World Scenario', 'Goal', 'Overview', 'Real-World', 'Capability Built']
+const SUMMARY_HEADINGS = [
+  'Real-World Scenario',
+  'Goal',
+  'Overview',
+  'Real-World',
+  'Capability Built',
+]
 
 function cleanTitle(raw: string, fallbackFile: string): string {
   let t = (raw || '').trim()
   t = t.replace(LESSON_PACK_RE, '').replace(LESSON_PREFIX_RE, '').trim()
   if (!t) {
     const base = basename(fallbackFile).replace(/\.md$/i, '')
-    t = base.replace(/^\d+[_-]/g, '').replace(/_lesson$/i, '').replace(/_/g, ' ').trim()
+    t = base
+      .replace(/^\d+[_-]/g, '')
+      .replace(/_lesson$/i, '')
+      .replace(/_/g, ' ')
+      .trim()
     t = t.replace(/\b\w/g, (c) => c.toUpperCase())
   }
   return t
@@ -154,7 +178,9 @@ function extractSummary(md: string): string {
   const lines = md.split('\n')
 
   for (const heading of SUMMARY_HEADINGS) {
-    const idx = lines.findIndex((l) => new RegExp(`^#{1,6}\\s+${heading}\\b`, 'i').test(l.trim()))
+    const idx = lines.findIndex((l) =>
+      new RegExp(`^#{1,6}\\s+${heading}\\b`, 'i').test(l.trim()),
+    )
     if (idx === -1) continue
     const para = collectParagraph(lines, idx + 1)
     if (para) return trimSummary(para)
@@ -166,7 +192,12 @@ function extractSummary(md: string): string {
     if (!l) continue
     if (l.startsWith('#')) continue
     if (l.startsWith('<!--')) continue
-    if (/^(Course|Sprint source|Progression phase|Primary external anchor):/i.test(l)) continue
+    if (
+      /^(Course|Sprint source|Progression phase|Primary external anchor):/i.test(
+        l,
+      )
+    )
+      continue
     const para = collectParagraph(lines, i)
     if (para) return trimSummary(para)
   }
@@ -195,8 +226,16 @@ function collectParagraph(lines: string[], start: number): string {
 function trimSummary(text: string): string {
   if (text.length <= SUMMARY_MAX) return text
   const cut = text.slice(0, SUMMARY_MAX)
-  const lastStop = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('? '), cut.lastIndexOf('! '))
-  return (lastStop > SUMMARY_MAX * 0.5 ? cut.slice(0, lastStop + 1) : cut.trimEnd()) + ' …'
+  const lastStop = Math.max(
+    cut.lastIndexOf('. '),
+    cut.lastIndexOf('? '),
+    cut.lastIndexOf('! '),
+  )
+  return (
+    (lastStop > SUMMARY_MAX * 0.5
+      ? cut.slice(0, lastStop + 1)
+      : cut.trimEnd()) + ' …'
+  )
 }
 
 /** Read a sibling `<name>.json` lesson manifest if present (courses 13–19). */
@@ -204,7 +243,10 @@ function siblingJsonSummary(mdPath: string): string {
   const jsonPath = mdPath.replace(/\.md$/i, '.json')
   if (!existsSync(jsonPath)) return ''
   try {
-    const j = JSON.parse(readFileSync(jsonPath, 'utf8')) as Record<string, unknown>
+    const j = JSON.parse(readFileSync(jsonPath, 'utf8')) as Record<
+      string,
+      unknown
+    >
     const parts = [j.outcome, j.context, j.retrieval]
       .filter((v): v is string => typeof v === 'string' && v.trim().length > 0)
       .map((v) => v.trim())
@@ -255,17 +297,28 @@ function placeholderBlocks(moduleTitle: string): LessonBlock[] {
 function readCourse(courseDir: string): CourseRow | null {
   const manifestPath = join(COURSES_ROOT, courseDir, 'course_manifest.json')
   if (!existsSync(manifestPath)) return null
-  const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as CourseManifest
+  const manifest = JSON.parse(
+    readFileSync(manifestPath, 'utf8'),
+  ) as CourseManifest
 
   const canonical = manifest.canonical_slug
-  const slug = `${SLUG_PREFIX}${canonical}`
+  const candidateSlug = `${SLUG_PREFIX}${canonical}`
+  const registryCourse = REGISTRY_BY_IDENTITY.get(candidateSlug)
+  if (!registryCourse) {
+    throw new Error(
+      `source course '${candidateSlug}' is not in the canonical Academy registry`,
+    )
+  }
+  const slug = registryCourse.slug
   const topic = TOPIC_BY_SLUG[canonical] ?? DEFAULT_TOPIC
   // Course numbers look like "00", "00A", "01" … "19". Scale by 10 and add a
   // letter offset so an "A"-suffixed course (00A) slots just after its base (00)
   // without colliding on the integer `sort` column: 00→0, 00A→1, 01→10, 19→190.
   const numMatch = manifest.canonical_course_number.match(/^(\d+)([A-Za-z])?/)
   const baseNum = numMatch ? parseInt(numMatch[1], 10) : 0
-  const letterOffset = numMatch?.[2] ? numMatch[2].toUpperCase().charCodeAt(0) - 64 : 0
+  const letterOffset = numMatch?.[2]
+    ? numMatch[2].toUpperCase().charCodeAt(0) - 64
+    : 0
   const sort = baseNum * 10 + letterOffset
 
   // Discover module directories on disk (authoritative over manifest order).
@@ -318,8 +371,13 @@ function readCourse(courseDir: string): CourseRow | null {
   const totalLessons = modules.reduce((sum, m) => sum + m.lessons.length, 0)
 
   // Subtitle = trimmed promise (fall back to target_learner, then title).
-  const promise = (manifest.promise || manifest.target_learner || manifest.title).trim()
-  const subtitle = promise.length > 200 ? `${promise.slice(0, 197).trimEnd()}…` : promise
+  const promise = (
+    manifest.promise ||
+    manifest.target_learner ||
+    manifest.title
+  ).trim()
+  const subtitle =
+    promise.length > 200 ? `${promise.slice(0, 197).trimEnd()}…` : promise
 
   return {
     slug,
@@ -343,6 +401,32 @@ async function main(): Promise<void> {
     .map(readCourse)
     .filter((c): c is CourseRow => c !== null)
 
+  const identityErrors: string[] = []
+  for (const course of courses) {
+    const registryCourse = REGISTRY_BY_IDENTITY.get(course.slug)
+    if (!registryCourse) {
+      identityErrors.push(`${course.slug}: missing canonical course identity`)
+      continue
+    }
+    const registeredLessons = new Set(
+      registryCourse.lessons.map((lesson) => lesson.slug),
+    )
+    for (const courseModule of course.modules) {
+      for (const lesson of courseModule.lessons) {
+        if (!registeredLessons.has(lesson.slug)) {
+          identityErrors.push(
+            `${course.slug}/${lesson.slug}: source lesson is not registered`,
+          )
+        }
+      }
+    }
+  }
+  if (identityErrors.length > 0) {
+    throw new Error(
+      `canonical registry mismatch:\n${identityErrors.map((error) => `- ${error}`).join('\n')}`,
+    )
+  }
+
   const totalCourses = courses.length
   const totalModules = courses.reduce((s, c) => s + c.modules.length, 0)
   const totalLessonRows = courses.reduce(
@@ -355,7 +439,11 @@ async function main(): Promise<void> {
       JSON.stringify(
         {
           dryRun: true,
-          totals: { courses: totalCourses, modules: totalModules, lessons: totalLessonRows },
+          totals: {
+            courses: totalCourses,
+            modules: totalModules,
+            lessons: totalLessonRows,
+          },
           courses: courses.map((c) => ({
             slug: c.slug,
             title: c.title,
@@ -365,7 +453,11 @@ async function main(): Promise<void> {
             modules: c.modules.map((m) => ({
               title: m.title,
               moduleSort: m.moduleSort,
-              lessons: m.lessons.map((l) => ({ slug: l.slug, title: l.title, hasSummary: !!l.summary })),
+              lessons: m.lessons.map((l) => ({
+                slug: l.slug,
+                title: l.title,
+                hasSummary: !!l.summary,
+              })),
             })),
           })),
         },
@@ -382,15 +474,25 @@ async function main(): Promise<void> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) {
-    console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY (load .env.local).')
+    console.error(
+      'Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY (load .env.local).',
+    )
     process.exit(1)
   }
-  const sb = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
+  const sb = createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
 
   for (const course of courses) {
     // 1. Upsert the course (idempotent on slug).
-    const lessonCount = course.modules.reduce((m, mod) => m + mod.lessons.length, 0)
-    const hours = Math.max(1, Math.round((lessonCount * MINUTES_PER_LESSON) / 60))
+    const lessonCount = course.modules.reduce(
+      (m, mod) => m + mod.lessons.length,
+      0,
+    )
+    const hours = Math.max(
+      1,
+      Math.round((lessonCount * MINUTES_PER_LESSON) / 60),
+    )
     const { error: courseErr } = await sb.from('academy_courses').upsert(
       {
         slug: course.slug,
@@ -412,7 +514,8 @@ async function main(): Promise<void> {
       for (let i = 0; i < mod.lessons.length; i++) {
         const lesson = mod.lessons[i]
         const isFirstLessonOfCourse = mod.moduleSort === 0 && i === 0
-        const isFreePreview = isFirstLessonOfCourse && course.slug === FREE_PREVIEW_COURSE_SLUG
+        const isFreePreview =
+          isFirstLessonOfCourse && course.slug === FREE_PREVIEW_COURSE_SLUG
         const blocks = lesson.summary
           ? skeletonBlocks(lesson.summary)
           : placeholderBlocks(mod.title)
@@ -443,9 +546,14 @@ async function main(): Promise<void> {
       .select('id', { count: 'exact', head: true })
       .eq('course_slug', course.slug)
       .eq('status', 'published')
-    await sb.from('academy_courses').update({ lessons: count ?? 0 }).eq('slug', course.slug)
+    await sb
+      .from('academy_courses')
+      .update({ lessons: count ?? 0 })
+      .eq('slug', course.slug)
 
-    console.log(`upserted ${course.slug} — ${count ?? 0} published lesson(s) across ${course.modules.length} module(s)`)
+    console.log(
+      `upserted ${course.slug} — ${count ?? 0} published lesson(s) across ${course.modules.length} module(s)`,
+    )
   }
 
   console.log(

@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import Link from 'next/link'
 import type { LeagueStandings, StandingRow } from '@/lib/academy/leagues'
 import { LEAGUE_TIERS, relegationStake } from '@/lib/academy/leagues-logic'
 import { XP_REWARDS } from '@/lib/academy/gamification-logic'
@@ -51,7 +52,7 @@ function weekDetail(row: StandingRow, total: number, tier: number, relegateZone:
 
 export function Leagues({
   standings,
-  nextRank,
+  nextRank: _nextRank,
   inviteLink,
 }: {
   standings: LeagueStandings
@@ -233,9 +234,9 @@ export function Leagues({
             </div>
           ) : (
             <div className={styles.inviteActions}>
-              <a className={styles.inviteFallback} href="/academy/refer">
+              <Link className={styles.inviteFallback} href="/academy/refer">
                 Get your invite link
-              </a>
+              </Link>
             </div>
           )}
         </div>

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "correctionFor": "checkpoint-data-integrity.json",
+  "commit": "60a6b7614161c7a61ab7cdd0920faa98f5573803",
+  "status": "green_local_correction",
+  "reason": "The initial checkpoint omitted the two foundational supabase/schema_part*.sql files from its immutable baseline.",
+  "proof": {
+    "foundationFiles": 2,
+    "legacyFiles": 14,
+    "incrementalMigrations": 115,
+    "totalSqlFilesAudited": 131,
+    "createdTables": 295,
+    "rlsEnabledTables": 295,
+    "securityDefinerFunctions": 14,
+    "focusedTests": "8 passed, 0 failed",
+    "unitTests": "334 passed, 0 failed",
+    "securityContracts": "13 passed, 0 failed",
+    "typecheck": "pass",
+    "lint": "pass",
+    "productionBuild": "pass",
+    "dependencyAudit": "0 vulnerabilities",
+    "addedLinesSecretScan": "0 findings"
+  },
+  "externalProof": "pending_external_approval",
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "labEvidence": "practice_only"
+}

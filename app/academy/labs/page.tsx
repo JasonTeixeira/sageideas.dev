@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { AcademyNav, AcademyFooter } from '@/components/academy/landing/AcademyChrome'
 import { EcosystemBand } from '@/components/academy/landing/EcosystemBand'
 import { LabsWorkshop } from '@/components/academy/labs/LabsWorkshop'
-import { LABS, liveLabs, LAB_TRACKS } from '@/data/academy/labs'
+import { LABS, liveLabs } from '@/data/academy/labs'
 import { getT } from '@/lib/i18n/t'
 import { getLocale } from '@/lib/i18n/server'
 import { localizedAlternates } from '@/lib/i18n/alternates'
 
 const INK = '#F2EFE9'
 const DIM = '#9C9CA6'
-const FAINT = '#5A5A64'
+const FAINT = '#9598A2'
 const LINE = '#1E1E24'
 const BLUE = '#3D5AFE'
 const GREEN = '#18B663'
@@ -63,7 +63,7 @@ export default async function LabsPage() {
   return (
     <>
       <AcademyNav />
-      <div style={{ background: '#0B0B0E', color: INK, fontFamily: 'var(--font-sans), sans-serif', overflowX: 'clip' }}>
+      <main id="main-content" tabIndex={-1} style={{ background: '#0B0B0E', color: INK, fontFamily: 'var(--font-sans), sans-serif', overflowX: 'clip' }}>
         {/* HERO — the thesis */}
         <header
           className="sage-rise"
@@ -141,7 +141,7 @@ export default async function LabsPage() {
         </section>
 
         <EcosystemBand current="projects" />
-      </div>
+      </main>
       <AcademyFooter />
     </>
   )

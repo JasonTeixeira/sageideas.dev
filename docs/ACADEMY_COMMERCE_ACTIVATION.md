@@ -1,5 +1,7 @@
 # Academy Commerce Activation
 
+> **Historical activation proposal.** Pricing and packaging in this document are not approved commercial truth. See [Academy Packaging and Pricing ADR](./academy/adr/0002-academy-packaging-pricing-decision.md).
+
 The academy checkout path is implemented, but it remains gated until real Stripe price IDs are configured.
 
 ## Packages

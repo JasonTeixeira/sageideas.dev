@@ -81,16 +81,16 @@ export function buildDiscordChannelMatrixReadinessReport(input: {
   const failures = [...matrixValidation.failures];
 
   if (channels.length !== 20) failures.push(`unexpected_channel_count:${channels.length}`);
-  if (preApprovalChannels.length !== 1 || preApprovalChannels[0] !== 'start-here') failures.push('pre_approval_not_limited_to_start_here');
-  if (approvedMemberChannelCount < 15) failures.push('insufficient_approved_member_channels');
-  if (!premiumChannels.includes('premium') || !premiumChannels.includes('premium-reviews')) failures.push('premium_channels_missing');
-  if (staffPrivateChannels.length !== 1 || staffPrivateChannels[0] !== 'team-ops') failures.push('staff_private_not_limited_to_team_ops');
-  if (matrixValidation.coverage.dailyChannels.length < 4) failures.push('daily_channel_coverage_too_thin');
-  if (matrixValidation.coverage.weeklyChannels.length < 8) failures.push('weekly_channel_coverage_too_thin');
+  if (preApprovalChannels.join('|') !== 'start-here|rules|announcements') failures.push('pre_approval_front_door_channels_missing');
+  if (approvedMemberChannelCount !== 13) failures.push('approved_member_channel_count_mismatch');
+  if (!premiumChannels.includes('premium-lounge') || !premiumChannels.includes('premium-reviews')) failures.push('premium_channels_missing');
+  if (staffPrivateChannels.join('|') !== 'team-ops|content-queue') failures.push('staff_private_channel_policy_mismatch');
+  if (matrixValidation.coverage.dailyChannels.length < 3) failures.push('daily_channel_coverage_too_thin');
+  if (matrixValidation.coverage.weeklyChannels.length < 5) failures.push('weekly_channel_coverage_too_thin');
   if (minimum(pinnedAssetCounts) < 2) failures.push('pinned_asset_coverage_too_thin');
   if (minimum(botJobCounts) < 1) failures.push('bot_job_coverage_too_thin');
   if (!contentFactoryTargeting.ok) failures.push('content_factory_targets_invalid_channel');
-  if (contentFactoryTargeting.targetableChannelCount < 15) failures.push('content_factory_targetable_channel_count_too_low');
+  if (contentFactoryTargeting.targetableChannelCount !== 13) failures.push('content_factory_targetable_channel_count_mismatch');
 
   return {
     ok: failures.length === 0,
@@ -137,8 +137,8 @@ export function buildDiscordChannelMatrixReadinessReport(input: {
       ],
     },
     operatingChecks: [
-      'One and only one pre-approval channel exists: start-here.',
-      'Approved free members have a compact Academy map, questions lane, build lab, review queue, content queue, live cadence, resources, and wins lane.',
+      'The pre-approval surface is limited to start-here, rules, and announcements.',
+      'Approved free members have one floor, build lab, project and review queues, daily retrieval practice, playbooks, resources, live support, and a weekly recap.',
       'Premium and staff-private channels are excluded from general content factory targeting.',
       'Every channel declares owner, cadence, posting mode, bot jobs, pinned assets, proof lanes, and anti-sprawl rule.',
       'Content factory targets are validated against canonical channels before drafts are created or planned.',
@@ -156,20 +156,20 @@ export function validateDiscordChannelMatrixReadinessReport(report: DiscordChann
   if (report.version !== 'discord-channel-matrix-readiness-v1') failures.push('wrong_channel_matrix_readiness_version');
   if (report.mutationMode !== 'local_file_evidence_only') failures.push('wrong_mutation_mode');
   if (report.channelCount !== 20) failures.push('wrong_channel_count');
-  if (report.preApprovalChannels.length !== 1 || report.preApprovalChannels[0] !== 'start-here') failures.push('pre_approval_gate_not_start_here_only');
-  if (report.approvedMemberChannelCount < 15) failures.push('approved_member_channel_count_too_low');
-  if (!report.premiumChannels.includes('premium') || !report.premiumChannels.includes('premium-reviews')) failures.push('premium_channel_policy_missing');
-  if (report.staffPrivateChannels.length !== 1 || report.staffPrivateChannels[0] !== 'team-ops') failures.push('staff_private_policy_missing');
+  if (report.preApprovalChannels.join('|') !== 'start-here|rules|announcements') failures.push('pre_approval_gate_policy_missing');
+  if (report.approvedMemberChannelCount !== 13) failures.push('approved_member_channel_count_wrong');
+  if (!report.premiumChannels.includes('premium-lounge') || !report.premiumChannels.includes('premium-reviews')) failures.push('premium_channel_policy_missing');
+  if (report.staffPrivateChannels.join('|') !== 'team-ops|content-queue') failures.push('staff_private_policy_missing');
   for (const requiredLane of ['onboarding', 'approved_discord_knowledge', 'rag_discord_sources', 'public_proof_assets', 'premium_workflow_proof', 'operating_admin']) {
     if (!report.proofLaneCoverage.includes(requiredLane)) failures.push(`missing_proof_lane:${requiredLane}`);
   }
-  if (report.dailyChannels.length < 4) failures.push('daily_channels_too_thin');
-  if (report.weeklyChannels.length < 8) failures.push('weekly_channels_too_thin');
+  if (report.dailyChannels.length < 3) failures.push('daily_channels_too_thin');
+  if (report.weeklyChannels.length < 5) failures.push('weekly_channels_too_thin');
   if (report.pinnedAssetCoverage.channelsWithPinnedAssets !== report.channelCount) failures.push('not_all_channels_have_pinned_assets');
   if (report.botJobCoverage.channelsWithBotJobs !== report.channelCount) failures.push('not_all_channels_have_bot_jobs');
   if (report.antiSprawlCoverage.channelsWithRules !== report.channelCount) failures.push('not_all_channels_have_anti_sprawl_rules');
   if (report.contentFactoryTargeting.ok !== true) failures.push('content_factory_targeting_not_ok');
-  if (report.contentFactoryTargeting.targetableChannelCount < 15) failures.push('content_factory_targetable_channel_count_too_low');
+  if (report.contentFactoryTargeting.targetableChannelCount !== 13) failures.push('content_factory_targetable_channel_count_wrong');
   if (report.contentFactoryTargeting.blockedVisibilityPolicy.length < 3) failures.push('blocked_visibility_policy_missing');
   if (!report.releaseMeaning.includes('does not create, delete, rename, reorder, or mutate live Discord channels')) {
     failures.push('live_discord_mutation_disclaimer_missing');

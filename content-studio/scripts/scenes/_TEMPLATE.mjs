@@ -1,7 +1,7 @@
 // _TEMPLATE.mjs — copy this for every new video. Follow TEACHING_CLARITY.md (the LOCKED standard).
 // One beat = one clear chunk (1–3 sentences). Keep it conversational. Define every term. Signpost.
 // Rename to scripts/scenes/<slug>.mjs and fill each beat. Add/remove step beats as the topic needs.
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn <THE THING>. By the end, you'll be able to <THE PAYOFF>."],
   ['02', "Let me show you the problem. <ONE CONCRETE, EVERYDAY SCENARIO where it goes wrong.>"],
   ['03', "<The problem pays off — it breaks, and you NAME the concept in plain words.>"],
@@ -15,3 +15,5 @@ export default [
   ['11', "So let's recap what you learned today. One: <POINT>. Two: <POINT>. Three: <POINT>. Four: <POINT>."],
   ['12', "If you want to build this yourself, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

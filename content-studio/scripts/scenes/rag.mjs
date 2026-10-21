@@ -1,5 +1,5 @@
 // #1 RAG — CLEAR REWRITE (TEACHING_CLARITY.md structure)
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn how to stop an AI from making things up and lying to your users. By the end, you'll understand a technique called RAG, and you'll know how to build an AI that answers from your real documents — or honestly admits when it doesn't know."],
   ['02', "First, let me show you the problem. Imagine you build a chatbot and connect it to your company's help docs. A customer asks it: what's your refund policy?"],
   ['03', "The AI answers, very confidently: you have thirty days to get a refund. Sounds perfect. There's just one problem — you never had a refund policy. The AI made it up. This is called a hallucination: it didn't know the answer, so it invented one that sounds right."],
@@ -14,3 +14,5 @@ export default [
   ['12', "So let's recap what you learned today. One: AIs make things up because they guess instead of looking things up. Two: RAG fixes that by retrieving your real document first, then answering from it. Three: always let the AI say I don't know. And four: test that your answers are grounded in the source."],
   ['13', "If you want to build this exact system yourself, for free, right in your browser, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

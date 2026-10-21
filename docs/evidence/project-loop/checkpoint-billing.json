@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:2115243835ccaf5d4ff7f29106c333d4f2aac53aca842ff800e8560571762ed5",
+  "workstreamId": "billing",
+  "commit": "e87ea1f8324619722c124921c6f0ccced5ebbdaf",
+  "generatedAt": "2026-09-04T18:27:00.000Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "11 billing contracts plus disposable PostgreSQL 17 integration covering durable claims, atomic invoice workflows, refunds, and out-of-order events"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build plus desktop and mobile Lighthouse matrices passed in the 13-command canonical observer"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; durable webhook claims, server-owned amounts and ownership, refund-safe receipts, transactional invoice operations, least-privilege functions, and fail-closed Academy commerce; hosted proof remains approval-bound"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "Migration 0121 was not applied to a hosted Supabase project",
+    "No signed Stripe test-mode event, checkout, refund, customer, or subscription was created",
+    "No Discord role or hosted entitlement was changed",
+    "No Academy course or lab was certified or promoted",
+    "No deployment, credential, push, or other external mutation was performed"
+  ]
+}

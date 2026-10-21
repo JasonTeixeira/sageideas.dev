@@ -51,7 +51,7 @@ export default async function ForgotPasswordPage({ searchParams }: Props) {
                   role="alert"
                   className="mb-5 rounded-lg border border-[#7F1D1D]/50 bg-[#7F1D1D]/10 px-3 py-2.5 text-sm text-[#FCA5A5]"
                 >
-                  {decodeURIComponent(error)}
+                  {error.slice(0, 300)}
                 </div>
               )}
             </div>

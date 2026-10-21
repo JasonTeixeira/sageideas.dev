@@ -1,14 +1,12 @@
-'use client'
-
 /**
- * Live ticker from the Sage Home design (3.4s rotation, 320ms fade).
+ * Truthful ticker from the Sage Home design. It is intentionally server-rendered
+ * so a cosmetic rotation never competes with initial learning interactions.
  * Honesty delta: the mock's fictional user events ("arjun_r passed gate…")
  * are replaced with true statements about the system — no invented people
  * or activity until the real event feed is wired post-DB-restore.
  */
 
-import { useEffect, useState } from 'react'
-import { useT } from '@/components/i18n/locale-provider'
+import { getT } from '@/lib/i18n/t'
 
 const ITEMS = [
   'every lab starts failing — fixing it for real is the only way through',
@@ -19,22 +17,8 @@ const ITEMS = [
   'decision memos and passing checks — pick any claim, follow the artifact',
 ]
 
-export function HeroTicker() {
-  const t = useT()
-  const [tick, setTick] = useState(0)
-  const [fade, setFade] = useState(false)
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const rotate = setInterval(() => {
-      setFade(true)
-      setTimeout(() => {
-        setTick((t) => t + 1)
-        setFade(false)
-      }, 320)
-    }, 3400)
-    return () => clearInterval(rotate)
-  }, [])
+export async function HeroTicker() {
+  const t = await getT()
 
   return (
     <span
@@ -45,11 +29,9 @@ export function HeroTicker() {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        transition: 'opacity 0.3s ease',
-        opacity: fade ? 0 : 1,
       }}
     >
-      {t(ITEMS[tick % ITEMS.length])}
+      {t(ITEMS[0])}
     </span>
   )
 }

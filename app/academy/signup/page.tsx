@@ -16,16 +16,16 @@ type Props = { searchParams: Promise<{ error?: string; email?: string }> };
 
 export default async function AcademySignupPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const error = sp.error ? decodeURIComponent(sp.error) : undefined;
+  const error = sp.error?.slice(0, 300);
   const t = await getT();
 
   return (
     <AuthShell
       audience="academy"
       mode="signup"
-      kicker={t('Free account · instant access')}
+      kicker={t('Free account · verified access')}
       heading={t('Start building today.')}
-      sub={t('Create a free account to track progress and keep what you build. Upgrade to Pro ($25/mo) any time for every course and lab.')}
+      sub={t('Create a free account, verify your email, and keep what you build. Paid enrollment remains closed until the Academy is certified.')}
       error={error}
       next="/academy/dashboard"
       signInHref="/login?audience=academy&next=/academy/dashboard"

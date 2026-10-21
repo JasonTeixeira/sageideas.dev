@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { assertSupabaseSuccess } from '@/lib/billing/integrity';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -103,32 +104,15 @@ export async function GET(req: Request) {
     }
 
     if (nextStatus && nextStatus !== inv.dunning_status) {
-      const update: Record<string, unknown> = { dunning_status: nextStatus };
-      if (notify) {
-        update.last_reminder_at = now.toISOString();
-        update.reminder_count = (inv.reminder_count ?? 0) + 1;
-      }
-      await sb.from('invoices').update(update).eq('id', inv.id);
-    }
-
-    if (notify && inv.organization_id) {
-      // TODO(phase33): hand off to Resend orchestration; for now drop a notification row.
-      const { data: members } = await sb
-        .from('org_memberships')
-        .select('user_id')
-        .eq('organization_id', inv.organization_id);
-      const rows = (members ?? [])
-        .filter((m) => m.user_id)
-        .map((m) => ({
-          user_id: m.user_id,
-          kind: 'invoice_dunning',
-          title,
-          body,
-          link: `/portal/invoices/${inv.id}`,
-        }));
-      if (rows.length > 0) {
-        await sb.from('notifications').insert(rows);
-      }
+      const transitionResult = await sb.rpc('advance_invoice_dunning', {
+        p_invoice_id: inv.id,
+        p_next_status: nextStatus,
+        p_notify: notify,
+        p_title: title,
+        p_body: body,
+        p_transitioned_at: now.toISOString(),
+      });
+      assertSupabaseSuccess(transitionResult, `dunning invoice ${inv.id} transition`);
     }
 
     if (nextStatus === 'grace') summary.grace += 1;

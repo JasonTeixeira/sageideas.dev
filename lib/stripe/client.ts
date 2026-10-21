@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase/server';
+import { billingIdempotencyKey } from '@/lib/billing/integrity';
 
 export const STRIPE_API_VERSION = '2026-04-22.dahlia' as const;
 
@@ -40,11 +41,14 @@ export async function getOrCreateCustomer(orgId: string): Promise<string> {
   if (org.stripe_customer_id) return org.stripe_customer_id;
 
   const stripe = getStripe();
-  const customer = await stripe.customers.create({
-    name: org.name ?? undefined,
-    email: org.primary_contact_email ?? undefined,
-    metadata: { organization_id: org.id },
-  });
+  const customer = await stripe.customers.create(
+    {
+      name: org.name ?? undefined,
+      email: org.primary_contact_email ?? undefined,
+      metadata: { organization_id: org.id },
+    },
+    { idempotencyKey: billingIdempotencyKey('organization-customer', org.id) },
+  );
 
   const { error: updateError } = await sb
     .from('organizations')

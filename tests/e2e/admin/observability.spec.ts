@@ -46,7 +46,7 @@ test.describe('Phase 2F PR-B - admin observability', () => {
     await expect(adminPage.locator('[data-testid="admin-observability"]')).toBeVisible();
   });
 
-  test('SLO API returns booleans + samples count', async ({
+  test('SLO API returns measured or explicitly unknown posture + samples count', async ({
     adminPage,
     baseURL,
   }) => {
@@ -57,12 +57,14 @@ test.describe('Phase 2F PR-B - admin observability', () => {
     const resp = await adminPage.request.get('/api/telemetry/slo');
     expect(resp.ok()).toBeTruthy();
     const body = (await resp.json()) as {
-      lcp_p75_ok: boolean;
-      error_rate_ok: boolean;
+      status: 'available';
+      lcp_p75_ok: boolean | null;
+      error_rate_ok: boolean | null;
       samples_1h: number;
     };
-    expect(typeof body.lcp_p75_ok).toBe('boolean');
-    expect(typeof body.error_rate_ok).toBe('boolean');
+    expect(body.status).toBe('available');
+    expect(body.lcp_p75_ok === null || typeof body.lcp_p75_ok === 'boolean').toBe(true);
+    expect(body.error_rate_ok === null || typeof body.error_rate_ok === 'boolean').toBe(true);
     expect(typeof body.samples_1h).toBe('number');
   });
 });

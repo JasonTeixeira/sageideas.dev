@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-architecture_system_design",
+  "baselineRegistryVersion": "sha256:130f9c65bd4672f91fbcb1ff8a86ab9a305126139e4b839ba57e40bc72aaf6d0",
+  "registryVersion": "sha256:035b0049d2ecd0ce2023b64fb6cdb8f0ad94b6fd0f4dc9fc41719541236ed5a6",
+  "commit": "27529570",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/architecture-system-design-mastery.test.ts", "result": "7/7 each run; 20/20 Python references exact; 149 honest narration transcripts retained" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons; Architecture and System Design deterministic score 100; no H1, H3, H4, or H5" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 540 labs" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 pages" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped diff; changed-file lint, generator idempotence, secret scan, and 20 primary-source reachability checks passed" }
+  },
+  "scoreDelta": { "before": 77.8, "after": 100, "meaning": "deterministic only; not certification" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundaries": [
+    { "command": "npm audit --audit-level=high", "status": "pre_existing_failure", "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed" },
+    { "command": "npm run lint", "status": "pre_existing_failure", "result": "6 errors and 25 warnings in untouched files; changed Architecture test and authoring script lint clean" }
+  ]
+}

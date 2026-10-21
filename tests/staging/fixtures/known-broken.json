@@ -1,0 +1,38 @@
+{
+  "expected": {
+    "baseURL": "https://sageideas.dev",
+    "deploymentId": "dpl_expected",
+    "commitSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "branch": "production/01-program-loop-v1"
+  },
+  "deployment": {
+    "id": "dpl_wrong",
+    "name": "sageideas.dev",
+    "url": "sageideas.dev",
+    "readyState": "ERROR",
+    "target": "production",
+    "meta": {
+      "gitCommitSha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "gitCommitRef": "main"
+    }
+  },
+  "probes": [
+    {
+      "method": "GET",
+      "route": "/",
+      "expectedStatus": 200,
+      "actualStatus": 500
+    }
+  ],
+  "headers": {},
+  "publicProtection": {
+    "expectedStatus": 302,
+    "actualStatus": 200,
+    "robotsTag": null
+  },
+  "trust": {
+    "academyCertification": "certified",
+    "labTrust": "trusted_controlled_runtime",
+    "labEvidence": "mastery"
+  }
+}

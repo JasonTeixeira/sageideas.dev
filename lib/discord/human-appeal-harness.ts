@@ -135,9 +135,10 @@ export function buildHumanAppealHarness(input: HumanAppealHarnessInput): HumanAp
       gates: [
         gate({
           key: 'formatter_exports_cards',
-          passed: answerEmbed.embeds?.[0]?.title === 'Sage Ideas Answer'
+          passed: answerEmbed.embeds?.[0]?.title === 'Sprout'
             && contentEmbed.embeds?.[0]?.title === 'Daily Signal'
             && contentEmbed.embeds?.[0]?.color === SAGE_DISCORD_COLORS.signal
+            && hasEmbedFieldNames({ embed: answerEmbed.embeds?.[0] }, ['Here’s the move', 'Next step', 'Source check'])
             && hasEmbedFieldNames({ embed: contentEmbed.embeds?.[0] }, ['Today\'s move', 'Why it matters', 'Ship check']),
           evidence: 'buildSageAnswerEmbed/buildSageContentEmbed produce titled colored fielded cards',
           recovery: 'Fix lib/discord/message-formatting.ts so answers and content drafts render as Discord embeds with title, color, fields, and footer.',
@@ -212,8 +213,8 @@ export function buildHumanAppealHarness(input: HumanAppealHarnessInput): HumanAp
         gate({
           key: 'ask_sage_smoke_proves_embed',
           passed: input.askSageSmoke?.ok === true
-            && input.askSageSmoke?.embedPreview?.title === 'Sage Ideas Answer'
-            && hasEmbedFieldNames(input.askSageSmoke, ['Your question', 'Sage take', 'Sources']),
+            && input.askSageSmoke?.embedPreview?.title === 'Sprout'
+            && hasEmbedFieldNames(input.askSageSmoke, ['Here’s the move', 'Next step', 'Source check']),
           evidence: `ask-sage smoke ok=${String(input.askSageSmoke?.ok)} title=${String(input.askSageSmoke?.embedPreview?.title ?? 'missing')}`,
           recovery: 'Run npm run discord:smoke-ask-sage and require embed title, question, answer, and source fields.',
         }),
@@ -228,7 +229,7 @@ export function buildHumanAppealHarness(input: HumanAppealHarnessInput): HumanAp
         }),
         gate({
           key: 'smoke_script_blocks_markdown_regression',
-          passed: includesAll(smokeSource, ['answerEmbed?.title === \'Sage Ideas Answer\'', 'fieldNames.includes(\'Sources\')'])
+          passed: includesAll(smokeSource, ['answerEmbed?.title === \'Sprout\'', 'fieldNames.includes(\'Source check\')'])
             && !String(smokeSource ?? '').includes("content.includes('# SageBot answer')"),
           evidence: 'smoke-ask-sage asserts embed output rather than old markdown header',
           recovery: 'Update scripts/discord/smoke-ask-sage.ts so plain # SageBot answer markdown cannot satisfy the smoke.',
@@ -253,9 +254,9 @@ export function buildHumanAppealHarness(input: HumanAppealHarnessInput): HumanAp
         }),
         gate({
           key: 'sources_are_visible_in_embed',
-          passed: answerEmbed.embeds?.[0]?.fields?.some((field) => field.name === 'Sources' && field.value.includes('Sage Ideas operating runbook')) === true,
-          evidence: 'answer embed includes a Sources field',
-          recovery: 'Ensure buildSageAnswerEmbed always renders a Sources field for grounded answers.',
+          passed: answerEmbed.embeds?.[0]?.fields?.some((field) => field.name === 'Source check' && field.value.includes('Sage Ideas operating runbook')) === true,
+          evidence: 'answer embed includes a Source check field',
+          recovery: 'Ensure buildSageAnswerEmbed always renders a Source check field for grounded answers.',
         }),
       ],
     }),

@@ -1,0 +1,170 @@
+[
+  {
+    "source_id": "python-tutorial",
+    "title": "The Python Tutorial",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/index.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "Python",
+      "programming",
+      "tutorial"
+    ]
+  },
+  {
+    "source_id": "python-introduction",
+    "title": "An Informal Introduction to Python",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/introduction.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "numbers",
+      "strings",
+      "variables"
+    ]
+  },
+  {
+    "source_id": "python-control-flow",
+    "title": "More Control Flow Tools",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "conditionals",
+      "loops",
+      "functions"
+    ]
+  },
+  {
+    "source_id": "python-data-structures",
+    "title": "Data Structures",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "lists",
+      "dictionaries",
+      "sets"
+    ]
+  },
+  {
+    "source_id": "python-modules",
+    "title": "Modules",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/modules.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "modules",
+      "packages",
+      "imports"
+    ]
+  },
+  {
+    "source_id": "python-io",
+    "title": "Input and Output",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/inputoutput.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "input",
+      "output",
+      "files"
+    ]
+  },
+  {
+    "source_id": "python-errors",
+    "title": "Errors and Exceptions",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/errors.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "errors",
+      "exceptions",
+      "validation"
+    ]
+  },
+  {
+    "source_id": "python-builtins",
+    "title": "Built-in Functions",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "built-ins",
+      "input",
+      "types"
+    ]
+  },
+  {
+    "source_id": "python-complexity",
+    "title": "Time Complexity",
+    "organization": "Python Software Foundation",
+    "url": "https://wiki.python.org/moin/TimeComplexity",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "complexity",
+      "Big O",
+      "collections"
+    ]
+  },
+  {
+    "source_id": "rfc-json",
+    "title": "RFC 8259: The JavaScript Object Notation Data Interchange Format",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "JSON",
+      "data interchange"
+    ]
+  },
+  {
+    "source_id": "rfc-http",
+    "title": "RFC 9110: HTTP Semantics",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "HTTP",
+      "requests",
+      "responses"
+    ]
+  },
+  {
+    "source_id": "rfc-dns",
+    "title": "RFC 1034: Domain Names—Concepts and Facilities",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc1034.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "DNS",
+      "names",
+      "resolution"
+    ]
+  },
+  {
+    "source_id": "rfc-tls",
+    "title": "RFC 8446: TLS 1.3",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc8446.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "TLS",
+      "security",
+      "networking"
+    ]
+  }
+]

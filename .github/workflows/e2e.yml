@@ -15,111 +15,22 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22.19.0'
           cache: npm
       - run: npm ci
       - run: npx playwright install chromium
       - name: RLS isolation tests
+        if: github.event_name == 'workflow_dispatch' && vars.RLS_TEST_ALLOW_REMOTE == 'true'
         run: npm run test:rls
         env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-      - name: Resolve Playwright base URL
-        id: base-url
-        run: |
-          set -e
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "url=http://127.0.0.1:3041" >> "$GITHUB_OUTPUT"
-          elif [ "${{ github.event_name }}" = "pull_request" ]; then
-            # Vercel status contexts are reliable in this repo, but deployment
-            # metadata can hang or omit environment_url. Use the stable Vercel
-            # project URL so PR e2e remains deterministic.
-            echo "url=https://qa-portfolio-sage-ideas.vercel.app" >> "$GITHUB_OUTPUT"
-          else
-            echo "url=https://www.sageideas.dev" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Build local app for manual E2E
-        if: github.event_name == 'workflow_dispatch'
-        run: npm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          STRIPE_SECRET_KEY: sk_test_placeholder
-          STRIPE_WEBHOOK_SECRET: whsec_placeholder
-          RESEND_API_KEY: re_placeholder
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsucGxhY2Vob2xkZXIuZGV2JA
-          CLERK_SECRET_KEY: sk_test_placeholder
-          NEXT_PUBLIC_APP_URL: http://127.0.0.1:3041
-      - name: Start local app for manual E2E
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          npm run start -- -p 3041 > /tmp/sageideas-next.log 2>&1 &
-          node <<'NODE'
-          const deadline = Date.now() + 60000;
-          async function wait() {
-            while (Date.now() < deadline) {
-              try {
-                const res = await fetch('http://127.0.0.1:3041/api/health');
-                if (res.ok) return;
-              } catch {
-                // retry
-              }
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-            }
-            throw new Error('Timed out waiting for local Next.js server');
-          }
-          wait().catch((error) => {
-            console.error(error);
-            process.exit(1);
-          });
-          NODE
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          RESEND_API_KEY: re_placeholder
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsucGxhY2Vob2xkZXIuZGV2JA
-          CLERK_SECRET_KEY: sk_test_placeholder
-          NEXT_PUBLIC_APP_URL: http://127.0.0.1:3041
-      - name: PR public smoke
-        run: |
-          node <<'NODE'
-          const baseUrl = process.env.PW_BASE_URL;
-          const proofHash = 'sha256:61820a47255d17ec4d41931588cafb024363fa56d08e79374db7dec433929faa';
-          const deployedUrl = 'https://sage-client-intake-portal-vercel.vercel.app';
-
-          async function assertPage(path, checks = []) {
-            const url = `${baseUrl}${path}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`${url} returned HTTP ${response.status}`);
-            const body = await response.text();
-            for (const check of checks) {
-              if (!body.includes(check)) throw new Error(`${url} did not include ${check}`);
-            }
-            console.log(`${url} OK`);
-          }
-
-          async function main() {
-            await assertPage('/api/health');
-            await assertPage('/engineering-os', [proofHash, deployedUrl]);
-          }
-
-          main().catch((error) => {
-            console.error(error);
-            process.exit(1);
-          });
-          NODE
-        env:
-          PW_BASE_URL: ${{ steps.base-url.outputs.url }}
-      - name: Playwright E2E
-        run: npm run test:e2e
-        env:
-          PW_BASE_URL: ${{ steps.base-url.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          RLS_TEST_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          RLS_TEST_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          RLS_TEST_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          RLS_TEST_ALLOW_REMOTE: ${{ vars.RLS_TEST_ALLOW_REMOTE }}
+          SAGE_TEST_CLIENT1_PASSWORD: ${{ secrets.SAGE_TEST_CLIENT1_PASSWORD }}
+          SAGE_TEST_CLIENT2_PASSWORD: ${{ secrets.SAGE_TEST_CLIENT2_PASSWORD }}
+      - name: PR-safe local critical journeys
+        run: npm run test:critical-journeys:e2e
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

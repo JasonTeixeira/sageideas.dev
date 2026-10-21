@@ -1,6 +1,8 @@
-import { createHash } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
-import { getAcademyProductBySlug } from '@/data/academy/products'
+import {
+  getAcademyProductBySlug,
+  isAcademyPaidEnrollmentEnabled,
+} from '@/data/academy/products'
 import { tiersBySlug } from '@/data/services/tiers'
 import { careTiersBySlug } from '@/data/services/tiers'
 import { isSelfServe } from '@/data/services/tier-classification'
@@ -8,6 +10,7 @@ import { rateLimit } from '@/lib/rate-limit'
 import { getStripe, isStripeConfigured } from '@/lib/stripe/client'
 import { getAcademyPriceId, type PlanInterval } from '@/lib/academy/plans'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { billingIdempotencyKey } from '@/lib/billing/integrity'
 
 export const runtime = 'nodejs'
 
@@ -25,10 +28,17 @@ export async function POST(req: NextRequest) {
   }
 
   const kind = typeof body?.kind === 'string' ? body.kind.trim() : ''
+  const requestKey = req.headers.get('idempotency-key')?.trim() ?? ''
+  if (!/^[A-Za-z0-9_-]{16,128}$/.test(requestKey)) {
+    return NextResponse.json({ error: 'A valid idempotency key is required' }, { status: 400 })
+  }
 
   // All-access Academy membership ($20/mo · $200/yr). No slug — keyed to the
   // signed-in learner so the subscription maps to their account.
   if (kind === 'academy_allaccess') {
+    if (!isAcademyPaidEnrollmentEnabled()) {
+      return NextResponse.json({ error: 'Academy paid enrollment is not open.' }, { status: 409 })
+    }
     const interval: PlanInterval = body?.interval === 'yearly' ? 'yearly' : 'monthly'
     const priceId = getAcademyPriceId(interval)
     if (!priceId) {
@@ -49,10 +59,9 @@ export async function POST(req: NextRequest) {
 
     const stripe = getStripe()
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.sageideas.dev'
-    const dayBucket = new Date().toISOString().slice(0, 10)
-    const idempotencyKey = createHash('sha256')
-      .update(`academy_allaccess:${user.id}:${interval}:${dayBucket}`)
-      .digest('hex')
+    const idempotencyKey = billingIdempotencyKey(
+      'academy-allaccess-checkout', user.id, interval, requestKey,
+    )
 
     const meta = { kind: 'academy_allaccess', user_id: user.id, email: user.email ?? '', plan_interval: interval }
 
@@ -104,14 +113,9 @@ export async function POST(req: NextRequest) {
     const stripe = getStripe()
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.sageideas.dev'
 
-    const ip =
-      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      req.headers.get('x-real-ip') ||
-      'unknown'
-    const dayBucket = new Date().toISOString().slice(0, 10)
-    const idempotencyKey = createHash('sha256')
-      .update(`academy:${product.trackSlug}:${ip}:${dayBucket}`)
-      .digest('hex')
+    const idempotencyKey = billingIdempotencyKey(
+      'academy-checkout', product.trackSlug, requestKey,
+    )
 
     try {
       const session = await stripe.checkout.sessions.create(
@@ -166,14 +170,9 @@ export async function POST(req: NextRequest) {
     const stripe = getStripe()
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.sageideas.dev'
 
-    const ip =
-      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      req.headers.get('x-real-ip') ||
-      'unknown'
-    const dayBucket = new Date().toISOString().slice(0, 10)
-    const idempotencyKey = createHash('sha256')
-      .update(`tier:${tier.slug}:${ip}:${dayBucket}`)
-      .digest('hex')
+    const idempotencyKey = billingIdempotencyKey(
+      'service-checkout', tier.slug, requestKey,
+    )
 
     try {
       const session = await stripe.checkout.sessions.create(
@@ -210,14 +209,9 @@ export async function POST(req: NextRequest) {
     const stripe = getStripe()
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.sageideas.dev'
 
-    const ip =
-      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      req.headers.get('x-real-ip') ||
-      'unknown'
-    const dayBucket = new Date().toISOString().slice(0, 10)
-    const idempotencyKey = createHash('sha256')
-      .update(`care:${careTier.slug}:${ip}:${dayBucket}`)
-      .digest('hex')
+    const idempotencyKey = billingIdempotencyKey(
+      'care-checkout', careTier.slug, requestKey,
+    )
 
     try {
       const session = await stripe.checkout.sessions.create(
@@ -229,6 +223,9 @@ export async function POST(req: NextRequest) {
           billing_address_collection: 'auto',
           automatic_tax: { enabled: false },
           metadata: { kind: 'care', tier_slug: careTier.slug, tier_name: careTier.name },
+          subscription_data: {
+            metadata: { kind: 'care', tier_slug: careTier.slug, tier_name: careTier.name },
+          },
         },
         { idempotencyKey },
       )

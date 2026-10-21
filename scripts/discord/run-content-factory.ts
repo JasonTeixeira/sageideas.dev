@@ -4,7 +4,9 @@ import { createClient } from '@supabase/supabase-js';
 import { runDiscordContentFactory } from '@/lib/discord/content-factory';
 
 const evidenceDir = path.join(process.cwd(), 'docs', 'evidence', 'discord-ai-os');
-const evidenceFilename = 'phase-22-content-factory-dry-run.json';
+const evidenceFilename = process.argv.includes('--dry-run')
+  ? 'phase-22-content-factory-dry-run.json'
+  : 'phase-22-content-factory-run.json';
 
 function requireEnv(name: string): string {
   const value = process.env[name]?.trim();

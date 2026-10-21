@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "capabilities": [
+    {
+      "id": "authored_course_corpus",
+      "label": "Git-resident Academy course corpus",
+      "status": "implemented_partial",
+      "evidence": [
+        "data/academy/authoring/manifest.json",
+        "data/academy/authoring/programming-fundamentals.lessons.json"
+      ],
+      "notes": "Thirty-two lesson bundles exist, but the legacy manifest covers only part of the corpus and no course is certified by Harness V2."
+    },
+    {
+      "id": "public_catalog",
+      "label": "Public Academy catalog",
+      "status": "implemented_partial",
+      "evidence": [
+        "app/academy/catalog/page.tsx",
+        "components/academy/landing/stats.ts"
+      ],
+      "notes": "The catalog is learner-visible and database-backed, but its fallback and design catalog previously used separate authorities."
+    },
+    {
+      "id": "lesson_player",
+      "label": "Learner lesson player",
+      "status": "implemented_learner_visible",
+      "evidence": ["app/academy/learn/[course]/[lesson]/page.tsx"],
+      "notes": "A learner-visible lesson route and player exist; individual course publication and content certification remain separate concerns."
+    },
+    {
+      "id": "lab_runtime",
+      "label": "Interactive lab runtime",
+      "status": "implemented_partial",
+      "evidence": [
+        "components/academy/lab/LabRunner.tsx",
+        "app/academy/_actions/evidence.ts"
+      ],
+      "notes": "Learner-visible runtimes exist, but current output-substring verification is not trusted for mastery or certification until Step 4A."
+    },
+    {
+      "id": "spaced_review",
+      "label": "FSRS spaced review and repair",
+      "status": "implemented_partial",
+      "evidence": [
+        "app/academy/review/page.tsx",
+        "lib/academy/fsrs.ts",
+        "app/academy/_actions/reviews.ts"
+      ],
+      "notes": "Scheduling, review UI, and actions exist; the complete delayed-recall enforcement journey still requires Step 7 proof."
+    },
+    {
+      "id": "mastery_map",
+      "label": "Learner mastery map",
+      "status": "implemented_partial",
+      "evidence": [
+        "lib/academy/mastery.ts",
+        "components/academy/profile/MasteryMap.tsx",
+        "app/academy/learn/[course]/[lesson]/page.tsx"
+      ],
+      "notes": "Mastery logic and a profile component exist, while the current lesson surface explicitly documents incomplete guide/map integration."
+    },
+    {
+      "id": "ai_tutor",
+      "label": "Lesson-grounded AI tutor",
+      "status": "implemented_partial",
+      "evidence": [
+        "app/api/academy/tutor/route.ts",
+        "components/academy/tutor/AiTutorPanel.tsx"
+      ],
+      "notes": "API and UI code exist; live-key availability, grounding, injection resistance, and dependency-reducing behavior remain production gates."
+    },
+    {
+      "id": "progress_and_evidence",
+      "label": "Learner progress and evidence ledger",
+      "status": "implemented_partial",
+      "evidence": [
+        "app/academy/progress/page.tsx",
+        "lib/academy/evidence.ts",
+        "app/academy/_actions/progress.ts"
+      ],
+      "notes": "Progress and evidence code exists, but evidence trust and immutable release attribution are not complete."
+    },
+    {
+      "id": "certificates",
+      "label": "Certificate rendering and verification",
+      "status": "implemented_partial",
+      "evidence": [
+        "app/academy/certificate/[code]/page.tsx",
+        "components/academy/certificate/Certificate.tsx"
+      ],
+      "notes": "Certificate surfaces exist; immutable releases, revocation proof, and certification governance are planned work."
+    },
+    {
+      "id": "commerce",
+      "label": "Academy checkout and entitlement lifecycle",
+      "status": "externally_blocked",
+      "evidence": [
+        "app/academy/pricing/page.tsx",
+        "app/api/stripe/checkout/route.ts",
+        "docs/ACADEMY_COMMERCE_ACTIVATION.md"
+      ],
+      "notes": "Checkout code exists, but canonical packaging, live Stripe objects, and full lifecycle proof require operator decisions and explicit approval."
+    },
+    {
+      "id": "certification_harness_v2",
+      "label": "Authoritative Academy certification harness",
+      "status": "implemented_partial",
+      "evidence": [
+        "scripts/academy/quality/v2/run.ts",
+        "tests/academy/certification-harness-v2.test.ts",
+        "docs/academy/adr/0003-certification-harness-v2-authority.md"
+      ],
+      "notes": "One offline command audits all canonical courses and fails closed on pending evidence and untrusted labs. Full rendered, expert, human, source-governance, and controlled-lab evidence remains incomplete, so no course is certified."
+    },
+    {
+      "id": "immutable_course_releases",
+      "label": "Immutable course and lesson releases",
+      "status": "planned_only",
+      "evidence": [
+        "plans/sage-academy-production-grade-blueprint.md",
+        "supabase/migrations/0080_academy_courses.sql",
+        "supabase/migrations/0081_academy_lessons.sql"
+      ],
+      "notes": "Current rows are mutable draft/published records; versioned release snapshots are required before paid beta."
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-networking_fundamentals_advanced_networking",
+  "baselineRegistryVersion": "sha256:316bd5e02d538190890016de1bbf1b3087f543bdec04ec7f0fc7093616387ff0",
+  "registryVersion": "sha256:6f78a6ac668e99f6369ca567504faadd7dd1be30e99433ad644eb9c7fb23f3d4",
+  "commit": "920ca437",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "consecutivePasses": 3,
+      "command": "npx tsx --test tests/academy/networking-mastery.test.ts",
+      "result": "5/5 tests passed on each run; 20/20 reference implementations matched exact output"
+    },
+    "academyAudit": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:audit:all",
+      "result": "32 courses / 640 lessons audited; Networking deterministic score 88.9; no H1, H3, H4, or H5"
+    },
+    "registryCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:registry:check",
+      "result": "32 courses / 640 lessons / 390 labs at the recorded registry version"
+    },
+    "typecheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run typecheck",
+      "result": "0 TypeScript errors"
+    },
+    "build": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run build",
+      "result": "Next.js production build passed; 407 static pages generated"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "git diff --check",
+      "result": "clean scoped course diff"
+    }
+  },
+  "scoreDelta": {
+    "before": 77.8,
+    "after": 88.9,
+    "meaning": "deterministic checks only; not a composite or certification score"
+  },
+  "hardFailCounts": {
+    "H1": 0,
+    "H2": 20,
+    "H3": 0,
+    "H4": 0,
+    "H5": 0
+  },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": [
+    "accessibility",
+    "consistency",
+    "content_correctness",
+    "pedagogy",
+    "performance",
+    "sources",
+    "ux",
+    "visual"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "migrations": [
+    {
+      "filename": "0006_widgets.sql",
+      "sql": "create table public.widgets (id uuid primary key);\nalter table public.widgets enable row level security;\ncreate policy widgets_none on public.widgets for select using (false);"
+    },
+    {
+      "filename": "0007_secure_function.sql",
+      "sql": "create or replace function public.widget_count() returns bigint language sql security definer set search_path = '' as $$ select count(*) from public.widgets $$;"
+    }
+  ],
+  "manifest": {
+    "schemaVersion": 1,
+    "incrementalStart": 6,
+    "incrementalEnd": 7,
+    "migrationCount": 2,
+    "destructiveMigrationAllowlist": [],
+    "allowedAnonGrants": []
+  }
+}

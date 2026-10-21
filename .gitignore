@@ -60,6 +60,8 @@ playwright-report/
 **/.terraform.lock.hcl.backup
 **/terraform.tfstate
 **/terraform.tfstate.*
+**/terraform.tfvars
+!**/terraform.tfvars.example
 
 # Built artifacts (keep source, not bundles)
 infra/**/dist/

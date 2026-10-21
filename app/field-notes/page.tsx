@@ -71,7 +71,7 @@ export default function FieldNotesPage() {
           position: 'relative',
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        { }
         <img
           id="fn-hero-art"
           src="/art/academy/notes-hero.webp"
@@ -185,7 +185,7 @@ export default function FieldNotesPage() {
               </span>
             </div>
             <div style={{ position: 'relative', minHeight: 210 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img
                 src="/art/academy/note-featured.webp"
                 alt=""

@@ -198,6 +198,20 @@ const commands = [
     ],
   },
   {
+    name: 'speak',
+    description: 'Ask Sprout to turn a short message into a voice note.',
+    options: [
+      { name: 'text', description: 'Short text for Sprout to speak', type: 3, required: true },
+    ],
+  },
+  {
+    name: 'voice-summary',
+    description: 'Ask Sprout to turn a concise recap into a voice note.',
+    options: [
+      { name: 'text', description: 'Concise recap or next-step summary', type: 3, required: true },
+    ],
+  },
+  {
     name: 'answer',
     description: 'Answer a tracked question and earn helpful participation points.',
     options: [

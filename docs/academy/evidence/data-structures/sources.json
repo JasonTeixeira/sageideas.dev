@@ -1,0 +1,167 @@
+[
+  {
+    "source_id": "python-data-structures",
+    "title": "Data Structures",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "lists",
+      "stacks",
+      "queues"
+    ]
+  },
+  {
+    "source_id": "python-collections",
+    "title": "Container Datatypes",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/collections.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "deque",
+      "counter",
+      "mapping"
+    ]
+  },
+  {
+    "source_id": "python-heapq",
+    "title": "Heap Queue Algorithm",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/heapq.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "heap",
+      "priority queue"
+    ]
+  },
+  {
+    "source_id": "python-bisect",
+    "title": "Array Bisection Algorithm",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/bisect.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "binary search",
+      "sorted arrays"
+    ]
+  },
+  {
+    "source_id": "python-datamodel",
+    "title": "Data Model",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/reference/datamodel.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "hashing",
+      "identity",
+      "objects"
+    ]
+  },
+  {
+    "source_id": "java-collections",
+    "title": "Collections Framework",
+    "organization": "Oracle",
+    "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/doc-files/coll-overview.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "collections",
+      "interfaces",
+      "implementations"
+    ]
+  },
+  {
+    "source_id": "java-hashmap",
+    "title": "HashMap",
+    "organization": "Oracle",
+    "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "hash map",
+      "load factor",
+      "keys"
+    ]
+  },
+  {
+    "source_id": "cpp-containers",
+    "title": "Containers Library",
+    "organization": "C++ Reference",
+    "url": "https://en.cppreference.com/w/cpp/container.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "arrays",
+      "lists",
+      "maps"
+    ]
+  },
+  {
+    "source_id": "go-heap",
+    "title": "Package heap",
+    "organization": "Go Project",
+    "url": "https://pkg.go.dev/container/heap",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "heap",
+      "priority queue"
+    ]
+  },
+  {
+    "source_id": "go-list",
+    "title": "Package list",
+    "organization": "Go Project",
+    "url": "https://pkg.go.dev/container/list",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "linked list",
+      "container"
+    ]
+  },
+  {
+    "source_id": "rust-collections",
+    "title": "Collections",
+    "organization": "Rust Project",
+    "url": "https://doc.rust-lang.org/std/collections/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "vectors",
+      "maps",
+      "sets"
+    ]
+  },
+  {
+    "source_id": "networkx-traversal",
+    "title": "Traversal",
+    "organization": "NetworkX",
+    "url": "https://networkx.org/documentation/stable/reference/algorithms/traversal.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "BFS",
+      "DFS",
+      "graphs"
+    ]
+  },
+  {
+    "source_id": "unicode-trie",
+    "title": "Unicode Technical Standard #39",
+    "organization": "Unicode Consortium",
+    "url": "https://www.unicode.org/reports/tr39/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "strings",
+      "keys",
+      "normalization"
+    ]
+  }
+]

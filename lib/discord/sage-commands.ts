@@ -18,6 +18,7 @@ import { createDiscordPremiumCheckout } from './premium';
 import { getDiscordMemberRouting, recordDiscordEvent, recordDiscordScheduledRun, upsertDiscordMember } from './analytics';
 import { askSageFromDiscord } from './ask-sage';
 import { postDiscordInteractionFollowup } from './followup';
+import { synthesizeSproutVoice } from './voice';
 import { answerPremiumQuestion, createOfficeHoursQueueItem, createPremiumReviewRequest } from './premium-workflows';
 import { classifyDiscordAbuse, sanitizeDiscordOutboundText } from './security-privacy';
 import {
@@ -134,7 +135,10 @@ function publicMessage(content: string): InteractionResponse {
 }
 
 export function isDeferredSageCommand(payload: DiscordInteractionPayload): boolean {
-  return payload.data?.name === 'ask-sage' || payload.data?.name === 'premium-ask';
+  return payload.data?.name === 'ask-sage'
+    || payload.data?.name === 'premium-ask'
+    || payload.data?.name === 'speak'
+    || payload.data?.name === 'voice-summary';
 }
 
 async function awardDiscordPointsFallback(
@@ -349,6 +353,20 @@ export const sageCommandDefinitions = [
     options: [
       { name: 'question', description: 'The deeper question SageBot should answer', type: 3, required: true },
       { name: 'context', description: 'Optional project, code, business, or blocker context', type: 3, required: false },
+    ],
+  },
+  {
+    name: 'speak',
+    description: 'Ask Sprout to turn a short message into a voice note.',
+    options: [
+      { name: 'text', description: 'Short text for Sprout to speak', type: 3, required: true },
+    ],
+  },
+  {
+    name: 'voice-summary',
+    description: 'Ask Sprout to turn a concise recap into a voice note.',
+    options: [
+      { name: 'text', description: 'Concise recap or next-step summary', type: 3, required: true },
     ],
   },
   {
@@ -1596,6 +1614,40 @@ export async function handleDeferredSageCommand(payload: DiscordInteractionPaylo
   }
 
   try {
+    if (payload.data?.name === 'speak' || payload.data?.name === 'voice-summary') {
+      const approvedGate = await requireApproved(payload);
+      if (approvedGate) {
+        await postDiscordInteractionFollowup({
+          applicationId,
+          token,
+          content: String(approvedGate.data?.content ?? 'Approval is required before using voice commands.'),
+          ephemeral: true,
+        });
+        return;
+      }
+      const text = optionValue(payload, 'text');
+      const voice = await synthesizeSproutVoice({
+        text,
+        filename: payload.data.name === 'voice-summary' ? 'sprout-summary.mp3' : 'sprout.mp3',
+      });
+      if (!voice.ok) {
+        await postDiscordInteractionFollowup({
+          applicationId,
+          token,
+          content: `Sprout voice is not ready on this runtime: ${voice.message}`,
+          ephemeral: true,
+        });
+        return;
+      }
+      await postDiscordInteractionFollowup({
+        applicationId,
+        token,
+        content: payload.data.name === 'voice-summary' ? 'Here’s the voice summary.' : 'Sprout, out loud.',
+        ephemeral: true,
+        attachment: { filename: voice.filename, bytes: voice.bytes, contentType: voice.mimeType },
+      });
+      return;
+    }
     const response = await handleSageCommand(payload);
     await postDiscordInteractionFollowup({
       applicationId,

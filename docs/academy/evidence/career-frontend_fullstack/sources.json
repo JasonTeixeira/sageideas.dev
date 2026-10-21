@@ -1,0 +1,222 @@
+[
+  {
+    "source_id": "react-render-commit",
+    "title": "Render and Commit",
+    "organization": "React",
+    "url": "https://react.dev/learn/render-and-commit",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party model for render triggers, component evaluation, DOM commit, and browser paint.",
+    "keywords": ["render", "commit", "DOM", "React"]
+  },
+  {
+    "source_id": "react-managing-state",
+    "title": "Managing State",
+    "organization": "React",
+    "url": "https://react.dev/learn/managing-state",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party guidance for state shape, preservation, reset, reducer extraction, and cross-component coordination.",
+    "keywords": ["state", "reducer", "component", "UI"]
+  },
+  {
+    "source_id": "react-sharing-state",
+    "title": "Sharing State Between Components",
+    "organization": "React",
+    "url": "https://react.dev/learn/sharing-state-between-components",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party pattern for a single source of truth, controlled components, and lifted state.",
+    "keywords": ["controlled component", "single source of truth", "composition"]
+  },
+  {
+    "source_id": "react-usereducer",
+    "title": "useReducer",
+    "organization": "React",
+    "url": "https://react.dev/reference/react/useReducer",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official API reference",
+    "excerpt": "First-party contract for reducer purity, actions, initialization, dispatch, and state transitions.",
+    "keywords": ["reducer", "state machine", "action", "purity"]
+  },
+  {
+    "source_id": "react-typescript",
+    "title": "Using TypeScript",
+    "organization": "React",
+    "url": "https://react.dev/learn/typescript",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party guidance for typing props, hooks, events, and component contracts.",
+    "keywords": ["TypeScript", "props", "events", "UI contracts"]
+  },
+  {
+    "source_id": "next-authentication",
+    "title": "Authentication",
+    "organization": "Next.js",
+    "url": "https://nextjs.org/docs/app/guides/authentication",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party separation of authentication, session management, and authorization for routes and data.",
+    "keywords": ["authentication", "session", "authorization", "protected routes"]
+  },
+  {
+    "source_id": "next-environment-variables",
+    "title": "Environment Variables",
+    "organization": "Next.js",
+    "url": "https://nextjs.org/docs/app/guides/environment-variables",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party rules for server-only values, browser bundling, runtime values, test environments, and load order.",
+    "keywords": ["environment", "secrets", "runtime", "deployment"]
+  },
+  {
+    "source_id": "next-testing",
+    "title": "Testing",
+    "organization": "Next.js",
+    "url": "https://nextjs.org/docs/app/guides/testing",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party distinctions among unit, component, integration, end-to-end, and snapshot testing.",
+    "keywords": ["testing", "component", "integration", "end to end"]
+  },
+  {
+    "source_id": "next-forms",
+    "title": "Forms",
+    "organization": "Next.js",
+    "url": "https://nextjs.org/docs/app/guides/forms",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party form workflow for server actions, validation, errors, pending state, optimistic updates, and revalidation.",
+    "keywords": ["forms", "validation", "pending", "optimistic UI"]
+  },
+  {
+    "source_id": "next-analytics",
+    "title": "Analytics",
+    "organization": "Next.js",
+    "url": "https://nextjs.org/docs/app/guides/analytics",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party integration guidance for client instrumentation and web performance measurement.",
+    "keywords": ["analytics", "instrumentation", "performance", "observability"]
+  },
+  {
+    "source_id": "wcag-22",
+    "title": "Web Content Accessibility Guidelines 2.2",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/TR/WCAG22/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "W3C Recommendation",
+    "excerpt": "Normative accessibility success criteria for perceivable, operable, understandable, and robust web content.",
+    "keywords": ["WCAG", "accessibility", "keyboard", "reflow"]
+  },
+  {
+    "source_id": "aria-apg",
+    "title": "ARIA Authoring Practices Guide",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/WAI/ARIA/apg/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living WAI guidance",
+    "excerpt": "Official patterns for accessible widget roles, states, properties, focus, and keyboard interaction.",
+    "keywords": ["ARIA", "keyboard", "focus", "widget"]
+  },
+  {
+    "source_id": "using-aria",
+    "title": "Using ARIA",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/TR/using-aria/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "W3C Working Group Note",
+    "excerpt": "Official rules for preferring native semantics and pairing interactive ARIA controls with keyboard behavior.",
+    "keywords": ["native HTML", "ARIA", "semantics", "keyboard"]
+  },
+  {
+    "source_id": "html-living-standard-sections",
+    "title": "Sections",
+    "organization": "WHATWG",
+    "url": "https://html.spec.whatwg.org/multipage/sections.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "HTML Living Standard",
+    "excerpt": "Normative semantics for body, article, section, navigation, headings, header, footer, and address elements.",
+    "keywords": ["HTML", "semantics", "landmarks", "outline"]
+  },
+  {
+    "source_id": "fetch-standard",
+    "title": "Fetch Standard",
+    "organization": "WHATWG",
+    "url": "https://fetch.spec.whatwg.org/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living standard",
+    "excerpt": "Normative request, response, header, CORS, redirect, and network-error behavior for web clients.",
+    "keywords": ["fetch", "request", "response", "CORS"]
+  },
+  {
+    "source_id": "url-standard",
+    "title": "URL Standard",
+    "organization": "WHATWG",
+    "url": "https://url.spec.whatwg.org/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living standard",
+    "excerpt": "Normative URL parsing, serialization, origin, and search-parameter behavior for routing and filters.",
+    "keywords": ["URL", "routing", "query parameters", "origin"]
+  },
+  {
+    "source_id": "css-media-queries-5",
+    "title": "Media Queries Level 5",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/TR/mediaqueries-5/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "W3C Candidate Recommendation Draft",
+    "excerpt": "Primary specification for media features used in responsive and user-preference-aware layouts.",
+    "keywords": ["media query", "responsive", "reduced motion", "viewport"]
+  },
+  {
+    "source_id": "web-vitals",
+    "title": "Web Vitals",
+    "organization": "web.dev / Google Chrome",
+    "url": "https://web.dev/articles/vitals",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party guidance",
+    "excerpt": "First-party definitions and measurement guidance for loading, interaction, and visual-stability user experience signals.",
+    "keywords": ["Core Web Vitals", "LCP", "INP", "CLS"]
+  },
+  {
+    "source_id": "playwright-best-practices",
+    "title": "Best Practices",
+    "organization": "Playwright",
+    "url": "https://playwright.dev/docs/best-practices",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party testing practices for user-visible behavior, isolation, resilient locators, assertions, and external dependencies.",
+    "keywords": ["Playwright", "E2E", "locators", "assertions"]
+  },
+  {
+    "source_id": "opentelemetry-js-browser",
+    "title": "JavaScript browser instrumentation",
+    "organization": "OpenTelemetry",
+    "url": "https://opentelemetry.io/docs/languages/js/getting-started/browser/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party browser telemetry workflow for traces, spans, exporters, instrumentation, and page-load evidence.",
+    "keywords": ["browser telemetry", "traces", "instrumentation", "observability"]
+  }
+]

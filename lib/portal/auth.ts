@@ -3,17 +3,24 @@ import { redirect } from 'next/navigation';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
 import { resolveActiveOrg, type MembershipRef, type OrgRef } from '@/lib/portal/active-org';
 
-async function loginRedirectUrl(): Promise<string> {
+async function requestPathname(): Promise<string> {
   try {
     const h = await headers();
-    const pathname =
-      h.get('x-pathname') ||
-      h.get('x-invoke-path') ||
-      h.get('next-url') ||
-      '';
+    const pathname = h.get('x-pathname') || h.get('x-invoke-path') || h.get('next-url') || '';
+    if (pathname.startsWith('/')) return pathname;
+    const referer = h.get('referer');
+    if (referer) return new URL(referer).pathname;
+  } catch {}
+  return '';
+}
+
+async function loginRedirectUrl(): Promise<string> {
+  try {
+    const pathname = await requestPathname();
     if (pathname && pathname.startsWith('/')) {
       return `/login?next=${encodeURIComponent(pathname)}`;
     }
+    const h = await headers();
     const referer = h.get('referer');
     if (referer) {
       try {
@@ -54,7 +61,6 @@ export interface PortalContext {
 }
 
 export const ACTIVE_ORG_COOKIE = 'sage_active_org';
-const ADMIN_EMAILS = ['sage@sageideas.dev', 'sage@sageideas.org'];
 
 type AppUserRow = {
   id: string;
@@ -130,8 +136,24 @@ export async function getPortalContext(opts?: {
 
   const email = (profile.email ?? user.email ?? '').toLowerCase();
   const fullName = profile.full_name ?? '';
-  const isAdmin =
-    profile.app_role === 'admin' || ADMIN_EMAILS.includes(email);
+  const isAdmin = profile.app_role === 'admin';
+
+  const mfaRequired =
+    process.env.NODE_ENV === 'production' || process.env.MFA_REQUIRED_FOR_ADMIN === 'true';
+  if (isAdmin && mfaRequired) {
+    const { data: assurance } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (assurance?.currentLevel !== 'aal2') {
+      const pathname = await requestPathname();
+      // The settings page must remain reachable so an admin without a factor can enroll.
+      if (!pathname.startsWith('/portal/settings')) {
+        if (assurance?.nextLevel === 'aal2') {
+          const next = pathname.startsWith('/') ? pathname : '/admin';
+          redirect(`/auth/mfa?next=${encodeURIComponent(next)}`);
+        }
+        redirect('/portal/settings?mfa=required');
+      }
+    }
+  }
 
   if (!isAdmin && profile.approval_status !== 'approved') {
     redirect('/pending-approval');

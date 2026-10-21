@@ -1,0 +1,200 @@
+[
+  {
+    "source_id": "openai-retrieval-guide",
+    "title": "Retrieval guide",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/retrieval",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for semantic search, vector stores, attributes, ranking, and retrieval configuration.",
+    "keywords": ["retrieval", "vector stores", "ranking", "metadata"]
+  },
+  {
+    "source_id": "openai-embeddings-guide",
+    "title": "Embeddings guide",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/embeddings",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party explanation of embeddings, distance, relatedness, and common retrieval applications.",
+    "keywords": ["embeddings", "cosine similarity", "semantic search"]
+  },
+  {
+    "source_id": "openai-file-search-guide",
+    "title": "File search guide",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/tools-file-search",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party documentation for hosted file search, vector-store ingestion, citations, and result controls.",
+    "keywords": ["file search", "citations", "vector stores"]
+  },
+  {
+    "source_id": "pgvector-reference",
+    "title": "pgvector reference",
+    "organization": "pgvector",
+    "url": "https://github.com/pgvector/pgvector",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "v0.8.6 documentation",
+    "excerpt": "Canonical project reference for vector distance, exact and approximate indexes, filtering, recall tradeoffs, and hybrid search in PostgreSQL.",
+    "keywords": ["vector database", "HNSW", "IVFFlat", "recall"]
+  },
+  {
+    "source_id": "postgres-text-search-controls",
+    "title": "Controlling text search",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/textsearch-controls.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current",
+    "excerpt": "Canonical PostgreSQL reference for document parsing, query construction, ranking, and highlighting in lexical retrieval.",
+    "keywords": ["full-text search", "ranking", "lexical retrieval"]
+  },
+  {
+    "source_id": "postgres-text-search-indexes",
+    "title": "Preferred index types for text search",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/textsearch-indexes.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current",
+    "excerpt": "Canonical PostgreSQL reference for GIN and GiST text-search index behavior and tradeoffs.",
+    "keywords": ["indexing", "GIN", "GiST", "text search"]
+  },
+  {
+    "source_id": "elastic-hybrid-search",
+    "title": "Hybrid search",
+    "organization": "Elastic",
+    "url": "https://www.elastic.co/docs/solutions/search/hybrid-search",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for combining lexical and vector retrieval into one ranked result set.",
+    "keywords": ["hybrid search", "lexical", "vector search"]
+  },
+  {
+    "source_id": "elastic-rrf-reference",
+    "title": "Reciprocal rank fusion",
+    "organization": "Elastic",
+    "url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party RRF definition, formula, rank constants, window behavior, and API contract.",
+    "keywords": ["RRF", "rank fusion", "hybrid retrieval"]
+  },
+  {
+    "source_id": "elastic-knn-search",
+    "title": "kNN search in Elasticsearch",
+    "organization": "Elastic",
+    "url": "https://www.elastic.co/docs/solutions/search/vector/knn",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party reference for exact and approximate nearest-neighbor search, filtering, candidates, and performance tradeoffs.",
+    "keywords": ["kNN", "approximate search", "vector retrieval"]
+  },
+  {
+    "source_id": "cohere-rerank",
+    "title": "Reranking with Cohere models",
+    "organization": "Cohere",
+    "url": "https://docs.cohere.com/docs/rerank-overview",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party explanation of second-stage relevance reranking over a candidate set.",
+    "keywords": ["reranking", "relevance", "candidate set"]
+  },
+  {
+    "source_id": "pinecone-upsert",
+    "title": "Upsert records",
+    "organization": "Pinecone",
+    "url": "https://docs.pinecone.io/guides/index-data/upsert-data",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party vector-index guidance for stable identifiers, namespaces, record upserts, and ingestion behavior.",
+    "keywords": ["upsert", "stable id", "namespace", "ingestion"]
+  },
+  {
+    "source_id": "pinecone-hybrid-search",
+    "title": "Hybrid search",
+    "organization": "Pinecone",
+    "url": "https://docs.pinecone.io/guides/search/hybrid-search",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for combining dense and sparse representations in hybrid retrieval.",
+    "keywords": ["hybrid search", "dense", "sparse"]
+  },
+  {
+    "source_id": "qdrant-filtering",
+    "title": "Filtering",
+    "organization": "Qdrant",
+    "url": "https://qdrant.tech/documentation/concepts/filtering/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party reference for payload metadata and filter conditions applied to vector retrieval.",
+    "keywords": ["metadata", "filters", "payload"]
+  },
+  {
+    "source_id": "qdrant-indexing",
+    "title": "Indexing",
+    "organization": "Qdrant",
+    "url": "https://qdrant.tech/documentation/concepts/indexing/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party reference for vector and payload indexes, HNSW configuration, memory, and filtering tradeoffs.",
+    "keywords": ["HNSW", "indexing", "payload index"]
+  },
+  {
+    "source_id": "rag-paper",
+    "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "organization": "Meta AI Research and University College London",
+    "url": "https://arxiv.org/abs/2005.11401",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NeurIPS 2020 paper",
+    "excerpt": "Primary research introducing a retrieval-augmented generation formulation that combines parametric and non-parametric memory.",
+    "keywords": ["RAG", "grounding", "retrieval augmented generation"]
+  },
+  {
+    "source_id": "dpr-paper",
+    "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+    "organization": "Facebook AI Research",
+    "url": "https://arxiv.org/abs/2004.04906",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "EMNLP 2020 paper",
+    "excerpt": "Primary research on learning dense passage representations and evaluating top-k retrieval for question answering.",
+    "keywords": ["dense retrieval", "recall at k", "question answering"]
+  },
+  {
+    "source_id": "beir-paper",
+    "title": "BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+    "organization": "UKP Lab, TU Darmstadt",
+    "url": "https://arxiv.org/abs/2104.08663",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NeurIPS 2021 benchmark paper",
+    "excerpt": "Primary research defining a diverse retrieval benchmark and reporting retrieval effectiveness across domains.",
+    "keywords": ["retrieval evaluation", "benchmark", "recall"]
+  },
+  {
+    "source_id": "nist-trec-eval",
+    "title": "trec_eval",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://github.com/usnistgov/trec_eval",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "canonical repository",
+    "excerpt": "Canonical NIST evaluation tool and metric reference for ranked retrieval runs and relevance judgments.",
+    "keywords": ["information retrieval", "evaluation", "relevance judgments"]
+  }
+]

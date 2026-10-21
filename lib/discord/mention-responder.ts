@@ -8,6 +8,18 @@ export type SageMentionResponsePlan = {
   question: string | null;
 };
 
+export type SageMentionIntent = 'casual' | 'thanks' | 'capability' | 'confused' | 'build_question';
+
+export function detectSageMentionIntent(message: string): SageMentionIntent {
+  const normalized = message.trim().toLowerCase();
+  if (/\b(thanks|thank you|appreciate)\b/.test(normalized)) return 'thanks';
+  if (/\bwhat can you do\b|\bhelp with\b/.test(normalized)) return 'capability';
+  if (/\b(stuck|confused|lost|not sure where to start)\b/.test(normalized)) return 'confused';
+  if (/\b(hey|hello|hi)\b.*\b(what'?s up|how are you)\b/.test(normalized)) return 'casual';
+  if (/\b(how|what|why|where|when|should|build|ship|deploy|structure)\b|\?/.test(normalized)) return 'build_question';
+  return 'casual';
+}
+
 function cleanEnv(value: string | undefined): string | undefined {
   return value?.replace(/\\n/g, '').trim();
 }

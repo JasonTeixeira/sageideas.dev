@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { verifyToken } from '@/lib/newsletter'
 import { addContact } from '@/lib/newsletter-audience'
 import { sendEmail, SITE } from '@/lib/email/send'
+import { rateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,12 +18,14 @@ const welcomeHtml = `<!doctype html><html><body style="margin:0;background:#0B0B
   </div></body></html>`
 
 export async function GET(req: NextRequest) {
+  const limited = await rateLimit(req, { limit: 8, windowMs: 60_000, prefix: 'newsletter-confirm' })
+  if (limited) return limited
   const token = new URL(req.url).searchParams.get('token') ?? ''
-  const verified = verifyToken(token)
+  const verified = verifyToken(token, 'confirm')
   if (!verified) return redirect('/field-notes?subscribe=invalid')
 
-  // Add to the Resend audience (best-effort — no-op if not configured).
-  await addContact(verified.email)
+  const audienceResult = await addContact(verified.email)
+  if (!audienceResult.ok) return redirect('/field-notes?subscribe=unavailable')
 
   // Best-effort welcome; never block the redirect on it.
   await sendEmail({

@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { normalizeEmail, isValidEmail } from '@/lib/newsletter'
 import { sendEmail, SITE } from '@/lib/email/send'
-import { addContact } from '@/lib/newsletter-audience'
 import { rateLimit } from '@/lib/rate-limit'
 import {
   ATLAS_QUESTIONS,
@@ -77,9 +76,6 @@ export async function POST(req: NextRequest) {
     const path = recommendPath(answers)
     const tags = answersToTags(answers)
 
-    // Add to the managed audience (best-effort; no-ops if Resend unconfigured).
-    await addContact(email)
-
     const result = await sendEmail({
       to: email,
       subject: `Your path: ${path.startTitle}`,
@@ -96,7 +92,6 @@ export async function POST(req: NextRequest) {
       return json(200, { ok: true, dev: true })
     }
     if (!result.ok && result.status === 'failed') {
-      // The lead is still captured in the audience; surface the email failure.
       return json(200, { ok: true, emailFailed: true })
     }
 

@@ -78,11 +78,11 @@ async function main() {
     const evidence = {
       ok: response.type === 4
         && content.includes('SageBot answered your question')
-        && answerEmbed?.title === 'Sage Ideas Answer'
+        && answerEmbed?.title === 'Sprout'
         && answerEmbed.color === 0x50a7ff
-        && fieldNames.includes('Your question')
-        && fieldNames.includes('Sage take')
-        && fieldNames.includes('Sources')
+        && fieldNames.includes('Here’s the move')
+        && fieldNames.includes('Next step')
+        && fieldNames.includes('Source check')
         && Boolean(answerId)
         && Boolean(retrievalLogId)
         && Boolean(traceId)

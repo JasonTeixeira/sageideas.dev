@@ -174,7 +174,7 @@ export async function reviewDiscordChallengeSubmissionAction(formData: FormData)
   let messageId: string | null = null;
   if (status === 'featured') {
     messageId = await postToChannelByBaseName(
-      'wins-showcase',
+      'weekly-recap',
       [
         `# Featured challenge submission`,
         `**Member:** ${result.submission.username ?? result.submission.discordUserId}`,
@@ -198,7 +198,7 @@ export async function reviewDiscordChallengeSubmissionAction(formData: FormData)
     commandName: 'admin_dashboard',
     discordUserId: result.submission.discordUserId,
     discordUsername: result.submission.username,
-    channelBaseName: status === 'featured' ? 'wins-showcase' : 'team-ops',
+    channelBaseName: status === 'featured' ? 'weekly-recap' : 'team-ops',
     metadata: { id, status, reviewer: profile.email, note: note || null, points_awarded: result.pointsAwarded, message_id: messageId },
   });
   revalidatePath('/admin/discord');

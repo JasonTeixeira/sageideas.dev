@@ -1,5 +1,3 @@
-'use client'
-
 /**
  * Academy site chrome — nav + footer implemented exactly from
  * "Sage Academy Download/Sage Home.dc.html" (nav markup) and the
@@ -12,17 +10,19 @@
  * /api/newsletter/subscribe endpoint instead of localStorage.
  */
 
-import { useState } from 'react'
-import { LocaleLink } from '@/components/i18n/locale-link'
+import Link from 'next/link'
 import { LanguageSwitcher } from '@/components/i18n/language-switcher'
-import { useT } from '@/components/i18n/locale-provider'
+import { getLocale } from '@/lib/i18n/server'
+import { localizeHref } from '@/lib/i18n/href'
+import { getT } from '@/lib/i18n/t'
 import { SageChat, FunnelTelemetry } from './SageChat'
 import { SageMark } from '../brand/SageMark'
+import { NewsletterSignup } from './NewsletterSignup'
 
 const INK = '#F2EFE9'
 const DIM = '#B6B6C0'
 const MUTED = '#9598A2'
-const FAINT = '#4A4A54'
+const FAINT = '#9598A2'
 const LINE = '#1E1E24'
 const BLUE = '#3D5AFE'
 
@@ -39,12 +39,11 @@ const NAV_LINKS = [
   { href: '/login?audience=academy', label: 'Log in' },
 ] as { href: string; label: string; tint?: string }[]
 
-export function AcademyNav() {
-  const [hover, setHover] = useState<string | null>(null)
-  const [ctaHover, setCtaHover] = useState(false)
-  const t = useT()
+export async function AcademyNav() {
+  const [locale, t] = await Promise.all([getLocale(), getT()])
   return (
     <nav
+      aria-label="Academy navigation"
       style={{
         position: 'sticky',
         top: 0,
@@ -61,7 +60,7 @@ export function AcademyNav() {
         borderBottom: `1px solid ${LINE}`,
       }}
     >
-      <LocaleLink href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: 'inherit' }}>
+      <Link href={localizeHref('/', locale)} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: 'inherit' }}>
         <SageMark size={26} radius={8} />
         <span>
           <span style={{ display: 'block', fontSize: 14.5, fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.15, color: INK }}>
@@ -71,17 +70,16 @@ export function AcademyNav() {
             {t('Judgment · proven')}
           </span>
         </span>
-      </LocaleLink>
+      </Link>
       <div className="acadNavLinks" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
         {NAV_LINKS.map((l) => (
-          <LocaleLink
+          <Link
             key={l.label}
-            href={l.href}
-            onMouseEnter={() => setHover(l.label)}
-            onMouseLeave={() => setHover(null)}
+            href={localizeHref(l.href, locale)}
+            className="acadNavLink"
             style={{
-              color: hover === l.label ? (l.tint ?? INK) : l.tint ? '#C9A96A' : DIM,
-              background: hover === l.label ? 'rgba(255,255,255,0.04)' : 'transparent',
+              color: l.tint ? '#C9A96A' : DIM,
+              ['--academy-nav-hover' as string]: l.tint ?? INK,
               textDecoration: 'none',
               fontSize: 14,
               padding: '12px 13px',
@@ -90,16 +88,15 @@ export function AcademyNav() {
             }}
           >
             {t(l.label)}
-          </LocaleLink>
+          </Link>
         ))}
-        <LocaleLink
-          href="/academy/signup"
-          onMouseEnter={() => setCtaHover(true)}
-          onMouseLeave={() => setCtaHover(false)}
+        <Link
+          href={localizeHref('/academy/signup', locale)}
+          className="acadNavCta"
           style={{
             marginLeft: 12,
             color: '#fff',
-            background: ctaHover ? '#6E83FF' : BLUE,
+            background: BLUE,
             textDecoration: 'none',
             fontSize: 14,
             fontWeight: 600,
@@ -110,13 +107,17 @@ export function AcademyNav() {
           }}
         >
           {t('Start learning')}
-        </LocaleLink>
+        </Link>
         <LanguageSwitcher className="acadLangSwitch" />
       </div>
       {/* nav-squeeze, from the design helmet CSS */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
+@media (hover: hover) {
+  .acadNavLink:hover { color: var(--academy-nav-hover) !important; background: rgba(255,255,255,0.04) !important; }
+  .acadNavCta:hover { background: #6E83FF !important; }
+}
 @media (max-width: 1120px) { .acadNavLinks a { padding: 12px 8px; font-size: 13px; } }
 @media (max-width: 760px) { .acadNavLinks a { display: none; } .acadNavLinks a:last-child { display: inline-flex; } }`,
         }}
@@ -163,32 +164,8 @@ const FOOTER_COLS: { head: string; links: { href: string; label: string }[] }[] 
   },
 ]
 
-export function AcademyFooter() {
-  const [email, setEmail] = useState('')
-  const [state, setState] = useState<'idle' | 'busy' | 'done' | 'error'>('idle')
-  const t = useT()
-
-  async function subscribe() {
-    const v = email.trim()
-    if (!v || v.indexOf('@') < 1) {
-      setState('error')
-      setTimeout(() => setState('idle'), 1200)
-      return
-    }
-    setState('busy')
-    try {
-      const res = await fetch('/api/newsletter/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: v, source: 'academy-footer' }),
-      })
-      setState(res.ok ? 'done' : 'error')
-      if (!res.ok) setTimeout(() => setState('idle'), 1600)
-    } catch {
-      setState('error')
-      setTimeout(() => setState('idle'), 1600)
-    }
-  }
+export async function AcademyFooter() {
+  const [locale, t] = await Promise.all([getLocale(), getT()])
 
   return (
     <footer style={{ borderTop: `1px solid ${LINE}`, background: '#0D0D11', fontFamily: 'var(--font-sans), sans-serif' }}>
@@ -206,9 +183,9 @@ export function AcademyFooter() {
           </div>
           {FOOTER_COLS.map((col) => (
             <div key={col.head}>
-              <h4 style={{ ...mono, margin: '0 0 14px', fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.14em', color: FAINT }}>
+              <h2 style={{ ...mono, margin: '0 0 14px', fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.14em', color: FAINT }}>
                 {t(col.head)}
-              </h4>
+              </h2>
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -221,9 +198,9 @@ export function AcademyFooter() {
                         {l.label}
                       </a>
                     ) : (
-                      <LocaleLink href={l.href} style={{ color: '#9C9CA6', textDecoration: 'none', fontSize: 13.5 }}>
+                      <Link href={localizeHref(l.href, locale)} style={{ color: '#9C9CA6', textDecoration: 'none', fontSize: 13.5 }}>
                         {t(l.label)}
-                      </LocaleLink>
+                      </Link>
                     )}
                   </li>
                 ))}
@@ -231,62 +208,20 @@ export function AcademyFooter() {
             </div>
           ))}
           <div>
-            <h4 style={{ ...mono, margin: '0 0 14px', fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.14em', color: FAINT }}>
+            <h2 style={{ ...mono, margin: '0 0 14px', fontSize: 10, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.14em', color: FAINT }}>
               {t('The Monday note')}
-            </h4>
+            </h2>
             <p style={{ margin: '0 0 12px', fontSize: 13, color: '#9C9CA6', lineHeight: 1.55 }}>
               {t('One real incident, mapped in public — in your inbox every Monday.')}
             </p>
-            {state === 'done' ? (
-              <div style={{ ...mono, display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5, color: '#18B663', padding: '10px 0' }}>
-                ✓ {t("you're in — see you Monday")}
-              </div>
-            ) : (
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input
-                  type="email"
-                  placeholder="you@work.dev"
-                  aria-label={t('Email for the Monday note')}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') subscribe()
-                  }}
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    background: '#0F0F13',
-                    border: `1px solid ${state === 'error' ? '#E5484D' : '#2A2A33'}`,
-                    borderRadius: 10,
-                    padding: '10px 13px',
-                    fontSize: 13,
-                    color: INK,
-                    fontFamily: 'inherit',
-                    outline: 'none',
-                  }}
-                />
-                <button
-                  onClick={subscribe}
-                  disabled={state === 'busy'}
-                  style={{
-                    background: BLUE,
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: 10,
-                    padding: '0 16px',
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontFamily: 'inherit',
-                    whiteSpace: 'nowrap',
-                    opacity: state === 'busy' ? 0.7 : 1,
-                  }}
-                >
-                  {t('Subscribe')}
-                </button>
-              </div>
-            )}
-            <div style={{ ...mono, marginTop: 10, fontSize: 9.5, color: FAINT }}>{t('unsubscribe anytime')}</div>
+            <NewsletterSignup
+              emailLabel={t('Email for the Monday note')}
+              subscribeLabel={t('Subscribe')}
+              successLabel={t("you're in — see you Monday")}
+              invalidEmailLabel={t('Enter a valid email address.')}
+              failureLabel={t('Subscription failed. Please try again.')}
+              unsubscribeLabel={t('unsubscribe anytime')}
+            />
           </div>
         </div>
         <div

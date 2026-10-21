@@ -69,7 +69,8 @@ npm run dev
 
 # Run tests
 npm run test:e2e         # Playwright E2E against local dev server
-npm run test:rls         # Supabase RLS isolation suite
+npm run test:data-integrity # Offline migration and RLS contract
+npm run test:rls         # Approved isolated Supabase RLS suite; see docs/TEST_ACCOUNTS.md
 npm run lint             # ESLint
 npm run build            # Production build
 
@@ -117,9 +118,9 @@ See `docs/AUTH_SETUP.md` for OAuth provider configuration and
 - ✅ End-to-end pipeline: lead → contract → e-sign → invoice → payment → delivery
 - ✅ Stripe subscriptions + 7 webhook events handled
 - ✅ Audit log on every admin action
-- ✅ Row Level Security verified by isolation tests (10/10)
-- ✅ E2E suite passing against production (28/28)
-- ✅ CI green on every push (lint + build + content validation + E2E + RLS)
+- ✅ Offline migration/RLS integrity contract is deterministic and fail-closed
+- ⏳ Authenticated E2E and live RLS isolation require an approved staging run
+- ⏳ Hosted backup, restore, and provider-advisor evidence remain release gates
 
 The **Phased Game Plan to 95+** lives in the project tracker and ships in
 6 phases: Pre-flight → Security/DB → Pipeline → BI → Enterprise Readiness →
@@ -132,8 +133,10 @@ Performance → Pen Test & Launch.
 See [`SECURITY.md`](./SECURITY.md) and `/.well-known/security.txt` for
 responsible disclosure.
 
-RLS isolation tests run on every push. Supabase advisor sweep is a release
-gate. External pen test is performed annually.
+The offline migration and RLS contract runs locally. Remote RLS isolation is an
+explicitly dispatched staging gate and requires `RLS_TEST_ALLOW_REMOTE=true`.
+Supabase advisor and restore proof remain release gates. External penetration
+testing is performed annually.
 
 ---
 

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-enterprise_it_saas_admin_business_systems",
+  "baselineRegistryVersion": "sha256:6d1910883b7ffc402273b9dd7a08d8575002d427dc37fb18feeee663ef03c34e",
+  "registryVersion": "sha256:c96af2348aa49a94a822d5f702515e4e15c53c5132c673f40f275f458be8bc7d",
+  "commit": "79b14bee",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/enterprise-it-saas-mastery.test.ts", "result": "7/7 each run; 20/20 Python references exact; 20 practical labs aligned; one orphan reference removed; 146 narration transcripts retained" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons; Enterprise IT deterministic score 100; no H1, H3, H4, or H5" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 600 labs; no Enterprise IT orphan solutions" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 pages" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped diff; changed-file lint, generator idempotence, secret scan, and 20 primary-source reachability checks passed" }
+  },
+  "scoreDelta": { "before": 77.8, "after": 100, "meaning": "deterministic only; not certification" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundaries": [
+    { "command": "npm audit --audit-level=high", "status": "pre_existing_failure", "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed" },
+    { "command": "npm run lint", "status": "pre_existing_failure", "result": "6 errors and 25 warnings in untouched files; changed Enterprise IT test and authoring script lint clean" }
+  ]
+}

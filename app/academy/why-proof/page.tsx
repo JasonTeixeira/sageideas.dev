@@ -111,8 +111,7 @@ export default function WhyProofPage() {
           position: 'relative',
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- decorative
-            absolutely-positioned art from the mock; masked, no layout impact */}
+        { }
         <img
           id="proof-hero-art"
           src="/art/academy/manifesto-art.webp"

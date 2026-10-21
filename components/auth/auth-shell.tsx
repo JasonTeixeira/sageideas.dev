@@ -65,7 +65,7 @@ export async function AuthShell({
   const seg = 'relative rounded-lg py-2 text-center text-[13px] font-medium transition';
 
   return (
-    <div className="relative min-h-screen flex" style={{ background: theme.bg }}>
+    <main className="relative min-h-screen flex" style={{ background: theme.bg }}>
       <GradientMesh />
       <div className="relative z-10 flex flex-1">
         <BrandPanel audience={audience} />
@@ -152,6 +152,6 @@ export async function AuthShell({
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

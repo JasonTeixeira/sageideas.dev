@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
 import { z } from 'zod';
 import { rateLimit } from '@/lib/rate-limit';
 import { captureLead } from '@/lib/leads/capture';
 import { readAttributionFromRequest } from '@/lib/analytics/server-attribution';
 import { mergeAttributionMetadata } from '@/lib/analytics/attribution';
+import { sendEmail } from '@/lib/email/send';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -91,12 +91,6 @@ export async function POST(request: NextRequest) {
     notify: false,
   });
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('[contact] RESEND_API_KEY missing');
-    return NextResponse.json({ ok: false, error: 'Email service unavailable' }, { status: 502 });
-  }
-
   const displayName = data.name || data.email;
   const subject = `New contact: ${displayName}`;
 
@@ -128,20 +122,21 @@ export async function POST(request: NextRequest) {
   const text = textLines.join('\n');
 
   try {
-    const resend = new Resend(apiKey);
-    const { data: sent, error } = await resend.emails.send({
+    const result = await sendEmail({
       from: FROM,
       to: TO,
       replyTo: data.email,
       subject,
       html,
       text,
+      templateKey: 'contact_form_operator',
+      metadata: { replyTo: data.email },
     });
-    if (error) {
-      console.error('[contact] resend error:', error.message);
+    if (!result.ok) {
+      console.error('[contact] delivery failed:', result.reason);
       return NextResponse.json({ ok: false, error: 'Failed to send message' }, { status: 502 });
     }
-    return NextResponse.json({ ok: true, id: sent?.id ?? '' }, { status: 200 });
+    return NextResponse.json({ ok: true, id: result.id }, { status: 200 });
   } catch (err) {
     console.error('[contact] resend threw:', err instanceof Error ? err.message : err);
     return NextResponse.json({ ok: false, error: 'Failed to send message' }, { status: 502 });

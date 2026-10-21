@@ -18,16 +18,18 @@ export function buildPostApprovalWelcome(discordUserId: string, profile?: Member
     `Welcome <@${discordUserId}>. You are approved for Sage Ideas Academy access.`,
     '',
     '**How this Discord works**',
-    '- `daily-signal`: one useful daily prompt, quiz, and build challenge.',
-    '- `questions`: ask specific questions, answer others, and create reusable lessons.',
-    '- `ask-sage`: use SageBot/RAG for bot-assisted answers and source-grounded help.',
+    '- `the-floor`: introduce yourself, ask specific questions, answer others, and route the next useful action.',
+    '- `daily-signal`: take one useful daily action and share the artifact or blocker.',
     '- `build-lab`: post project specs, work-in-progress, and shipping updates.',
     '- `review-queue`: request focused critique on code, design, AI, SEO, cloud, or architecture.',
-    '- `content-queue`: capture reusable questions, lessons, resource gaps, and draft ideas.',
+    '- `quiz-room`: retrieve concepts and inspect the explanation after each attempt.',
+    '- `challenges`: build small artifacts; points require the reviewed submission path.',
     '- `live-room`: office-hours questions, live session notes, and replay follow-up.',
     '- `resources`: templates, guides, prompts, and useful tools.',
-    '- `wins-showcase`: shipped work, member proof, and weekly recap material.',
-    '- `premium`: deeper critique, advanced drops, and premium review flow.',
+    '- `saved-answers`: reuse approved answers and flag anything stale.',
+    '- `playbooks`: apply reviewed implementation guides to a real build.',
+    '- `weekly-recap`: review useful contributions and choose the next learning action.',
+    '- `premium-lounge`: deeper critique, advanced drops, and premium review flow.',
     '',
     path ? `**Assigned path:** ${path.label} -> start in \`${path.channel}\`.` : '**Assigned path:** run `/onboard` to choose your path.',
     level ? `**Current level:** ${level.label}.` : '**Current level:** run `/onboard` to choose your level.',
@@ -36,7 +38,7 @@ export function buildPostApprovalWelcome(discordUserId: string, profile?: Member
     '',
     '**First-week checklist**',
     '1. Run `/onboard` if you have not selected path/level yet.',
-    '2. Ask your first useful question with `/ask` or post your intro in `questions`.',
+    '2. Ask your first useful question with `/ask` or post your intro in `the-floor`.',
     '3. Run `/daily` and complete one useful action.',
     '4. Run `/challenge`, then submit with `/submit-challenge`.',
     '5. Submit your first project with `/submit-project`.',
@@ -85,7 +87,7 @@ export async function approveDiscordMember(input: {
       metadata: { path: pathKey, level: levelKey, source: 'approval' },
     });
   }
-  await postToChannelByBaseName('questions', buildPostApprovalWelcome(input.discordUserId, input.application));
+  await postToChannelByBaseName('the-floor', buildPostApprovalWelcome(input.discordUserId, input.application));
   await postToChannelByBaseName(
     'team-ops',
     [

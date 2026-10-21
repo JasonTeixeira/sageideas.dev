@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:32:37.654Z",
+  "scope": "communications-jobs",
+  "status": "pass",
+  "sourceAudit": {
+    "ok": true,
+    "findings": []
+  },
+  "proofs": {
+    "durableJobs": {
+      "path": "docs/evidence/engineering-loop/durable-jobs-readiness-latest.json",
+      "ok": true,
+      "mutationMode": "local_file_evidence_only"
+    },
+    "securityPrivacy": {
+      "path": "docs/evidence/engineering-loop/security-privacy-readiness-latest.json",
+      "ok": true,
+      "mutationMode": "local_file_evidence_only"
+    },
+    "observabilityQuality": {
+      "path": "docs/evidence/engineering-loop/observability-quality-readiness-latest.json",
+      "ok": true,
+      "mutationMode": "local_file_evidence_only"
+    }
+  },
+  "proofFailures": [],
+  "controls": {
+    "emailInput": "bounded",
+    "emailIdempotency": "application_ledger_and_provider_key",
+    "emailRetry": "bounded_exponential_backoff",
+    "emailDeadLetter": "three_attempts_or_non_retryable",
+    "webhookReplay": "leased_database_claim",
+    "discordJobs": "registry_idempotency_retry_dead_letter_admin_review"
+  },
+  "externalEvidencePending": [
+    "Apply migration 0122 to isolated staging.",
+    "Exercise signed Resend delivery and replay events with staging credentials.",
+    "Observe real Discord scheduled jobs, retries, and dead-letter alerts."
+  ]
+}

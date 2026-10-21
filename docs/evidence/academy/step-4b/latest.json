@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:49:40.489Z",
+  "releaseId": "flagship-labs-2026-09-05.1",
+  "registryVersion": "sha256:fbcfb4642f5f5239fa36e072fc24f3a9cbe19afc03b43261bbc863222edce828",
+  "candidateLabCount": 5,
+  "status": "blocked",
+  "gates": {
+    "manifest_valid": true,
+    "private_pack_valid": false,
+    "isolated_runtime": false,
+    "digest_pinned_images": false,
+    "migrations_applied": false,
+    "managed_runtime_binding": false,
+    "reference_solutions_passed": false,
+    "adversarial_probes_passed": false,
+    "receipts_reconciled": false,
+    "monitoring_ready": false,
+    "kill_switch_ready": false
+  },
+  "blockedGates": [
+    "private_pack_valid",
+    "isolated_runtime",
+    "digest_pinned_images",
+    "migrations_applied",
+    "managed_runtime_binding",
+    "reference_solutions_passed",
+    "adversarial_probes_passed",
+    "receipts_reconciled",
+    "monitoring_ready",
+    "kill_switch_ready"
+  ],
+  "observations": [
+    "The reviewed signer, managed-project, and database-project authority pins are not provisioned.",
+    "ACADEMY_EVALUATOR_PRIVATE_SPEC_ROOT is not configured.",
+    "No signed activation attestation proves the managed isolated runtime.",
+    "All three runtime images need digest pins or a valid signed activation attestation.",
+    "Staging has not supplied release-bound evidence that migrations 0116 through 0120 are applied.",
+    "The managed Vercel Sandbox project binding is missing, mismatched, or not attested.",
+    "No valid Ed25519 activation attestation proves private references, adversarial probes, and receipt reconciliation.",
+    "Release-bound monitoring and alerting evidence is absent.",
+    "Mastery writes remain disabled by the two-part release kill switch."
+  ],
+  "privateMaterialIncluded": false
+}

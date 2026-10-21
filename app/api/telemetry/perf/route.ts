@@ -1,6 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { rateLimit } from '@/lib/rate-limit';
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server';
+import { WEB_VITAL_BOUNDS, redactTelemetryText, sanitizeTelemetryUrl, validateWebVital } from '@/lib/observability/contract';
+import { structuredLog } from '@/lib/observability/structured-log';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,9 +15,18 @@ const schema = z.object({
   navigation_type: z.string().max(64).nullable().optional(),
   url: z.string().max(1024).nullable().optional(),
   release: z.string().max(64).nullable().optional(),
+}).superRefine((metric, context) => {
+  if (!validateWebVital(metric.name, metric.value)) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ['value'], message: 'metric_out_of_bounds' });
+  }
 });
 
-export async function POST(req: Request) {
+void WEB_VITAL_BOUNDS;
+
+export async function POST(req: NextRequest) {
+  const limited = await rateLimit(req, { limit: 120, windowMs: 60_000, prefix: 'telemetry-perf' });
+  if (limited) return limited;
+
   let raw: unknown;
   try {
     raw = await req.json();
@@ -60,13 +72,13 @@ export async function POST(req: Request) {
   }
 
   const sb = supabaseAdmin();
-  const ua = req.headers.get('user-agent') ?? null;
+  const ua = req.headers.get('user-agent');
   try {
     await sb.from('performance_events').insert({
       user_id: userId,
       organization_id: orgId,
-      url: body.url ?? null,
-      user_agent: ua,
+      url: sanitizeTelemetryUrl(body.url),
+      user_agent: ua ? redactTelemetryText(ua, 512) : null,
       metric_name: body.name,
       metric_value: body.value,
       rating: body.rating ?? null,
@@ -74,7 +86,7 @@ export async function POST(req: Request) {
       release: body.release ?? null,
     });
   } catch {
-    // Telemetry failure must never break the user — swallow.
+    structuredLog('warn', 'telemetry_persistence_failed', { signal: 'performance_event' });
   }
   return new NextResponse(null, { status: 204 });
 }

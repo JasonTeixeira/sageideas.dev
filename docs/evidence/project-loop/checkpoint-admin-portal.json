@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:54cfbf679598e8baba09a544b630431be404e52c6968f7aac24c32c05e381e3b",
+  "workstreamId": "admin-portal",
+  "commit": "b3cc7a05ea936fd47315adc7790376757736715e",
+  "generatedAt": "2026-09-04T19:46:00.000Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "5 admin integrity contracts passed; the source audit checked 36 privileged files with zero findings and deliberately broken fixtures failed closed"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 repository unit tests passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 17-command canonical observer"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; canonical profile authorization, production MFA, bounded service-role input, runtime block validation, generic errors, and actor-bound mutation audit contracts are enforced"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "No production-equivalent MFA session was exercised",
+    "No hosted audit-log insert or alert delivery was verified",
+    "No Academy content, certificate, status report, or other database mutation was performed",
+    "No lab was promoted and no mastery evidence was written",
+    "No deployment, credential, push, payment, or other external mutation was performed"
+  ]
+}

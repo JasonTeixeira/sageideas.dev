@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "system-design",
+  "baselineRegistryVersion": "sha256:703a26bc4b9a92d9dae63e0ee05b7838b4f87aa9def71ac5905db2e72715dbc6",
+  "registryVersion": "sha256:615cb1d35f63ac4d85f55414cb10db5d79ff3739f25da45483b144a38b8cb2ca",
+  "commit": "d9935382",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "consecutivePasses": 3,
+      "command": "node --import tsx --test tests/academy/system-design-mastery.test.ts",
+      "result": "7/7 tests passed on each run; 24/24 references matched exact output"
+    },
+    "academyAudit": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:audit:all",
+      "result": "32 courses / 640 lessons audited; System Design deterministic score improved to 90; no H1, H3, H4, or H5"
+    },
+    "registryCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:registry:check",
+      "result": "32 courses / 640 lessons / 410 labs"
+    },
+    "typecheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run typecheck",
+      "result": "0 TypeScript errors"
+    },
+    "build": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run build",
+      "result": "Next.js production build passed; 407 static pages generated"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "git diff --check",
+      "result": "clean scoped course diff; changed-file lint and literal-secret scan passed"
+    }
+  },
+  "scoreDelta": {
+    "before": 80,
+    "after": 90,
+    "meaning": "deterministic checks only; hosted media integrity remains pending and this is not a composite or certification score"
+  },
+  "hardFailCounts": {
+    "H1": 0,
+    "H2": 24,
+    "H3": 0,
+    "H4": 0,
+    "H5": 0
+  },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": [
+    "accessibility",
+    "consistency",
+    "content_correctness",
+    "media",
+    "pedagogy",
+    "performance",
+    "sources",
+    "ux",
+    "visual"
+  ],
+  "knownMediaBoundary": {
+    "command": "node scripts/academy/authoring/verify-system-design-media.mjs --allow-fail",
+    "status": "external_evidence_failure",
+    "result": "159/159 transcript-bearing hosted narration assets could not be proven reachable; no passing media claim was emitted"
+  },
+  "knownRepositoryBoundary": {
+    "command": "npm audit --omit=dev --audit-level=high",
+    "status": "pre_existing_failure",
+    "result": "13 production dependency advisories: 11 high and 2 moderate; no dependency files changed"
+  }
+}

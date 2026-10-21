@@ -1,7 +1,17 @@
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import type { TopicKey } from '@/lib/academy/topics'
-import type { CourseItem, Level } from '@/data/academy/learn-catalog'
-import type { Course, CourseLesson, CourseModule, Lesson, LessonBlock } from '@/data/academy/sample-course'
+import {
+  getAcademyRegistryCourse,
+  resolveAcademyCourseSlug,
+} from '@/lib/academy/registry'
+import type { CourseItem } from '@/data/academy/learn-catalog'
+import type {
+  Course,
+  CourseLesson,
+  CourseModule,
+  Lesson,
+  LessonBlock,
+} from '@/data/academy/sample-course'
 
 /** Catalog course cards, from the DB (published only). Empty array → caller falls back to fixtures. */
 export async function getCatalogCourses(): Promise<CourseItem[]> {
@@ -13,15 +23,21 @@ export async function getCatalogCourses(): Promise<CourseItem[]> {
       .eq('status', 'published')
       .order('sort')
     if (!data?.length) return []
-    return data.map((r) => ({
-      slug: r.slug,
-      title: r.title,
-      topic: r.topic as TopicKey,
-      level: r.level as Level,
-      lessons: r.lessons,
-      hours: r.hours,
-      subtitle: r.subtitle ?? '',
-    }))
+    return data.flatMap((r) => {
+      const registered = getAcademyRegistryCourse(r.slug)
+      if (!registered) return []
+      return [
+        {
+          slug: registered.slug,
+          title: registered.title,
+          topic: registered.topic,
+          level: registered.level,
+          lessons: r.lessons,
+          hours: r.hours,
+          subtitle: r.subtitle ?? '',
+        },
+      ]
+    })
   } catch (err) {
     console.error('[academy/content] getCatalogCourses failed', err)
     return []
@@ -31,11 +47,14 @@ export async function getCatalogCourses(): Promise<CourseItem[]> {
 /** A course + its lessons grouped into modules (statuses default to 'todo'; the page overlays progress). */
 export async function getCourse(slug: string): Promise<Course | null> {
   try {
+    const registered = getAcademyRegistryCourse(slug)
+    if (!registered) return null
+    const canonicalSlug = registered.slug
     const sb = await createSupabaseServerClient()
     const { data: course } = await sb
       .from('academy_courses')
       .select('slug, title, subtitle, topic')
-      .eq('slug', slug)
+      .eq('slug', canonicalSlug)
       .eq('status', 'published')
       .maybeSingle()
     if (!course) return null
@@ -43,7 +62,7 @@ export async function getCourse(slug: string): Promise<Course | null> {
     const { data: lessons } = await sb
       .from('academy_lessons')
       .select('slug, title, module_title, module_sort, sort')
-      .eq('course_slug', slug)
+      .eq('course_slug', canonicalSlug)
       .eq('status', 'published')
       .order('module_sort')
       .order('sort')
@@ -56,15 +75,20 @@ export async function getCourse(slug: string): Promise<Course | null> {
         byModule.set(l.module_title, [])
         order.push(l.module_title)
       }
-      byModule.get(l.module_title)!.push({ slug: l.slug, title: l.title, status: 'todo' })
+      byModule
+        .get(l.module_title)!
+        .push({ slug: l.slug, title: l.title, status: 'todo' })
     }
-    const modules: CourseModule[] = order.map((t) => ({ title: t, lessons: byModule.get(t)! }))
+    const modules: CourseModule[] = order.map((t) => ({
+      title: t,
+      lessons: byModule.get(t)!,
+    }))
 
     return {
-      slug: course.slug,
-      title: course.title,
+      slug: canonicalSlug,
+      title: registered.title,
       subtitle: course.subtitle ?? '',
-      topic: course.topic as TopicKey,
+      topic: registered.topic,
       lessonsTotal: ls.length,
       lessonsDone: 0,
       modules,
@@ -84,11 +108,19 @@ export async function getLessonsByCourse(
 ): Promise<Record<string, { slug: string; title: string }[]>> {
   if (courseSlugs.length === 0) return {}
   try {
+    const canonicalSlugs = [
+      ...new Set(
+        courseSlugs
+          .map(resolveAcademyCourseSlug)
+          .filter((slug): slug is string => !!slug),
+      ),
+    ]
+    if (canonicalSlugs.length === 0) return {}
     const sb = await createSupabaseServerClient()
     const { data: lessons } = await sb
       .from('academy_lessons')
       .select('slug, title, course_slug, module_sort, sort')
-      .in('course_slug', courseSlugs)
+      .in('course_slug', canonicalSlugs)
       .eq('status', 'published')
       .order('module_sort')
       .order('sort')
@@ -104,7 +136,12 @@ export async function getLessonsByCourse(
   }
 }
 
-export type OverviewLesson = { slug: string; title: string; estMinutes: number; isFreePreview: boolean }
+export type OverviewLesson = {
+  slug: string
+  title: string
+  estMinutes: number
+  isFreePreview: boolean
+}
 export type OverviewModule = { title: string; lessons: OverviewLesson[] }
 
 /**
@@ -148,20 +185,27 @@ async function raced<T>(q: PromiseLike<T>): Promise<T | null> {
   if (Date.now() < dbDeadUntil) return null
   const r = await Promise.race([
     q,
-    new Promise<null>((resolve) => setTimeout(() => resolve(null), DB_ATTEMPT_MS)),
+    new Promise<null>((resolve) =>
+      setTimeout(() => resolve(null), DB_ATTEMPT_MS),
+    ),
   ])
   if (r === null) dbDeadUntil = Date.now() + 60_000
   return r
 }
 
-export async function getCourseOverview(slug: string): Promise<CourseOverview | null> {
+export async function getCourseOverview(
+  slug: string,
+): Promise<CourseOverview | null> {
   try {
+    const registered = getAcademyRegistryCourse(slug)
+    if (!registered) return null
+    const canonicalSlug = registered.slug
     const sb = await createSupabaseServerClient()
     const courseRes = await raced(
       sb
         .from('academy_courses')
         .select('slug, title, subtitle, topic, level, hours')
-        .eq('slug', slug)
+        .eq('slug', canonicalSlug)
         .eq('status', 'published')
         .maybeSingle(),
     )
@@ -171,8 +215,10 @@ export async function getCourseOverview(slug: string): Promise<CourseOverview | 
     const lessonsRes = await raced(
       sb
         .from('academy_lessons')
-        .select('slug, title, module_title, module_sort, sort, est_minutes, is_free_preview')
-        .eq('course_slug', slug)
+        .select(
+          'slug, title, module_title, module_sort, sort, est_minutes, is_free_preview',
+        )
+        .eq('course_slug', canonicalSlug)
         .eq('status', 'published')
         .order('module_sort')
         .order('sort'),
@@ -196,11 +242,11 @@ export async function getCourseOverview(slug: string): Promise<CourseOverview | 
     }
 
     return {
-      slug: course.slug,
-      title: course.title,
+      slug: canonicalSlug,
+      title: registered.title,
       subtitle: course.subtitle ?? '',
-      topic: course.topic as TopicKey,
-      level: course.level,
+      topic: registered.topic,
+      level: registered.level,
       hours: course.hours,
       lessonsTotal: ls.length,
       firstLessonSlug: ls[0]?.slug ?? null,
@@ -213,13 +259,20 @@ export async function getCourseOverview(slug: string): Promise<CourseOverview | 
 }
 
 /** A single lesson (blocks + computed prev/next within the course). */
-export async function getLesson(courseSlug: string, lessonSlug: string): Promise<Lesson | null> {
+export async function getLesson(
+  courseSlug: string,
+  lessonSlug: string,
+): Promise<Lesson | null> {
   try {
+    const canonicalCourseSlug = resolveAcademyCourseSlug(courseSlug)
+    if (!canonicalCourseSlug) return null
     const sb = await createSupabaseServerClient()
     const { data: lessons } = await sb
       .from('academy_lessons')
-      .select('slug, title, eyebrow, est_minutes, blocks, module_sort, sort, is_free_preview')
-      .eq('course_slug', courseSlug)
+      .select(
+        'slug, title, eyebrow, est_minutes, blocks, module_sort, sort, is_free_preview',
+      )
+      .eq('course_slug', canonicalCourseSlug)
       .eq('status', 'published')
       .order('module_sort')
       .order('sort')
@@ -233,7 +286,7 @@ export async function getLesson(courseSlug: string, lessonSlug: string): Promise
 
     return {
       slug: l.slug,
-      courseSlug,
+      courseSlug: canonicalCourseSlug,
       eyebrow: l.eyebrow ?? '',
       title: l.title,
       estMinutes: l.est_minutes,

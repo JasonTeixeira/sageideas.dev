@@ -7,7 +7,7 @@ import { LAB_TRACKS, type LabProject, type LabTrack } from '@/data/academy/labs'
 
 const INK = '#F2EFE9'
 const DIM = '#9C9CA6'
-const FAINT = '#5A5A64'
+const FAINT = '#9598A2'
 const LINE = '#1E1E24'
 const BLUE = '#3D5AFE'
 const GREEN = '#18B663'

@@ -125,7 +125,7 @@
     "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
     "organization": "Lewis et al. (Facebook AI Research / UCL) - arXiv preprint / NeurIPS 2020",
     "url": "https://arxiv.org/abs/2005.11401",
-    "source_tier": 2,
+    "source_tier": 1,
     "retrieved_at": "2026-07-03",
     "version": "arXiv:2005.11401 (2020)",
     "excerpt": "models which combine pre-trained parametric and non-parametric memory for language generation",
@@ -136,10 +136,65 @@
     "title": "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
     "organization": "Es et al. (Exploding Gradients) - arXiv preprint",
     "url": "https://arxiv.org/abs/2309.15217",
-    "source_tier": 2,
+    "source_tier": 1,
     "retrieved_at": "2026-07-03",
     "version": "arXiv:2309.15217 (2023)",
     "excerpt": "We introduce Ragas (Retrieval Augmented Generation Assessment), a framework for reference-free evaluation of Retrieval Augmented Generation (RAG) pipelines.",
     "keywords": ["ragas", "rag evaluation", "faithfulness", "reference-free", "llm judge", "eval dataset"]
+  },
+  {
+    "source_id": "openai-retrieval-guide-2026",
+    "title": "Retrieval guide",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/retrieval",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for vector stores, semantic search, ranking controls, attributes, and retrieval results.",
+    "keywords": ["retrieval", "vector stores", "ranking", "metadata"]
+  },
+  {
+    "source_id": "openai-evaluation-best-practices-2026",
+    "title": "Evaluation best practices",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/evaluation-best-practices",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party methods for defining eval objectives, representative datasets, metrics, comparisons, and continuous evaluation.",
+    "keywords": ["evaluation", "datasets", "regression", "metrics"]
+  },
+  {
+    "source_id": "openai-trace-grading-2026",
+    "title": "Trace grading",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/trace-grading",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for evaluating agent traces, tool decisions, handoffs, and workflow-level behavior.",
+    "keywords": ["trace grading", "agent evaluation", "trajectory"]
+  },
+  {
+    "source_id": "openai-agent-safety-2026",
+    "title": "Safety in building agents",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/agent-builder-safety",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party safety guidance for prompt injection, structured outputs, approvals, guardrails, and agent evals.",
+    "keywords": ["agent safety", "prompt injection", "guardrails", "approvals"]
+  },
+  {
+    "source_id": "json-schema-core-2020-12",
+    "title": "JSON Schema Core 2020-12",
+    "organization": "JSON Schema",
+    "url": "https://json-schema.org/draft/2020-12/json-schema-core.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Draft 2020-12",
+    "excerpt": "Normative core specification for JSON Schema vocabularies, validation semantics, identifiers, and references.",
+    "keywords": ["json schema", "structured outputs", "validation"]
   }
 ]

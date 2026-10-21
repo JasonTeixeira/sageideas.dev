@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import { NextResponse } from 'next/server';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
@@ -7,27 +6,30 @@ import {
   getOrCreateCustomer,
   isStripeConfigured,
 } from '@/lib/stripe/client';
+import {
+  assertSupabaseSuccess,
+  billingIdempotencyKey,
+  isInvoicePayable,
+  toPositiveIntegerCents,
+} from '@/lib/billing/integrity';
+import { canonicalSiteOrigin } from '@/lib/security/site-origin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-type LineItem = {
-  description: string;
-  quantity: number | string;
-  unit_price: number | string;
-  amount: number | string;
-};
 
 type Invoice = {
   id: string;
   number: string | null;
   status: string | null;
   total: number | string | null;
-  amount: number | string | null;
+  amount_due: number | string | null;
+  currency: string | null;
+  stripe_checkout_session_id: string | null;
   organization_id: string;
 };
 
 export async function POST(req: Request) {
+  const ctx = await getPortalContext();
   if (!isStripeConfigured()) {
     console.warn('[stripe/checkout] STRIPE_SECRET_KEY missing');
     return NextResponse.json(
@@ -48,12 +50,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'invoice_id required' }, { status: 400 });
   }
 
-  const ctx = await getPortalContext();
   const sb = supabaseAdmin();
 
   const { data: invoiceRow, error: invErr } = await sb
     .from('invoices')
-    .select('id, number, status, total, amount, organization_id')
+    .select('id, number, status, total, amount_due, currency, stripe_checkout_session_id, organization_id')
     .eq('id', invoiceId)
     .maybeSingle();
 
@@ -70,70 +71,38 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  if (invoice.status === 'paid') {
+  if (!isInvoicePayable(invoice.status)) {
     return NextResponse.json(
-      { error: 'Invoice already paid' },
+      { error: 'Invoice is not payable' },
       { status: 409 },
     );
   }
 
-  const { data: itemsRows, error: itemsErr } = await sb
-    .from('invoice_line_items')
-    .select('description, quantity, unit_price, amount')
-    .eq('invoice_id', invoice.id)
-    .order('position', { ascending: true });
-
-  if (itemsErr) {
-    console.error('[stripe/checkout] items lookup', itemsErr);
-    return NextResponse.json({ error: 'Lookup failed' }, { status: 500 });
+  const totalCents = toPositiveIntegerCents(invoice.total ?? invoice.amount_due ?? 0);
+  if (totalCents === null) {
+    return NextResponse.json({ error: 'Invoice total is invalid' }, { status: 400 });
+  }
+  const currency = (invoice.currency ?? 'usd').toLowerCase();
+  if (!/^[a-z]{3}$/.test(currency)) {
+    return NextResponse.json({ error: 'Invoice currency is invalid' }, { status: 400 });
   }
 
-  const items = (itemsRows ?? []) as LineItem[];
-  let stripeLineItems: Array<{
-    quantity: number;
-    price_data: {
-      currency: string;
-      unit_amount: number;
-      product_data: { name: string };
-    };
-  }>;
-
-  if (items.length > 0) {
-    stripeLineItems = items.map((li) => {
-      const qty = Math.max(1, Math.round(Number(li.quantity ?? 1)));
-      const unitDollars = Number(li.unit_price ?? 0);
-      const unitCents = Math.round(unitDollars * 100);
-      return {
-        quantity: qty,
-        price_data: {
-          currency: 'usd',
-          unit_amount: unitCents,
-          product_data: { name: li.description?.slice(0, 250) || 'Service' },
-        },
-      };
-    });
-  } else {
-    const total = Number(invoice.total ?? invoice.amount ?? 0);
-    if (!total) {
-      return NextResponse.json(
-        { error: 'Invoice has no line items and no total' },
-        { status: 400 },
+  const stripe = getStripe();
+  if (invoice.stripe_checkout_session_id) {
+    try {
+      const existingSession = await stripe.checkout.sessions.retrieve(
+        invoice.stripe_checkout_session_id,
       );
+      if (existingSession.status === 'open' && existingSession.url) {
+        return NextResponse.json({ url: existingSession.url, reused: true });
+      }
+      if (existingSession.status === 'complete') {
+        return NextResponse.json({ error: 'Invoice checkout is already complete' }, { status: 409 });
+      }
+    } catch (error) {
+      console.error('[stripe/checkout] existing session lookup', error);
+      return NextResponse.json({ error: 'Unable to verify existing checkout' }, { status: 502 });
     }
-    stripeLineItems = [
-      {
-        quantity: 1,
-        price_data: {
-          currency: 'usd',
-          unit_amount: Math.round(total * 100),
-          product_data: {
-            name: invoice.number
-              ? `Invoice ${invoice.number}`
-              : `Invoice ${invoice.id.slice(0, 8)}`,
-          },
-        },
-      },
-    ];
   }
 
   let customerId: string;
@@ -147,23 +116,40 @@ export async function POST(req: Request) {
     );
   }
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ??
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    new URL(req.url).origin;
+  const requestUrl = new URL(req.url);
+  const baseUrl = canonicalSiteOrigin({
+    configured: process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXT_PUBLIC_SITE_URL,
+    forwardedHost: requestUrl.host,
+    forwardedProto: requestUrl.protocol.slice(0, -1),
+    production: process.env.NODE_ENV === 'production',
+  });
 
   try {
-    const stripe = getStripe();
-    // Stable key per (user, invoice) — repeated POSTs from a refreshed page
-    // collapse to one Stripe session instead of opening N parallel ones.
-    const idempotencyKey = createHash('sha256')
-      .update(`invoice:${invoice.id}:${ctx.user.clerk_id}`)
-      .digest('hex');
+    // Every invoice has one active checkout. An expired session becomes the
+    // generation token for its replacement while concurrent requests collapse.
+    const idempotencyKey = billingIdempotencyKey(
+      'invoice-checkout',
+      invoice.id,
+      invoice.stripe_checkout_session_id ?? 'initial',
+    );
     const session = await stripe.checkout.sessions.create(
       {
         mode: 'payment',
         customer: customerId,
-        line_items: stripeLineItems,
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency,
+              unit_amount: totalCents,
+              product_data: {
+                name: invoice.number
+                  ? `Invoice ${invoice.number}`
+                  : `Invoice ${invoice.id.slice(0, 8)}`,
+              },
+            },
+          },
+        ],
         success_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${baseUrl}/portal/invoices/${invoice.id}/pay/cancel`,
         metadata: { invoice_id: invoice.id },
@@ -174,10 +160,11 @@ export async function POST(req: Request) {
       { idempotencyKey },
     );
 
-    await sb
+    const persistence = await sb
       .from('invoices')
       .update({ stripe_checkout_session_id: session.id })
       .eq('id', invoice.id);
+    assertSupabaseSuccess(persistence, 'invoice checkout session persistence');
 
     return NextResponse.json({ url: session.url });
   } catch (err) {

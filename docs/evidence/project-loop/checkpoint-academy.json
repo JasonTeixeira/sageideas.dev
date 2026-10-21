@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:7eb6433720d9527a6ace3a3a788b20235ddabe03d682fd0dc89da082e8f5c418",
+  "workstreamId": "academy",
+  "commit": "a775a20a0f44344e9eeb986eea574a659e067d5c",
+  "generatedAt": "2026-09-04T19:26:43.679Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "210 Academy curriculum/certification tests, 11 Academy program-loop tests, 9 registry tests, and 51 secure evaluator boundary tests passed; the audit covered 32 courses and 640 lessons"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 repository unit tests passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 16-command canonical observer"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; 51 evaluator tests prove fail-closed request signing, path confinement, private-test isolation, digest-pinned runtimes, resource limits, teardown, receipt binding, and practice-only fallback"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "No Academy course was certified and no percentile or mastery outcome was claimed",
+    "No lab was activated as trusted controlled runtime and no mastery receipt was written",
+    "No hosted media or external source URL was asserted reachable from deterministic offline evidence",
+    "No subject-matter expert correctness or pedagogy review was inferred",
+    "No human UX, visual, assistive-technology, or learner-beta review was inferred",
+    "No deployment, credential, database, push, payment, or other external mutation was performed"
+  ]
+}

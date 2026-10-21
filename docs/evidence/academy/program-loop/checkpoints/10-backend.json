@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-backend_engineering",
+  "baselineRegistryVersion": "sha256:1f9a2c17738c89c931c6ef6c8d7a0a6ef50dfc8648b9b010ed45c585ec3fc145",
+  "registryVersion": "sha256:703a26bc4b9a92d9dae63e0ee05b7838b4f87aa9def71ac5905db2e72715dbc6",
+  "commit": "4a023bef",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/backend-mastery.test.ts", "result": "6/6 tests passed on each run; 20/20 references matched exact output" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons audited; Backend deterministic score 100; no H1, H3, H4, or H5" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 410 labs" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 static pages generated" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped course diff" }
+  },
+  "scoreDelta": { "before": 88.9, "after": 100, "meaning": "deterministic checks only; not a composite or certification score" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundary": { "command": "npm audit --omit=dev --audit-level=high", "status": "pre_existing_failure", "result": "13 production dependency advisories: 11 high and 2 moderate; no dependency files changed" }
+}

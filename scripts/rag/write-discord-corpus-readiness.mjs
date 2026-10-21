@@ -238,6 +238,7 @@ async function main() {
       'Do not treat raw discord_messages rows as authoritative RAG sources.',
       'Do not treat captured or pending content queue rows as approved knowledge.',
       'Do not count smoke-created and cleaned-up RAG rows as live corpus volume.',
+      'Do not count seeded internal starter knowledge as organic member corpus volume.',
       'Do not improve RAG corpus quality score until real approved Discord knowledge reaches the target and is synced.',
     ],
     nextOperatingProofRequired: [
@@ -247,7 +248,7 @@ async function main() {
       'With explicit approval, rerun non-dry RAG eval and final scorecard after sync.',
     ],
     failures,
-    releaseMeaning: 'Discord corpus readiness proves approved-only ingestion wiring, admin surfaces, smoke proof paths, and current empty-corpus blockers. It does not mutate Supabase, sync live RAG, create knowledge rows, or prove real corpus volume.',
+    releaseMeaning: 'Discord corpus readiness proves approved-only ingestion wiring, admin surfaces, smoke proof paths, and current empty-corpus blockers. It does not mutate Supabase, sync live RAG, or create knowledge rows. It does not claim organic member corpus volume.',
   };
   evidence.validation = validateDiscordCorpusReadiness(evidence);
 

@@ -1,5 +1,5 @@
 // #5 Agents — CLEAR (TEACHING_CLARITY.md)
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn what an AI agent actually is — and how to build one that gets things done without going off the rails. By the end, you'll understand the simple loop that powers every agent, and the safety rails every good one needs."],
   ['02', "Let me start with what's new here. A normal chatbot just answers questions. An agent is different — an agent takes actions. It books the flight, files the ticket, runs the query. And the moment an AI can act in the real world, it can also mess up in ways a chatbot never could."],
   ['03', "So here's the core idea: an agent is a loop. Not one answer — a loop. It thinks, it takes an action, it looks at the result, and then it thinks again using what it just learned. It repeats that until the job is done."],
@@ -12,3 +12,5 @@ export default [
   ['10', "So let's recap. An agent is a loop: think, act, observe, repeat. It acts using tools you give it. You keep it safe with a leash — step limits, allowed tools, and a budget. And you log every step so you can see what it did."],
   ['11', "If you want to build a real, safe agent yourself, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

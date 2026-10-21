@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { safeRelativeRedirect } from '@/lib/security/safe-redirect';
 import { BrandPanel, SageLogo } from '@/components/auth/brand-panel';
 import { GradientMesh } from '@/components/auth/gradient-mesh';
 import { MfaChallengeForm } from './mfa-challenge-form';
@@ -17,7 +18,7 @@ type Props = {
 
 export default async function MfaStepUpPage({ searchParams }: Props) {
   const sp = await searchParams;
-  const next = sp.next && sp.next.startsWith('/') ? sp.next : '/admin';
+  const next = safeRelativeRedirect(sp.next, '/admin');
 
   const supabase = await createSupabaseServerClient();
   const {

@@ -1,0 +1,31 @@
+{
+  "packageScripts": {
+    "build": "next build",
+    "lint": "eslint .",
+    "test:unit": "node tests/unit/run.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "app/page.tsx",
+    "app/api/health/route.ts",
+    "supabase/migrations/0001_accounts.sql",
+    "supabase/migrations/0002_profiles.sql",
+    "tests/unit/run.mjs"
+  ],
+  "workstreams": [
+    { "id": "repository-foundation", "dependsOn": [], "boundary": "safe_local" },
+    { "id": "build-quality", "dependsOn": ["repository-foundation"], "boundary": "safe_local" },
+    { "id": "staging-validation", "dependsOn": ["build-quality"], "boundary": "external_approval" }
+  ],
+  "commands": [
+    "npm run test:unit",
+    "npm run typecheck",
+    "npm run lint",
+    "npm run build",
+    "git diff --check"
+  ],
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime"
+  }
+}

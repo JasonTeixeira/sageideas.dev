@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:cc7ee4c3452b7ff6ec97a09390881524ae0b463ae04d8e2f31e13b9c0f151d5c",
+  "workstreamId": "data-integrity",
+  "commit": "1495a41fa3a0098c4643cbc8f6ae4a85df131c89",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "8 data-integrity contracts passed, including known-good and deliberately broken fixtures; 129 SQL files audited; 279/279 created tables RLS-covered"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js 16.3.4 production build; desktop and mobile Lighthouse matrices passed"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged added-lines secret scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; dependency audit 0; added-lines Gitleaks 0; remote RLS/seed/cleanup fail closed; credential rotation and hosted restore/RLS proof remain external approval gates"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "supersededBy": "checkpoint-data-integrity-correction.json",
+  "supersessionReason": "The original checkpoint omitted the two foundational supabase/schema_part*.sql files from its immutable baseline."
+}

@@ -1,0 +1,63 @@
+{
+  "course": {
+    "slug": "fixture-good",
+    "aliases": [],
+    "title": "Controlled Good Fixture",
+    "topic": "testing",
+    "level": "Beginner",
+    "lifecycleStatus": "draft",
+    "routes": {
+      "course": "/academy/course/fixture-good",
+      "learn": "/academy/learn/fixture-good"
+    },
+    "sources": { "ledger": "fixture" },
+    "lessons": [
+      {
+        "slug": "complete-loop",
+        "title": "Complete Loop",
+        "moduleTitle": "Module 1",
+        "moduleSort": 1,
+        "sort": 1
+      }
+    ]
+  },
+  "lessons": {
+    "complete-loop": [
+      { "type": "sprint-contract", "outcome": "Build and verify a small deterministic program.", "intensity": "standard", "time": "60 minutes", "proof": "A passing test transcript.", "unlock": "The transcript proves the expected result." },
+      { "type": "mission", "text": "Turn an assertion into executable proof." },
+      { "type": "context", "text": "Deterministic checks make regressions visible." },
+      { "type": "pretest", "prompt": "What makes a test trustworthy?", "reveal": "It fails for the intended defect and passes for the intended behavior." },
+      { "type": "worked-example", "intro": "A tiny addition function is checked against a known result.", "steps": ["Write the behavior.", "Run the assertion.", "Capture the result."], "commonMistake": "Writing only a happy-path assertion without proving the failure mode." },
+      { "type": "concept", "text": "A useful test distinguishes correct behavior from a realistic defect." },
+      { "type": "diagram", "title": "Test feedback loop", "nodes": [{ "id": "red", "label": "Fail" }, { "id": "green", "label": "Pass" }], "edges": [{ "from": "red", "to": "green" }], "storyboard": [{ "say": "The failing assertion becomes passing evidence after the behavior is implemented.", "nodes": ["red", "green"], "edges": [["red", "green"]] }] },
+      { "type": "lab", "title": "Add two values", "summary": "Implement addition and print the verified result.", "language": "js", "starter": "const add = (a, b) => 0\nconsole.log(add(2, 3))", "check": "5" },
+      { "type": "debug", "symptom": "The assertion reports zero.", "brokenCode": "const add = () => 0", "task": "Repair the implementation.", "fix": "Return a + b." },
+      { "type": "tradeoff", "question": "Should this test use a network service?", "optionA": { "label": "Local", "text": "Fast and deterministic." }, "optionB": { "label": "Network", "text": "More integration coverage but less determinism." }, "guidance": "Use the smallest boundary that proves the behavior under test." },
+      { "type": "quiz", "question": "What proves this test is meaningful?", "options": ["It is long", "It catches the seeded defect", "It uses a network"], "answer": 1, "explanation": "A regression test must distinguish the known defect from correct behavior." },
+      { "type": "verification", "items": ["The seeded defect fails.", "The correct implementation passes."] },
+      { "type": "teachback", "prompts": ["Explain why the test is deterministic."] },
+      { "type": "transfer", "text": "Apply the same fail-then-pass proof to another pure function." },
+      { "type": "spaced-review", "schedule": ["1 day", "7 days"] },
+      { "type": "unlock-gate", "criteria": ["A reviewer can reproduce the test result."] }
+    ]
+  },
+  "solutions": {
+    "complete-loop": { "language": "js", "code": "const add = (a, b) => a + b\nconsole.log(add(2, 3))" }
+  },
+  "sourceLedger": [
+    { "source_id": "fixture-primary", "title": "Fixture Primary Source", "organization": "Fixture Standards", "url": "https://example.com/fixture-primary", "source_tier": 1, "retrieved_at": "2026-08-27", "excerpt": "A deterministic fixture statement." }
+  ],
+  "evidence": {
+    "complete-loop": {
+      "claimCoverageComplete": true,
+      "claimRefs": [{ "claim": "Deterministic checks make regressions visible.", "sourceIds": ["fixture-primary"] }],
+      "lab": { "trust": "controlled_evaluator", "results": [{ "blockIndex": 7, "status": "pass" }] },
+      "accessibility": { "status": "pass", "axe": "pass", "keyboardFocus": "pass", "screenReader": "pass", "reducedMotion": "pass", "zoomReflow": "pass", "targetSize": "pass", "critical": 0, "serious": 0 },
+      "media": { "status": "not_applicable" },
+      "performance": { "status": "pass" },
+      "consistency": { "status": "pass" },
+      "expert": { "contentCorrectness": "pass", "pedagogy": "pass" },
+      "human": { "visual": "pass", "ux": "pass" }
+    }
+  }
+}

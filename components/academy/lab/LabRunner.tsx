@@ -39,16 +39,13 @@ export function LabRunner({
   const [status, setStatus] = useState<Status>('loading')
   // `passed`/`verified` are driven ONLY by the server verdict — never a client match.
   const [passed, setPassed] = useState(false)
+  const [verificationMessage, setVerificationMessage] = useState<string | null>(null)
   const [verifying, setVerifying] = useState(false)
   const [completed, setCompleted] = useState(false)
   const [completing, startComplete] = useTransition()
   const { play } = useSound()
   const runtimeRef = useRef<LabRuntime | null>(null)
   const gutterRef = useRef<HTMLDivElement | null>(null)
-  // The exact stdout buffer from the most recent run — submitted to the server so
-  // it can verify the lab against the server-held `check` string. The expected
-  // value never reaches the client.
-  const lastOutputRef = useRef<string>('')
 
   useEffect(() => {
     let cancelled = false
@@ -81,19 +78,29 @@ export function LabRunner({
     }
     // Capture the stdout for server-side verification. Running fresh code
     // invalidates any prior verdict — the learner must re-verify.
-    lastOutputRef.current = buf
     setPassed(false)
+    setVerificationMessage(null)
     setStatus('ready')
   }
 
-  // Server-authoritative verdict: submit the captured stdout; the server re-runs
-  // the comparison against its own `check` and returns the only pass/fail that counts.
+  // Server-authoritative verdict: submit source code, never learner-controlled
+  // stdout. The isolated evaluator executes it against private cases.
   const verify = async () => {
     if (verifying || passed) return
     setVerifying(true)
     try {
-      const { verified } = await verifyLab(courseSlug, lessonSlug, lastOutputRef.current)
+      const result = await verifyLab(courseSlug, lessonSlug, code)
+      const { verified } = result
       setPassed(verified)
+      setVerificationMessage(
+        verified
+          ? 'Private cases passed in the controlled evaluator.'
+          : result.reason === 'private_spec_missing'
+            ? 'Practice run saved locally. This lab has no trusted private test pack yet, so it cannot prove mastery.'
+            : result.reason === 'rate_limited'
+              ? 'Too many checks. Wait a minute and try again.'
+              : 'Practice feedback only — no mastery evidence was recorded.',
+      )
       if (verified) {
         // Subtle mobile haptic + opt-in success tone on the primary completion
         // moment. Both are no-ops under reduced-motion / when unsupported.
@@ -159,7 +166,7 @@ export function LabRunner({
               <button
                 type="button"
                 className={styles.reset}
-                onClick={() => { setCode(starter); setOutput(null); setPassed(false); lastOutputRef.current = '' }}
+                onClick={() => { setCode(starter); setOutput(null); setPassed(false); setVerificationMessage(null) }}
               >
                 <Icon name="refresh" size={13} /> Reset
               </button>
@@ -229,8 +236,8 @@ export function LabRunner({
                 </span>
                 <span className={styles.checkText}>
                   {passed
-                    ? 'Solution verified — checked server-side, can’t be faked.'
-                    : 'Run your code, then check your solution against the server.'}
+                    ? 'Solution verified by private tests in the controlled evaluator.'
+                    : verificationMessage ?? 'Run your code, then check it against private server-owned tests.'}
                 </span>
               </div>
 

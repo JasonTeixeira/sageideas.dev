@@ -1,0 +1,182 @@
+[
+  {
+    "source_id": "rfc-9110-http-semantics",
+    "title": "RFC 9110: HTTP Semantics",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["HTTP", "contract", "intermediary", "idempotency"]
+  },
+  {
+    "source_id": "rfc-9111-http-caching",
+    "title": "RFC 9111: HTTP Caching",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9111.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["cache", "freshness", "validation", "invalidation"]
+  },
+  {
+    "source_id": "openapi-specification",
+    "title": "OpenAPI Specification",
+    "organization": "OpenAPI Initiative",
+    "url": "https://spec.openapis.org/oas/latest.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["API", "contract", "schema", "compatibility"]
+  },
+  {
+    "source_id": "postgresql-transaction-isolation",
+    "title": "PostgreSQL: Transaction Isolation",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["transaction", "isolation", "consistency", "serializable"]
+  },
+  {
+    "source_id": "postgresql-partitioning",
+    "title": "PostgreSQL: Table Partitioning",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["partitioning", "pruning", "migration", "hotspot"]
+  },
+  {
+    "source_id": "aws-caching-strategies",
+    "title": "Caching Challenges and Strategies",
+    "organization": "Amazon Web Services",
+    "url": "https://aws.amazon.com/builders-library/caching-challenges-and-strategies/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["cache", "stampede", "load amplification", "resilience"]
+  },
+  {
+    "source_id": "aws-timeouts-retries-jitter",
+    "title": "Timeouts, Retries, and Backoff with Jitter",
+    "organization": "Amazon Web Services",
+    "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["timeout", "retry", "backoff", "jitter"]
+  },
+  {
+    "source_id": "aws-adr-guidance",
+    "title": "Architectural Decision Records",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/introduction.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["ADR", "decision", "tradeoff", "consequence"]
+  },
+  {
+    "source_id": "aws-sqs-visibility-timeout",
+    "title": "Amazon SQS Visibility Timeout",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["queue", "redelivery", "idempotency", "visibility timeout"]
+  },
+  {
+    "source_id": "aws-sqs-dead-letter-queues",
+    "title": "Amazon SQS Dead-Letter Queues",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["DLQ", "poison message", "redrive", "operability"]
+  },
+  {
+    "source_id": "google-sre-slos",
+    "title": "Google SRE: Service Level Objectives",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/service-level-objectives/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["SLI", "SLO", "error budget", "latency"]
+  },
+  {
+    "source_id": "google-sre-monitoring",
+    "title": "Google SRE: Monitoring Distributed Systems",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["monitoring", "latency", "traffic", "saturation"]
+  },
+  {
+    "source_id": "google-cloud-architecture-framework",
+    "title": "Google Cloud Well-Architected Framework",
+    "organization": "Google Cloud",
+    "url": "https://cloud.google.com/architecture/framework",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["architecture", "reliability", "security", "cost"]
+  },
+  {
+    "source_id": "aws-well-architected-framework",
+    "title": "AWS Well-Architected Framework",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["architecture", "operations", "reliability", "performance"]
+  },
+  {
+    "source_id": "azure-well-architected-framework",
+    "title": "Azure Well-Architected Framework",
+    "organization": "Microsoft",
+    "url": "https://learn.microsoft.com/en-us/azure/well-architected/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["architecture", "reliability", "security", "optimization"]
+  },
+  {
+    "source_id": "nist-zero-trust-architecture",
+    "title": "NIST SP 800-207: Zero Trust Architecture",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["zero trust", "identity", "policy", "boundary"]
+  },
+  {
+    "source_id": "owasp-threat-modeling",
+    "title": "OWASP Threat Modeling",
+    "organization": "OWASP",
+    "url": "https://owasp.org/www-community/Threat_Modeling",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["threat model", "trust boundary", "abuse", "mitigation"]
+  },
+  {
+    "source_id": "opentelemetry-specification",
+    "title": "OpenTelemetry Specification",
+    "organization": "Cloud Native Computing Foundation",
+    "url": "https://opentelemetry.io/docs/specs/otel/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["telemetry", "trace", "metric", "log"]
+  },
+  {
+    "source_id": "kubernetes-architecture",
+    "title": "Kubernetes Cluster Architecture",
+    "organization": "Cloud Native Computing Foundation",
+    "url": "https://kubernetes.io/docs/concepts/architecture/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["control plane", "node", "decomposition", "resilience"]
+  },
+  {
+    "source_id": "finops-framework",
+    "title": "FinOps Framework",
+    "organization": "FinOps Foundation",
+    "url": "https://www.finops.org/framework/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["cost", "unit economics", "optimization", "governance"]
+  }
+]

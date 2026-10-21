@@ -274,7 +274,7 @@ export function LessonEditor({
                     <textarea className={styles.textarea} value={b.summary} onChange={(e) => updateBlock(i, { summary: e.target.value })} placeholder="What the learner builds…" />
                     <textarea className={`${styles.textarea} ${styles.mono}`} value={b.starter} onChange={(e) => updateBlock(i, { starter: e.target.value })} placeholder="Starter code…" style={{ minHeight: 120 }} />
                     <div className={styles.field}>
-                      <span className={styles.label}>Checkpoint — text the output must contain (optional)</span>
+                      <span className={styles.label}>Expected output (practice-only feedback; trusted mastery uses private server checks)</span>
                       <input className={`${styles.input} ${styles.mono}`} value={b.check ?? ''} onChange={(e) => updateBlock(i, { check: e.target.value })} placeholder="You got it!" />
                     </div>
                   </>

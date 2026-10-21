@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       if (orchResult.ok === true) {
         return NextResponse.json({ ok: true });
       }
-      return NextResponse.json({ ok: true, queued: true });
+      return NextResponse.json({ ok: false, error: 'email_delivery_unavailable' }, { status: 503 });
     }
   } catch (err) {
     console.warn('[welcome-email] orchestrator path failed, falling back:', err instanceof Error ? err.message : err);
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   const result = await sendWelcomeEmail({ to, fullName });
   if (!result.ok) {
-    return NextResponse.json({ ok: true, queued: true });
+    return NextResponse.json({ ok: false, error: 'email_delivery_unavailable' }, { status: 503 });
   }
   return NextResponse.json({ ok: true });
 }

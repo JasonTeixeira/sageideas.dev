@@ -1,15 +1,16 @@
 {
   "ci": {
     "collect": {
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "startServerCommand": "node scripts/serve-prod.mjs",
       "startServerReadyPattern": "ready - serving Next.js",
       "startServerReadyTimeout": 60000,
       "url": [
         "http://127.0.0.1:4173/",
         "http://127.0.0.1:4173/services",
-        "http://127.0.0.1:4173/pricing",
         "http://127.0.0.1:4173/work",
+        "http://127.0.0.1:4173/pricing",
+        "http://127.0.0.1:4173/blog",
         "http://127.0.0.1:4173/contact"
       ],
       "settings": {
@@ -24,8 +25,12 @@
         },
         "throttling": {
           "rttMs": 40,
-          "throughputKbps": 10240,
-          "cpuSlowdownMultiplier": 4
+          "throughputKbps": 10240
+        },
+        "cpuCalibration": {
+          "enabled": true,
+          "runs": 3,
+          "strategy": "lighthouse-official-mid-tier-mobile-v1"
         },
         "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
       }
@@ -35,7 +40,10 @@
         "categories:performance": ["warn", { "minScore": 0.7 }],
         "categories:accessibility": ["error", { "minScore": 0.95 }],
         "categories:best-practices": ["error", { "minScore": 0.90 }],
-        "categories:seo": ["error", { "minScore": 0.95 }]
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 300 }]
       }
     },
     "upload": {

@@ -18,17 +18,21 @@
  * Input file: data/academy/authoring/<course_slug>.lessons.json
  *   — a map { "<lesson-slug>": LessonBlock[] }.
  *
- * Upsert metadata (course/slug/title/module/sort) comes from
- * data/academy/authoring/manifest.json — NEVER from the JSON. A lesson slug that is
- * not in the manifest is an ERROR (prevents creating stray rows). Slugs and sorts
- * are preserved exactly. Idempotent: upsert on (course_slug, slug).
+ * Upsert metadata (course/slug/title/module/sort) comes from the generated
+ * data/academy/registry.json — NEVER from the lesson JSON or the compatibility-only
+ * legacy manifest. A lesson slug that is not in the registry is an ERROR (prevents
+ * creating stray rows). Slugs and sorts are preserved exactly. Idempotent: upsert
+ * on (course_slug, slug).
  */
 
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import type { LessonBlock } from '@/data/academy/sample-course'
-import { validateBlocks, countVisualBlocks } from '@/lib/academy/validate-blocks'
+import {
+  validateBlocks,
+  countVisualBlocks,
+} from '@/lib/academy/validate-blocks'
 
 const VISUAL_FLOOR = 3
 
@@ -39,11 +43,24 @@ type ManifestEntry = {
   moduleTitle: string
   moduleSort: number
   sort: number
-  sourceMdPath: string
 }
 
+type RegistryCourse = {
+  slug: string
+  aliases: string[]
+  lessons: Array<{
+    slug: string
+    title: string
+    moduleTitle: string
+    moduleSort: number
+    sort: number
+  }>
+}
+
+type AcademyRegistry = { courses: RegistryCourse[] }
+
 const ROOT = process.cwd()
-const MANIFEST_PATH = path.join(ROOT, 'data/academy/authoring/manifest.json')
+const REGISTRY_PATH = path.join(ROOT, 'data/academy/registry.json')
 
 function lessonsJsonPath(courseSlug: string): string {
   return path.join(ROOT, 'data/academy/authoring', `${courseSlug}.lessons.json`)
@@ -54,8 +71,13 @@ function readJson<T>(filePath: string): T {
   return JSON.parse(raw) as T
 }
 
-function loadManifest(): ManifestEntry[] {
-  return readJson<ManifestEntry[]>(MANIFEST_PATH)
+function loadRegistryCourse(identity: string): RegistryCourse | null {
+  const registry = readJson<AcademyRegistry>(REGISTRY_PATH)
+  const course = registry.courses.find(
+    (candidate) =>
+      candidate.slug === identity || candidate.aliases.includes(identity),
+  )
+  return course ?? null
 }
 
 // ── self-test (no DB) ─────────────────────────────────────────────────────────
@@ -106,16 +128,26 @@ function runSelfTest(): never {
   const bad = validateBlocks(invalidBlocks)
 
   const goodPass = good.ok === true
-  const badPass = bad.ok === false && bad.errors.some((e) => e.includes("edge 1 missing 'to'"))
+  const badPass =
+    bad.ok === false &&
+    bad.errors.some((e) => e.includes("edge 1 missing 'to'"))
 
   console.log('— validate-blocks self-test —')
-  console.log(`valid blocks  → ok=${good.ok} (expected true)  ${goodPass ? 'PASS' : 'FAIL'}`)
+  console.log(
+    `valid blocks  → ok=${good.ok} (expected true)  ${goodPass ? 'PASS' : 'FAIL'}`,
+  )
   if (!good.ok) console.log('  unexpected errors:', good.errors)
-  console.log(`invalid block → ok=${bad.ok} (expected false) ${badPass ? 'PASS' : 'FAIL'}`)
+  console.log(
+    `invalid block → ok=${bad.ok} (expected false) ${badPass ? 'PASS' : 'FAIL'}`,
+  )
   if (!bad.ok) console.log('  caught:', bad.errors)
 
   const allPass = goodPass && badPass
-  console.log(allPass ? '\nSELF-TEST PASS — validator catches a missing required field.' : '\nSELF-TEST FAIL')
+  console.log(
+    allPass
+      ? '\nSELF-TEST PASS — validator catches a missing required field.'
+      : '\nSELF-TEST FAIL',
+  )
   process.exit(allPass ? 0 : 1)
 }
 
@@ -136,23 +168,34 @@ function main(): void {
   }
 
   const shouldApply = args.includes('--apply')
-  const courseSlug = args.find((a) => !a.startsWith('--'))
+  const requestedCourseSlug = args.find((a) => !a.startsWith('--'))
 
-  if (!courseSlug) {
-    console.error('Usage: tsx --env-file=.env.local scripts/academy/authoring/apply-course.ts <course_slug> [--apply]')
-    console.error('       tsx scripts/academy/authoring/apply-course.ts --self-test')
+  if (!requestedCourseSlug) {
+    console.error(
+      'Usage: tsx --env-file=.env.local scripts/academy/authoring/apply-course.ts <course_slug> [--apply]',
+    )
+    console.error(
+      '       tsx scripts/academy/authoring/apply-course.ts --self-test',
+    )
     process.exit(1)
   }
 
-  // 1. Load manifest → index by (courseSlug, slug). Only entries for THIS course.
-  const manifest = loadManifest()
+  // 1. Load canonical registry → index by lesson slug for THIS course.
+  const registryCourse = loadRegistryCourse(requestedCourseSlug)
+  if (!registryCourse) {
+    console.error(
+      `No canonical registry entries found for course '${requestedCourseSlug}'. Check the slug.`,
+    )
+    process.exit(1)
+  }
+  const courseSlug = registryCourse.slug
+  const manifest: ManifestEntry[] = registryCourse.lessons.map((lesson) => ({
+    courseSlug,
+    ...lesson,
+  }))
   const manifestBySlug = new Map<string, ManifestEntry>()
   for (const e of manifest) {
     if (e.courseSlug === courseSlug) manifestBySlug.set(e.slug, e)
-  }
-  if (manifestBySlug.size === 0) {
-    console.error(`No manifest entries found for course '${courseSlug}'. Check the slug.`)
-    process.exit(1)
   }
 
   // 2. Load authored lessons JSON: { "<lesson-slug>": LessonBlock[] }.
@@ -161,11 +204,19 @@ function main(): void {
   try {
     authored = readJson<Record<string, unknown>>(jsonPath)
   } catch (err) {
-    console.error(`Could not read ${jsonPath}: ${err instanceof Error ? err.message : String(err)}`)
+    console.error(
+      `Could not read ${jsonPath}: ${err instanceof Error ? err.message : String(err)}`,
+    )
     process.exit(1)
   }
-  if (typeof authored !== 'object' || authored === null || Array.isArray(authored)) {
-    console.error(`${jsonPath} must be a JSON object mapping lesson-slug → LessonBlock[].`)
+  if (
+    typeof authored !== 'object' ||
+    authored === null ||
+    Array.isArray(authored)
+  ) {
+    console.error(
+      `${jsonPath} must be a JSON object mapping lesson-slug → LessonBlock[].`,
+    )
     process.exit(1)
   }
 
@@ -183,7 +234,9 @@ function main(): void {
   for (const slug of slugs) {
     const entry = manifestBySlug.get(slug)
     if (!entry) {
-      fatalErrors.push(`lesson '${slug}': not in manifest for course '${courseSlug}' — refusing to create a stray row`)
+      fatalErrors.push(
+        `lesson '${slug}': not in canonical registry for course '${courseSlug}' — refusing to create a stray row`,
+      )
       continue
     }
 
@@ -195,7 +248,9 @@ function main(): void {
 
     const visualCount = countVisualBlocks(result.blocks)
     if (visualCount < VISUAL_FLOOR) {
-      warnings.push(`lesson '${slug}': only ${visualCount} visual block(s) (< ${VISUAL_FLOOR} floor)`)
+      warnings.push(
+        `lesson '${slug}': only ${visualCount} visual block(s) (< ${VISUAL_FLOOR} floor)`,
+      )
     }
 
     plans.push({ slug, entry, blocks: result.blocks, visualCount })
@@ -203,7 +258,9 @@ function main(): void {
 
   // 4. Fail closed: any validation/manifest error → print all, write nothing.
   if (fatalErrors.length > 0) {
-    console.error(`\nVALIDATION FAILED (${fatalErrors.length} error(s)) — NOTHING was written:\n`)
+    console.error(
+      `\nVALIDATION FAILED (${fatalErrors.length} error(s)) — NOTHING was written:\n`,
+    )
     for (const e of fatalErrors) console.error(`  ✗ ${e}`)
     if (warnings.length > 0) {
       console.error(`\nWarnings (non-blocking):`)
@@ -214,12 +271,16 @@ function main(): void {
 
   // 5. DRY RUN (default): report what would upsert.
   if (!shouldApply) {
-    console.log(`DRY RUN — course '${courseSlug}' (${plans.length} lesson(s)). No DB writes.\n`)
+    console.log(
+      `DRY RUN — course '${courseSlug}' (${plans.length} lesson(s)). No DB writes.\n`,
+    )
     for (const p of plans) {
       console.log(
         `  • ${p.slug.padEnd(40)} blocks=${String(p.blocks.length).padStart(3)}  visual=${String(
           p.visualCount,
-        ).padStart(2)}  module="${p.entry.moduleTitle}" sort=${p.entry.moduleSort}/${p.entry.sort}  validation=OK`,
+        ).padStart(
+          2,
+        )}  module="${p.entry.moduleTitle}" sort=${p.entry.moduleSort}/${p.entry.sort}  validation=OK`,
       )
     }
     if (warnings.length > 0) {
@@ -227,7 +288,9 @@ function main(): void {
       for (const w of warnings) console.log(`    ! ${w}`)
     }
     const totalBlocks = plans.reduce((n, p) => n + p.blocks.length, 0)
-    console.log(`\nSummary: ${plans.length} lesson(s) would upsert · ${totalBlocks} total blocks · 0 validation failures`)
+    console.log(
+      `\nSummary: ${plans.length} lesson(s) would upsert · ${totalBlocks} total blocks · 0 validation failures`,
+    )
     console.log(`Re-run with --apply to write.`)
     process.exit(0)
   }
@@ -236,15 +299,23 @@ function main(): void {
   void applyAll(courseSlug, plans, warnings)
 }
 
-async function applyAll(courseSlug: string, plans: LessonPlan[], warnings: string[]): Promise<void> {
+async function applyAll(
+  courseSlug: string,
+  plans: LessonPlan[],
+  warnings: string[],
+): Promise<void> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) {
-    console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY (load .env.local with --env-file).')
+    console.error(
+      'Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY (load .env.local with --env-file).',
+    )
     process.exit(1)
   }
 
-  const sb = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
+  const sb = createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
 
   let applied = 0
   let totalBlocks = 0
@@ -274,12 +345,16 @@ async function applyAll(courseSlug: string, plans: LessonPlan[], warnings: strin
     totalBlocks += p.blocks.length
   }
 
-  console.log(`APPLIED — course '${courseSlug}': upserted ${applied} lesson(s), ${totalBlocks} total blocks.`)
+  console.log(
+    `APPLIED — course '${courseSlug}': upserted ${applied} lesson(s), ${totalBlocks} total blocks.`,
+  )
   if (warnings.length > 0) {
     console.log(`Warnings (non-blocking — visual-first floor):`)
     for (const w of warnings) console.log(`  ! ${w}`)
   }
-  console.log(`Summary: ${applied} applied · ${totalBlocks} blocks · 0 validation failures`)
+  console.log(
+    `Summary: ${applied} applied · ${totalBlocks} blocks · 0 validation failures`,
+  )
   process.exit(0)
 }
 

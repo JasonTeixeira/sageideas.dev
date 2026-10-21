@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "generatedAt": "2026-09-04T22:55:00.000Z",
+  "status": "pass_local_code_review",
+  "scope": [
+    "canonical admin role and MFA boundary",
+    "admin and Academy-authoring page protection",
+    "Academy content and certificate server actions",
+    "all admin API route guards and mutation audit calls",
+    "project status-report input and failure handling",
+    "Academy lab trust copy and persistence boundary",
+    "email delivery idempotency, retry, and dead letters",
+    "signed email webhook replay and payload bounds",
+    "Academy nurture sequence delivery truth",
+    "Discord durable jobs, privacy, and observability",
+    "accessibility and performance audit contract",
+    "isolated local browser and Lighthouse execution",
+    "semantic and visual authentication and checkout changes",
+    "public health and telemetry privacy boundaries",
+    "Sentry event scrubbing and trace sampling",
+    "alert, incident, rollback, and recovery contracts",
+    "release manifest, evidence hashing, and checkpoint reconciliation",
+    "Git ancestry and external approval boundaries"
+  ],
+  "proof": {
+    "adminContracts": "5 passed, 0 failed; 36 privileged files audited with 0 findings",
+    "securityTests": "15 passed, 0 failed",
+    "unitTests": "334 passed, 0 failed",
+    "canonicalObserver": "23 passed, 0 failed",
+    "typecheck": "pass",
+    "lint": "pass with 0 errors and 0 warnings",
+    "productionBuild": "pass",
+    "dependencyAudit": "0 vulnerabilities across production and development dependency graphs",
+    "communicationsContracts": "4 passed, 0 failed; source audit found 0 issues",
+    "communicationsSqlIntegration": "migration 0122 passed against disposable PostgreSQL 17",
+    "dataIntegrity": "117 ordered migrations; 297/297 created tables with RLS",
+    "discordReadiness": "durable jobs, security/privacy, and observability validators passed in local-file-evidence mode",
+    "accessibilityContracts": "4 passed, 0 failed; known-good and deliberately broken fixtures proved",
+    "accessibilityBrowser": "13 passed, 0 failed across route, keyboard, reduced-motion, mobile-overflow, landmark, and WCAG 2.2 AA checks",
+    "desktopLighthouse": "6 public routes passed accessibility >= 0.95, LCP <= 2500 ms, CLS <= 0.1, and TBT <= 200 ms",
+    "mobileLighthouse": "6 public routes passed accessibility >= 0.95, LCP <= 2500 ms, CLS <= 0.1, and TBT <= 300 ms",
+    "observabilityRecoveryContracts": "6 passed, 0 failed; deliberately broken contract, telemetry privacy, alerts, recovery evidence, and repository audit proved",
+    "releaseReadinessContracts": "3 passed, 0 failed; stale evidence, trust fabrication, secret values, skipped boundaries, hashes, and ancestry are fail-closed",
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime"
+  },
+  "remediatedFindings": [
+    {
+      "severity": "high",
+      "code": "academy_role_source_split",
+      "resolution": "Academy authoring now derives privilege only from profiles.app_role and repeats the production MFA check server-side."
+    },
+    {
+      "severity": "high",
+      "code": "academy_admin_middleware_split",
+      "resolution": "Both admin page families now share the canonical role, MFA, and idle-session boundary."
+    },
+    {
+      "severity": "high",
+      "code": "academy_input_validation_missing",
+      "resolution": "Strict bounded schemas and runtime block validation now run before every Academy service-role content write."
+    },
+    {
+      "severity": "high",
+      "code": "admin_audit_missing",
+      "resolution": "The project status-report route and all Academy content mutations now emit actor-bound audit events."
+    },
+    {
+      "severity": "high",
+      "code": "substring_lab_copy",
+      "resolution": "The authoring UI explicitly labels expected output as practice-only and reserves trusted mastery for private server checks."
+    },
+    {
+      "severity": "high",
+      "code": "email_false_queue",
+      "resolution": "Missing provider configuration and failed sends are represented as failures or dead letters, never as an unpersisted queue."
+    },
+    {
+      "severity": "high",
+      "code": "email_idempotency_missing",
+      "resolution": "All direct Resend email paths now use the canonical sender or explicit provider idempotency keys."
+    },
+    {
+      "severity": "high",
+      "code": "webhook_replay_protection_missing",
+      "resolution": "Signed webhook events are claimed through an atomic database lease and completed duplicates are acknowledged exactly once."
+    },
+    {
+      "severity": "high",
+      "code": "email_retry_policy_missing",
+      "resolution": "Delivery attempts use bounded exponential backoff and transition to a durable dead letter after three attempts or a permanent failure."
+    },
+    {
+      "severity": "high",
+      "code": "public_health_privilege_and_disclosure",
+      "resolution": "Public readiness now uses an anonymous bounded probe, removes service-role access, and returns only safe error codes."
+    },
+    {
+      "severity": "high",
+      "code": "telemetry_sensitive_data_retention",
+      "resolution": "Telemetry and Sentry events now minimize URLs, redact common secrets/PII, bound metrics and sampling, and suppress privileged request fields."
+    },
+    {
+      "severity": "high",
+      "code": "observability_false_green",
+      "resolution": "Query failures return unavailable/503 and no-sample states remain unknown; the diagnostic ratio is no longer presented as a true error-rate SLO."
+    },
+    {
+      "severity": "high",
+      "code": "release_evidence_unbound",
+      "resolution": "The release gate now reconciles all local checkpoints, re-hashes required evidence, validates Git ancestry, rejects secret values, and preserves every external approval boundary."
+    }
+  ],
+  "unresolvedCriticalOrHigh": [],
+  "devOnlyExceptions": [],
+  "externalEvidencePending": [
+    "Exercise a real production-equivalent MFA session in isolated staging.",
+    "Verify hosted audit-log persistence and alerting under database failure conditions.",
+    "Exercise Academy content and certificate writes against an isolated staging database.",
+    "Apply migration 0122 and exercise signed Resend delivery, failure, and replay events in isolated staging.",
+    "Observe real scheduled Discord jobs, retries, dead letters, and alerts over an operating window.",
+    "Complete assistive-technology and disabled-user testing plus a field Core Web Vitals observation window.",
+    "Configure and prove alert delivery/escalation plus release-correlated scrubbed Sentry events in isolated staging.",
+    "Perform approved isolated deployment rollback and database/storage recovery drills with measured evidence.",
+    "Obtain CI/code-host review plus staging, controlled evaluator, expert, accessibility, and learner-beta evidence before any production approval.",
+    "No database, credential, deployment, push, payment, or other external mutation was performed."
+  ]
+}

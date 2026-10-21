@@ -68,18 +68,19 @@ function finiteNumber(value: unknown): number | null {
 }
 
 const requiredOperatingChannels = [
-  'announcements',
-  'introductions',
   'daily-signal',
-  'questions',
+  'the-floor',
   'build-lab',
   'project-submissions',
   'review-queue',
-  'content-queue',
-  'office-hours',
-  'accountability',
+  'challenges',
+  'quiz-room',
+  'weekly-recap',
   'resources',
-  'wins-showcase',
+  'saved-answers',
+  'playbooks',
+  'live-room',
+  'office-hours',
 ];
 
 function buildChannelCadence(drafts: any[]): DiscordContentFactoryReadinessReport['channelCadence'] {

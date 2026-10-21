@@ -6,6 +6,11 @@ import {
   getOrCreateCustomer,
   isStripeConfigured,
 } from '@/lib/stripe/client';
+import {
+  assertSupabaseSuccess,
+  billingIdempotencyKey,
+  toPositiveIntegerCents,
+} from '@/lib/billing/integrity';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,10 +18,10 @@ export const dynamic = 'force-dynamic';
 type Interval = 'day' | 'week' | 'month' | 'year';
 
 export async function POST(req: Request) {
+  await requireAdmin();
   if (!isStripeConfigured()) {
     return NextResponse.json({ error: 'Stripe not configured' }, { status: 503 });
   }
-  await requireAdmin();
 
   let body: {
     engagement_id?: string;
@@ -34,6 +39,8 @@ export async function POST(req: Request) {
 
   const engagementId = body.engagement_id?.trim();
   const priceAmount = Number(body.price_amount);
+  const normalizedPriceAmount = toPositiveIntegerCents(priceAmount / 100);
+  const currency = (body.currency ?? 'usd').trim().toLowerCase();
   const rawInterval = (body.interval ?? '').toLowerCase();
   // Map "quarter" → month with interval_count 3 since Stripe doesn't support quarter directly.
   let interval: Interval;
@@ -60,18 +67,31 @@ export async function POST(req: Request) {
   if (!engagementId) {
     return NextResponse.json({ error: 'engagement_id required' }, { status: 400 });
   }
-  if (!priceAmount || priceAmount <= 0) {
+  if (normalizedPriceAmount === null || normalizedPriceAmount !== priceAmount) {
     return NextResponse.json({ error: 'price_amount (cents) required' }, { status: 400 });
+  }
+  if (!/^[a-z]{3}$/.test(currency)) {
+    return NextResponse.json({ error: 'currency must be a three-letter code' }, { status: 400 });
+  }
+  if (!Number.isInteger(intervalCount) || intervalCount < 1 || intervalCount > 12) {
+    return NextResponse.json({ error: 'interval_count must be an integer from 1 to 12' }, { status: 400 });
   }
 
   const sb = supabaseAdmin();
-  const { data: eng } = await sb
+  const engagementLookup = await sb
     .from('engagements')
-    .select('id, organization_id, title')
+    .select('id, organization_id, title, stripe_subscription_id')
     .eq('id', engagementId)
     .maybeSingle();
+  const eng = assertSupabaseSuccess(engagementLookup, 'subscription engagement lookup');
   if (!eng) {
     return NextResponse.json({ error: 'Engagement not found' }, { status: 404 });
+  }
+  if (eng.stripe_subscription_id) {
+    return NextResponse.json(
+      { error: 'Engagement already has a Stripe subscription' },
+      { status: 409 },
+    );
   }
 
   let customerId: string;
@@ -84,32 +104,49 @@ export async function POST(req: Request) {
 
   const stripe = getStripe();
   try {
-    const product = await stripe.products.create({
-      name: body.description ?? eng.title ?? 'Engagement subscription',
-      metadata: { engagement_id: eng.id, organization_id: eng.organization_id },
-    });
+    const product = await stripe.products.create(
+      {
+        name: body.description?.trim().slice(0, 250) || eng.title || 'Engagement subscription',
+        metadata: { engagement_id: eng.id, organization_id: eng.organization_id },
+      },
+      {
+        idempotencyKey: billingIdempotencyKey('engagement-product', eng.id),
+      },
+    );
 
-    const subscription = await stripe.subscriptions.create({
-      customer: customerId,
-      items: [
-        {
-          price_data: {
-            currency: body.currency ?? 'usd',
-            unit_amount: priceAmount,
-            product: product.id,
-            recurring: { interval, interval_count: intervalCount },
+    const subscription = await stripe.subscriptions.create(
+      {
+        customer: customerId,
+        items: [
+          {
+            price_data: {
+              currency,
+              unit_amount: normalizedPriceAmount,
+              product: product.id,
+              recurring: { interval, interval_count: intervalCount },
+            },
           },
-        },
-      ],
-      metadata: { engagement_id: eng.id, organization_id: eng.organization_id },
-    });
+        ],
+        metadata: { engagement_id: eng.id, organization_id: eng.organization_id },
+      },
+      {
+        idempotencyKey: billingIdempotencyKey(
+          'engagement-subscription',
+          eng.id,
+          normalizedPriceAmount,
+          currency,
+          interval,
+          intervalCount,
+        ),
+      },
+    );
 
     const item = subscription.items.data[0];
     const price = item?.price;
     const periodEndUnix = (subscription as typeof subscription & { current_period_end?: number })
       .current_period_end;
 
-    await sb.from('stripe_subscriptions').upsert(
+    const subscriptionPersistence = await sb.from('stripe_subscriptions').upsert(
       {
         engagement_id: eng.id,
         organization_id: eng.organization_id,
@@ -120,14 +157,15 @@ export async function POST(req: Request) {
           ? new Date(periodEndUnix * 1000).toISOString()
           : null,
         cancel_at_period_end: subscription.cancel_at_period_end ?? false,
-        price_amount: price?.unit_amount ?? priceAmount,
-        price_currency: price?.currency ?? body.currency ?? 'usd',
+        price_amount: price?.unit_amount ?? normalizedPriceAmount,
+        price_currency: price?.currency ?? currency,
         interval: price?.recurring?.interval ?? interval,
       },
       { onConflict: 'stripe_subscription_id' },
     );
+    assertSupabaseSuccess(subscriptionPersistence, 'subscription persistence');
 
-    await sb
+    const engagementPersistence = await sb
       .from('engagements')
       .update({
         stripe_subscription_id: subscription.id,
@@ -141,6 +179,7 @@ export async function POST(req: Request) {
                 : 'monthly',
       })
       .eq('id', eng.id);
+    assertSupabaseSuccess(engagementPersistence, 'engagement subscription persistence');
 
     return NextResponse.json({
       subscription_id: subscription.id,

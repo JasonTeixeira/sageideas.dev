@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "generatedAt": "2026-08-28T21:49:04.908Z",
+  "baselineRegistryVersion": "sha256:5c7ce476d1e41e251525749bacddbdf2ce516128257cbb3c96acebcc29fb72ee",
+  "registryVersion": "sha256:fbcfb4642f5f5239fa36e072fc24f3a9cbe19afc03b43261bbc863222edce828",
+  "commit": "2f21f3464088",
+  "catalog": {
+    "courses": 32,
+    "lessons": 640,
+    "labs": 640,
+    "labReferences": 640,
+    "missingLabReferences": 0,
+    "sourceLedgers": 32
+  },
+  "scores": {
+    "minimum": 90,
+    "average": 98.365625
+  },
+  "hardFailCounts": {
+    "H1": 0,
+    "H2": 640,
+    "H3": 0,
+    "H4": 0,
+    "H5": 0
+  },
+  "decisionCounts": {
+    "eligible": 0,
+    "blocked": 32,
+    "remediation": 0,
+    "pending": 0,
+    "certified": 0
+  },
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "consecutivePasses": 3,
+      "command": "npx tsx --test tests/academy/foundation-closure.test.ts",
+      "result": "5/5 on each run; all 640 labs have exact references and all 32 courses have source ledgers"
+    },
+    "academyAudit": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:audit:test && npm run academy:audit:all",
+      "result": "210/210 tests; 32 courses and 640 lessons audited; minimum deterministic score 90; only 640 expected H2 blockers"
+    },
+    "registryCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run academy:registry:check",
+      "result": "32 courses / 640 lessons / 640 labs / 640 references / 32 source ledgers"
+    },
+    "typecheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run typecheck",
+      "result": "0 TypeScript errors"
+    },
+    "build": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "npm run build",
+      "result": "Next.js production build passed; 407 pages"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "consecutivePasses": 1,
+      "command": "git diff --check",
+      "result": "clean scoped diff; generator idempotence and 73/73 unique foundation source URL checks passed"
+    }
+  },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReviewDimensions": [
+    "accessibility",
+    "consistency",
+    "content_correctness",
+    "controlled_lab_runtime",
+    "human_learner_outcomes",
+    "immutable_releases",
+    "media",
+    "pedagogy",
+    "performance",
+    "sources",
+    "ux",
+    "visual"
+  ],
+  "inheritedRepositoryBoundaries": {
+    "dependencyAudit": "npm audit reports 21 inherited advisories: 18 high, 2 moderate, 1 low; no dependency files changed in this program",
+    "fullLint": "repository-wide lint reports 6 inherited errors and 25 warnings in untouched UI and interview files; all changed-file lint checks passed"
+  },
+  "externalApprovalBoundaries": [
+    "push",
+    "deploy",
+    "publish",
+    "supabase_mutation",
+    "credentials",
+    "paid_actions"
+  ]
+}

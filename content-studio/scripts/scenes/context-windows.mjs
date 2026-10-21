@@ -1,5 +1,5 @@
 // #8 Context windows — CLEAR
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn what a context window is, and how to use it the right way — so your AI actually finds the answer instead of getting lost. This one small idea fixes a huge number of AI bugs."],
   ['02', "Let me start with the problem. You wanted to be safe, so you pasted a hundred pages of documents into the prompt. And the AI still missed the one line that mattered. More text did not help — it actually hurt."],
   ['03', "So here's the core idea. The context window is simply how much the AI can see at one time. It's a fixed budget of tokens — think of tokens as pieces of words. Everything the AI knows in this moment has to fit inside that window."],
@@ -11,3 +11,5 @@ export default [
   ['09', "So let's recap. Retrieve only what's relevant. Order it by importance. Compress long history. And put what matters most at the edges, not the middle. A small, well-packed window beats a giant, noisy one every time."],
   ['10', "If you want to learn to use the context window like a pro, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

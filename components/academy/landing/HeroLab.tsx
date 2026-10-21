@@ -219,7 +219,7 @@ export function HeroLab() {
             </Link>
           </span>
         ) : (
-          <span style={{ ...mono, fontSize: 10.5, color: '#5A5A64', marginLeft: 'auto' }}>
+          <span style={{ ...mono, fontSize: 10.5, color: C.dim, marginLeft: 'auto' }}>
             {t('real runtime · in a lesson this check is server-verified')}
           </span>
         )}

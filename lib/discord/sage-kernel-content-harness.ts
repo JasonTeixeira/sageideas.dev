@@ -113,6 +113,8 @@ const CHANNEL_PURPOSES: Record<string, string> = {
 
 export async function buildSageKernelContentHarness(options: {
   sourceRoot?: string;
+  sourceFiles?: readonly SourceFile[];
+  sourceCommit?: string;
   maxFiles?: number;
   candidateLimit?: number;
   draftLimit?: number;
@@ -124,11 +126,13 @@ export async function buildSageKernelContentHarness(options: {
   const generatedAt = new Date().toISOString();
   const failures: string[] = [];
 
-  let files: SourceFile[] = [];
-  try {
-    files = await collectSourceFiles(sourceRoot, { maxFiles });
-  } catch (error) {
-    failures.push(error instanceof Error ? error.message : String(error));
+  let files: SourceFile[] = options.sourceFiles ? options.sourceFiles.map((file) => ({ ...file })) : [];
+  if (!options.sourceFiles) {
+    try {
+      files = await collectSourceFiles(sourceRoot, { maxFiles });
+    } catch (error) {
+      failures.push(error instanceof Error ? error.message : String(error));
+    }
   }
 
   const inventory = buildInventory(files);
@@ -164,7 +168,7 @@ export async function buildSageKernelContentHarness(options: {
     sourceRoot,
     mutationMode: 'read_only_external_repo_and_local_file_evidence_only',
     releaseMeaning: 'This harness reads the local sage-kernel clone and writes local evidence/draft packets only. It does not write Supabase rows, approve Discord knowledge, post to Discord, sync RAG, deploy, push, or satisfy live operating proof.',
-    sourceCommit: await readGitHead(sourceRoot),
+    sourceCommit: options.sourceCommit ?? await readGitHead(sourceRoot),
     inventory,
     readiness: {
       score: readinessScore,

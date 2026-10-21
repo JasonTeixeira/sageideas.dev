@@ -105,7 +105,9 @@ const nextConfig: NextConfig = {
       "base-uri 'self'",
       "object-src 'none'",
     ].join('; ')
-    const cspEnforce = process.env.CSP_ENFORCE === 'true'
+    // Production must fail closed. Local/preview environments can opt in while
+    // tightening directives without weakening the deployed security boundary.
+    const cspEnforce = process.env.NODE_ENV === 'production' || process.env.CSP_ENFORCE === 'true'
     const cspKey = cspEnforce
       ? 'Content-Security-Policy'
       : 'Content-Security-Policy-Report-Only'

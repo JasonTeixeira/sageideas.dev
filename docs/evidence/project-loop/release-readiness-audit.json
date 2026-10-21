@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:40:13.191Z",
+  "status": "pass",
+  "manifestStatus": "local_production_candidate",
+  "findingCount": 0,
+  "findings": [],
+  "externalMutationPerformed": false
+}

@@ -1,0 +1,222 @@
+[
+  {
+    "source_id": "openai-agents-guide",
+    "title": "Agents guide",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/agents",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for constructing agent workflows from models, tools, knowledge, logic, and guardrails.",
+    "keywords": ["agents", "tools", "guardrails"]
+  },
+  {
+    "source_id": "openai-function-calling",
+    "title": "Function calling",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/function-calling",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party contract for declaring tools, receiving calls, executing handlers, and returning tool outputs.",
+    "keywords": ["function calling", "tool schema", "tool output"]
+  },
+  {
+    "source_id": "openai-structured-outputs",
+    "title": "Structured outputs",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/structured-outputs",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for constraining model responses and function arguments to JSON Schema.",
+    "keywords": ["JSON Schema", "structured outputs", "validation"]
+  },
+  {
+    "source_id": "openai-agent-safety",
+    "title": "Safety in building agents",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/agent-builder-safety",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party safety guidance covering prompt injection, structured outputs, approvals, guardrails, and evals for agents.",
+    "keywords": ["prompt injection", "approvals", "agent safety"]
+  },
+  {
+    "source_id": "openai-evaluation-best-practices",
+    "title": "Evaluation best practices",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/evaluation-best-practices",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party methods for defining eval objectives, datasets, metrics, comparisons, and continuous evaluation.",
+    "keywords": ["evaluation", "regression", "metrics"]
+  },
+  {
+    "source_id": "openai-trace-grading",
+    "title": "Trace grading",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/trace-grading",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party guidance for grading an agent's end-to-end trace rather than only its final answer.",
+    "keywords": ["trace grading", "trajectory", "agent evaluation"]
+  },
+  {
+    "source_id": "openai-tools-guide",
+    "title": "Using tools",
+    "organization": "OpenAI",
+    "url": "https://platform.openai.com/docs/guides/tools",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party overview of built-in, function, remote MCP, and connector tools available to model-driven applications.",
+    "keywords": ["tools", "MCP", "connectors"]
+  },
+  {
+    "source_id": "anthropic-tool-use-overview",
+    "title": "Tool use overview",
+    "organization": "Anthropic",
+    "url": "https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party description of client and server tool execution, schemas, tool-use blocks, and tool-result blocks.",
+    "keywords": ["tool use", "tool result", "agent loop"]
+  },
+  {
+    "source_id": "anthropic-tool-implementation",
+    "title": "How to implement tool use",
+    "organization": "Anthropic",
+    "url": "https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/implement-tool-use",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "First-party implementation guidance for tool definitions, execution loops, result pairing, and errors.",
+    "keywords": ["dispatcher", "tool errors", "tool loop"]
+  },
+  {
+    "source_id": "anthropic-building-effective-agents",
+    "title": "Building effective agents",
+    "organization": "Anthropic",
+    "url": "https://www.anthropic.com/research/building-effective-agents",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "research guidance",
+    "excerpt": "First-party engineering guidance distinguishing workflows from agents and describing routing, parallelization, orchestration, and evaluator patterns.",
+    "keywords": ["agent patterns", "workflows", "orchestration"]
+  },
+  {
+    "source_id": "mcp-tools-spec",
+    "title": "Model Context Protocol tools specification",
+    "organization": "Model Context Protocol",
+    "url": "https://modelcontextprotocol.io/specification/draft/server/tools",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "draft specification",
+    "excerpt": "Protocol requirements for discovering, describing, invoking, validating, and approving model-controlled tools.",
+    "keywords": ["MCP", "tool schema", "human in the loop"]
+  },
+  {
+    "source_id": "mcp-authorization-spec",
+    "title": "Model Context Protocol authorization specification",
+    "organization": "Model Context Protocol",
+    "url": "https://modelcontextprotocol.io/specification/draft/basic/authorization",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "draft specification",
+    "excerpt": "Protocol requirements for OAuth discovery, resource binding, scope selection, token validation, and retry bounds.",
+    "keywords": ["authorization", "least privilege", "OAuth"]
+  },
+  {
+    "source_id": "mcp-security-best-practices",
+    "title": "Model Context Protocol security best practices",
+    "organization": "Model Context Protocol",
+    "url": "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "draft specification",
+    "excerpt": "Protocol security guidance for confused-deputy risks, token passthrough, session handling, consent, and access control.",
+    "keywords": ["security", "consent", "token passthrough"]
+  },
+  {
+    "source_id": "json-schema-core",
+    "title": "JSON Schema Core 2020-12",
+    "organization": "JSON Schema",
+    "url": "https://json-schema.org/draft/2020-12/json-schema-core.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Draft 2020-12",
+    "excerpt": "Normative core specification for JSON Schema vocabularies, validation semantics, identifiers, and references.",
+    "keywords": ["JSON Schema", "contract", "validation"]
+  },
+  {
+    "source_id": "json-schema-object-reference",
+    "title": "JSON Schema object reference",
+    "organization": "JSON Schema",
+    "url": "https://json-schema.org/understanding-json-schema/reference/object",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living documentation",
+    "excerpt": "Official guidance for object properties, required fields, pattern properties, and additional-property constraints.",
+    "keywords": ["object schema", "required", "additionalProperties"]
+  },
+  {
+    "source_id": "owasp-prompt-injection",
+    "title": "LLM01: Prompt Injection",
+    "organization": "OWASP GenAI Security Project",
+    "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "OWASP LLM Top 10",
+    "excerpt": "Primary community security guidance for direct and indirect prompt injection risks and defense-in-depth mitigations.",
+    "keywords": ["prompt injection", "indirect injection", "least privilege"]
+  },
+  {
+    "source_id": "nist-ai-rmf",
+    "title": "Artificial Intelligence Risk Management Framework 1.0",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "AI RMF 1.0",
+    "excerpt": "Primary NIST framework for governing, mapping, measuring, and managing risks in AI systems.",
+    "keywords": ["risk management", "governance", "measurement"]
+  },
+  {
+    "source_id": "nist-genai-profile",
+    "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NIST AI 600-1",
+    "excerpt": "Primary NIST GenAI profile addressing lifecycle governance, measurement, human oversight, security, and incident response.",
+    "keywords": ["generative AI", "risk", "human oversight"]
+  },
+  {
+    "source_id": "google-a2a-spec",
+    "title": "Agent2Agent protocol specification",
+    "organization": "Linux Foundation Agent2Agent Project",
+    "url": "https://a2a-protocol.org/latest/specification/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living specification",
+    "excerpt": "Primary protocol specification for agent discovery, tasks, messages, artifacts, status, cancellation, and streaming.",
+    "keywords": ["multi-agent", "tasks", "orchestration"]
+  },
+  {
+    "source_id": "w3c-trace-context",
+    "title": "Trace Context",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/TR/trace-context/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "W3C Recommendation",
+    "excerpt": "Normative propagation format for correlating distributed operations into auditable end-to-end traces.",
+    "keywords": ["trace", "observability", "trajectory"]
+  }
+]

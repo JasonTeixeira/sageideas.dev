@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-qa_sdet_test_automation_engineering",
+  "baselineRegistryVersion": "sha256:f2fc24b8f4f80149af591630427bfdb2f03dfe4659fb5a6d67872e14a66157f5",
+  "registryVersion": "sha256:c978ad31603324f82ca6635921281150ad08d2a9f0b275c3d36245275a70b425",
+  "commit": "d5dbbbb1",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": { "status": "pass", "consecutivePasses": 3, "command": "npx tsx --test tests/academy/qa-sdet-mastery.test.ts", "result": "7/7 each run; 20/20 Python references exact; 150 honest narration transcripts retained" },
+    "academyAudit": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:audit:all", "result": "32 courses / 640 lessons; QA/SDET deterministic score 100; no H1, H3, H4, or H5" },
+    "registryCheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run academy:registry:check", "result": "32 courses / 640 lessons / 560 labs" },
+    "typecheck": { "status": "pass", "consecutivePasses": 1, "command": "npm run typecheck", "result": "0 TypeScript errors" },
+    "build": { "status": "pass", "consecutivePasses": 1, "command": "npm run build", "result": "Next.js production build passed; 407 pages" },
+    "diffCheck": { "status": "pass", "consecutivePasses": 1, "command": "git diff --check", "result": "clean scoped diff; changed-file lint, generator idempotence, secret scan, and 20 primary-source reachability checks passed" }
+  },
+  "scoreDelta": { "before": 77.8, "after": 100, "meaning": "deterministic only; not certification" },
+  "hardFailCounts": { "H1": 0, "H2": 20, "H3": 0, "H4": 0, "H5": 0 },
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility", "consistency", "content_correctness", "pedagogy", "performance", "sources", "ux", "visual"],
+  "knownRepositoryBoundaries": [
+    { "command": "npm audit --audit-level=high", "status": "pre_existing_failure", "result": "21 dependency advisories: 18 high, 2 moderate, and 1 low; no dependency files changed" },
+    { "command": "npm run lint", "status": "pre_existing_failure", "result": "6 errors and 25 warnings in untouched files; changed QA/SDET test and authoring script lint clean" }
+  ]
+}

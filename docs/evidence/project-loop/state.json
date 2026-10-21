@@ -1,0 +1,872 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:831a8b962eec5157ce767b2653d5968d2cf677e72d51816e0b1a9da8bde068da",
+  "status": "blocked",
+  "generatedAt": "2026-09-04T15:09:39.153Z",
+  "updatedAt": "2026-09-05T19:40:07.789Z",
+  "queue": [
+    {
+      "id": "repository-foundation",
+      "label": "Repository foundation and canonical truth",
+      "dependsOn": [],
+      "boundary": "safe_local",
+      "scope": [
+        "repository",
+        "configuration",
+        "inventory",
+        "dependency graph",
+        "program state"
+      ],
+      "sequence": 1
+    },
+    {
+      "id": "build-quality",
+      "label": "Build, tests, lint, types, and dependency health",
+      "dependsOn": [
+        "repository-foundation"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "build",
+        "unit tests",
+        "integration tests",
+        "lint",
+        "typecheck",
+        "dependencies"
+      ],
+      "sequence": 2
+    },
+    {
+      "id": "auth-security",
+      "label": "Authentication, authorization, and application security",
+      "dependsOn": [
+        "build-quality"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "auth",
+        "authorization",
+        "sessions",
+        "input validation",
+        "security controls"
+      ],
+      "sequence": 3
+    },
+    {
+      "id": "data-integrity",
+      "label": "Data model, migrations, RLS, and persistence integrity",
+      "dependsOn": [
+        "auth-security"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "Supabase",
+        "migrations",
+        "RLS",
+        "data contracts",
+        "backup design"
+      ],
+      "sequence": 4
+    },
+    {
+      "id": "billing",
+      "label": "Billing and entitlement correctness",
+      "dependsOn": [
+        "auth-security",
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "checkout",
+        "webhooks",
+        "entitlements",
+        "refund states",
+        "billing tests"
+      ],
+      "sequence": 5
+    },
+    {
+      "id": "critical-user-journeys",
+      "label": "Critical product journeys and failure recovery",
+      "dependsOn": [
+        "billing"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "marketing",
+        "signup",
+        "onboarding",
+        "checkout",
+        "account",
+        "error recovery"
+      ],
+      "sequence": 6
+    },
+    {
+      "id": "academy",
+      "label": "Academy curriculum, assessments, and practice labs",
+      "dependsOn": [
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "courses",
+        "lessons",
+        "assessments",
+        "labs",
+        "accessibility",
+        "sources"
+      ],
+      "sequence": 7
+    },
+    {
+      "id": "admin-portal",
+      "label": "Admin and operator workflows",
+      "dependsOn": [
+        "auth-security",
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "admin",
+        "content operations",
+        "moderation",
+        "auditability"
+      ],
+      "sequence": 8
+    },
+    {
+      "id": "communications-jobs",
+      "label": "Email, Discord, background jobs, and automation",
+      "dependsOn": [
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "email",
+        "Discord",
+        "queues",
+        "idempotency",
+        "retry",
+        "dead letters"
+      ],
+      "sequence": 9
+    },
+    {
+      "id": "accessibility-performance",
+      "label": "Accessibility, responsive UX, and performance",
+      "dependsOn": [
+        "critical-user-journeys",
+        "academy",
+        "admin-portal",
+        "communications-jobs"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "WCAG",
+        "keyboard",
+        "screen reader",
+        "motion",
+        "Core Web Vitals"
+      ],
+      "sequence": 10
+    },
+    {
+      "id": "observability-recovery",
+      "label": "Observability, incident response, and recovery",
+      "dependsOn": [
+        "communications-jobs",
+        "critical-user-journeys"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "logs",
+        "metrics",
+        "alerts",
+        "runbooks",
+        "rollback",
+        "recovery"
+      ],
+      "sequence": 11
+    },
+    {
+      "id": "release-readiness",
+      "label": "Local production-candidate release proof",
+      "dependsOn": [
+        "accessibility-performance",
+        "observability-recovery"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "release manifest",
+        "local gates",
+        "evidence reconciliation",
+        "handoff"
+      ],
+      "sequence": 12
+    },
+    {
+      "id": "staging-validation",
+      "label": "Staging deployment and live integration proof",
+      "dependsOn": [
+        "release-readiness"
+      ],
+      "boundary": "external_approval",
+      "scope": [
+        "deployment",
+        "credentials",
+        "staging database",
+        "live integrations"
+      ],
+      "sequence": 13
+    },
+    {
+      "id": "human-beta-certification",
+      "label": "Required human review and controlled beta",
+      "dependsOn": [
+        "staging-validation"
+      ],
+      "boundary": "human_review",
+      "scope": [
+        "expert review",
+        "learner beta",
+        "certification decision",
+        "launch approval"
+      ],
+      "sequence": 14
+    }
+  ],
+  "completed": [
+    {
+      "workstreamId": "repository-foundation",
+      "status": "green_local_checkpoint",
+      "commit": "44e7cbe1af713ce289feafe412156f4b1a7f7b20",
+      "inventoryHash": "sha256:5e461ccb2212202f51c7ca0e22fb57fe0c7ab9a31e6c060b7f26ff2559c34522",
+      "completedAt": "2026-09-04T15:47:51.827Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "9 Program Loop contract tests"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "0 errors; warnings retained as ranked quality debt"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js 16.3.4 production build, 446 pages"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check and staged diff check"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "production audit 0; gitleaks 0; no unresolved critical/high local code findings"
+        }
+      }
+    },
+    {
+      "workstreamId": "build-quality",
+      "status": "green_local_checkpoint",
+      "commit": "bc5ef2c8dd01746407f017269477d2e1f5c57830",
+      "inventoryHash": "sha256:900ae1ee39386a4b1d7b286ae1e7e008fbff9d55d53f56cb84f4398a9f238416",
+      "completedAt": "2026-09-04T16:21:07.702Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "10 Program Loop contracts, including known-bad fixtures and build-tooling policy"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js 16.3.4 production build: 448 pages; desktop Lighthouse 6/6 and mobile 5/5 routes passed"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check and git diff --cached --check"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "npm audit: 0 production and 0 development vulnerabilities; gitleaks staged scan: 0 leaks; local-only Lighthouse target enforcement"
+        }
+      }
+    },
+    {
+      "workstreamId": "auth-security",
+      "status": "green_local_checkpoint",
+      "commit": "61cdbbba293fc141fb007e57426ba41bb00b91f5",
+      "inventoryHash": "sha256:9162659750ff789c8b4b4c62ebba6aa8057f96923761695c0e85845e1fbeb52c",
+      "completedAt": "2026-09-04T16:46:48.340Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "13 auth and application-security contracts passed; 32 admin, 22 private portal, and 15 cron routes inventoried"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js 16.3.4 production build; desktop and mobile Lighthouse matrices passed"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check and git diff --cached --check"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; npm audit 0; gitleaks 0; CSP/admin-MFA fail closed in production; live follow-up remains approval-bound"
+        }
+      }
+    },
+    {
+      "workstreamId": "data-integrity",
+      "status": "green_local_checkpoint",
+      "commit": "1495a41fa3a0098c4643cbc8f6ae4a85df131c89",
+      "inventoryHash": "sha256:cc7ee4c3452b7ff6ec97a09390881524ae0b463ae04d8e2f31e13b9c0f151d5c",
+      "completedAt": "2026-09-04T17:28:31.891Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "8 data-integrity contracts passed, including known-good and deliberately broken fixtures; 129 SQL files audited; 279/279 created tables RLS-covered"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js 16.3.4 production build; desktop and mobile Lighthouse matrices passed"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged added-lines secret scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; dependency audit 0; added-lines Gitleaks 0; remote RLS/seed/cleanup fail closed; credential rotation and hosted restore/RLS proof remain external approval gates"
+        }
+      }
+    },
+    {
+      "workstreamId": "billing",
+      "status": "green_local_checkpoint",
+      "commit": "e87ea1f8324619722c124921c6f0ccced5ebbdaf",
+      "inventoryHash": "sha256:2115243835ccaf5d4ff7f29106c333d4f2aac53aca842ff800e8560571762ed5",
+      "completedAt": "2026-09-04T18:27:05.080Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "11 billing contracts plus disposable PostgreSQL 17 integration covering durable claims, atomic invoice workflows, refunds, and out-of-order events"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build plus desktop and mobile Lighthouse matrices passed in the 13-command canonical observer"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; durable webhook claims, server-owned amounts and ownership, refund-safe receipts, transactional invoice operations, least-privilege functions, and fail-closed Academy commerce; hosted proof remains approval-bound"
+        }
+      }
+    },
+    {
+      "workstreamId": "critical-user-journeys",
+      "status": "green_local_checkpoint",
+      "commit": "8f062a2982f61984d2fad2a98cea941ecba00454",
+      "inventoryHash": "sha256:9465a2e0c209fde0a5c17af41c81969c54edb0612d9d2d90439129447f372416",
+      "completedAt": "2026-09-04T19:12:58.289Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "11 deterministic journey-contract tests and 6 isolated Playwright browser journeys passed, including safe recovery, review-first checkout, and non-forgeable return states"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 15-command canonical observer"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; secrets remain out of URLs, authentication and origin checks fail closed, checkout requires explicit POST, success requires a durable server-owned receipt, and legacy live E2E paths require explicit approval"
+        }
+      }
+    },
+    {
+      "workstreamId": "academy",
+      "status": "green_local_checkpoint",
+      "commit": "a775a20a0f44344e9eeb986eea574a659e067d5c",
+      "inventoryHash": "sha256:7eb6433720d9527a6ace3a3a788b20235ddabe03d682fd0dc89da082e8f5c418",
+      "completedAt": "2026-09-04T19:27:45.728Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "210 Academy curriculum/certification tests, 11 Academy program-loop tests, 9 registry tests, and 51 secure evaluator boundary tests passed; the audit covered 32 courses and 640 lessons"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 16-command canonical observer"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; 51 evaluator tests prove fail-closed request signing, path confinement, private-test isolation, digest-pinned runtimes, resource limits, teardown, receipt binding, and practice-only fallback"
+        }
+      }
+    },
+    {
+      "workstreamId": "admin-portal",
+      "status": "green_local_checkpoint",
+      "commit": "b3cc7a05ea936fd47315adc7790376757736715e",
+      "inventoryHash": "sha256:54cfbf679598e8baba09a544b630431be404e52c6968f7aac24c32c05e381e3b",
+      "completedAt": "2026-09-04T19:46:08.095Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "5 admin integrity contracts passed; the source audit checked 36 privileged files with zero findings and deliberately broken fixtures failed closed"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 17-command canonical observer"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; canonical profile authorization, production MFA, bounded service-role input, runtime block validation, generic errors, and actor-bound mutation audit contracts are enforced"
+        }
+      }
+    },
+    {
+      "workstreamId": "communications-jobs",
+      "status": "green_local_checkpoint",
+      "commit": "2f150644af361960bb6d004a9f6e73f128611394",
+      "inventoryHash": "sha256:038fe370979f050e66a4189c0dc9660edb3242bf6215ce6bf533add668ec1193",
+      "completedAt": "2026-09-04T20:17:12.887Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "4 communications contracts, migration 0122 disposable PostgreSQL integration, and Discord durability/security/observability validators passed"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 18-command canonical observer"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; bounded inputs, provider/application idempotency, retry/dead-letter policy, signed leased webhook processing, fail-closed persistence, and approval-gated Discord publishing are enforced"
+        }
+      }
+    },
+    {
+      "workstreamId": "accessibility-performance",
+      "status": "green_local_checkpoint",
+      "commit": "a4dc1aec7569633db1fc89fa0d415a1362ab1f1a",
+      "inventoryHash": "sha256:f84001efadb388dc089605bbf7f79130fe44cb7928611ff7e1999f1dea42a884",
+      "completedAt": "2026-09-04T20:49:43.822Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "4 deterministic contracts and 13 isolated browser tests passed; known-good and deliberately broken fixtures proved the gates"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed in the canonical observer"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build and isolated browser route matrix passed"
+        },
+        "accessibility": {
+          "status": "pass",
+          "evidence": "11 required routes passed automated WCAG 2.2 AA, semantic-landmark, keyboard, reduced-motion, zoom, and mobile-overflow contracts"
+        },
+        "performance": {
+          "status": "pass",
+          "evidence": "6 desktop and 6 mobile public routes passed accessibility >= 0.95, LCP <= 2500 ms, CLS <= 0.1, and bounded TBT"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; browser targets are loopback-only, sensitive environment values are blanked, outbound HTTP is blocked, and no auth or payment flow changed"
+        }
+      }
+    },
+    {
+      "workstreamId": "observability-recovery",
+      "status": "green_local_checkpoint",
+      "commit": "07645a53b28881127a09343fc6d46283e8cbbacf",
+      "inventoryHash": "sha256:1f929a1e7a4331b3d2a203854bf20fe70d9dd20f38c25ab7117d578f21881a90",
+      "completedAt": "2026-09-04T21:10:43.320Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "6 observability/recovery contracts passed with known-good and deliberately broken fixtures"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js 16.3.4 production build compiled, typechecked, and generated 447 static pages"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; public health is anonymous/bounded, telemetry and Sentry are minimized/redacted, false-green states are removed, and rollback/recovery remain approval-gated"
+        }
+      }
+    },
+    {
+      "workstreamId": "release-readiness",
+      "status": "green_local_checkpoint",
+      "commit": "4473fb67ab27b8de4878221e1ef1557c367be64c",
+      "inventoryHash": "sha256:150b09036478243b35d7a5387cf18102121935fd1eb95965236b3610042ca18a",
+      "completedAt": "2026-09-04T21:25:29.494Z",
+      "gates": {
+        "focusedTests": {
+          "status": "pass",
+          "evidence": "3 release-readiness tests passed; known-good, deliberately broken, and live gate/hash/ancestry wiring proved"
+        },
+        "unitTests": {
+          "status": "pass",
+          "evidence": "334 repository unit tests passed, 0 failed in the canonical observer"
+        },
+        "typecheck": {
+          "status": "pass",
+          "evidence": "tsc --noEmit"
+        },
+        "lint": {
+          "status": "pass",
+          "evidence": "eslint: 0 errors, 0 warnings"
+        },
+        "build": {
+          "status": "pass",
+          "evidence": "Next.js production build, browser matrices, desktop/mobile Lighthouse, SQL integrations, and all 23 canonical commands passed"
+        },
+        "diffCheck": {
+          "status": "pass",
+          "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+        },
+        "securityReview": {
+          "status": "pass",
+          "evidence": "No unresolved local critical/high finding; release state/checkpoints are reconciled, evidence is re-hashed, Git ancestry is verified, runtime requirements are names-only, and all external actions remain approval-required"
+        }
+      }
+    }
+  ],
+  "current": {
+    "id": "staging-validation",
+    "label": "Staging deployment and live integration proof",
+    "dependsOn": [
+      "release-readiness"
+    ],
+    "boundary": "external_approval",
+    "scope": [
+      "deployment",
+      "credentials",
+      "staging database",
+      "live integrations"
+    ],
+    "sequence": 13,
+    "workstreamId": "staging-validation",
+    "attemptCount": 0,
+    "repeatedFailureCount": 0,
+    "failureFingerprint": null
+  },
+  "stopReason": {
+    "code": "external_approval_boundary",
+    "workstreamId": "staging-validation"
+  },
+  "trustBoundary": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "autonomyBoundary": {
+    "allowed": [
+      "safe_local_code_and_content",
+      "tests",
+      "analysis",
+      "evidence_generation",
+      "green_local_commits"
+    ],
+    "approvalRequired": [
+      "destructive_action",
+      "credentials",
+      "deployment",
+      "external_mutation",
+      "paid_action",
+      "required_human_review"
+    ],
+    "repeatedFailureLimit": 3
+  },
+  "inventoryTransitions": [
+    {
+      "from": "sha256:fd04f7d8209ed8c2a9bfdc47a977260b5810b3463531340b190a5f92995a16fc",
+      "to": "sha256:63ade7a4ef0e8e94a172c1c61fcb54952c045cb2a19c133bb57c619d5358d0c8",
+      "observedAt": "2026-09-04T15:12:35.178Z"
+    },
+    {
+      "from": "sha256:63ade7a4ef0e8e94a172c1c61fcb54952c045cb2a19c133bb57c619d5358d0c8",
+      "to": "sha256:c6b702a853e83d37650121ff8adb592a77f9a90e9f28e376cc09550e661c16ea",
+      "observedAt": "2026-09-04T15:34:36.772Z"
+    },
+    {
+      "from": "sha256:c6b702a853e83d37650121ff8adb592a77f9a90e9f28e376cc09550e661c16ea",
+      "to": "sha256:5e461ccb2212202f51c7ca0e22fb57fe0c7ab9a31e6c060b7f26ff2559c34522",
+      "observedAt": "2026-09-04T15:46:07.122Z"
+    },
+    {
+      "from": "sha256:5e461ccb2212202f51c7ca0e22fb57fe0c7ab9a31e6c060b7f26ff2559c34522",
+      "to": "sha256:900ae1ee39386a4b1d7b286ae1e7e008fbff9d55d53f56cb84f4398a9f238416",
+      "observedAt": "2026-09-04T16:14:19.468Z"
+    },
+    {
+      "from": "sha256:900ae1ee39386a4b1d7b286ae1e7e008fbff9d55d53f56cb84f4398a9f238416",
+      "to": "sha256:9162659750ff789c8b4b4c62ebba6aa8057f96923761695c0e85845e1fbeb52c",
+      "observedAt": "2026-09-04T16:39:02.299Z"
+    },
+    {
+      "from": "sha256:9162659750ff789c8b4b4c62ebba6aa8057f96923761695c0e85845e1fbeb52c",
+      "to": "sha256:75963b559becc82b7961f20acc1cfd52e6604a1101730643a20c0fcfb55aa31e",
+      "observedAt": "2026-09-04T17:10:35.747Z"
+    },
+    {
+      "from": "sha256:75963b559becc82b7961f20acc1cfd52e6604a1101730643a20c0fcfb55aa31e",
+      "to": "sha256:16ba2b9520134d6441702dede0052ac84f56c724bbd590b8e8e76754a6a439a8",
+      "observedAt": "2026-09-04T17:22:08.473Z"
+    },
+    {
+      "from": "sha256:16ba2b9520134d6441702dede0052ac84f56c724bbd590b8e8e76754a6a439a8",
+      "to": "sha256:cc7ee4c3452b7ff6ec97a09390881524ae0b463ae04d8e2f31e13b9c0f151d5c",
+      "observedAt": "2026-09-04T17:27:55.844Z"
+    },
+    {
+      "from": "sha256:cc7ee4c3452b7ff6ec97a09390881524ae0b463ae04d8e2f31e13b9c0f151d5c",
+      "to": "sha256:af868248b5881cc663065acb4a5f0a7d0010382c95bb4aed383f9c6478637def",
+      "observedAt": "2026-09-04T17:50:21.821Z"
+    },
+    {
+      "from": "sha256:af868248b5881cc663065acb4a5f0a7d0010382c95bb4aed383f9c6478637def",
+      "to": "sha256:2115243835ccaf5d4ff7f29106c333d4f2aac53aca842ff800e8560571762ed5",
+      "observedAt": "2026-09-04T17:57:33.244Z"
+    },
+    {
+      "from": "sha256:2115243835ccaf5d4ff7f29106c333d4f2aac53aca842ff800e8560571762ed5",
+      "to": "sha256:1c6266f02d11e8a26a27f1f8974d40c48f0b05c6071580346e9d60dde9991662",
+      "observedAt": "2026-09-04T18:57:11.989Z"
+    },
+    {
+      "from": "sha256:1c6266f02d11e8a26a27f1f8974d40c48f0b05c6071580346e9d60dde9991662",
+      "to": "sha256:9465a2e0c209fde0a5c17af41c81969c54edb0612d9d2d90439129447f372416",
+      "observedAt": "2026-09-04T19:06:40.962Z"
+    },
+    {
+      "from": "sha256:9465a2e0c209fde0a5c17af41c81969c54edb0612d9d2d90439129447f372416",
+      "to": "sha256:7eb6433720d9527a6ace3a3a788b20235ddabe03d682fd0dc89da082e8f5c418",
+      "observedAt": "2026-09-04T19:26:43.765Z"
+    },
+    {
+      "from": "sha256:7eb6433720d9527a6ace3a3a788b20235ddabe03d682fd0dc89da082e8f5c418",
+      "to": "sha256:54cfbf679598e8baba09a544b630431be404e52c6968f7aac24c32c05e381e3b",
+      "observedAt": "2026-09-04T19:44:22.558Z"
+    },
+    {
+      "from": "sha256:54cfbf679598e8baba09a544b630431be404e52c6968f7aac24c32c05e381e3b",
+      "to": "sha256:038fe370979f050e66a4189c0dc9660edb3242bf6215ce6bf533add668ec1193",
+      "observedAt": "2026-09-04T20:09:22.964Z"
+    },
+    {
+      "from": "sha256:038fe370979f050e66a4189c0dc9660edb3242bf6215ce6bf533add668ec1193",
+      "to": "sha256:f84001efadb388dc089605bbf7f79130fe44cb7928611ff7e1999f1dea42a884",
+      "observedAt": "2026-09-04T20:46:14.376Z"
+    },
+    {
+      "from": "sha256:f84001efadb388dc089605bbf7f79130fe44cb7928611ff7e1999f1dea42a884",
+      "to": "sha256:1f929a1e7a4331b3d2a203854bf20fe70d9dd20f38c25ab7117d578f21881a90",
+      "observedAt": "2026-09-04T21:07:33.387Z"
+    },
+    {
+      "from": "sha256:1f929a1e7a4331b3d2a203854bf20fe70d9dd20f38c25ab7117d578f21881a90",
+      "to": "sha256:150b09036478243b35d7a5387cf18102121935fd1eb95965236b3610042ca18a",
+      "observedAt": "2026-09-04T21:22:46.132Z"
+    },
+    {
+      "from": "sha256:150b09036478243b35d7a5387cf18102121935fd1eb95965236b3610042ca18a",
+      "to": "sha256:c67af0e3242f06efd45c5a5f1dd35541c3976d329bf36a800733f3b4224e1efa",
+      "observedAt": "2026-09-05T12:42:14.846Z"
+    },
+    {
+      "from": "sha256:c67af0e3242f06efd45c5a5f1dd35541c3976d329bf36a800733f3b4224e1efa",
+      "to": "sha256:64afc69a0efc3a83956c70c4c9e3fff8aaea05ec69dd68f55a014919592592be",
+      "observedAt": "2026-09-05T12:48:43.876Z"
+    },
+    {
+      "from": "sha256:64afc69a0efc3a83956c70c4c9e3fff8aaea05ec69dd68f55a014919592592be",
+      "to": "sha256:91c113dc3eb9630006a91fd342c2146bd31fefed83e7a3ad4d07dbaab4e74cfc",
+      "observedAt": "2026-09-05T14:40:24.906Z"
+    },
+    {
+      "from": "sha256:91c113dc3eb9630006a91fd342c2146bd31fefed83e7a3ad4d07dbaab4e74cfc",
+      "to": "sha256:7f4d5cf7802b39c37834da54ea728dd031cba5c79320314960a8c548fa656706",
+      "observedAt": "2026-09-05T16:05:14.235Z"
+    },
+    {
+      "from": "sha256:7f4d5cf7802b39c37834da54ea728dd031cba5c79320314960a8c548fa656706",
+      "to": "sha256:2aaebfd64f07966a47bb25a4bceaf8c11e8f228ed99fdf174bbadf2779d58774",
+      "observedAt": "2026-09-05T16:22:05.610Z"
+    },
+    {
+      "from": "sha256:2aaebfd64f07966a47bb25a4bceaf8c11e8f228ed99fdf174bbadf2779d58774",
+      "to": "sha256:86d4fc5d9c57c4cb75b892fbc34e580d4a640b29716ff88412af0f0b8a213a20",
+      "observedAt": "2026-09-05T17:09:46.290Z"
+    },
+    {
+      "from": "sha256:86d4fc5d9c57c4cb75b892fbc34e580d4a640b29716ff88412af0f0b8a213a20",
+      "to": "sha256:1d0527a4e2bb59cf013c2525869189106e4d8be35d78a4a41ee64dc96dd3d7ab",
+      "observedAt": "2026-09-05T18:33:12.458Z"
+    },
+    {
+      "from": "sha256:1d0527a4e2bb59cf013c2525869189106e4d8be35d78a4a41ee64dc96dd3d7ab",
+      "to": "sha256:831a8b962eec5157ce767b2653d5968d2cf677e72d51816e0b1a9da8bde068da",
+      "observedAt": "2026-09-05T19:40:07.789Z"
+    }
+  ]
+}

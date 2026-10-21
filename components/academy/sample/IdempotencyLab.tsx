@@ -136,7 +136,7 @@ export function IdempotencyLab() {
             <Link href="/academy/signup" style={{ ...mono, fontSize: 11.5, fontWeight: 600, color: C.accentInk, textDecoration: 'underline', textUnderlineOffset: 3 }}>keep going, free →</Link>
           </span>
         ) : (
-          <span style={{ ...mono, fontSize: 10.5, color: '#5A5A64', marginLeft: 'auto' }}>real python · hint: track the key in <b style={{ color: C.dim }}>seen</b></span>
+          <span style={{ ...mono, fontSize: 10.5, color: '#9598A2', marginLeft: 'auto' }}>real python · hint: track the key in <b style={{ color: C.dim }}>seen</b></span>
         )}
       </div>
     </figure>

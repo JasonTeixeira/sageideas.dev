@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:038fe370979f050e66a4189c0dc9660edb3242bf6215ce6bf533add668ec1193",
+  "workstreamId": "communications-jobs",
+  "commit": "2f150644af361960bb6d004a9f6e73f128611394",
+  "generatedAt": "2026-09-04T20:17:00.000Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "4 communications contracts, migration 0122 disposable PostgreSQL integration, and Discord durability/security/observability validators passed"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 repository unit tests passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 18-command canonical observer"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; bounded inputs, provider/application idempotency, retry/dead-letter policy, signed leased webhook processing, fail-closed persistence, and approval-gated Discord publishing are enforced"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "Migration 0122 was not applied to a hosted Supabase project",
+    "No Resend email or signed live webhook was sent or received",
+    "No hosted Discord schedule, retry, dead letter, publish, or alert was exercised",
+    "No lab was promoted and no mastery evidence was written",
+    "No credential, deployment, push, payment, or other external mutation was performed"
+  ]
+}

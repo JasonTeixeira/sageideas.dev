@@ -1,0 +1,171 @@
+[
+  {
+    "source_id": "python-tutorial",
+    "title": "The Python Tutorial",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/index.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "Python",
+      "programming",
+      "tutorial"
+    ]
+  },
+  {
+    "source_id": "python-introduction",
+    "title": "An Informal Introduction to Python",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/introduction.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "numbers",
+      "strings",
+      "variables"
+    ]
+  },
+  {
+    "source_id": "python-control-flow",
+    "title": "More Control Flow Tools",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/controlflow.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "conditionals",
+      "loops",
+      "functions"
+    ]
+  },
+  {
+    "source_id": "python-data-structures",
+    "title": "Data Structures",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "lists",
+      "dictionaries",
+      "sets"
+    ]
+  },
+  {
+    "source_id": "python-modules",
+    "title": "Modules",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/modules.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "modules",
+      "packages",
+      "imports"
+    ]
+  },
+  {
+    "source_id": "python-io",
+    "title": "Input and Output",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/inputoutput.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "input",
+      "output",
+      "files"
+    ]
+  },
+  {
+    "source_id": "python-errors",
+    "title": "Errors and Exceptions",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/errors.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "errors",
+      "exceptions",
+      "validation"
+    ]
+  },
+  {
+    "source_id": "python-builtins",
+    "title": "Built-in Functions",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/functions.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "built-ins",
+      "input",
+      "types"
+    ]
+  },
+  {
+    "source_id": "python-json",
+    "title": "JSON Encoder and Decoder",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/json.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "JSON",
+      "serialization",
+      "files"
+    ]
+  },
+  {
+    "source_id": "python-pathlib",
+    "title": "Object-oriented Filesystem Paths",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/pathlib.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "paths",
+      "files",
+      "filesystem"
+    ]
+  },
+  {
+    "source_id": "python-unittest",
+    "title": "Unit Testing Framework",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/unittest.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "testing",
+      "assertions",
+      "fixtures"
+    ]
+  },
+  {
+    "source_id": "python-argparse",
+    "title": "Parser for Command-line Options",
+    "organization": "Python Software Foundation",
+    "url": "https://docs.python.org/3/library/argparse.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "CLI",
+      "arguments",
+      "automation"
+    ]
+  },
+  {
+    "source_id": "python-pep8",
+    "title": "PEP 8 – Style Guide for Python Code",
+    "organization": "Python Software Foundation",
+    "url": "https://peps.python.org/pep-0008/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "style",
+      "readability",
+      "conventions"
+    ]
+  }
+]

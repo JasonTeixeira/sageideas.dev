@@ -1,7 +1,7 @@
 name: CI
 
-# Fast feedback on every push: lint, content validation, typecheck, unit tests,
-# build, and production smoke verification.
+# Candidate quality runs on pull requests. Live production smoke verification
+# runs only after a main-branch push or an explicit workflow dispatch.
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.19.0'
           cache: 'npm'
 
       - name: Install dependencies
@@ -60,22 +60,19 @@ jobs:
         run: npm run build
 
       - name: Production smoke verification
+        if: github.event_name != 'pull_request'
         run: npm run verify:prod
 
   lighthouse:
-    # Phase 2F PR-A — informational performance budget. Runs lhci against the
-    # production-built marketing pages (no Supabase round-trips). Marked
-    # continue-on-error so a regression doesn't block code review while we
-    # tune the budget.
+    # Production-built marketing pages must hold the configured quality budget.
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    continue-on-error: true
     needs: quality
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.19.0'
           cache: 'npm'
       - run: npm ci
       - name: Build Lighthouse target
@@ -101,24 +98,28 @@ jobs:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsucGxhY2Vob2xkZXIuZGV2JA
           CLERK_SECRET_KEY: sk_test_placeholder
           NEXT_PUBLIC_APP_URL: https://www.sageideas.dev
-        run: npx @lhci/cli@0.14.x autorun --config=lighthouserc.json
+        run: npm run test:lh:config
 
   lighthouse-mobile:
     name: Lighthouse (mobile)
     needs: [quality]
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22.19.0'
           cache: npm
       - run: npm ci
       - run: npm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder' }}
-      - name: Run Lighthouse mobile
-        run: npx @lhci/cli@0.14.x autorun --config=lighthouserc.mobile.json
-        continue-on-error: true
+      - name: Verify committed calibrated mobile proof
+        run: npm run project:release:verify
+      - name: Run Lighthouse mobile shared-runner smoke
+        env:
+          LIGHTHOUSE_CPU_MODE: provided
+        run: npm run test:lh:config:mobile

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:9465a2e0c209fde0a5c17af41c81969c54edb0612d9d2d90439129447f372416",
+  "workstreamId": "critical-user-journeys",
+  "commit": "8f062a2982f61984d2fad2a98cea941ecba00454",
+  "generatedAt": "2026-09-04T19:12:14.764Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "11 deterministic journey-contract tests and 6 isolated Playwright browser journeys passed, including safe recovery, review-first checkout, and non-forgeable return states"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 passed, 0 failed"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build, isolated critical-journey browser tests, and desktop/mobile Lighthouse matrices passed in the 15-command canonical observer"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; secrets remain out of URLs, authentication and origin checks fail closed, checkout requires explicit POST, success requires a durable server-owned receipt, and legacy live E2E paths require explicit approval"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "No real authentication provider or email-delivery journey was exercised",
+    "No Stripe checkout, webhook, refund, or portal session was created",
+    "No migration was applied to a hosted Supabase project",
+    "No Academy course or lab was certified or promoted",
+    "No deployment, credential, push, or other external mutation was performed"
+  ]
+}

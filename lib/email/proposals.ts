@@ -6,12 +6,8 @@ export async function sendProposalEmail(input: {
   proposalId: string;
   token: string;
 }) {
-  if (!process.env.RESEND_API_KEY) {
-    // CI / dev safety -- don't fail the route if Resend isn't wired.
-    return { ok: false, status: 'queued' as const, reason: 'missing_api_key' };
-  }
   if (!input.to) {
-    return { ok: false, status: 'queued' as const, reason: 'no_recipient' };
+    return { ok: false, status: 'failed' as const, reason: 'no_recipient' };
   }
 
   const url = `${SITE}/portal/proposals/${input.proposalId}?token=${encodeURIComponent(input.token)}`;
@@ -38,9 +34,6 @@ export async function sendProposalAcceptedAdminEmail(input: {
   currency: string;
   signerName: string;
 }) {
-  if (!process.env.RESEND_API_KEY) {
-    return { ok: false, status: 'queued' as const, reason: 'missing_api_key' };
-  }
   const adminTo = process.env.STUDIO_ADMIN_EMAIL ?? 'sage@sageideas.dev';
   const url = `${SITE}/admin/proposals/${input.proposalId}`;
   const html = `

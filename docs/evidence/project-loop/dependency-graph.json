@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:831a8b962eec5157ce767b2653d5968d2cf677e72d51816e0b1a9da8bde068da",
+  "workstreams": [
+    {
+      "id": "repository-foundation",
+      "label": "Repository foundation and canonical truth",
+      "dependsOn": [],
+      "boundary": "safe_local",
+      "scope": [
+        "repository",
+        "configuration",
+        "inventory",
+        "dependency graph",
+        "program state"
+      ],
+      "sequence": 1
+    },
+    {
+      "id": "build-quality",
+      "label": "Build, tests, lint, types, and dependency health",
+      "dependsOn": [
+        "repository-foundation"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "build",
+        "unit tests",
+        "integration tests",
+        "lint",
+        "typecheck",
+        "dependencies"
+      ],
+      "sequence": 2
+    },
+    {
+      "id": "auth-security",
+      "label": "Authentication, authorization, and application security",
+      "dependsOn": [
+        "build-quality"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "auth",
+        "authorization",
+        "sessions",
+        "input validation",
+        "security controls"
+      ],
+      "sequence": 3
+    },
+    {
+      "id": "data-integrity",
+      "label": "Data model, migrations, RLS, and persistence integrity",
+      "dependsOn": [
+        "auth-security"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "Supabase",
+        "migrations",
+        "RLS",
+        "data contracts",
+        "backup design"
+      ],
+      "sequence": 4
+    },
+    {
+      "id": "billing",
+      "label": "Billing and entitlement correctness",
+      "dependsOn": [
+        "auth-security",
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "checkout",
+        "webhooks",
+        "entitlements",
+        "refund states",
+        "billing tests"
+      ],
+      "sequence": 5
+    },
+    {
+      "id": "critical-user-journeys",
+      "label": "Critical product journeys and failure recovery",
+      "dependsOn": [
+        "billing"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "marketing",
+        "signup",
+        "onboarding",
+        "checkout",
+        "account",
+        "error recovery"
+      ],
+      "sequence": 6
+    },
+    {
+      "id": "academy",
+      "label": "Academy curriculum, assessments, and practice labs",
+      "dependsOn": [
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "courses",
+        "lessons",
+        "assessments",
+        "labs",
+        "accessibility",
+        "sources"
+      ],
+      "sequence": 7
+    },
+    {
+      "id": "admin-portal",
+      "label": "Admin and operator workflows",
+      "dependsOn": [
+        "auth-security",
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "admin",
+        "content operations",
+        "moderation",
+        "auditability"
+      ],
+      "sequence": 8
+    },
+    {
+      "id": "communications-jobs",
+      "label": "Email, Discord, background jobs, and automation",
+      "dependsOn": [
+        "data-integrity"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "email",
+        "Discord",
+        "queues",
+        "idempotency",
+        "retry",
+        "dead letters"
+      ],
+      "sequence": 9
+    },
+    {
+      "id": "accessibility-performance",
+      "label": "Accessibility, responsive UX, and performance",
+      "dependsOn": [
+        "critical-user-journeys",
+        "academy",
+        "admin-portal",
+        "communications-jobs"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "WCAG",
+        "keyboard",
+        "screen reader",
+        "motion",
+        "Core Web Vitals"
+      ],
+      "sequence": 10
+    },
+    {
+      "id": "observability-recovery",
+      "label": "Observability, incident response, and recovery",
+      "dependsOn": [
+        "communications-jobs",
+        "critical-user-journeys"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "logs",
+        "metrics",
+        "alerts",
+        "runbooks",
+        "rollback",
+        "recovery"
+      ],
+      "sequence": 11
+    },
+    {
+      "id": "release-readiness",
+      "label": "Local production-candidate release proof",
+      "dependsOn": [
+        "accessibility-performance",
+        "observability-recovery"
+      ],
+      "boundary": "safe_local",
+      "scope": [
+        "release manifest",
+        "local gates",
+        "evidence reconciliation",
+        "handoff"
+      ],
+      "sequence": 12
+    },
+    {
+      "id": "staging-validation",
+      "label": "Staging deployment and live integration proof",
+      "dependsOn": [
+        "release-readiness"
+      ],
+      "boundary": "external_approval",
+      "scope": [
+        "deployment",
+        "credentials",
+        "staging database",
+        "live integrations"
+      ],
+      "sequence": 13
+    },
+    {
+      "id": "human-beta-certification",
+      "label": "Required human review and controlled beta",
+      "dependsOn": [
+        "staging-validation"
+      ],
+      "boundary": "human_review",
+      "scope": [
+        "expert review",
+        "learner beta",
+        "certification decision",
+        "launch approval"
+      ],
+      "sequence": 14
+    }
+  ]
+}

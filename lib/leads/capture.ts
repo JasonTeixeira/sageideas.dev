@@ -1,6 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { buildInboundAcquisitionCandidate } from '@/lib/acquisition/inbound';
-import { Resend } from 'resend';
+import { sendEmail } from '@/lib/email/send';
 import { scoreLead } from './scoring';
 
 export type LeadSource = 'contact' | 'newsletter' | 'seo_audit' | 'checkout';
@@ -145,27 +145,30 @@ export async function captureLead(input: LeadInput): Promise<string | null> {
     console.error('[captureLead] persist failed:', e);
   }
 
-  // Notify — only when enabled (default true) and we have an API key + reply-to address.
+  // Notify — only when enabled (default true) and we have a reply-to address.
   try {
-    const key = process.env.RESEND_API_KEY;
-    if ((input.notify !== false) && key && input.email) {
-      const { error } = await new Resend(key).emails.send({
+    if ((input.notify !== false) && input.email) {
+      const notificationText = [
+        input.detail,
+        `Email: ${input.email}`,
+        `Name: ${input.name ?? '—'}`,
+        input.inquiryType ? `Inquiry type: ${input.inquiryType}` : '',
+        input.budget ? `Budget: ${input.budget}` : '',
+      ]
+        .filter(Boolean)
+        .join('\n');
+      const result = await sendEmail({
         from:    'Sage Ideas Leads <leads@sageideas.dev>',
         to:      'sage@sageideas.dev',
         replyTo: input.email,
         subject: `New ${input.source} lead`,
-        text: [
-          input.detail,
-          `Email: ${input.email}`,
-          `Name: ${input.name ?? '—'}`,
-          input.inquiryType ? `Inquiry type: ${input.inquiryType}` : '',
-          input.budget ? `Budget: ${input.budget}` : '',
-        ]
-          .filter(Boolean)
-          .join('\n'),
+        html: `<pre>${notificationText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>`,
+        text: notificationText,
+        templateKey: 'lead_operator_notification',
+        metadata: { leadId, source: input.source },
       });
-      if (error) {
-        console.error('[captureLead] notify error:', error.message);
+      if (!result.ok) {
+        console.error('[captureLead] notify error:', result.reason);
       }
     }
   } catch (e) {

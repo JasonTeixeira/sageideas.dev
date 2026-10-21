@@ -1,7 +1,7 @@
 {
   "ok": true,
   "version": "durable-jobs-readiness-v1",
-  "generatedAt": "2026-06-30T13:25:47.241Z",
+  "generatedAt": "2026-09-05T19:32:36.576Z",
   "mutationMode": "local_file_evidence_only",
   "sourceEvidence": {
     "durableJobs": "lib/discord/durable-jobs.ts",
@@ -77,7 +77,7 @@
   "validation": {
     "ok": true,
     "validator": "durable-jobs-readiness-validator-v1",
-    "validatedAt": "2026-06-30T13:25:47.242Z",
+    "validatedAt": "2026-09-05T19:32:36.577Z",
     "failures": []
   }
 }

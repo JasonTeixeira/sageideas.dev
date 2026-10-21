@@ -1,8 +1,11 @@
 import 'server-only'
-import conceptsManifest from '@/lib/academy/concepts-manifest.json'
 import { supabaseAdmin } from '@/lib/supabase/server'
-import { TRACKS } from '@/lib/academy/taxonomy'
-import { TOPICS, type TopicKey } from '@/lib/academy/topics'
+import {
+  getAcademyRegistryCourse,
+  getPublicRegistryFallbackCourses,
+  resolveAcademyCourseSlug,
+} from '@/lib/academy/registry'
+import type { TopicKey } from '@/lib/academy/topics'
 
 /**
  * Real academy stats for the marketing Home. Computed live from Supabase so the
@@ -27,12 +30,6 @@ export type AcademyStats = {
   courses: AcademyCourseCard[]
 }
 
-const KNOWN_TOPICS = new Set<string>(Object.keys(TOPICS))
-
-function normalizeTopic(value: unknown): TopicKey {
-  return typeof value === 'string' && KNOWN_TOPICS.has(value) ? (value as TopicKey) : 'engineering'
-}
-
 type CourseRow = {
   slug: string | null
   title: string | null
@@ -54,25 +51,19 @@ const TOPIC_PRIORITY: Record<TopicKey, number> = {
 }
 
 function taxonomyFallback(): AcademyStats {
-  // Honest degraded state: cards drawn from the real track list (never
-  // invented names), lesson counts backed by the git-resident concept
-  // manifest (real authored lessons), and coursesCount matching the cards
-  // actually shown — count and list must never disagree.
-  const manifestLessonsByCourse = new Map<string, number>()
-  for (const c of conceptsManifest.concepts) {
-    manifestLessonsByCourse.set(c.courseSlug, (manifestLessonsByCourse.get(c.courseSlug) ?? 0) + 1)
-  }
-  const courses: AcademyCourseCard[] = TRACKS.filter((t) => t.status === 'live').map((t) => ({
-    slug: t.id,
-    title: t.name,
-    subtitle: t.outcome,
-    topic: normalizeTopic(t.topic),
-    level: 'Beginner',
-    lessons: manifestLessonsByCourse.get(t.id) ?? 0,
-  }))
-  // Floor, not a claim: the manifest holds real authored lessons even when
-  // the catalog service is unreachable.
-  const lessonsCount = conceptsManifest.concepts.length
+  // Honest degraded state: only registry courses explicitly approved for the
+  // public fallback. Counts and identities come from the canonical snapshot.
+  const courses: AcademyCourseCard[] = getPublicRegistryFallbackCourses().map(
+    (course) => ({
+      slug: course.slug,
+      title: course.title,
+      subtitle: null,
+      topic: course.topic,
+      level: course.level,
+      lessons: course.lessons.length,
+    }),
+  )
+  const lessonsCount = courses.reduce((sum, course) => sum + course.lessons, 0)
   return { coursesCount: courses.length, lessonsCount, courses }
 }
 
@@ -100,7 +91,9 @@ async function fetchStats(): Promise<AcademyStats> {
       .eq('status', 'published')
     const raced = await Promise.race([
       query,
-      new Promise<null>((resolve) => setTimeout(() => resolve(null), DB_ATTEMPT_MS)),
+      new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), DB_ATTEMPT_MS),
+      ),
     ])
     if (!raced) return taxonomyFallback()
     const { data, error } = raced
@@ -109,15 +102,21 @@ async function fetchStats(): Promise<AcademyStats> {
 
     const rows = data as CourseRow[]
     const courses: AcademyCourseCard[] = rows
-      .filter((r): r is CourseRow & { slug: string; title: string } => !!r.slug && !!r.title)
-      .map((r) => ({
-        slug: r.slug,
-        title: r.title,
-        subtitle: r.subtitle,
-        topic: normalizeTopic(r.topic),
-        level: r.level ?? 'Beginner',
-        lessons: r.lessons ?? 0,
-      }))
+      .filter(
+        (r): r is CourseRow & { slug: string; title: string } =>
+          !!r.slug && !!r.title && resolveAcademyCourseSlug(r.slug) !== null,
+      )
+      .map((r) => {
+        const registered = getAcademyRegistryCourse(r.slug)!
+        return {
+          slug: registered.slug,
+          title: registered.title,
+          subtitle: r.subtitle,
+          topic: registered.topic,
+          level: registered.level,
+          lessons: r.lessons ?? 0,
+        }
+      })
       .sort((a, b) => {
         const p = TOPIC_PRIORITY[a.topic] - TOPIC_PRIORITY[b.topic]
         return p !== 0 ? p : b.lessons - a.lessons

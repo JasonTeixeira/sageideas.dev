@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "inventoryHash": "sha256:f84001efadb388dc089605bbf7f79130fe44cb7928611ff7e1999f1dea42a884",
+  "workstreamId": "accessibility-performance",
+  "commit": "a4dc1aec7569633db1fc89fa0d415a1362ab1f1a",
+  "generatedAt": "2026-09-04T20:50:00.000Z",
+  "gates": {
+    "focusedTests": {
+      "status": "pass",
+      "evidence": "4 deterministic contracts and 13 isolated browser tests passed; known-good and deliberately broken fixtures proved the gates"
+    },
+    "unitTests": {
+      "status": "pass",
+      "evidence": "334 repository unit tests passed, 0 failed in the canonical observer"
+    },
+    "typecheck": {
+      "status": "pass",
+      "evidence": "tsc --noEmit"
+    },
+    "lint": {
+      "status": "pass",
+      "evidence": "eslint: 0 errors, 0 warnings"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "Next.js production build and isolated browser route matrix passed"
+    },
+    "accessibility": {
+      "status": "pass",
+      "evidence": "11 required routes passed automated WCAG 2.2 AA, semantic-landmark, keyboard, reduced-motion, zoom, and mobile-overflow contracts"
+    },
+    "performance": {
+      "status": "pass",
+      "evidence": "6 desktop and 6 mobile public routes passed accessibility >= 0.95, LCP <= 2500 ms, CLS <= 0.1, and bounded TBT"
+    },
+    "diffCheck": {
+      "status": "pass",
+      "evidence": "git diff --check, git diff --cached --check, and staged Gitleaks scan"
+    },
+    "securityReview": {
+      "status": "pass",
+      "evidence": "No unresolved local critical/high finding; browser targets are loopback-only, sensitive environment values are blanked, outbound HTTP is blocked, and no auth or payment flow changed"
+    }
+  },
+  "academyCertification": "uncertified",
+  "labTrust": "untrusted_current_runtime",
+  "externalEvidenceNotClaimed": [
+    "No assistive-technology or disabled-user testing was performed",
+    "No field Core Web Vitals observation window was measured",
+    "Automated checks do not establish complete WCAG conformance",
+    "No lab was promoted and no mastery evidence was written",
+    "No credential, staging, deployment, push, payment, or other external mutation was performed"
+  ]
+}

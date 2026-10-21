@@ -87,8 +87,8 @@ export function AcademyAuth({
   const pwAutoComplete = signup ? 'new-password' : 'current-password';
   const submitLabel = signup ? 'Create my account →' : 'Log in →';
 
-  // REAL server actions. Create-account routing matches the existing signup paths:
-  // academy → signUpAcademy (instant confirmed account), studio → signUpWithPassword.
+  // Real server actions. Academy signup requires email confirmation; studio
+  // signup enters the manually reviewed client-access flow.
   const submitAction = signup
     ? audience === 'academy'
       ? signUpAcademy

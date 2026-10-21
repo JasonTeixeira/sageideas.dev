@@ -3,17 +3,23 @@ import { test, expect } from '@playwright/test';
 // Guard live-checkout tests behind Stripe key presence.
 // When STRIPE_SECRET_KEY is absent (local dev without env), skip the
 // happy-path test so CI doesn't fail on missing credentials.
-const STRIPE = !!process.env.STRIPE_SECRET_KEY;
+const STRIPE_CONFIGURED = !!process.env.STRIPE_SECRET_KEY;
+const LIVE_CHECKOUT_ALLOWED = STRIPE_CONFIGURED && process.env.RUN_LIVE_CHECKOUT === '1';
+
+const requestHeaders = () => ({
+  'content-type': 'application/json',
+  'idempotency-key': crypto.randomUUID(),
+});
 
 test.describe('Checkout flow', () => {
   test(
     'low-ticket service /services/audit checkout button POSTs and returns a Stripe URL',
     async ({ request }) => {
-      test.skip(!STRIPE, 'Stripe not configured — set STRIPE_SECRET_KEY to run');
+      test.skip(!LIVE_CHECKOUT_ALLOWED, 'Live checkout requires STRIPE_SECRET_KEY and RUN_LIVE_CHECKOUT=1');
 
       const res = await request.post('/api/checkout', {
         data: { slug: 'audit' },
-        headers: { 'content-type': 'application/json' },
+        headers: requestHeaders(),
       });
 
       expect(res.status()).toBe(200);
@@ -45,7 +51,7 @@ test.describe('Checkout flow', () => {
     // before the isStripeConfigured() 503 check.
     const res = await request.post('/api/checkout', {
       data: { slug: 'build' },
-      headers: { 'content-type': 'application/json' },
+      headers: requestHeaders(),
     });
     expect(res.status()).toBe(400);
     const body = await res.json();
@@ -57,7 +63,7 @@ test.describe('Checkout flow', () => {
     // Slug resolution runs before Stripe check, so unknown slugs always return 400.
     const res = await request.post('/api/checkout', {
       data: { slug: 'does-not-exist' },
-      headers: { 'content-type': 'application/json' },
+      headers: requestHeaders(),
     });
     expect(res.status()).toBe(400);
   });
@@ -65,9 +71,10 @@ test.describe('Checkout flow', () => {
   test('academy checkout is recognized but gated until Stripe price IDs are configured', async ({
     request,
   }) => {
+    test.skip(STRIPE_CONFIGURED && !LIVE_CHECKOUT_ALLOWED, 'Configured Stripe checkout requires RUN_LIVE_CHECKOUT=1');
     const res = await request.post('/api/checkout', {
       data: { kind: 'academy', slug: 'ai-native-product-building' },
-      headers: { 'content-type': 'application/json' },
+      headers: requestHeaders(),
     });
     expect([200, 409, 503]).toContain(res.status());
     const body = await res.json();
@@ -87,11 +94,11 @@ test.describe('Checkout flow', () => {
     // resolution (i.e., it is NOT rejected as an unknown/consultation slug)
     // and only fails because Stripe env is absent (503), not because the slug
     // is rejected (400). With real Stripe it would return 200 + a session URL.
-    test.skip(STRIPE, 'Stripe is configured — run the live care checkout test instead');
+    test.skip(STRIPE_CONFIGURED, 'Stripe is configured — this no-credentials contract is not applicable');
 
     const res = await request.post('/api/checkout', {
       data: { slug: 'site-care' },
-      headers: { 'content-type': 'application/json' },
+      headers: requestHeaders(),
     });
     // 503 = slug recognized, Stripe unconfigured (correct).
     // 400 = slug rejected as unknown/consultation (regression).
@@ -101,11 +108,11 @@ test.describe('Checkout flow', () => {
   test(
     'care slug (site-care) returns a Stripe subscription checkout URL when Stripe is configured',
     async ({ request }) => {
-      test.skip(!STRIPE, 'Stripe not configured — set STRIPE_SECRET_KEY to run');
+      test.skip(!LIVE_CHECKOUT_ALLOWED, 'Live checkout requires STRIPE_SECRET_KEY and RUN_LIVE_CHECKOUT=1');
 
       const res = await request.post('/api/checkout', {
         data: { slug: 'site-care' },
-        headers: { 'content-type': 'application/json' },
+        headers: requestHeaders(),
       });
       expect(res.status()).toBe(200);
       const body = await res.json();

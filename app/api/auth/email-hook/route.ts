@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { sendEmail } from '@/lib/email/send';
 import { renderAuthEmailHtml, type AuthEmailKind } from '@/lib/emails/authEmail';
+import { isFreshWebhookTimestamp } from '@/lib/security/webhook-freshness';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -84,6 +85,9 @@ export async function POST(request: NextRequest) {
   const sigHeader = request.headers.get('webhook-signature');
   if (!id || !ts || !sigHeader) {
     return errorResponse('missing_signature_headers', 400);
+  }
+  if (!isFreshWebhookTimestamp(ts)) {
+    return errorResponse('stale_webhook_timestamp', 401);
   }
 
   let body: string;

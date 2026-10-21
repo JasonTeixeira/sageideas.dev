@@ -129,24 +129,94 @@ export function buildSageAnswerEmbed(input: {
   answerId?: string | null;
 }): DiscordMessagePayload {
   const answer = input.answer
-    .replace(/^#\s*SageBot answer\s*/i, '')
+    .replace(/^#\s*Sage(?:Bot)?\s+(?:answer|reply)\s*/i, '')
     .replace(/^\*\*Question:\*\*.*$/im, '')
+    .replace(/\s*\[\d+\]/g, '')
     .trim();
 	  const sourceText = input.sources.length
 	    ? formatSourceList(input.sources)
-	    : 'I did not find a strong source match, so treat this as a starting point and ask me for a narrower follow-up.';
+	    : 'No strong source match yet. Treat this as a starting point and ask for a narrower follow-up.';
 
 	  return {
 	    embeds: [{
-	      title: 'Sage Ideas Answer',
-	      description: 'Good question. Here is the clean path I would take.',
+	      title: 'Sprout',
+	      description: 'You brought a real blocker. Let’s turn it into a useful next move and a visible artifact.',
       color: SAGE_DISCORD_COLORS.answer,
       fields: [
-        { name: 'Your question', value: clamp(input.question.trim(), 500), inline: false },
-        { name: 'Sage take', value: clamp(answer, FIELD_LIMIT), inline: false },
-        { name: 'Sources', value: clamp(sourceText, FIELD_LIMIT), inline: false },
+        { name: 'Here’s the move', value: clamp(answer, FIELD_LIMIT), inline: false },
+        { name: 'Next step', value: 'Try the smallest step above, then share the artifact or exact blocker so we can tighten it.', inline: false },
+        { name: 'Source check', value: clamp(sourceText, FIELD_LIMIT), inline: false },
       ],
-      footer: { text: input.answerId ? `SageBot answer ${input.answerId}` : 'SageBot answer' },
+      footer: { text: input.answerId ? `Sprout · ${input.answerId}` : 'Sprout · Sage Ideas Academy' },
+    }],
+    allowed_mentions: { parse: [] },
+  };
+}
+
+export type SageConversationIntent = 'casual' | 'thanks' | 'capability' | 'confused' | 'build_question';
+
+function inferConversationIntent(message: string): SageConversationIntent {
+  const normalized = message.trim().toLowerCase();
+  if (/\b(thanks|thank you|appreciate)\b/.test(normalized)) return 'thanks';
+  if (/\bwhat can you do\b|\bhelp with\b/.test(normalized)) return 'capability';
+  if (/\b(stuck|confused|lost|not sure where to start)\b/.test(normalized)) return 'confused';
+  if (/\b(hey|hello|hi)\b.*\b(what'?s up|how are you)\b/.test(normalized)) return 'casual';
+  if (/\b(how|what|why|where|when|should|build|ship|deploy|structure)\b|\?/.test(normalized)) return 'build_question';
+  return 'casual';
+}
+
+export function buildSageConversationEmbed(input: {
+  displayName?: string | null;
+  message: string;
+  intent?: SageConversationIntent;
+}): DiscordMessagePayload {
+  const intent = input.intent ?? inferConversationIntent(input.message);
+  const displayName = input.displayName?.trim() || 'there';
+  const content = {
+    casual: {
+      description: `I’m good, ${displayName}—glad you’re here. Bring me the thing you’re trying to learn, build, debug, or ship.`,
+      fields: [
+        { name: 'What I can help with', value: 'Learning paths, code, AI systems, cloud, networking, automation, and practical project decisions.' },
+        { name: 'Try me', value: 'Tell me what you are building, what you tried, and the exact blocker.' },
+      ],
+    },
+    thanks: {
+      description: `You’ve got it, ${displayName}. Keep the momentum and turn the answer into one visible artifact.`,
+      fields: [
+        { name: 'Lock it in', value: 'Write the principle from memory and use it once without looking back.' },
+        { name: 'Next rep', value: 'Change one constraint and solve the same class of problem again.' },
+      ],
+    },
+    capability: {
+      description: 'I’m Sprout, your practical Sage Ideas learning and building partner.',
+      fields: [
+        { name: 'Learn', value: 'I can explain concepts, quiz your recall, diagnose misconceptions, and route the next lesson.' },
+        { name: 'Build', value: 'I can help scope, implement, test, review, and harden useful projects without pretending unproven work is production-ready.' },
+      ],
+    },
+    confused: {
+      description: 'No stress. We’ll shrink the problem until the next move is obvious and testable.',
+      fields: [
+        { name: 'Start here', value: 'Name the outcome you want and show me the smallest artifact or error you have.' },
+        { name: 'Then', value: 'We will choose one next action, verify it, and build from evidence.' },
+      ],
+    },
+    build_question: {
+      description: 'Let’s turn the question into a build decision and one verifiable next step.',
+      fields: [
+        { name: 'Context I need', value: 'Goal, user, current artifact, constraints, what you tried, and the failure or decision.' },
+        { name: 'What you’ll get', value: 'A concrete recommendation, tradeoffs, a small implementation step, and a way to verify it.' },
+      ],
+    },
+  }[intent];
+
+  return {
+    embeds: [{
+      title: 'Sprout',
+      description: content.description,
+      color: SAGE_DISCORD_COLORS.sage,
+      fields: content.fields.map((field) => ({ ...field, inline: false })),
+      footer: { text: 'Sprout · Sage Ideas Academy' },
     }],
     allowed_mentions: { parse: [] },
   };

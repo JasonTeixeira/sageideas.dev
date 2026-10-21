@@ -44,7 +44,10 @@ export function AcademyCheckoutButton({
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {
+          'content-type': 'application/json',
+          'idempotency-key': crypto.randomUUID(),
+        },
         body: JSON.stringify({ kind: 'academy', slug: product.trackSlug }),
       })
       const data = await res.json().catch(() => ({}))

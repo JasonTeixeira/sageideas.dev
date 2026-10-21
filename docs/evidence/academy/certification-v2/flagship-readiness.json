@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "harnessVersion": "2.0.0",
+  "registryVersion": "sha256:fbcfb4642f5f5239fa36e072fc24f3a9cbe19afc03b43261bbc863222edce828",
+  "generatedAt": "2026-09-05T19:32:28.816Z",
+  "pathId": "flagship-production-ai-automation-engineer-v1",
+  "graphStatus": "draft",
+  "status": "mapped_draft_pending_certification",
+  "masteryPolicy": {
+    "requiredEvidence": [
+      {
+        "type": "build",
+        "contract": "Produce a working artifact from a blank or deliberately incomplete starting point without copying the reference solution."
+      },
+      {
+        "type": "debug",
+        "contract": "Diagnose and repair an injected or naturally occurring failure, including the causal explanation and regression test."
+      },
+      {
+        "type": "explain",
+        "contract": "Teach the mechanism and defend the important tradeoff in plain language without relying on memorized wording."
+      },
+      {
+        "type": "transfer",
+        "contract": "Apply the skill to a materially different, previously unseen scenario."
+      },
+      {
+        "type": "retrieve",
+        "contract": "Reproduce the key model after delay and repair any confidence-versus-performance mismatch."
+      }
+    ],
+    "retrievalScheduleDays": [
+      2,
+      7,
+      21,
+      45
+    ],
+    "minimumKnowledgeScore": 0.85,
+    "minimumIndependentAttempts": 2,
+    "labEvidenceBeforeTrustedRuntime": "practice_only",
+    "outcomeDisclaimer": "Completion does not guarantee employment, expertise in every context, or a top-one-percent percentile outcome; the path defines demanding observable evidence for production readiness and continued mastery practice."
+  },
+  "phases": [
+    {
+      "id": "learning-judgment",
+      "label": "Learning systems and engineering judgment",
+      "prerequisitePhaseIds": [],
+      "competencyIds": [
+        "learning-system",
+        "engineering-judgment"
+      ],
+      "courseSlugs": [
+        "career-engineering_judgment_foundation"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "career-engineering_judgment_foundation"
+      ]
+    },
+    {
+      "id": "automation-foundations",
+      "label": "Programming, data structures, Git, terminal, and automation foundations",
+      "prerequisitePhaseIds": [
+        "learning-judgment"
+      ],
+      "competencyIds": [
+        "programming-automation",
+        "version-control-shell"
+      ],
+      "courseSlugs": [
+        "programming-fundamentals",
+        "python-basics",
+        "git-the-terminal",
+        "data-structures",
+        "career-programming_cs_foundations"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "programming-fundamentals",
+        "python-basics",
+        "git-the-terminal",
+        "data-structures",
+        "career-programming_cs_foundations"
+      ]
+    },
+    {
+      "id": "network-security",
+      "label": "Networking, systems, and security",
+      "prerequisitePhaseIds": [
+        "automation-foundations"
+      ],
+      "competencyIds": [
+        "network-systems",
+        "security-identity"
+      ],
+      "courseSlugs": [
+        "career-networking_fundamentals_advanced_networking",
+        "career-security_identity"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "career-networking_fundamentals_advanced_networking",
+        "career-security_identity"
+      ]
+    },
+    {
+      "id": "data-backend",
+      "label": "Databases, APIs, backend services, and distributed systems",
+      "prerequisitePhaseIds": [
+        "network-security"
+      ],
+      "competencyIds": [
+        "data-modeling",
+        "backend-distributed-systems"
+      ],
+      "courseSlugs": [
+        "career-databases_data_modeling",
+        "career-backend_engineering",
+        "system-design"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "career-databases_data_modeling",
+        "career-backend_engineering",
+        "system-design"
+      ]
+    },
+    {
+      "id": "cloud-operations",
+      "label": "Cloud, DevOps, observability, reliability, and platform operations",
+      "prerequisitePhaseIds": [
+        "data-backend"
+      ],
+      "competencyIds": [
+        "cloud-delivery",
+        "reliability-platform"
+      ],
+      "courseSlugs": [
+        "career-cloud_devops_operations",
+        "career-observability_reliability_performance",
+        "career-platform_engineering_internal_developer_platforms"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "career-cloud_devops_operations",
+        "career-observability_reliability_performance",
+        "career-platform_engineering_internal_developer_platforms"
+      ]
+    },
+    {
+      "id": "applied-ai",
+      "label": "LLM APIs, prompting, retrieval, agents, automation, evals, and safety",
+      "prerequisitePhaseIds": [
+        "data-backend",
+        "cloud-operations"
+      ],
+      "competencyIds": [
+        "llm-systems",
+        "retrieval-systems",
+        "agent-automation",
+        "ai-evaluation-safety"
+      ],
+      "courseSlugs": [
+        "the-llm-api",
+        "prompt-engineering",
+        "rag-retrieval",
+        "agents-tool-use",
+        "career-ai_engineering_rag_eval"
+      ],
+      "ready": false,
+      "blockedCourses": [
+        "the-llm-api",
+        "prompt-engineering",
+        "rag-retrieval",
+        "agents-tool-use",
+        "career-ai_engineering_rag_eval"
+      ]
+    },
+    {
+      "id": "production-capstone",
+      "label": "Cross-discipline production capstone and defense",
+      "prerequisitePhaseIds": [
+        "applied-ai"
+      ],
+      "competencyIds": [
+        "production-integration"
+      ],
+      "courseSlugs": [
+        "system-design",
+        "career-product_execution_market_feedback"
+      ],
+      "releaseGap": "The evidence contract is canonical, but a dedicated immutable capstone course release has not yet been authored or certified.",
+      "ready": false,
+      "blockedCourses": [
+        "system-design",
+        "career-product_execution_market_feedback"
+      ]
+    }
+  ]
+}

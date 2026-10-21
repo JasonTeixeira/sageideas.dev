@@ -4,11 +4,9 @@
 //
 // Run: node tests/rls/run.mjs
 
-const SUPABASE_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://hocrntqhgvmeaxwlhzwl.supabase.co';
-const ANON_KEY =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  'sb_publishable_B25xhSjOc977b-IDH76Hlg_kzn6ency';
+import { loadRlsTestConfig } from './config.mjs';
+
+const { supabaseUrl: SUPABASE_URL, anonKey: ANON_KEY } = loadRlsTestConfig();
 
 const BASE = `${SUPABASE_URL}/rest/v1`;
 const HEADERS = {

@@ -1,0 +1,17 @@
+{
+  "packageScripts": {},
+  "healthSource": "return raw database error",
+  "portalHealthSource": "supabaseAdmin SUPABASE_SERVICE_ROLE_KEY",
+  "sloSource": "lcp_p75_ok: true error_rate_ok: true status: 200",
+  "errorTelemetrySource": "message stack url catch swallow",
+  "perfTelemetrySource": "value: z.number() url catch swallow",
+  "sentrySources": ["Sentry.init({ tracesSampleRate: 1 })"],
+  "loggerSource": "console.error(error)",
+  "observabilityPageSource": "No errors means healthy error rate 0%",
+  "incidentRunbook": "check the dashboard and fix it",
+  "recoveryRunbook": "restore the backup",
+  "rollbackRunbook": "roll back",
+  "alertCatalog": [
+    { "id": "availability", "signal": "readiness" }
+  ]
+}

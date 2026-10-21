@@ -1,0 +1,222 @@
+[
+  {
+    "source_id": "govuk-discovery-phase",
+    "title": "How the discovery phase works",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official guidance for understanding users, constraints, alternatives, and success measures before committing to delivery.",
+    "keywords": ["problem framing", "discovery", "alternatives", "success measures"]
+  },
+  {
+    "source_id": "govuk-plan-user-research",
+    "title": "Plan user research for your service",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official practice for research questions, participant groups, repeated rounds, team involvement, and decision integration.",
+    "keywords": ["customer discovery", "research plan", "participants", "evidence"]
+  },
+  {
+    "source_id": "govuk-analyse-research",
+    "title": "Analyse a research session",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/user-research/analyse-a-research-session",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official workflow for turning observations into findings, decisions, and shared follow-up actions while limiting individual bias.",
+    "keywords": ["research synthesis", "feedback", "findings", "bias"]
+  },
+  {
+    "source_id": "govuk-measure-benefits",
+    "title": "Measuring the benefits of your service",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/measuring-success/measuring-service-benefits",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official lifecycle guidance for choosing metrics, collecting evidence, iterating models, and deciding whether to continue.",
+    "keywords": ["metrics", "benefits", "iteration", "continue stop"]
+  },
+  {
+    "source_id": "govuk-agile-delivery",
+    "title": "Agile delivery",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/agile-delivery",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official index for discovery-through-live delivery, prioritization, roadmaps, governance, progress measurement, and lifecycle management.",
+    "keywords": ["agile delivery", "roadmap", "prioritization", "lifecycle"]
+  },
+  {
+    "source_id": "google-heart-framework",
+    "title": "Measuring the User Experience on a Large Scale",
+    "organization": "Google Research",
+    "url": "https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "CHI 2010 research publication",
+    "excerpt": "Primary research introducing HEART and a goal-signal-metric process for user-centered product measurement.",
+    "keywords": ["HEART", "metrics", "user experience", "goal signal metric"]
+  },
+  {
+    "source_id": "nist-experiment-design",
+    "title": "Process Improvement: Design of Experiments",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://www.itl.nist.gov/div898/handbook/pri/pri.htm",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NIST/SEMATECH e-Handbook",
+    "excerpt": "Official statistical handbook material for experimental objectives, factors, responses, designs, analysis, and validity.",
+    "keywords": ["experiment design", "factors", "responses", "statistical validity"]
+  },
+  {
+    "source_id": "amplitude-data-quickstart",
+    "title": "Quickstart for data teams",
+    "organization": "Amplitude",
+    "url": "https://amplitude.com/docs/get-started/quickstart-for-data-teams",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party workflow for defining a tracking plan, event properties, validation rules, and a governed data catalog.",
+    "keywords": ["instrumentation", "tracking plan", "event schema", "validation"]
+  },
+  {
+    "source_id": "amplitude-product-analytics",
+    "title": "Out-of-the-box Product Analytics",
+    "organization": "Amplitude",
+    "url": "https://amplitude.com/docs/analytics/product-analytics",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party definitions and workflows for product health, onboarding conversion, engagement, and retention views.",
+    "keywords": ["product analytics", "onboarding", "engagement", "retention"]
+  },
+  {
+    "source_id": "amplitude-sdk-instrumentation",
+    "title": "Amplitude SDKs",
+    "organization": "Amplitude",
+    "url": "https://www.amplitude.com/docs/sdks",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party instrumentation entry point covering analytics, identity, events, consent, experiments, and session replay.",
+    "keywords": ["sdk", "events", "identity", "analytics instrumentation"]
+  },
+  {
+    "source_id": "opentelemetry-event-conventions",
+    "title": "General event semantic conventions",
+    "organization": "OpenTelemetry",
+    "url": "https://opentelemetry.io/docs/specs/semconv/general/events/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living specification",
+    "excerpt": "Primary observability specification for consistently named events and attributes across instrumentation producers and consumers.",
+    "keywords": ["events", "semantic conventions", "attributes", "instrumentation"]
+  },
+  {
+    "source_id": "intercom-rice-original",
+    "title": "RICE: Simple prioritization for product managers",
+    "organization": "Intercom",
+    "url": "https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "original framework article",
+    "excerpt": "Original first-party explanation of reach, impact, confidence, and effort as a transparent prioritization model.",
+    "keywords": ["RICE", "prioritization", "confidence", "effort"]
+  },
+  {
+    "source_id": "scrum-guide-2020",
+    "title": "The Scrum Guide",
+    "organization": "Scrum Guides",
+    "url": "https://scrumguides.org/scrum-guide.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "November 2020",
+    "excerpt": "Canonical framework definition for product goals, backlogs, increments, inspection, adaptation, and accountable delivery roles.",
+    "keywords": ["product goal", "backlog", "increment", "inspection adaptation"]
+  },
+  {
+    "source_id": "github-projects",
+    "title": "About Projects",
+    "organization": "GitHub",
+    "url": "https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party documentation for adaptable product planning views, fields, automation, charts, and issue-linked execution.",
+    "keywords": ["roadmap", "planning", "work tracking", "automation"]
+  },
+  {
+    "source_id": "launchdarkly-release-strategies",
+    "title": "Release strategies",
+    "organization": "LaunchDarkly",
+    "url": "https://launchdarkly.com/docs/home/releases/releasing",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party operational guidance for progressive release, targeting, monitoring, and rollback through feature controls.",
+    "keywords": ["launch", "progressive delivery", "rollback", "feature flags"]
+  },
+  {
+    "source_id": "atlassian-product-discovery",
+    "title": "Product discovery",
+    "organization": "Atlassian",
+    "url": "https://www.atlassian.com/agile/product-management/discovery",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party guidance",
+    "excerpt": "First-party guidance for collecting ideas, validating assumptions, prioritizing opportunities, and aligning product delivery.",
+    "keywords": ["product discovery", "assumptions", "opportunities", "alignment"]
+  },
+  {
+    "source_id": "stripe-pricing-models",
+    "title": "Pricing models",
+    "organization": "Stripe",
+    "url": "https://docs.stripe.com/products-prices/pricing-models",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living first-party documentation",
+    "excerpt": "First-party reference for flat-rate, per-seat, tiered, usage-based, and hybrid product pricing models.",
+    "keywords": ["pricing", "packaging", "usage based", "tiers"]
+  },
+  {
+    "source_id": "gitlab-product-development-flow",
+    "title": "Product Development Flow",
+    "organization": "GitLab",
+    "url": "https://gitlab.com/gitlab-com/content-sites/handbook/-/tree/37293b4ae89567410a2d3d16cc3082efe36c2f99/content/handbook/product-development-flow",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "versioned first-party handbook source",
+    "excerpt": "Versioned first-party workflow connecting validation, build, launch, measurement, and iteration around customer outcomes.",
+    "keywords": ["product development", "validation", "launch", "outcomes"]
+  },
+  {
+    "source_id": "govuk-service-standard",
+    "title": "Service Standard",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/service-standard",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official standard",
+    "excerpt": "Official production standard joining user needs, multidisciplinary delivery, security, accessibility, measurement, reliability, and continuous improvement.",
+    "keywords": ["production readiness", "service standard", "accessibility", "continuous improvement"]
+  },
+  {
+    "source_id": "govuk-service-assessment",
+    "title": "Service assessments",
+    "organization": "Government Digital Service",
+    "url": "https://www.gov.uk/service-manual/service-assessments",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official assessment guidance for presenting evidence, evaluating service-standard outcomes, recording findings, and remediating gaps.",
+    "keywords": ["assessment", "evidence", "review", "remediation"]
+  }
+]

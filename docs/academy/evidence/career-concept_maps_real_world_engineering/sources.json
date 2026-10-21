@@ -1,0 +1,222 @@
+[
+  {
+    "source_id": "ihmc-origins-concept-mapping",
+    "title": "Origins of the Concept Mapping Tool",
+    "organization": "Institute for Human and Machine Cognition",
+    "url": "https://cmap.ihmc.us/publications/researchpapers/originsofconceptmappingtool.pdf",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "primary research paper",
+    "excerpt": "Primary account of concept-map origins, knowledge models, focus questions, cross-links, and evolving learning artifacts.",
+    "keywords": ["concept mapping", "knowledge model", "focus question", "cross links"]
+  },
+  {
+    "source_id": "karpicke-blunt-retrieval-mapping",
+    "title": "Retrieval practice produces more learning than elaborative studying with concept mapping",
+    "organization": "Science / PubMed",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/21252317/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Science 2011 primary study",
+    "excerpt": "Primary study comparing retrieval practice with concept mapping for conceptual learning and inference transfer.",
+    "keywords": ["retrieval practice", "concept mapping", "transfer", "learning"]
+  },
+  {
+    "source_id": "roediger-karpicke-testing-effect",
+    "title": "The Power of Testing Memory",
+    "organization": "Association for Psychological Science / PubMed",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/26151629/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "primary research review",
+    "excerpt": "Research synthesis on retrieval tests as learning events, delayed retention, formative assessment, and calibration.",
+    "keywords": ["testing effect", "retrieval", "retention", "calibration"]
+  },
+  {
+    "source_id": "c4-model-official",
+    "title": "The C4 model for visualising software architecture",
+    "organization": "C4 Model",
+    "url": "https://c4model.com/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "creator-maintained official reference",
+    "excerpt": "Official model for software-system, container, component, code, dynamic, and deployment views at explicit abstraction levels.",
+    "keywords": ["C4", "architecture diagram", "boundary", "abstraction"]
+  },
+  {
+    "source_id": "c4-model-introduction",
+    "title": "C4 model introduction",
+    "organization": "C4 Model",
+    "url": "https://c4model.com/introduction",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "creator-maintained official reference",
+    "excerpt": "Official guidance on diagram audience, scope, labeled relationships, consistent notation, zoom levels, and common failure modes.",
+    "keywords": ["diagram quality", "relationships", "scope", "audience"]
+  },
+  {
+    "source_id": "c4-model-tooling",
+    "title": "C4 model tooling",
+    "organization": "C4 Model",
+    "url": "https://c4model.com/tooling",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "creator-maintained official reference",
+    "excerpt": "Official distinction between diagramming and semantic modeling, including queryability, reuse, version control, and update tradeoffs.",
+    "keywords": ["diagrams as code", "model", "version control", "maintenance"]
+  },
+  {
+    "source_id": "arc42-documentation",
+    "title": "arc42 documentation",
+    "organization": "arc42",
+    "url": "https://docs.arc42.org/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "official living documentation",
+    "excerpt": "Official architecture-documentation structure for context, constraints, building blocks, runtime, deployment, decisions, risks, and quality scenarios.",
+    "keywords": ["architecture documentation", "runtime view", "risks", "quality scenarios"]
+  },
+  {
+    "source_id": "adr-community",
+    "title": "Architectural Decision Records",
+    "organization": "ADR GitHub organization",
+    "url": "https://adr.github.io/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "official community reference",
+    "excerpt": "Canonical community reference for recording architecturally significant decisions, context, status, consequences, and supersession.",
+    "keywords": ["ADR", "decision record", "context", "consequences"]
+  },
+  {
+    "source_id": "azure-adr-guidance",
+    "title": "Maintain an architecture decision record",
+    "organization": "Microsoft Azure Well-Architected Framework",
+    "url": "https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official guidance for append-only decisions, rejected alternatives, confidence, implications, status, and superseding records.",
+    "keywords": ["ADR", "rejected options", "confidence", "superseded"]
+  },
+  {
+    "source_id": "google-sre-incident-response",
+    "title": "Incident Response",
+    "organization": "Google Site Reliability Engineering",
+    "url": "https://sre.google/workbook/incident-response/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Workbook",
+    "excerpt": "First-party incident practice for roles, working theories, eliminated causes, useful signals, status, mitigation, and closure.",
+    "keywords": ["incident response", "hypothesis", "signals", "mitigation"]
+  },
+  {
+    "source_id": "google-sre-postmortem",
+    "title": "Postmortem Culture: Learning from Failure",
+    "organization": "Google Site Reliability Engineering",
+    "url": "https://sre.google/workbook/postmortem-culture/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Workbook",
+    "excerpt": "First-party postmortem practice for timelines, contributing conditions, data, causal analysis, action items, and organizational learning.",
+    "keywords": ["postmortem", "failure analysis", "timeline", "action items"]
+  },
+  {
+    "source_id": "google-sre-nalsd",
+    "title": "Introducing Non-Abstract Large System Design",
+    "organization": "Google Site Reliability Engineering",
+    "url": "https://sre.google/workbook/non-abstract-design/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Workbook",
+    "excerpt": "First-party method for moving from requirements and constraints to concrete large-system design and operational reasoning.",
+    "keywords": ["system design", "requirements", "constraints", "operations"]
+  },
+  {
+    "source_id": "nist-incident-response-r3",
+    "title": "Incident Response Recommendations and Considerations for Cybersecurity Risk Management",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NIST SP 800-61 Rev. 3, April 2025",
+    "excerpt": "Official recommendations for preparing, detecting, responding, recovering, and integrating incident learning into risk management.",
+    "keywords": ["incident response", "detect", "respond", "recover"]
+  },
+  {
+    "source_id": "owasp-threat-modeling",
+    "title": "Threat Modeling Cheat Sheet",
+    "organization": "OWASP Cheat Sheet Series",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official guidance",
+    "excerpt": "Official security workflow for system decomposition, data flows, trust boundaries, threats, mitigations, review, and validation.",
+    "keywords": ["threat model", "trust boundary", "data flow", "validation"]
+  },
+  {
+    "source_id": "opentelemetry-traces",
+    "title": "Traces",
+    "organization": "OpenTelemetry",
+    "url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living specification documentation",
+    "excerpt": "Primary observability model for causal request paths, spans, attributes, events, links, status, and distributed context.",
+    "keywords": ["trace", "span", "causality", "distributed system"]
+  },
+  {
+    "source_id": "w3c-trace-context",
+    "title": "Trace Context",
+    "organization": "World Wide Web Consortium",
+    "url": "https://www.w3.org/TR/trace-context/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "W3C Recommendation",
+    "excerpt": "Normative standard for propagating trace identity and vendor context across distributed-system boundaries.",
+    "keywords": ["trace context", "propagation", "boundary", "correlation"]
+  },
+  {
+    "source_id": "rfc2119-requirements-language",
+    "title": "Key words for use in RFCs to Indicate Requirement Levels",
+    "organization": "RFC Editor / IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc2119",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "RFC 2119",
+    "excerpt": "Normative definitions for requirement strength, including MUST, SHOULD, MAY, and their negative forms.",
+    "keywords": ["requirements", "MUST", "SHOULD", "MAY"]
+  },
+  {
+    "source_id": "rfc9457-problem-details",
+    "title": "Problem Details for HTTP APIs",
+    "organization": "RFC Editor / IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9457",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "RFC 9457",
+    "excerpt": "Normative failure representation for machine-readable type, status, title, detail, instance, and extension members.",
+    "keywords": ["failure model", "problem details", "HTTP", "error contract"]
+  },
+  {
+    "source_id": "aws-well-architected-framework",
+    "title": "AWS Well-Architected Framework",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official framework",
+    "excerpt": "First-party framework for explicit operational, security, reliability, performance, cost, and sustainability design tradeoffs.",
+    "keywords": ["well architected", "tradeoffs", "reliability", "operations"]
+  },
+  {
+    "source_id": "kubernetes-architecture",
+    "title": "Kubernetes components",
+    "organization": "Kubernetes",
+    "url": "https://kubernetes.io/docs/concepts/overview/components/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "living official documentation",
+    "excerpt": "First-party component and responsibility map for control plane, nodes, APIs, scheduling, state, and workload execution.",
+    "keywords": ["components", "control plane", "state", "ownership"]
+  }
+]

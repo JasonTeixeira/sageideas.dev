@@ -1,0 +1,82 @@
+{
+  "why-rag-grounding": {
+    "language": "js",
+    "code": "const log = [\n  { q: \"what is our refund policy?\", from: \"parametric\" },\n  { q: \"reverse a string in JavaScript\", from: \"parametric\" },\n  { q: \"what is the latest price of the Pro plan?\", from: \"retrieve\" },\n  { q: \"who is our VP of Sales?\", from: \"parametric\" },\n];\nconst factDependent = (q) => /\\b(our|policy|refund|price|current|latest|version|who|when)\\b/i.test(q);\nfunction audit(entry) {\n  const needsGround = factDependent(entry.q);\n  return needsGround && entry.from !== \"retrieve\" ? \"RISK\" : \"ok\";\n}\nlet risk = 0;\nfor (const e of log) {\n  const v = audit(e);\n  if (v === \"RISK\") risk++;\n  console.log(`${e.q} [${e.from}] -> ${v}`);\n}\nconsole.log(`ungrounded risk: ${risk}`);"
+  },
+  "loaders-cleaning": {
+    "language": "js",
+    "code": "const raw = [\n  \"  Refunds   are processed within 30 days.  \",\n  \"Home\", \"\", \"Contact support for help.\", \"Cookie settings\",\n  \"   \", \"We reply within one business day.\", \"© 2026 SageIdeas\"\n];\nconst boilerplate = [/^home$/i, /^cookie settings$/i, /^©/];\nfunction clean(lines, rejectedPatterns) {\n  const kept = [], removed = [];\n  for (const original of lines) {\n    const normalized = original.trim().replace(/\\s+/g, \" \");\n    if (!normalized || rejectedPatterns.some((pattern) => pattern.test(normalized))) removed.push(original);\n    else kept.push(normalized);\n  }\n  return { kept, removed };\n}\nconst result = clean(raw, boilerplate);\nfor (const line of result.kept) console.log(line);\nconsole.log(\"removed:\", result.removed.length);"
+  },
+  "chunking-strategies": {
+    "language": "js",
+    "code": "const tokens = [\"the\", \"fee\", \"is\", \"fifty\", \"dollars\", \"per\", \"seat\"];\nconst SIZE = 3, STRIDE = 2;\nfunction windows(toks, size, stride) {\n  const out = [];\n  for (let start = 0; start < toks.length; start += stride) {\n    out.push(toks.slice(start, start + size));\n    if (start + size >= toks.length) break;\n  }\n  return out;\n}\nconst ws = windows(tokens, SIZE, STRIDE);\nconst count = new Map();\nfor (const w of ws) for (const t of w) count.set(t, (count.get(t) ?? 0) + 1);\nfor (const w of ws) console.log(w.join(\" \"));\nlet hot = tokens[0], hc = 0;\nfor (const t of tokens) { const c = count.get(t) ?? 0; if (c > hc) { hot = t; hc = c; } }\nconsole.log(`hottest: ${hot} x${hc}`);"
+  },
+  "metadata-provenance": {
+    "language": "js",
+    "code": "const inputs = [\n  { source: \"policy\", start: 0, end: 23, text: \"Refunds within 30 days\" },\n  { source: \"faq\", start: 0, end: 20, text: \"Password reset help\" },\n  { source: \"policy\", start: 24, end: 46, text: \"A $50 fee may apply\" },\n];\nfunction records(chunks, allowedSource) {\n  return chunks\n    .map((chunk) => ({ ...chunk, id: chunk.source + \"#\" + chunk.start, updated: 95 }))\n    .filter((chunk) => chunk.source === allowedSource);\n}\nconst kept = records(inputs, \"policy\");\nfor (const chunk of kept) console.log(chunk.id + \" [\" + chunk.start + \",\" + chunk.end + \"]\");\nconsole.log(\"kept:\", kept.length);"
+  },
+  "embeddings-intuition": {
+    "language": "js",
+    "code": "const query = [0.9, 0.1, 0.0];\nconst items = [\n  { id: \"refund\", vec: [0.8, 0.2, 0.0] },\n  { id: \"money-back\", vec: [0.85, 0.15, 0.05] },\n  { id: \"shipping\", vec: [0.1, 0.9, 0.0] },\n  { id: \"banana\", vec: [0.0, 0.1, 0.95] },\n];\nconst d = (a, b) => Math.sqrt(a.reduce((s, x, i) => s + (x - b[i]) ** 2, 0));\nfunction rankByDistance(q, items) {\n  return [...items]\n    .map((it) => ({ id: it.id, dist: d(q, it.vec) }))\n    .sort((a, b) => a.dist - b.dist || a.id.localeCompare(b.id));\n}\nconst ranked = rankByDistance(query, items);\nfor (const r of ranked) console.log(`${r.id} d=${r.dist.toFixed(3)}`);\nconsole.log(`least related: ${ranked[ranked.length - 1].id}`);"
+  },
+  "cosine-similarity": {
+    "language": "js",
+    "code": "const chunks = [\n  { id: \"a\", vec: [1, 0, 0] },\n  { id: \"b\", vec: [2, 0, 1] },\n  { id: \"c\", vec: [0, 3, 0] },\n  { id: \"d\", vec: [4, 0, 2] },\n];\nconst dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);\nconst mag = (a) => Math.sqrt(dot(a, a));\nconst cos = (a, b) => dot(a, b) / (mag(a) * mag(b));\nfunction mostSimilarPair(chunks) {\n  const pairs = [];\n  for (let i = 0; i < chunks.length; i++)\n    for (let j = i + 1; j < chunks.length; j++)\n      pairs.push({ key: `${chunks[i].id}-${chunks[j].id}`, cos: cos(chunks[i].vec, chunks[j].vec) });\n  return pairs.sort((a, b) => b.cos - a.cos || a.key.localeCompare(b.key));\n}\nconst ranked = mostSimilarPair(chunks);\nfor (const p of ranked) console.log(`${p.key} cos=${p.cos.toFixed(3)}`);\nconsole.log(`dedup: ${ranked[0].key.replace(\"-\", \",\")}`);"
+  },
+  "vector-stores-upsert": {
+    "language": "js",
+    "code": "const store = new Map();\nfor (const r of [\n  { id: \"policy#0\", text: \"Refunds within 14 days.\" },\n  { id: \"policy#1\", text: \"Fee is $50.\" },\n  { id: \"faq#0\", text: \"We ship worldwide.\" },\n  { id: \"policy#2\", text: \"Contact support.\" },\n]) store.set(r.id, r);\nfunction purge(store, source) {\n  const prefix = `${source}#`;\n  let removed = 0;\n  for (const id of [...store.keys()]) if (id.startsWith(prefix)) { store.delete(id); removed++; }\n  return removed;\n}\nconsole.log(`before: ${store.size}`);\nconst removed = purge(store, \"policy\");\nconsole.log(`removed: ${removed}`);\nconsole.log(`after: ${store.size}`);"
+  },
+  "indexing-versioning": {
+    "language": "js",
+    "code": "const index = { v1: [\"a\", \"b\"], v2: [] };\nlet active = \"v1\";\nconst addTo = (v, ids) => index[v].push(...ids);\nfunction promote(v) {\n  if (index[v].length === 0) return \"refused\";\n  active = v;\n  return \"promoted\";\n}\nconsole.log(`promote v2 -> ${promote(\"v2\")} active=${active}`);\naddTo(\"v2\", [\"a\", \"b\", \"c\"]);\nconsole.log(`promote v2 -> ${promote(\"v2\")} active=${active}`);"
+  },
+  "top-k-thresholds": {
+    "language": "js",
+    "code": "const TAU = 0.35, MIN = 2;\nconst many = [ { id: \"a\", score: 0.82 }, { id: \"b\", score: 0.40 }, { id: \"c\", score: 0.12 } ];\nconst lone = [ { id: \"x\", score: 0.77 }, { id: \"y\", score: 0.20 }, { id: \"z\", score: 0.05 } ];\nfunction decide(cands) {\n  const kept = [...cands]\n    .filter((c) => c.score >= TAU)\n    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));\n  if (kept.length < MIN) return { verdict: \"refuse\", ids: [] };\n  return { verdict: \"ground\", ids: kept.map((c) => c.id) };\n}\nfor (const [name, set] of [[\"many\", many], [\"lone\", lone]]) {\n  const r = decide(set);\n  console.log(`${name}: ${r.verdict} ${r.ids.length ? r.ids.join(\",\") : \"-\"}`);\n}"
+  },
+  "hybrid-search": {
+    "language": "js",
+    "code": "const lexical = [\"d3\", \"d2\", \"d1\"];\nconst vector = [\"d2\", \"d1\", \"d4\"];\nconst K = 60;\nfunction fuse(lists, k) {\n  const score = new Map();\n  for (const list of lists) list.forEach((id, i) => score.set(id, (score.get(id) ?? 0) + 1 / (k + (i + 1))));\n  return [...score.entries()]\n    .map(([id, s]) => ({ id, score: s }))\n    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));\n}\nconst fused = fuse([lexical, vector], K);\nfor (const r of fused) console.log(`${r.id}=${r.score.toFixed(5)}`);\nconst changed = lexical[0] !== fused[0].id ? \"yes\" : \"no\";\nconsole.log(`lexical#1: ${lexical[0]}  fused#1: ${fused[0].id}  changed: ${changed}`);"
+  },
+  "reranking": {
+    "language": "js",
+    "code": "const query = \"refund window policy\";\nconst stage1 = [\n  { id: \"a\", text: \"shipping and delivery times\" },\n  { id: \"b\", text: \"our refund policy and refund window\" },\n  { id: \"c\", text: \"policy for enterprise plans\" },\n  { id: \"d\", text: \"password reset instructions\" },\n];\nconst K = 2;\nfunction rerank(query, docs) {\n  const terms = query.toLowerCase().split(/\\s+/);\n  return [...docs]\n    .map((d) => {\n      const words = new Set(d.text.toLowerCase().split(/\\s+/));\n      const rel = terms.filter((t) => words.has(t)).length;\n      return { id: d.id, rel };\n    })\n    .sort((a, b) => b.rel - a.rel || a.id.localeCompare(b.id))\n    .slice(0, K)\n    .map((x) => x.id);\n}\nconst top3 = stage1.slice(0, 3);\nconsole.log(`stage1: ${top3.map((d) => d.id).join(\",\")}`);\nconsole.log(`reranked: ${rerank(query, top3).join(\",\")}`);"
+  },
+  "query-rewriting": {
+    "language": "js",
+    "code": "const glossary = { \"SLA\": \"service level agreement\", \"refund\": \"money-back guarantee\" };\nconst queries = [\n  \"what is the SLA?\",\n  \"how do I get a refund?\",\n  \"reset my password\",\n];\nfunction expand(query, glossary) {\n  let out = query;\n  for (const [alias, canonical] of Object.entries(glossary)) {\n    out = out.replace(new RegExp(`\\\\b${alias}\\\\b`, \"gi\"), canonical);\n  }\n  return out;\n}\nfor (const q of queries) console.log(`${q} -> ${expand(q, glossary)}`);"
+  },
+  "grounding-contract": {
+    "language": "js",
+    "code": "const context = [\"Refunds are processed within 30 days.\", \"A $50 restocking fee applies.\"];\nconst claims = [\"refunds within 30 days\", \"shipping is refunded too\"];\nfunction auditClaims(passages, candidateClaims) {\n  const evidence = passages.join(\" \").toLowerCase();\n  return candidateClaims.map((claim) => {\n    const terms = claim.toLowerCase().split(/\\s+/).filter((word) => word.length > 3 || /\\d/.test(word));\n    return { claim, supported: terms.every((term) => evidence.includes(term)) };\n  });\n}\nconst audited = auditClaims(context, claims);\nfor (const item of audited) console.log(item.claim + \": \" + (item.supported ? \"grounded\" : \"UNGROUNDED\"));\nconsole.log(\"answer grounded:\", audited.every((item) => item.supported));"
+  },
+  "citations-source-spans": {
+    "language": "js",
+    "code": "const chunks = [\n  { source: \"policy\", start: 0, end: 36, text: \"Refunds are processed within 30 days.\" },\n  { source: \"policy\", start: 37, end: 71, text: \"A $50 restocking fee may apply.\" },\n];\nconst claims = [\"refunds in 30 days\", \"a $50 fee applies\", \"free returns forever\"];\nfunction citeClaims(passages, candidateClaims) {\n  return candidateClaims.map((claim) => {\n    const terms = claim.toLowerCase().split(/\\s+/).filter((word) => word.length > 3 || /[$\\d]/.test(word));\n    const chunk = passages.find((passage) => terms.every((term) => passage.text.toLowerCase().includes(term)));\n    return { claim, chunk };\n  });\n}\nconst cited = citeClaims(chunks, claims);\nfor (const item of cited) console.log(item.claim + \" -> \" + (item.chunk ? item.chunk.source + \"[\" + item.chunk.start + \",\" + item.chunk.end + \"]\" : \"UNCITABLE\"));\nconsole.log(\"citable:\", cited.filter((item) => item.chunk).length);"
+  },
+  "refusal-when-unsupported": {
+    "language": "js",
+    "code": "const cases = [\n  { name: \"refund window and fee\", required: [\"window\", \"fee\"], context: \"The refund window is 30 days and a $50 fee applies.\" },\n  { name: \"refund window and shipping\", required: [\"window\", \"shipping\"], context: \"The refund window is 30 days and a $50 fee applies.\" },\n];\nfunction decide(entry) {\n  const haystack = entry.context.toLowerCase();\n  const hits = entry.required.filter((aspect) => haystack.includes(aspect)).length;\n  return { hits, total: entry.required.length, verdict: hits === entry.required.length ? \"answer\" : \"refuse\" };\n}\nfor (const entry of cases) {\n  const result = decide(entry);\n  console.log(entry.name + \": \" + result.hits + \"/\" + result.total + \" -> \" + result.verdict);\n}"
+  },
+  "stale-chunk-handling": {
+    "language": "js",
+    "code": "const chunks = [\n  { key: \"fee\", value: \"$40\", updated: 20 }, { key: \"fee\", value: \"$50\", updated: 80 },\n  { key: \"refund_window\", value: \"14 days\", updated: 30 }, { key: \"refund_window\", value: \"30 days\", updated: 95 },\n  { key: \"shipping\", value: \"free\", updated: 10 },\n];\nfunction freshest(items, now, ttl) {\n  const live = items.filter((item) => now - item.updated <= ttl[item.key]);\n  const newest = new Map();\n  for (const item of live) if (!newest.has(item.key) || newest.get(item.key).updated < item.updated) newest.set(item.key, item);\n  return [...newest.values()].sort((a, b) => a.key.localeCompare(b.key));\n}\nconst kept = freshest(chunks, 100, { fee: 30, refund_window: 20, shipping: 30 });\nfor (const item of kept) console.log(item.key + \"=\" + item.value + \" (updated \" + item.updated + \")\");\nconsole.log(\"kept:\", kept.length);"
+  },
+  "recall-at-k": {
+    "language": "js",
+    "code": "const labeled = [\n  { id: \"q1\", relevant: [\"a\", \"b\"], ranked: [\"a\", \"x\", \"b\"] },\n  { id: \"q2\", relevant: [\"c\"], ranked: [\"c\", \"z\"] },\n  { id: \"q3\", relevant: [\"d\"], ranked: [\"x\", \"y\"] },\n];\nfunction recallAtK(entry, k) {\n  const top = new Set(entry.ranked.slice(0, k));\n  return entry.relevant.filter((id) => top.has(id)).length / entry.relevant.length;\n}\nconst scores = labeled.map((entry) => ({ id: entry.id, score: recallAtK(entry, 2) }));\nfor (const result of scores) console.log(result.id + \": \" + result.score.toFixed(2));\nconsole.log(\"mean:\", (scores.reduce((sum, result) => sum + result.score, 0) / scores.length).toFixed(2));"
+  },
+  "answer-faithfulness": {
+    "language": "js",
+    "code": "const context = [\"Refunds are processed within 30 days.\", \"There is a 50 dollar restocking fee.\"];\nconst claims = [\"refunds in 30 days\", \"there is a 50 dollar fee\", \"shipping is also refunded\", \"returns are free forever\"];\nfunction faithfulness(passages, candidateClaims) {\n  const evidence = passages.join(\" \").toLowerCase();\n  const audited = candidateClaims.map((claim) => {\n    const terms = claim.toLowerCase().split(/\\s+/).filter((word) => word.length > 3 || /\\d/.test(word));\n    return { claim, supported: terms.every((term) => evidence.includes(term)) };\n  });\n  return { audited, score: audited.filter((item) => item.supported).length / audited.length };\n}\nconst result = faithfulness(context, claims);\nfor (const item of result.audited) console.log(item.claim + \": \" + (item.supported ? \"supported\" : \"unsupported\"));\nconsole.log(\"faithfulness:\", result.score.toFixed(2));"
+  },
+  "rag-cost-latency": {
+    "language": "js",
+    "code": "const tokensPerChunk = 200, inputPer1k = 0.50;\nconst queriesPerDay = 1000, days = 30, budget = 20000;\nfunction monthlyCost(k) {\n  const perQuery = (k * tokensPerChunk / 1000) * inputPer1k;\n  return perQuery * queriesPerDay * days;\n}\nfor (const k of [3, 10]) {\n  const c = monthlyCost(k);\n  console.log(`k=${k}: $${c.toFixed(2)} ${c > budget ? \"OVER\" : \"under\"}`);\n}"
+  },
+  "capstone-grounded-cited-rag": {
+    "language": "js",
+    "code": "const scenarios = [\n  { id: \"s1\", threshold: 0.7, retrieved: [{ id: \"p1\", score: 0.91, text: \"Refunds take 30 days.\" }], relevant: [\"p1\"], claims: [{ text: \"Refunds take 30 days.\", source: \"p1\" }] },\n  { id: \"s2\", threshold: 0.7, retrieved: [{ id: \"p2\", score: 0.42, text: \"Shipping details.\" }], relevant: [\"missing\"], claims: [] },\n];\nfunction runScenario(scenario) {\n  const accepted = scenario.retrieved.filter((item) => item.score >= scenario.threshold);\n  if (!accepted.length) return { verdict: \"refuse\" };\n  const acceptedIds = new Set(accepted.map((item) => item.id));\n  const recall = scenario.relevant.filter((id) => acceptedIds.has(id)).length / scenario.relevant.length;\n  const supported = scenario.claims.filter((claim) => acceptedIds.has(claim.source)).length;\n  const faith = scenario.claims.length ? supported / scenario.claims.length : 0;\n  return { verdict: faith === 1 ? \"answer\" : \"refuse\", recall, faith };\n}\nfor (const scenario of scenarios) {\n  const result = runScenario(scenario);\n  console.log(scenario.id + \": \" + (result.verdict === \"answer\" ? \"answer recall=\" + result.recall.toFixed(2) + \" faith=\" + result.faith.toFixed(2) : \"refuse\"));\n}"
+  }
+}

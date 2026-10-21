@@ -6,8 +6,9 @@ import type { IconName } from '@/components/academy/ui/Icon'
  *
  *   Category  →  Track  →  Course  →  Sprint
  *
- * Categories are broad domains (Software & AI Engineering now; Design, Mobile,
- * etc. later). Tracks are the learning tracks within a category (the 12
+ * Categories are broad navigation domains, not course identity or publication
+ * authority; those live in data/academy/registry.json. Software & AI Engineering
+ * is current; Design and Mobile come later. Tracks within a category (the 12
  * canonical engineering tracks live under "Software & AI Engineering"). Courses
  * reference a track by id. This file is the source of truth for the catalog's
  * structure; content (courses/sprints) is data and arrives later.

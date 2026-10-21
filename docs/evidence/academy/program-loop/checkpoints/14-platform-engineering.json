@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "academy-program-loop-v1",
+  "courseSlug": "career-platform_engineering_internal_developer_platforms",
+  "baselineRegistryVersion": "sha256:e229252263f13e3c74f033ecf2a14d3dd73508600c8a1d8d430741815afea183",
+  "registryVersion": "sha256:485aff7f5c534ccd13d07ad610dcbf096967adc2ab1ab59417b79b8106dcbe45",
+  "commit": "97a44f42",
+  "attempts": 1,
+  "gates": {
+    "focusedTests": {"status":"pass","consecutivePasses":3,"command":"npx tsx --test tests/academy/platform-engineering-mastery.test.ts","result":"6/6 tests passed on each run; 20/20 references matched exact output"},
+    "academyAudit": {"status":"pass","consecutivePasses":1,"command":"npm run academy:audit:all","result":"32 courses / 640 lessons audited; Platform Engineering deterministic score 100; no H1, H3, H4, or H5"},
+    "registryCheck": {"status":"pass","consecutivePasses":1,"command":"npm run academy:registry:check","result":"32 courses / 640 lessons / 470 labs"},
+    "typecheck": {"status":"pass","consecutivePasses":1,"command":"npm run typecheck","result":"0 TypeScript errors"},
+    "build": {"status":"pass","consecutivePasses":1,"command":"npm run build","result":"Next.js production build passed; 407 static pages generated"},
+    "diffCheck": {"status":"pass","consecutivePasses":1,"command":"git diff --check","result":"clean scoped course diff; changed-file lint, first-party source reachability, and literal-secret scan passed"}
+  },
+  "scoreDelta": {"before":77.8,"after":100,"meaning":"deterministic checks only; not a composite or certification score"},
+  "hardFailCounts": {"H1":0,"H2":20,"H3":0,"H4":0,"H5":0},
+  "labTrust": "untrusted_current_runtime",
+  "certificationStatus": "uncertified",
+  "pendingReview": ["accessibility","consistency","content_correctness","pedagogy","performance","sources","ux","visual"],
+  "knownRepositoryBoundary": {"command":"npm audit --omit=dev --audit-level=high","status":"pre_existing_failure","result":"13 production dependency advisories: 11 high and 2 moderate; no dependency files changed"}
+}

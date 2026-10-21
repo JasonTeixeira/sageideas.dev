@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:20:00.000Z",
+  "status": "failed",
+  "classification": "hosted_browser_failed",
+  "expected": {
+    "baseURL": "https://sageideas.dev",
+    "deploymentId": "production",
+    "commitSha": "main",
+    "branch": "main"
+  },
+  "summary": {
+    "expectedTests": 15,
+    "observedTests": 1,
+    "passed": 0,
+    "failed": 1
+  },
+  "tests": [
+    {
+      "title": "broken route",
+      "status": "failed",
+      "durationMs": 1
+    }
+  ],
+  "trust": {
+    "academyCertification": "certified",
+    "labTrust": "trusted_controlled_runtime",
+    "labEvidence": "mastery"
+  }
+}

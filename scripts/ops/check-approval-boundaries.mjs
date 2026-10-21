@@ -9,6 +9,11 @@ const localReleaseRoots = ['verify:local', 'discord:release-local'];
 
 const requiresExplicitApproval = new Set([
   'db:push',
+  'seed:test-data',
+  'test:cleanup',
+  'test:e2e',
+  'test:e2e:local',
+  'test:e2e:local:acquisition',
   'discord:register',
   'discord:provision',
   'discord:archive-old',

@@ -1,0 +1,75 @@
+{
+  "your-first-program": {
+    "language": "python",
+    "code": "print(\"Hello, world!\")\n"
+  },
+  "variables-and-values": {
+    "language": "python",
+    "code": "per_crate = 12\ncrates = 4\ntotal = per_crate * crates\nprint(total)\n"
+  },
+  "numbers-and-strings": {
+    "language": "python",
+    "code": "item = \"Coffee\"\nprice = 4\nqty = 3\ntotal = price * qty\nprint(f\"{item} x{qty} = ${total}\")\n"
+  },
+  "reading-input": {
+    "language": "python",
+    "stdin": "Sam\n3",
+    "code": "name = input()\ncount = int(input())\nprint(f\"{name}, you have {count} items.\")\n"
+  },
+  "booleans-and-logic": {
+    "language": "python",
+    "code": "score = 84\nif score >= 90:\n    print(\"Grade: A\")\nelif score >= 70:\n    print(\"Grade: B\")\nelse:\n    print(\"Grade: C\")\n"
+  },
+  "lists": {
+    "language": "python",
+    "code": "cart = [\"milk\", \"bread\", \"apples\"]\ncart.append(\"eggs\")\nprint(cart[0])\nprint(len(cart))\n"
+  },
+  "loops": {
+    "language": "python",
+    "code": "prices = [10, 25, 5, 20]\ntotal = 0\nfor price in prices:\n    total += price\nprint(total)\n"
+  },
+  "functions-basics": {
+    "language": "python",
+    "code": "import json\nimport sys\n\n# Define total_price(unit_price, qty) so it RETURNS the computed total.\ndef total_price(unit_price, qty):\n    return unit_price * qty\n\n# The browser uses the visible example. The controlled evaluator supplies other\n# JSON cases over stdin, so hardcoding 42 cannot pass mastery.\nraw = sys.stdin.read().strip()\ncase = json.loads(raw) if raw else {\"unitPrice\": 7, \"qty\": 6}\nbill = total_price(case[\"unitPrice\"], case[\"qty\"])\nprint(f\"{case['qty']} items = ${bill}\")\n"
+  },
+  "build-a-tiny-program": {
+    "language": "python",
+    "code": "# CAPSTONE — ship a tiny gradebook in one small program.\n# scores below are quiz results (0-100). Build ONE program that:\n#   1. defines a function  summarize(scores)  which LOOPS over the scores and,\n#      inside the loop, builds a running total AND counts how many are >= 60 (passing);\n#   2. computes the average  (total divided by how many scores there are);\n#   3. prints the passing-count line, then RETURNS the average.\n#   4. OUTSIDE the function: call summarize(scores), store the returned average in  avg,\n#      and print the average line. Print the average as a whole number with  int(avg).\n# Required output — EXACTLY two lines (use f-strings):\n#   Passed: 3 of 5\n#   Average: 70\n\nscores = [40, 80, 95, 50, 85]\ndef summarize(scores):\n    total = 0\n    passed = 0\n    for score in scores:\n        total += score\n        if score >= 60:\n            passed += 1\n    print(f\"Passed: {passed} of {len(scores)}\")\n    return total / len(scores)\n\navg = summarize(scores)\nprint(f\"Average: {int(avg)}\")\n"
+  },
+  "input-validation": {
+    "language": "python",
+    "code": "import json\nimport sys\n\ndef validate_age(value):\n    # Reject bool and every non-int with: age must be an integer\n    # Reject integers outside 0..120 with: age must be between 0 and 120\n    if isinstance(value, bool) or not isinstance(value, int):\n        raise ValueError(\"age must be an integer\")\n    if not 0 <= value <= 120:\n        raise ValueError(\"age must be between 0 and 120\")\n    return value\n\nraw = sys.stdin.read().strip()\nvalues = [json.loads(raw)] if raw else [25, \"25\", -3, 200]\nfor value in values:\n    try:\n        print(f\"accepted: {validate_age(value)!r}\")\n    except ValueError as error:\n        print(f\"rejected: {error}\")\n"
+  },
+  "error-handling": {
+    "language": "python",
+    "code": "def safe_divide(a, b):\n    # Don't swallow it. Catch ZeroDivisionError, log operator context (print a line),\n    # then chain a clear error:  raise ValueError(\"cannot divide by zero\") from e\n    try:\n        return a / b\n    except ZeroDivisionError as error:\n        raise ValueError(\"cannot divide by zero\") from error\n\n\n# --- test harness (do not edit) ---\ntry:\n    print(\"ok:\", safe_divide(10, 2))\n    safe_divide(10, 0)\n    print(\"BUG: no error raised — it was swallowed!\")\nexcept ValueError as e:\n    print(f\"error surfaced: {e}\")\n"
+  },
+  "functions-and-modules": {
+    "language": "python",
+    "code": "# This \"works\" in the REPL but FAILS in tests when another part of the app\n# changes `discount`. Refactor line_total to be PURE: depend ONLY on its\n# parameters (price, qty), RETURN the total, read no globals, no print.\ndiscount = 0\n\ndef line_total(price, qty):\n    return price * qty\n\n\n# --- test harness (do not edit) ---\ncases = [(10, 3, 30), (5, 4, 20), (0, 9, 0)]\ncorrect = all(line_total(p, q) == exp for p, q, exp in cases)\nglobals()[\"discount\"] = 7             # another module changes the global mid-run\npure = all(line_total(p, q) == exp for p, q, exp in cases)  # only a PURE fn survives\nprint(f\"correct: {correct}\")\nprint(f\"pure (survives a changed global): {pure}\")\nprint(f\"PASS: {correct and pure}\")\n"
+  },
+  "types-and-data": {
+    "language": "python",
+    "code": "def total_quantity(values):\n    # values is a list of STRINGS, e.g. [\"2\", \"3\", \"5\"]. Convert each to an int\n    # and RETURN the integer sum. If a value isn't a whole number, raise ValueError.\n    total = 0\n    for value in values:\n        total += int(value)\n    return total\n\n\n# --- test harness (do not edit) ---\nprint(\"sum:\", total_quantity([\"2\", \"3\", \"5\"]))     # must be 10 (int), not \"235\"\nok = total_quantity([\"2\", \"3\", \"5\"]) == 10\ntry:\n    total_quantity([\"2\", \"oops\"])\n    rejected = False\nexcept ValueError:\n    rejected = True\nprint(f\"PASS: {ok and rejected}\")\n"
+  },
+  "control-flow": {
+    "language": "python",
+    "code": "def active_orders(orders):\n    # Return only the orders whose status != 'cancelled'.\n    # Do NOT remove from `orders` while looping over it — build a NEW list.\n    return [order for order in orders if order[\"status\"] != \"cancelled\"]\n\n\n# --- test harness (do not edit) ---\ndata = [\n    {\"id\": 1, \"status\": \"active\"},\n    {\"id\": 2, \"status\": \"cancelled\"},\n    {\"id\": 3, \"status\": \"cancelled\"},   # adjacent cancelled -> trips the skip bug\n    {\"id\": 4, \"status\": \"active\"},\n]\nids = [o[\"id\"] for o in active_orders(data)]\nids2 = [o[\"id\"] for o in active_orders([\n    {\"id\": 9, \"status\": \"cancelled\"},\n    {\"id\": 8, \"status\": \"active\"},\n])]\nprint(\"kept ids:\", ids)\nprint(f\"PASS: {ids == [1, 4] and ids2 == [8] and len(data) == 4}\")\n"
+  },
+  "files-and-io": {
+    "language": "python",
+    "code": "def read_config(path):\n    # Open the file with a `with` block (it always closes), read \"key=value\"\n    # lines into a dict, skipping blank lines. If the file is MISSING, let it\n    # raise FileNotFoundError — do NOT silently return {}.\n    config = {}\n    with open(path) as handle:\n        for line in handle:\n            line = line.strip()\n            if not line:\n                continue\n            key, value = line.split(\"=\", 1)\n            config[key] = value\n    return config\n\n\n# --- test harness (do not edit) ---\nwith open(\"app.conf\", \"w\") as f:\n    f.write(\"host=localhost\\n\\nport=8080\\n\")\ncfg = read_config(\"app.conf\")\nok = cfg == {\"host\": \"localhost\", \"port\": \"8080\"}\ntry:\n    read_config(\"missing.conf\")\n    missing_handled = False\nexcept FileNotFoundError:\n    missing_handled = True\nprint(\"config:\", cfg)\nprint(f\"PASS: {ok and missing_handled}\")\n"
+  },
+  "testing-and-debugging": {
+    "language": "python",
+    "code": "def safe_average(numbers):\n    # Return the average of the numbers. EDGE CASE: an EMPTY list must return 0,\n    # not crash with ZeroDivisionError (sum([]) / len([]) is 0 / 0).\n    return sum(numbers) / len(numbers) if numbers else 0\n\n\n# --- test harness: a tiny suite (happy path + the edge that bites) ---\nassert safe_average([2, 4, 6]) == 4, \"normal case\"\nassert safe_average([10]) == 10, \"single element\"\nassert safe_average([]) == 0, \"EMPTY list must return 0, not crash\"   # regression\nprint(\"all assertions passed\")\nprint(\"PASS: True\")\n"
+  },
+  "cli-workflow": {
+    "language": "python",
+    "code": "def decide(args):\n    # args is a dict, e.g. {\"execute\": False, \"env\": \"staging\", \"confirmed\": False}\n    # SAFETY RULES:\n    #   - Default to \"dry-run\" unless execute is explicitly True.\n    #   - Production requires confirmed=True (no accidental prod) -> else block it.\n    #   - Otherwise -> \"execute\".\n    # Return one of: \"dry-run\", \"execute\", \"blocked: confirm production\"\n    if not args.get(\"execute\"):\n        return \"dry-run\"\n    if args.get(\"env\") == \"production\" and not args.get(\"confirmed\"):\n        return \"blocked: confirm production\"\n    return \"execute\"\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ({\"execute\": False, \"env\": \"staging\"}, \"dry-run\"),\n    ({\"execute\": True, \"env\": \"staging\"}, \"execute\"),\n    ({\"execute\": True, \"env\": \"production\"}, \"blocked: confirm production\"),\n    ({\"execute\": True, \"env\": \"production\", \"confirmed\": True}, \"execute\"),\n]\nok = all(decide(a) == exp for a, exp in cases)\nfor a, exp in cases:\n    print(f\"{a} -> {decide(a)!r}\")\nprint(f\"PASS: {ok}\")\n"
+  },
+  "git-fundamentals": {
+    "language": "python",
+    "code": "LAZY = {\"\", \"wip\", \"fix\", \"stuff\", \"update\", \".\", \"asdf\"}\n\ndef check_commit(staged_files, message):\n    # A good commit is ATOMIC (has staged changes) with a clear message.\n    #   - no staged files            -> \"nothing to commit\"\n    #   - empty/lazy or < 10 chars   -> \"weak message\"\n    #   - otherwise                  -> \"ok\"\n    normalized = message.strip().lower()\n    if not staged_files:\n        return \"nothing to commit\"\n    if normalized in LAZY or len(normalized) < 10:\n        return \"weak message\"\n    return \"ok\"\n\n\n# --- test harness (do not edit) ---\ncases = [\n    ([], \"add user validation\", \"nothing to commit\"),\n    ([\"a.py\"], \"wip\", \"weak message\"),\n    ([\"a.py\"], \"fix\", \"weak message\"),\n    ([\"a.py\"], \"add input validation to signup\", \"ok\"),\n]\nok = all(check_commit(f, m) == exp for f, m, exp in cases)\nfor f, m, exp in cases:\n    print(f\"{m!r} -> {check_commit(f, m)!r}\")\nprint(f\"PASS: {ok}\")\n"
+  }
+}

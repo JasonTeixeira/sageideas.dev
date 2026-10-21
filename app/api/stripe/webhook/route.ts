@@ -12,6 +12,12 @@ import {
   syncDiscordPremiumFromCheckout,
   syncDiscordPremiumFromSubscription,
 } from '@/lib/discord/premium';
+import {
+  assertSupabaseSuccess,
+  classifyWebhookClaimOutcome,
+  deriveRefundStatus,
+  isApplicationOwnedRefundMetadata,
+} from '@/lib/billing/integrity';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -45,60 +51,68 @@ export async function POST(req: Request) {
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'unknown';
     console.error('[stripe/webhook] signature verify failed:', msg);
-    return NextResponse.json({ error: `Invalid signature: ${msg}` }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
   const sb = supabaseAdmin();
 
-  // Replay protection — insert-first into stripe_webhook_events keyed on
-  // event.id. The unique-violation path acks immediately so Stripe stops
-  // retrying. A failure to log is fail-closed (503) so an event is never
-  // processed without a row that admins can later inspect.
-  const { error: logErr } = await sb.from('stripe_webhook_events').insert({
-    event_id: event.id,
-    event_type: event.type,
-    status: 'received',
-    payload: event as unknown as Record<string, unknown>,
-  });
-  if (logErr) {
-    if ((logErr as { code?: string }).code === '23505') {
-      await sb
-        .from('stripe_webhook_events')
-        .update({ status: 'duplicate' })
-        .eq('event_id', event.id)
-        .neq('status', 'processed');
-      return NextResponse.json({ received: true, duplicate: true });
-    }
-    console.error('[stripe/webhook] event_log insert', logErr);
-    return NextResponse.json({ error: 'event log unavailable' }, { status: 503 });
+  let claimAction;
+  try {
+    const claimResult = await sb.rpc('claim_stripe_webhook_event', {
+      p_event_id: event.id,
+      p_event_type: event.type,
+      p_payload: event as unknown as Record<string, unknown>,
+    });
+    claimAction = classifyWebhookClaimOutcome(
+      assertSupabaseSuccess(claimResult, 'Stripe webhook event claim'),
+    );
+  } catch (error) {
+    console.error('[stripe/webhook] event claim', error);
+    return NextResponse.json({ error: 'Event log unavailable' }, { status: 503 });
+  }
+
+  if (claimAction === 'acknowledge') {
+    return NextResponse.json({ received: true, duplicate: true });
+  }
+  if (claimAction === 'retry_later') {
+    return NextResponse.json({ error: 'Event already processing' }, { status: 409 });
+  }
+  if (claimAction !== 'process') {
+    return NextResponse.json({ error: 'Event claim failed' }, { status: 503 });
   }
 
   try {
-    await dispatchEvent(sb, event);
-    await sb
+    await dispatchEvent(sb, event, event.id);
+    const completionResult = await sb
       .from('stripe_webhook_events')
       .update({ status: 'processed', processed_at: new Date().toISOString(), error: null })
       .eq('event_id', event.id);
+    assertSupabaseSuccess(completionResult, 'Stripe webhook completion persistence');
     return NextResponse.json({ received: true });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[stripe/webhook] handler error', event.type, msg);
-    await sb
+    const failureResult = await sb
       .from('stripe_webhook_events')
       .update({ status: 'failed', error: msg.slice(0, 1000) })
       .eq('event_id', event.id);
+    try {
+      assertSupabaseSuccess(failureResult, 'Stripe webhook failure persistence');
+    } catch (persistenceError) {
+      console.error('[stripe/webhook] failure persistence', persistenceError);
+    }
     return NextResponse.json({ error: 'Handler failed' }, { status: 500 });
   }
 }
 
-export async function dispatchEvent(sb: Sb, event: Stripe.Event): Promise<void> {
+export async function dispatchEvent(sb: Sb, event: Stripe.Event, eventId: string): Promise<void> {
   switch (event.type) {
     case 'checkout.session.completed':
-      await handleCheckoutCompleted(sb, event.data.object as Stripe.Checkout.Session);
+      await handleCheckoutCompleted(sb, event.data.object as Stripe.Checkout.Session, eventId);
       return;
     case 'invoice.paid':
     case 'invoice.payment_succeeded':
-      await handleInvoicePaymentSucceeded(sb, event.data.object as Stripe.Invoice);
+      await handleInvoicePaymentSucceeded(sb, event.data.object as Stripe.Invoice, eventId);
       await writeInvoiceAuditLog(sb, event.data.object as Stripe.Invoice, 'stripe.invoice.paid');
       return;
     case 'invoice.payment_failed':
@@ -125,14 +139,22 @@ export async function dispatchEvent(sb: Sb, event: Stripe.Event): Promise<void> 
 
 type Sb = ReturnType<typeof supabaseAdmin>;
 
-async function handleCheckoutCompleted(sb: Sb, session: Stripe.Checkout.Session) {
+async function handleCheckoutCompleted(
+  sb: Sb,
+  session: Stripe.Checkout.Session,
+  eventId: string,
+) {
   // Service self-checkout (kind='service'): capture lead and return — no invoice to update.
   if (session.metadata?.kind === 'service') {
+    const detail = `Purchased service: ${session.metadata.slug ?? 'unknown'}`;
+    await persistCheckoutFulfillment(sb, session, 'service', detail, {
+      slug: session.metadata.slug,
+    });
     await captureLead({
       source: 'checkout',
       email: session.customer_details?.email ?? null,
       name: session.customer_details?.name ?? null,
-      detail: `Purchased service: ${session.metadata.slug ?? 'unknown'}`,
+      detail,
       amountCents: session.amount_total ?? null,
       metadata: { slug: session.metadata.slug, sessionId: session.id },
     });
@@ -143,11 +165,16 @@ async function handleCheckoutCompleted(sb: Sb, session: Stripe.Checkout.Session)
   // The subscription record itself is written by the customer.subscription.created event
   // (upsertSubscription) — that fires separately and is idempotent.
   if (session.metadata?.kind === 'care') {
+    const detail = `Care subscription: ${session.metadata.tier_slug ?? 'unknown'}`;
+    await persistCheckoutFulfillment(sb, session, 'care', detail, {
+      tier_slug: session.metadata.tier_slug,
+      recurring: true,
+    });
     await captureLead({
       source: 'checkout',
       email: session.customer_details?.email ?? null,
       name: session.customer_details?.name ?? null,
-      detail: `Care subscription: ${session.metadata.tier_slug ?? 'unknown'}`,
+      detail,
       amountCents: session.amount_total ?? null,
       metadata: {
         tier_slug: session.metadata.tier_slug,
@@ -193,17 +220,18 @@ async function handleCheckoutCompleted(sb: Sb, session: Stripe.Checkout.Session)
   const amountDollars = amountTotalCents / 100;
   const paymentMethod = session.payment_method_types?.[0] ?? null;
 
-  const { data: inv } = await sb
+  const invoiceLookup = await sb
     .from('invoices')
     .select('id, organization_id')
     .eq('id', invoiceId)
     .maybeSingle();
+  const inv = assertSupabaseSuccess(invoiceLookup, 'checkout invoice lookup');
   if (!inv) {
     console.warn('[stripe/webhook] invoice not found for session', session.id);
     return;
   }
 
-  await sb
+  const invoiceUpdate = await sb
     .from('invoices')
     .update({
       status: 'paid',
@@ -213,11 +241,13 @@ async function handleCheckoutCompleted(sb: Sb, session: Stripe.Checkout.Session)
       dunning_status: 'current',
     })
     .eq('id', invoiceId);
+  assertSupabaseSuccess(invoiceUpdate, 'checkout invoice payment update');
 
-  await sb.from('payments').insert({
+  await upsertPaymentReceipt(sb, {
     invoice_id: invoiceId,
     organization_id: inv.organization_id,
     stripe_payment_intent_id: paymentIntentId,
+    stripe_event_id: eventId,
     amount: amountDollars,
     currency: session.currency ?? 'usd',
     status: 'succeeded',
@@ -234,23 +264,85 @@ async function handleCheckoutCompleted(sb: Sb, session: Stripe.Checkout.Session)
   });
 }
 
-async function handleInvoicePaymentSucceeded(sb: Sb, invoice: Stripe.Invoice) {
-  // Stripe-managed invoices (subscriptions). Map to our invoices via stripe_invoice_id.
+async function persistCheckoutFulfillment(
+  sb: Sb,
+  session: Stripe.Checkout.Session,
+  kind: 'service' | 'care',
+  detail: string,
+  metadata: Record<string, unknown>,
+): Promise<void> {
+  const paymentIntentId = typeof session.payment_intent === 'string'
+    ? session.payment_intent
+    : session.payment_intent?.id ?? null;
+  const subscriptionId = typeof session.subscription === 'string'
+    ? session.subscription
+    : session.subscription?.id ?? null;
+  const result = await sb.from('checkout_fulfillments').upsert(
+    {
+      stripe_checkout_session_id: session.id,
+      stripe_payment_intent_id: paymentIntentId,
+      stripe_subscription_id: subscriptionId,
+      kind,
+      status: 'completed',
+      email: session.customer_details?.email ?? session.customer_email ?? null,
+      name: session.customer_details?.name ?? null,
+      detail,
+      amount_cents: session.amount_total ?? null,
+      currency: session.currency ?? 'usd',
+      metadata,
+      completed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: 'stripe_checkout_session_id' },
+  );
+  assertSupabaseSuccess(result, `${kind} checkout fulfillment persistence`);
+}
+
+async function handleInvoicePaymentSucceeded(
+  sb: Sb,
+  invoice: Stripe.Invoice,
+  eventId: string,
+) {
   if (!invoice.id) return;
-  const { data: ourInv } = await sb
+  const paidInvoicePayment = invoice.payments?.data.find((payment) => payment.status === 'paid')
+    ?? invoice.payments?.data[0];
+  const currentPaymentIntent = paidInvoicePayment?.payment.payment_intent;
+  const legacyPaymentIntent = (invoice as unknown as {
+    payment_intent?: string | { id?: string };
+  }).payment_intent;
+  const piRaw = currentPaymentIntent ?? legacyPaymentIntent;
+  const piId = typeof piRaw === 'string' ? piRaw : piRaw?.id ?? null;
+  const amountDollars = (invoice.amount_paid ?? 0) / 100;
+
+  const subscriptionMetadata = invoice.parent?.subscription_details?.metadata;
+  const subscriptionKind = subscriptionMetadata?.kind;
+  if (['care', 'discord_premium', 'academy_allaccess'].includes(subscriptionKind ?? '')) {
+    if (!piId) {
+      throw new Error(`subscription invoice ${invoice.id} has no payment intent`);
+    }
+    await upsertPaymentReceipt(sb, {
+      invoice_id: null,
+      organization_id: null,
+      stripe_payment_intent_id: piId,
+      stripe_event_id: eventId,
+      amount: amountDollars,
+      currency: invoice.currency ?? 'usd',
+      status: 'succeeded',
+      paid_at: new Date().toISOString(),
+      raw_event: invoice as unknown as Record<string, unknown>,
+    });
+  }
+
+  // Stripe-managed invoices tied to a Studio invoice are reconciled by id.
+  const invoiceLookup = await sb
     .from('invoices')
     .select('id, organization_id')
     .eq('stripe_invoice_id', invoice.id)
     .maybeSingle();
+  const ourInv = assertSupabaseSuccess(invoiceLookup, 'Stripe invoice lookup');
   if (!ourInv) return;
 
-  const invAny = invoice as unknown as { payment_intent?: string | { id?: string } };
-  const piRaw = invAny.payment_intent;
-  const piId =
-    typeof piRaw === 'string' ? piRaw : piRaw?.id ?? null;
-  const amountDollars = (invoice.amount_paid ?? 0) / 100;
-
-  await sb
+  const invoiceUpdate = await sb
     .from('invoices')
     .update({
       status: 'paid',
@@ -259,11 +351,13 @@ async function handleInvoicePaymentSucceeded(sb: Sb, invoice: Stripe.Invoice) {
       dunning_status: 'current',
     })
     .eq('id', ourInv.id);
+  assertSupabaseSuccess(invoiceUpdate, 'Stripe invoice payment update');
 
-  await sb.from('payments').insert({
+  await upsertPaymentReceipt(sb, {
     invoice_id: ourInv.id,
     organization_id: ourInv.organization_id,
     stripe_payment_intent_id: piId,
+    stripe_event_id: eventId,
     amount: amountDollars,
     currency: invoice.currency ?? 'usd',
     status: 'succeeded',
@@ -274,17 +368,19 @@ async function handleInvoicePaymentSucceeded(sb: Sb, invoice: Stripe.Invoice) {
 
 async function handleInvoicePaymentFailed(sb: Sb, invoice: Stripe.Invoice) {
   if (!invoice.id) return;
-  const { data: ourInv } = await sb
+  const invoiceLookup = await sb
     .from('invoices')
     .select('id, organization_id')
     .eq('stripe_invoice_id', invoice.id)
     .maybeSingle();
+  const ourInv = assertSupabaseSuccess(invoiceLookup, 'failed Stripe invoice lookup');
   if (!ourInv) return;
 
-  await sb
+  const invoiceUpdate = await sb
     .from('invoices')
     .update({ dunning_status: 'reminded_1' })
     .eq('id', ourInv.id);
+  assertSupabaseSuccess(invoiceUpdate, 'failed Stripe invoice dunning update');
 
   // TODO(phase33): trigger Resend "payment failed" email.
   await notifyOrgMembers(sb, ourInv.organization_id, {
@@ -313,11 +409,12 @@ async function upsertSubscription(sb: Sb, sub: Stripe.Subscription) {
   const intervalValue = price?.recurring?.interval ?? null;
 
   let orgId: string | null = null;
-  const { data: orgRow } = await sb
+  const organizationLookup = await sb
     .from('organizations')
     .select('id')
     .eq('stripe_customer_id', customerId)
     .maybeSingle();
+  const orgRow = assertSupabaseSuccess(organizationLookup, 'subscription organization lookup');
   if (orgRow) orgId = orgRow.id;
 
   const engagementId = sub.metadata?.engagement_id ?? null;
@@ -325,7 +422,7 @@ async function upsertSubscription(sb: Sb, sub: Stripe.Subscription) {
     .current_period_end;
   const currentPeriodEndIso = periodEndUnix ? new Date(periodEndUnix * 1000).toISOString() : null;
 
-  await sb.from('stripe_subscriptions').upsert(
+  const subscriptionPersistence = await sb.from('stripe_subscriptions').upsert(
     {
       engagement_id: engagementId,
       organization_id: orgId,
@@ -341,12 +438,14 @@ async function upsertSubscription(sb: Sb, sub: Stripe.Subscription) {
     },
     { onConflict: 'stripe_subscription_id' },
   );
+  assertSupabaseSuccess(subscriptionPersistence, 'Stripe subscription persistence');
 
   if (engagementId) {
-    await sb
+    const engagementPersistence = await sb
       .from('engagements')
       .update({ stripe_subscription_id: sub.id })
       .eq('id', engagementId);
+    assertSupabaseSuccess(engagementPersistence, 'subscription engagement persistence');
   }
 }
 
@@ -358,7 +457,7 @@ async function markSubscriptionCanceled(sb: Sb, sub: Stripe.Subscription) {
 
   await syncDiscordPremiumFromSubscription(sub);
 
-  await sb
+  const cancellationPersistence = await sb
     .from('stripe_subscriptions')
     .update({
       status: 'canceled',
@@ -366,17 +465,108 @@ async function markSubscriptionCanceled(sb: Sb, sub: Stripe.Subscription) {
       updated_at: new Date().toISOString(),
     })
     .eq('stripe_subscription_id', sub.id);
+  assertSupabaseSuccess(cancellationPersistence, 'Stripe subscription cancellation');
 }
 
 async function handleChargeRefunded(sb: Sb, charge: Stripe.Charge) {
-  const piId = typeof charge.payment_intent === 'string'
-    ? charge.payment_intent
-    : charge.payment_intent?.id ?? null;
+  const paymentIntent = charge.payment_intent;
+  const piId = typeof paymentIntent === 'string'
+    ? paymentIntent
+    : paymentIntent?.id ?? null;
   if (!piId) return;
-  await sb
+  const paymentLookup = await sb
     .from('payments')
-    .update({ status: 'refunded' })
-    .eq('stripe_payment_intent_id', piId);
+    .select('id, invoice_id, amount')
+    .eq('stripe_payment_intent_id', piId)
+    .maybeSingle();
+  let payment = assertSupabaseSuccess(paymentLookup, 'refunded payment lookup');
+
+  if (!payment) {
+    await upsertPaymentReceipt(sb, {
+      invoice_id: null,
+      organization_id: null,
+      stripe_payment_intent_id: piId,
+      stripe_event_id: `refund:${charge.id}`,
+      amount: Math.max(0, charge.amount ?? 0) / 100,
+      currency: charge.currency ?? 'usd',
+      status: 'succeeded',
+      paid_at: new Date((charge.created ?? Math.floor(Date.now() / 1000)) * 1000).toISOString(),
+      raw_event: charge as unknown as Record<string, unknown>,
+    });
+    const recoveredLookup = await sb
+      .from('payments')
+      .select('id, invoice_id, amount')
+      .eq('stripe_payment_intent_id', piId)
+      .maybeSingle();
+    payment = assertSupabaseSuccess(recoveredLookup, 'refund receipt recovery');
+    if (!payment) throw new Error('refund receipt could not be recovered');
+  }
+
+  const amountCents = payment
+    ? Math.max(0, Math.round(Number(payment.amount ?? 0) * 100))
+    : Math.max(0, charge.amount ?? 0);
+  const amountRefundedCents = Math.max(0, charge.amount_refunded ?? 0);
+  const status = deriveRefundStatus({
+    amountCents,
+    amountRefundedCents,
+    fullyRefunded: charge.refunded,
+  });
+  const paymentUpdate = await sb
+    .from('payments')
+    .update({ status, refunded_amount: amountRefundedCents / 100 })
+    .eq('id', payment.id);
+  assertSupabaseSuccess(paymentUpdate, 'refunded payment update');
+
+  const enrollmentUpdate = await sb
+    .from('academy_enrollments')
+    .update({
+      refunded_amount_cents: amountRefundedCents,
+      ...(status === 'refunded'
+        ? { status: 'refunded', updated_at: new Date().toISOString() }
+        : {}),
+    })
+    .eq('stripe_payment_intent_id', piId)
+    .select('id');
+  const enrollmentRows = assertSupabaseSuccess(
+    enrollmentUpdate,
+    'refunded Academy enrollment update',
+  ) ?? [];
+  const enrollmentMatched = enrollmentRows.length > 0;
+
+  const fulfillmentUpdate = await sb
+    .from('checkout_fulfillments')
+    .update({
+      status,
+      refunded_amount_cents: amountRefundedCents,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('stripe_payment_intent_id', piId)
+    .select('id');
+  const fulfillmentRows = assertSupabaseSuccess(
+    fulfillmentUpdate,
+    'checkout fulfillment refund update',
+  ) ?? [];
+  const fulfillmentMatched = fulfillmentRows.length > 0;
+
+  const paymentIntentMetadata = paymentIntent && typeof paymentIntent === 'object'
+    ? paymentIntent.metadata
+    : null;
+  if (!enrollmentMatched && !fulfillmentMatched && !payment.invoice_id
+      && isApplicationOwnedRefundMetadata(charge.metadata, paymentIntentMetadata)) {
+    throw new Error('application-owned refund has no local billing record');
+  }
+
+  // A partially_refunded receipt remains attached to a paid invoice; only a
+  // full refund revokes the invoice and any one-time Academy entitlement.
+  if (status === 'refunded') {
+    if (payment?.invoice_id) {
+      const invoiceUpdate = await sb
+        .from('invoices')
+        .update({ status: 'refunded' })
+        .eq('id', payment.invoice_id);
+      assertSupabaseSuccess(invoiceUpdate, 'refunded invoice update');
+    }
+  }
 }
 
 async function notifyOrgMembers(
@@ -384,10 +574,11 @@ async function notifyOrgMembers(
   orgId: string,
   payload: { kind: string; title: string; body: string; link: string },
 ) {
-  const { data: members } = await sb
+  const memberLookup = await sb
     .from('org_memberships')
     .select('user_id')
     .eq('organization_id', orgId);
+  const members = assertSupabaseSuccess(memberLookup, 'billing notification member lookup');
   if (!members || members.length === 0) return;
   const rows = members
     .filter((m) => m.user_id)
@@ -399,7 +590,34 @@ async function notifyOrgMembers(
       link: payload.link,
     }));
   if (rows.length === 0) return;
-  await sb.from('notifications').insert(rows);
+  const notificationInsert = await sb.from('notifications').insert(rows);
+  assertSupabaseSuccess(notificationInsert, 'billing notification insert');
+}
+
+type PaymentReceipt = {
+  invoice_id: string | null;
+  organization_id: string | null;
+  stripe_payment_intent_id: string | null;
+  stripe_event_id: string;
+  amount: number;
+  currency: string;
+  status: 'succeeded';
+  paid_at: string;
+  raw_event: Record<string, unknown>;
+};
+
+async function upsertPaymentReceipt(sb: Sb, receipt: PaymentReceipt): Promise<void> {
+  const result = await sb.rpc('record_stripe_payment_receipt', {
+    p_invoice_id: receipt.invoice_id,
+    p_organization_id: receipt.organization_id,
+    p_payment_intent_id: receipt.stripe_payment_intent_id,
+    p_event_id: receipt.stripe_event_id,
+    p_amount: receipt.amount,
+    p_currency: receipt.currency,
+    p_paid_at: receipt.paid_at,
+    p_raw_event: receipt.raw_event,
+  });
+  assertSupabaseSuccess(result, 'payment receipt upsert');
 }
 
 /**

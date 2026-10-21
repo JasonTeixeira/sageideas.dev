@@ -110,7 +110,7 @@ export async function notifyInvoiceSent(invoiceId: string) {
   const sb = supabaseAdmin();
   const { data: inv } = await sb
     .from('invoices')
-    .select('id, invoice_number, total, amount, currency, due_date, organization_id, pdf_url, hosted_invoice_url, status, payment_url')
+    .select('id, number, total, amount_due, currency, due_date, organization_id, invoice_pdf, hosted_invoice_url, status')
     .eq('id', invoiceId)
     .maybeSingle();
   if (!inv) return { ok: false, reason: 'no_invoice' as const };
@@ -118,12 +118,12 @@ export async function notifyInvoiceSent(invoiceId: string) {
   const recipients = await getOrgClientUsers((inv.organization_id as string) ?? '');
   if (recipients.length === 0) return { ok: false, reason: 'no_recipients' as const };
 
-  const amount = Number((inv.total ?? inv.amount ?? 0));
+  const amount = Number((inv.total ?? inv.amount_due ?? 0));
   const currency = ((inv.currency as string | null) ?? 'usd');
   const amountFormatted = formatMoney(amount, currency);
-  const invoiceNumber = String(inv.invoice_number ?? inv.id);
-  const payUrl = (inv.payment_url as string | null) ?? (inv.hosted_invoice_url as string | null) ?? `${SITE}/portal/invoices/${inv.id}`;
-  const pdfUrl = (inv.pdf_url as string | null) ?? undefined;
+  const invoiceNumber = String(inv.number ?? inv.id);
+  const payUrl = (inv.hosted_invoice_url as string | null) ?? `${SITE}/portal/invoices/${inv.id}`;
+  const pdfUrl = (inv.invoice_pdf as string | null) ?? undefined;
   const dueDate = inv.due_date ? new Date(inv.due_date as string).toLocaleDateString() : undefined;
 
   let sent = 0;
@@ -165,7 +165,7 @@ export async function notifyPaymentReceived(invoiceId: string) {
   const sb = supabaseAdmin();
   const { data: inv } = await sb
     .from('invoices')
-    .select('id, invoice_number, total, amount, currency, paid_at, organization_id, hosted_invoice_url, receipt_url')
+    .select('id, number, total, amount_due, currency, paid_at, organization_id, hosted_invoice_url, invoice_pdf')
     .eq('id', invoiceId)
     .maybeSingle();
   if (!inv) return { ok: false, reason: 'no_invoice' as const };
@@ -173,11 +173,11 @@ export async function notifyPaymentReceived(invoiceId: string) {
   const recipients = await getOrgClientUsers((inv.organization_id as string) ?? '');
   if (recipients.length === 0) return { ok: false, reason: 'no_recipients' as const };
 
-  const amount = Number(inv.total ?? inv.amount ?? 0);
+  const amount = Number(inv.total ?? inv.amount_due ?? 0);
   const amountFormatted = formatMoney(amount, (inv.currency as string | null) ?? 'usd');
-  const invoiceNumber = String(inv.invoice_number ?? inv.id);
+  const invoiceNumber = String(inv.number ?? inv.id);
   const paidAt = inv.paid_at ? new Date(inv.paid_at as string).toLocaleString() : new Date().toLocaleString();
-  const receiptUrl = (inv.receipt_url as string | null) ?? (inv.hosted_invoice_url as string | null) ?? undefined;
+  const receiptUrl = (inv.hosted_invoice_url as string | null) ?? (inv.invoice_pdf as string | null) ?? undefined;
 
   for (const r of recipients) {
     const { prefs } = await fetchProfileAndPrefs(r.id);
@@ -215,7 +215,7 @@ export async function notifyInvoiceReminder(invoiceId: string, level: ReminderLe
   const sb = supabaseAdmin();
   const { data: inv } = await sb
     .from('invoices')
-    .select('id, invoice_number, total, amount, currency, due_date, organization_id, hosted_invoice_url, payment_url')
+    .select('id, number, total, amount_due, currency, due_date, organization_id, hosted_invoice_url')
     .eq('id', invoiceId)
     .maybeSingle();
   if (!inv) return { ok: false, reason: 'no_invoice' as const };
@@ -223,12 +223,12 @@ export async function notifyInvoiceReminder(invoiceId: string, level: ReminderLe
   const recipients = await getOrgClientUsers((inv.organization_id as string) ?? '');
   if (recipients.length === 0) return { ok: false, reason: 'no_recipients' as const };
 
-  const amount = Number(inv.total ?? inv.amount ?? 0);
+  const amount = Number(inv.total ?? inv.amount_due ?? 0);
   const amountFormatted = formatMoney(amount, (inv.currency as string | null) ?? 'usd');
-  const invoiceNumber = String(inv.invoice_number ?? inv.id);
+  const invoiceNumber = String(inv.number ?? inv.id);
   const due = inv.due_date ? new Date(inv.due_date as string) : null;
   const daysOverdue = due ? Math.max(0, Math.floor((Date.now() - due.getTime()) / 86400000)) : 0;
-  const payUrl = (inv.payment_url as string | null) ?? (inv.hosted_invoice_url as string | null) ?? `${SITE}/portal/invoices/${inv.id}`;
+  const payUrl = (inv.hosted_invoice_url as string | null) ?? `${SITE}/portal/invoices/${inv.id}`;
 
   for (const r of recipients) {
     const { prefs } = await fetchProfileAndPrefs(r.id);
@@ -772,9 +772,10 @@ export async function notifyDocumentShared(documentId: string) {
 
 function formatMoney(amount: number, currency: string): string {
   try {
-    const isCents = amount > 999 && Math.round(amount) === amount;
-    const value = isCents && currency.toLowerCase() === 'usd' ? amount / 100 : amount;
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.toUpperCase() }).format(value);
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+    }).format(amount);
   } catch {
     return `$${amount.toFixed(2)}`;
   }

@@ -4,17 +4,20 @@ import { z } from 'zod';
 import { requireAdminApi, logAudit } from '@/lib/admin-guard';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { badRequest, fromZodError } from '@/lib/api-errors';
+import { canonicalSiteOrigin } from '@/lib/security/site-origin';
 
 const schema = z.object({
   email: z.string().email().max(254),
 });
 
 function siteOrigin(h: Headers) {
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (envUrl) return envUrl.replace(/\/$/, '');
-  const host = h.get('x-forwarded-host') ?? h.get('host');
-  const proto = h.get('x-forwarded-proto') ?? 'https';
-  return `${proto}://${host}`;
+  return canonicalSiteOrigin({
+    configured: process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL,
+    forwardedHost: h.get('x-forwarded-host'),
+    host: h.get('host'),
+    forwardedProto: h.get('x-forwarded-proto'),
+    production: process.env.NODE_ENV === 'production',
+  });
 }
 
 export async function POST(req: Request) {

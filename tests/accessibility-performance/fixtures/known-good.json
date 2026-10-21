@@ -1,0 +1,68 @@
+{
+  "packageScripts": {
+    "test:accessibility-performance": "node --test tests/accessibility-performance/accessibility-performance.test.mjs && npm run audit:accessibility-performance",
+    "test:accessibility-performance:e2e": "playwright test --config=playwright.accessibility-performance.config.ts"
+  },
+  "desktopConfig": {
+    "ci": {
+      "collect": {
+        "url": [
+          "http://127.0.0.1:4173/",
+          "http://127.0.0.1:4173/services",
+          "http://127.0.0.1:4173/work",
+          "http://127.0.0.1:4173/pricing",
+          "http://127.0.0.1:4173/blog",
+          "http://127.0.0.1:4173/contact"
+        ],
+        "settings": { "onlyCategories": ["performance", "accessibility", "best-practices", "seo"] }
+      },
+      "assert": {
+        "assertions": {
+          "categories:accessibility": ["error", { "minScore": 0.95 }],
+          "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+          "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+          "total-blocking-time": ["error", { "maxNumericValue": 200 }]
+        }
+      }
+    }
+  },
+  "mobileConfig": {
+    "ci": {
+      "collect": {
+        "numberOfRuns": 3,
+        "url": [
+          "http://127.0.0.1:4173/",
+          "http://127.0.0.1:4173/services",
+          "http://127.0.0.1:4173/work",
+          "http://127.0.0.1:4173/pricing",
+          "http://127.0.0.1:4173/blog",
+          "http://127.0.0.1:4173/contact"
+        ],
+        "settings": {
+          "onlyCategories": ["performance", "accessibility", "best-practices", "seo"],
+          "formFactor": "mobile",
+          "screenEmulation": { "width": 390, "height": 844 },
+          "cpuCalibration": {
+            "enabled": true,
+            "runs": 3,
+            "strategy": "lighthouse-official-mid-tier-mobile-v1"
+          },
+          "throttling": { "rttMs": 40, "throughputKbps": 10240 }
+        }
+      },
+      "assert": {
+        "assertions": {
+          "categories:accessibility": ["error", { "minScore": 0.95 }],
+          "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+          "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+          "total-blocking-time": ["error", { "maxNumericValue": 300 }]
+        }
+      }
+    }
+  },
+  "layoutSource": "export const viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover' }",
+  "globalCss": "*:focus-visible { outline: 2px solid blue; } .skip-to-content:focus { top: 1rem; } @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }",
+  "chromeSource": "<SkipToContent /><main id=\"main-content\" tabIndex={-1}>{children}</main>",
+  "browserConfigSource": "new URL(baseURL); ['127.0.0.1', 'localhost', '::1'].includes(target.hostname); webServer: { reuseExistingServer: false }",
+  "browserSpecSource": "for (const route of REQUIRED_ACCESSIBILITY_ROUTES) { new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze(); } context.route(/^https?:\\/\\//, route => route.abort('blockedbyclient')); page.keyboard.press('Tab'); page.emulateMedia({ reducedMotion: 'reduce' }); document.documentElement.scrollWidth <= document.documentElement.clientWidth"
+}

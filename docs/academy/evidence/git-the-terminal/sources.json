@@ -1,0 +1,172 @@
+[
+  {
+    "source_id": "git",
+    "title": "Git Reference Manual",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "Git",
+      "repository",
+      "commands"
+    ]
+  },
+  {
+    "source_id": "git-init",
+    "title": "git-init",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-init",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "repository",
+      "initialization"
+    ]
+  },
+  {
+    "source_id": "git-status",
+    "title": "git-status",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-status",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "working tree",
+      "index",
+      "status"
+    ]
+  },
+  {
+    "source_id": "git-log",
+    "title": "git-log",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-log",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "history",
+      "commits"
+    ]
+  },
+  {
+    "source_id": "git-branch",
+    "title": "git-branch",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-branch",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "branches",
+      "refs"
+    ]
+  },
+  {
+    "source_id": "git-remote",
+    "title": "git-remote",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-remote",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "remotes",
+      "tracking"
+    ]
+  },
+  {
+    "source_id": "git-push",
+    "title": "git-push",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-push",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "push",
+      "remote refs"
+    ]
+  },
+  {
+    "source_id": "git-merge",
+    "title": "git-merge",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-merge",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "merge",
+      "conflicts"
+    ]
+  },
+  {
+    "source_id": "git-rebase",
+    "title": "git-rebase",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-rebase",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "rebase",
+      "history"
+    ]
+  },
+  {
+    "source_id": "git-revert",
+    "title": "git-revert",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-revert",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "undo",
+      "shared history"
+    ]
+  },
+  {
+    "source_id": "git-reflog",
+    "title": "git-reflog",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-reflog",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "recovery",
+      "references"
+    ]
+  },
+  {
+    "source_id": "git-bisect",
+    "title": "git-bisect",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-bisect",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "debugging",
+      "binary search"
+    ]
+  },
+  {
+    "source_id": "gitignore",
+    "title": "gitignore",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/gitignore",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "ignore rules",
+      "negation"
+    ]
+  },
+  {
+    "source_id": "git-tag",
+    "title": "git-tag",
+    "organization": "Git Project",
+    "url": "https://git-scm.com/docs/git-tag",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": [
+      "tags",
+      "releases"
+    ]
+  }
+]

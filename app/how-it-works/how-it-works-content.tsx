@@ -149,7 +149,7 @@ export async function HowItWorksContent() {
           <p style={{ margin: '22px auto 0', color: '#9C9CA6', fontSize: 17, maxWidth: '56ch', textWrap: 'pretty' }}>
             {t('Every course is an instance of the loop senior engineers run on autopilot. Ten moves, each one visible, each one ending in something a reviewer can inspect.')}
           </p>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          { }
           <img
             src="/art/academy/loop-brush.webp"
             alt={t('The Sage loop: frame, route, map, decide, prove')}
@@ -224,7 +224,7 @@ export async function HowItWorksContent() {
         {/* ============ STATEMENT BAND ============ */}
         <section style={{ borderTop: `1px solid ${LINE}`, background: '#0D0D11', overflow: 'hidden' }}>
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: 'clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px)', position: 'relative' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img
               src="/art/academy/loop-band.webp"
               alt=""

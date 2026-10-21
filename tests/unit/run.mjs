@@ -82,6 +82,66 @@ test('sprout lab: normalizes prompts and strips source noise from display answer
   );
 });
 
+test('newsletter tokens require an explicit secret, bind purpose, and reject tampering', async () => {
+  const previous = process.env.NEWSLETTER_SECRET;
+  process.env.NEWSLETTER_SECRET = 'unit-newsletter-secret-that-is-long-enough';
+  try {
+    const { signToken, verifyToken } = await import('../../lib/newsletter.ts');
+    const token = signToken(' Reader@Example.com ', 'academy', 'confirm');
+    assert.deepEqual(verifyToken(token, 'confirm'), { email: 'reader@example.com', source: 'academy' });
+    assert.equal(verifyToken(token, 'unsubscribe'), null);
+    assert.equal(verifyToken(`${token.slice(0, -1)}x`, 'confirm'), null);
+    assert.equal(verifyToken(`${token}.extra`, 'confirm'), null);
+  } finally {
+    if (previous === undefined) delete process.env.NEWSLETTER_SECRET;
+    else process.env.NEWSLETTER_SECRET = previous;
+  }
+
+  const { signToken } = await import('../../lib/newsletter.ts');
+  assert.throws(() => signToken('reader@example.com'), /NEWSLETTER_SECRET/);
+});
+
+test('newsletter and session boundaries reject unsigned unsubscribe and shared auth caching', async () => {
+  const [middleware, funnel, unsubscribe, confirm, audience, emailSender] = await Promise.all([
+    readFile(new URL('../../lib/supabase/middleware.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../app/api/funnel/intake/route.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../app/api/newsletter/unsubscribe/route.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../app/api/newsletter/confirm/route.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../lib/newsletter-audience.ts', import.meta.url), 'utf8'),
+    readFile(new URL('../../lib/email/send.ts', import.meta.url), 'utf8'),
+  ]);
+  assert.doesNotMatch(middleware, /Cache-Control['"], ['"]public/);
+  assert.doesNotMatch(funnel, /addContact/);
+  assert.match(unsubscribe, /verifyToken\(token, ['"]unsubscribe['"]\)/);
+  assert.doesNotMatch(unsubscribe, /searchParams\.get\(['"]email['"]\)/);
+  assert.match(emailSender, /signToken\(recipient, ['"]email['"], ['"]unsubscribe['"]\)/);
+  assert.match(audience, /NewsletterAudienceResult/);
+  assert.match(unsubscribe, /if \(!result\.ok\)/);
+  assert.match(confirm, /if \(!audienceResult\.ok\)/);
+});
+
+test('missing auth configuration fails closed on protected routes', async () => {
+  const { requiresConfiguredAuth } = await import('../../lib/supabase/middleware.ts');
+  assert.equal(requiresConfiguredAuth('/admin'), true);
+  assert.equal(requiresConfiguredAuth('/portal/invoices'), true);
+  assert.equal(requiresConfiguredAuth('/academy-admin/course'), true);
+  assert.equal(requiresConfiguredAuth('/academy/dashboard'), true);
+  assert.equal(requiresConfiguredAuth('/academy/catalog'), false);
+  assert.equal(requiresConfiguredAuth('/field-notes'), false);
+
+  const middleware = await readFile(new URL('../../lib/supabase/middleware.ts', import.meta.url), 'utf8');
+  assert.match(middleware, /Authentication unavailable/);
+  assert.match(middleware, /status: 503/);
+});
+
+test('email health diagnostics keep credentials out of URLs and validate recipients', async () => {
+  const route = await readFile(new URL('../../app/api/health/email/route.ts', import.meta.url), 'utf8');
+  assert.doesNotMatch(route, /searchParams\.get\(['"]secret['"]\)/);
+  assert.match(route, /headers\.get\(['"]authorization['"]\)/);
+  assert.match(route, /isValidEmail/);
+  assert.match(route, /Cache-Control['"]:\s*['"]no-store/);
+});
+
 test('next proxy convention: root request boundary uses proxy.ts, not deprecated middleware.ts', async () => {
   const proxy = await readFile(new URL('../../proxy.ts', import.meta.url), 'utf8');
   assert.match(proxy, /export async function proxy\(request: NextRequest\)/);
@@ -675,6 +735,42 @@ test('sagebot human appeal harness: blocks cold markdown regressions', async () 
   assert.ok(broken.failures.includes('proof_and_regression_gates:ask_sage_smoke_proves_embed'));
 });
 
+function syntheticSourceFile(relativePath, textSample) {
+  const extension = relativePath.slice(relativePath.lastIndexOf('.'));
+  return {
+    absolutePath: `/synthetic/${relativePath}`,
+    relativePath,
+    extension,
+    sizeBytes: Buffer.byteLength(textSample),
+    textSample,
+  };
+}
+
+function careerHarnessFixtureFiles() {
+  const rich = '# Project Lab Challenge\ninterview portfolio capstone diagnostic weekly blocker practice manifest rubric validator test audit scorecard contract runbook schema evidence';
+  const buildLab = '# Project Lab Challenge\ninterview portfolio capstone diagnostic weekly practice manifest rubric validator test audit scorecard contract schema evidence';
+  return [
+    ...Array.from({ length: 20 }, (_, index) => syntheticSourceFile(`courses/${index}/course_manifest.json`, rich)),
+    ...Array.from({ length: 50 }, (_, index) => syntheticSourceFile(`practice/day_${index}_py_challenge.md`, buildLab)),
+    ...Array.from({ length: 15 }, (_, index) => syntheticSourceFile(`learning_engine/rubric_${index}_validator.md`, rich)),
+    ...Array.from({ length: 15 }, (_, index) => syntheticSourceFile(`curriculum_architecture/content_marketing_${index}.md`, rich)),
+  ];
+}
+
+function sageKernelHarnessFixtureFiles() {
+  const rich = '# Operator Workflow\ngetting started guide dashboard command prompt template checklist example operator runbook visual proof policy schema test eval audit security contract durable approval boundary observability';
+  return [
+    ...Array.from({ length: 15 }, (_, index) => syntheticSourceFile(`docs/getting_started_${index}.md`, rich)),
+    ...Array.from({ length: 5 }, (_, index) => syntheticSourceFile(`packages/evals/eval_${index}.ts`, rich)),
+    ...Array.from({ length: 5 }, (_, index) => syntheticSourceFile(`packages/proof/proof_${index}.ts`, rich)),
+    ...Array.from({ length: 10 }, (_, index) => syntheticSourceFile(`packages/operate/worker_${index}.ts`, rich)),
+    ...Array.from({ length: 10 }, (_, index) => syntheticSourceFile(`packages/intelligence/dashboard_${index}.ts`, rich)),
+    ...Array.from({ length: 10 }, (_, index) => syntheticSourceFile(`packages/core/question_prompt_review_${index}.ts`, rich)),
+    ...Array.from({ length: 10 }, (_, index) => syntheticSourceFile(`docs/release_runbook_blocker_${index}.md`, rich)),
+    ...Array.from({ length: 40 }, (_, index) => syntheticSourceFile(`docs/reference_${index}.md`, rich)),
+  ];
+}
+
 test('career content harness: scores AI Career OS sources without claiming live proof', async () => {
   const {
     buildCareerContentHarness,
@@ -682,7 +778,8 @@ test('career content harness: scores AI Career OS sources without claiming live 
   } = await import('../../lib/discord/career-content-harness.ts');
 
   const result = await buildCareerContentHarness({
-    sourceRoot: '/Users/Sage/AI_CAREER_OPERATING_SYSTEM',
+    sourceRoot: '/synthetic/career-os',
+    sourceFiles: careerHarnessFixtureFiles(),
     maxFiles: 12000,
     candidateLimit: 30,
   });
@@ -723,7 +820,9 @@ test('sage-kernel content harness: scores source repo and creates approval-gated
   } = await import('../../lib/discord/sage-kernel-content-harness.ts');
 
   const result = await buildSageKernelContentHarness({
-    sourceRoot: '/Users/Sage/code/external/sage-kernel',
+    sourceRoot: '/synthetic/sage-kernel',
+    sourceFiles: sageKernelHarnessFixtureFiles(),
+    sourceCommit: '0123456789abcdef0123456789abcdef01234567',
     maxFiles: 8000,
     candidateLimit: 40,
     draftLimit: 12,

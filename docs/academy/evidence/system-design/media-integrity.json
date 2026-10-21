@@ -1,0 +1,1440 @@
+{
+  "schemaVersion": 1,
+  "courseSlug": "system-design",
+  "checkedAt": "2026-08-28T18:13:33.840Z",
+  "status": "fail",
+  "summary": "159/159 narrated assets could not be proven reachable audio; activation remains blocked.",
+  "assets": [
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b0.mp3",
+      "transcript": "Everything starts with a raw ask like 'build me a URL shortener' — ambiguous, and useless as a blueprint until you interrogate it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b1.mp3",
+      "transcript": "First, extract the verbs: what must the system do? Shorten a URL, redirect, count clicks — those are the functional requirements.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b2.mp3",
+      "transcript": "Then extract the numbers: ten thousand redirects per second, p99 under fifty milliseconds, four nines — how well it must do it, always numeric.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b3.mp3",
+      "transcript": "Those numbers are bounded by immovable constraints — budget, a single region, data-residency law, the size of your team.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b4.mp3",
+      "transcript": "Where the functional needs collide with the constraints, you find the driving tradeoff — the one tension this design must resolve.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "what-system-design-is",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/what-system-design-is__b5.mp3",
+      "transcript": "The architecture is then derived from that tradeoff, not chosen from a catalog — which is why it survives review instead of falling apart.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b0.mp3",
+      "transcript": "Someone asks how many servers you need — the answer starts with two product numbers: daily active users and actions per user per day.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b1.mp3",
+      "transcript": "Multiply DAU by actions per user and you have total actions per day — the root number every other estimate derives from.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b2.mp3",
+      "transcript": "Divide actions per day by 86,400 seconds and you get average requests per second — the mean load on the system.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b3.mp3",
+      "transcript": "But traffic is bursty, so multiply the average by a peak factor of two to ten — you provision for the spike, never the mean.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b4.mp3",
+      "transcript": "The same actions-per-day number branches to storage: multiply by bytes per record and retention to get storage per year.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b5.mp3",
+      "transcript": "Finally, peak RPS times bytes per response gives peak bandwidth — the pipe you must be able to fill at the worst moment.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "back-of-envelope",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/back-of-envelope__b6.mp3",
+      "transcript": "The chain is crude on purpose: two product numbers place you in an architecture class — one box, one beefy database, or a sharded fleet.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b0.mp3",
+      "transcript": "Every request starts at the client, which sends it to the load balancer — the single front door for the whole system.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b1.mp3",
+      "transcript": "The load balancer routes to any app server it likes — the servers are stateless, so every instance is interchangeable and one dying costs nothing.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b2.mp3",
+      "transcript": "For a read, the app server asks the cache first: a hit returns in microseconds and the request never touches the database at all.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b3.mp3",
+      "transcript": "Only on a cache miss do we fall through to the database — the durable source of truth — and the answer refills the cache on the way back.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b4.mp3",
+      "transcript": "Anything slow — emails, thumbnails, reports — is not done here; the app just drops a job on the queue and responds to the user immediately.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b5.mp3",
+      "transcript": "A worker consumes that job off the critical path, at its own pace — if it is slow or fails, the user's request never feels it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "building-blocks",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/building-blocks__b6.mp3",
+      "transcript": "That is the whole design: one job per box, cache before database, and slow work queued aside so the request path stays fast and hard to kill.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b0.mp3",
+      "transcript": "Every request starts at the client and must pass through service A, which is up 99.9 percent of the time — about 8.8 hours of downtime a year.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b1.mp3",
+      "transcript": "Service A sits in series with what comes next, and series components multiply availabilities — every dependency you chain drags the total down.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b2.mp3",
+      "transcript": "Service B runs as two replicas at 99 percent each; the path fails only if both die at once, so you multiply unavailabilities: 1 percent times 1 percent.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b3.mp3",
+      "transcript": "That 0.01 percent joint failure turns two mediocre boxes into 99.99 percent — redundancy buys nearly two extra nines from ordinary hardware.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b4.mp3",
+      "transcript": "Now compose the whole path: 99.9 percent times 99.99 percent is about 99.89 — the series chain, not the redundant pair, sets your ceiling.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "latency-throughput-availability",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/latency-throughput-availability__b5.mp3",
+      "transcript": "So four nines is a design property, not a wish: series multiplies you down, parallel multiplies failure away — count the nines along the entire path.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b0.mp3",
+      "transcript": "Never pick a database by trend — start from the workload's access pattern, because every store class optimizes a different data model.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b1.mp3",
+      "transcript": "First question: does the workload need joins or multi-row transactions? That single answer decides most transactional apps.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b2.mp3",
+      "transcript": "If yes, choose relational SQL — Postgres or MySQL give you joins, secondary indexes, and ACID; bolting joins into app code loses consistency.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b3.mp3",
+      "transcript": "If not, ask whether every read is a point lookup by a known key — sessions, caches, simple lookups fit this shape.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b4.mp3",
+      "transcript": "When the key is always known, key-value stores like Redis or DynamoDB give O(1) gets and easy partitioning — but no query beyond the key.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b5.mp3",
+      "transcript": "Otherwise ask if the data is a nested aggregate read as one unit — if yes, a document store fits; if writes are huge and columnar, go wide-column.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sql-vs-nosql",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sql-vs-nosql__b6.mp3",
+      "transcript": "The insight: there is no universally faster database — the skill is matching the store's data model to your access pattern, in this exact order.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b0.mp3",
+      "transcript": "A query arrives with a predicate over ten million rows, and the planner's first job is deciding how to find the matches.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b1.mp3",
+      "transcript": "The key question is selectivity: what fraction of the table does this predicate actually match?",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b2.mp3",
+      "transcript": "If the predicate matches many rows, the planner chooses a sequential scan and simply reads every row in order.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b3.mp3",
+      "transcript": "If it matches only a few rows, the B-tree wins: an O of log n descent to the leaf, then fetch just the matches.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b4.mp3",
+      "transcript": "But the index is never free: every insert and update must maintain the tree, so each index adds a write and storage tax.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "indexing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/indexing__b5.mp3",
+      "transcript": "So indexes are a precise tool: add them for selective lookups the planner will actually use, and skip them everywhere else.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b0.mp3",
+      "transcript": "A user updates their profile: the write goes to the leader, which commits it at log position N and confirms immediately.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b1.mp3",
+      "transcript": "The leader streams its replication log to the followers, which apply each change in order and serve the read traffic.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b2.mp3",
+      "transcript": "Because replication is asynchronous, one follower is already caught up to N, but the other is still behind — it holds the old profile.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b3.mp3",
+      "transcript": "Moments later the same user reads their profile back; hit the lagging follower and they see stale data — their own write vanishes.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b4.mp3",
+      "transcript": "The fix is read-your-writes routing: the router remembers the user wrote at position N and only picks a follower that has replayed to N or beyond.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "replication",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/replication__b5.mp3",
+      "transcript": "If no follower has reached N yet, the router falls back to the leader — lag never disappears, so you route reads around it, not hope it's zero.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b0.mp3",
+      "transcript": "Every record starts with its shard key — we hash that key onto a fixed ring of positions, so placement depends on the key, not on the node count.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b1.mp3",
+      "transcript": "From the key's hash position, we walk clockwise around the ring; the first node we hit — here node A — owns that key.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b2.mp3",
+      "transcript": "Nodes B and C own the next arcs, so the keyspace is carved into ranges — each node serves only the slice of hashes that lands on its arc.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b3.mp3",
+      "transcript": "Now the payoff: adding a node just splits one arc, so only about K over N keys move — modulo sharding would remap nearly the whole dataset.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b4.mp3",
+      "transcript": "But the ring can't save a bad key: shard by signup month and every new user hashes to the same few values, melting one node while its peers idle.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "sharding-partitioning",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/sharding-partitioning__b5.mp3",
+      "transcript": "So sharding works when two things hold — a high-cardinality, uniform shard key for balance, and consistent hashing to keep rescaling cheap.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b0.mp3",
+      "transcript": "Every read starts at the app, which asks the LRU cache for the key first — the database is never the first stop in cache-aside.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b1.mp3",
+      "transcript": "If the key is present, that's a hit: the cache returns immediately from memory and the slow database is skipped entirely.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b2.mp3",
+      "transcript": "On a miss you pay twice: the cache lookup was wasted, and now the app must load the value from the database anyway.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b3.mp3",
+      "transcript": "The loaded value populates the cache, but memory is finite — if the cache is full, LRU evicts the entry untouched the longest to make room.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b4.mp3",
+      "transcript": "The cache reports hits and misses as a metric — hit rate is the number that tells you whether the cache is actually earning its keep.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "caching-strategies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/caching-strategies__b5.mp3",
+      "transcript": "At a 20 percent hit rate, most reads pay cache plus database — a cache only speeds you up when hot data stays resident and the hit rate is high.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b0.mp3",
+      "transcript": "A hot key just expired, so 500 concurrent readers all miss the cache in the same instant — this is the makings of a stampede.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b1.mp3",
+      "transcript": "Without protection, every one of those misses would hit the database at once; instead, they all funnel into a single-flight guard.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b2.mp3",
+      "transcript": "The guard makes the key decision: only the first request through becomes the leader and is allowed to recompute the value.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b3.mp3",
+      "transcript": "Everyone else is parked — the other 499 requests simply wait on the leader instead of stampeding the origin themselves.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b4.mp3",
+      "transcript": "The leader queries the database exactly once, so the origin sees a single recompute instead of a synchronized flood of 500.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b5.mp3",
+      "transcript": "With the fresh value in hand, the leader refills the cache, and every waiter is handed that same shared result.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cache-invalidation",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cache-invalidation__b6.mp3",
+      "transcript": "That's the core insight: collapse N identical misses into one recompute — the herd waits briefly, the origin does the work once.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b0.mp3",
+      "transcript": "Every request starts at the client and hits one address: the load balancer, which fronts a pool of identical backends.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b1.mp3",
+      "transcript": "The load balancer's first job is spreading work: an algorithm like round-robin or least-connections picks which backend gets each request.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b2.mp3",
+      "transcript": "Round-robin gives each backend an equal count of requests, but it is blind to load, so a slow backend quietly piles up work.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b3.mp3",
+      "transcript": "Now backend three crashes; without a check, the balancer would keep sending it one request in three and a third of users would see errors.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b4.mp3",
+      "transcript": "That is the second job, hiding failures: health checks probe every backend, and backend three stops answering.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b5.mp3",
+      "transcript": "After repeated failed probes, the health checker tells the balancer to pull backend three from the pool, so traffic only flows to healthy nodes.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "load-balancing",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/load-balancing__b6.mp3",
+      "transcript": "The insight: a load balancer is only as good as its health checks; the algorithm spreads load, but the gated pool is what hides failure.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b0.mp3",
+      "transcript": "A user's request never crosses the continent first — it lands at the nearest edge cache, a CDN node sitting in a city close to them.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b1.mp3",
+      "transcript": "The edge doesn't guess what's safe to keep — it reads the Cache-Control header, the contract the origin stamps on every response.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b2.mp3",
+      "transcript": "Static assets marked public get stored at the edge, so the next user in that city is served in milliseconds and the origin never hears about it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b3.mp3",
+      "transcript": "On a miss, the edge fetches from the origin server once, caches the answer, and every later request for it stays local.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b4.mp3",
+      "transcript": "Personalized responses must say no-store — cache someone's account page at the edge and every user in that city sees it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cdn-edge",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cdn-edge__b5.mp3",
+      "transcript": "So private traffic always goes to origin, and the whole system rests on one header: Cache-Control decides what the edge may keep and what it must never touch.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b0.mp3",
+      "transcript": "It starts with a network partition: the link between data centers drops, and both sides keep running without seeing each other's writes.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b1.mp3",
+      "transcript": "You cannot opt out of partitions — real networks fail. So the partition forces a decision you must have designed in advance.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b2.mp3",
+      "transcript": "That decision is CAP's real content: while partitioned, each piece of data gets consistency or availability — never both.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b3.mp3",
+      "transcript": "Choose CP and the system stays consistent: it blocks or rejects any request it can't answer correctly, trading uptime for truth.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b4.mp3",
+      "transcript": "Choose AP and the system stays available: every request gets an answer, even a stale one, and conflicts are reconciled later.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b5.mp3",
+      "transcript": "Money and inventory require CP — a bank serving balances from both sides of a partition is how a customer double-spends.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "cap-and-consistency",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/cap-and-consistency__b6.mp3",
+      "transcript": "Feeds and likes require AP — a slightly stale like count is fine, but downtime isn't. The insight: choose C or A per data, not per system.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b0.mp3",
+      "transcript": "A payment producer enqueues a charge-card message and returns immediately — the queue decouples it from whoever does the work.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b1.mp3",
+      "transcript": "The queue delivers the message to the consumer, but the guarantee is at-least-once: delivered for sure, possibly more than once.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b2.mp3",
+      "transcript": "If the consumer finishes the charge but crashes before its ack lands, the queue sees no ack and redelivers — a duplicate arrives.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b3.mp3",
+      "transcript": "So before doing anything, the consumer checks a dedup ledger: have I already seen this message id?",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b4.mp3",
+      "transcript": "If the id is new, the ledger records it and the side effect runs exactly once — the card is charged a single time.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "async-queues",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/async-queues__b5.mp3",
+      "transcript": "If the id is already recorded, the ledger says skip — redelivery becomes a harmless no-op, which is what idempotent means under at-least-once.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b0.mp3",
+      "transcript": "Five copies of your data does not mean fresh reads — what matters is whether the write set and the read set are guaranteed to share a replica.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b1.mp3",
+      "transcript": "A write goes out and waits for acknowledgments from W replicas — here it lands on replica 1 and replica 2 before it is confirmed.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b2.mp3",
+      "transcript": "Replica 3 never received the write — it still holds the old value, and that is completely normal in a quorum system.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b3.mp3",
+      "transcript": "Later, a read fans out to R replicas — it happens to query replica 2 and the stale replica 3.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b4.mp3",
+      "transcript": "Because R plus W exceeds N, pigeonhole math forces at least one shared replica — here replica 2 sits in both the write set and the read set.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b5.mp3",
+      "transcript": "Replica 2 holds the latest version, so the read compares responses and returns the fresh value — replica 3's stale copy is outvoted.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "consensus-quorum",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/consensus-quorum__b6.mp3",
+      "transcript": "That is the whole guarantee: choose W and R so the sets must overlap, and every read is certain to touch a replica carrying the newest write.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b0.mp3",
+      "transcript": "It starts with a design under review — code that calls a remote service and quietly assumes the network will behave like a local function call.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b1.mp3",
+      "transcript": "We run the design through a fallacy audit, checking each of the classic false assumptions engineers carry over from single-machine code.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b2.mp3",
+      "transcript": "First flag: the design trusts the network is reliable — there is no timeout and no retry, so one dropped packet leaves threads waiting forever.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b3.mp3",
+      "transcript": "Second flag: it assumes latency is zero, making chatty fine-grained calls where every round trip silently adds real milliseconds.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b4.mp3",
+      "transcript": "Third flag: hosts are hardcoded, assuming the topology never changes — the moment a server moves or scales, the design breaks.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b5.mp3",
+      "transcript": "Each flagged assumption maps to a concrete defense: timeouts and retries for reliability, batching and caching for latency, service discovery for topology.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "distributed-fallacies",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/distributed-fallacies__b6.mp3",
+      "transcript": "That is the insight: the fallacies are not trivia — they are an audit checklist where every unstated assumption you catch becomes a specific fix you ship.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b0.mp3",
+      "transcript": "Start with the recommendations service — a minor dependency — and it has just gone down.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b1.mp3",
+      "transcript": "The product page calls it synchronously and treats it as required, so when recs fails, the product page fails with it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b2.mp3",
+      "transcript": "Failure is transitive: the homepage embeds the product page, so it goes down too — the whole site dies from one small service.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b3.mp3",
+      "transcript": "That set of everything knocked out — recs, product page, homepage — is the blast radius: walk the graph from the failure to all its dependents.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b4.mp3",
+      "transcript": "The fix is a bulkhead: declare recommendations optional and isolate the failure so it cannot propagate past that edge.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b5.mp3",
+      "transcript": "With recs walled off, the bulkhead serves a degraded product page — no recommendations, but the page and homepage stay up.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "failure-modes-blast-radius",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/failure-modes-blast-radius__b6.mp3",
+      "transcript": "The insight: blast radius is set by your edges, not your failures — cut the synchronous hard dependency and a tiny outage stays tiny.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b0.mp3",
+      "transcript": "The breaker starts CLOSED: every request flows to the dependency, and each failure is quietly counted against a threshold.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b1.mp3",
+      "transcript": "When failures cross the threshold, the breaker trips to OPEN — instead of retrying harder, it stops calling entirely and fails fast.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b2.mp3",
+      "transcript": "OPEN is the protection: with zero traffic hitting it, the struggling dependency finally gets room to recover instead of a retry storm.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b3.mp3",
+      "transcript": "After a cooldown elapses, the breaker moves to HALF-OPEN and lets a single probe request through as a careful test.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b4.mp3",
+      "transcript": "That one trial call decides everything: if it succeeds, the breaker closes and normal traffic resumes.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b5.mp3",
+      "transcript": "If the trial fails, the breaker re-opens and waits out another cooldown — never flooding a dependency that is still down.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "resilience-patterns",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/resilience-patterns__b6.mp3",
+      "transcript": "The insight: resilience is not retrying harder — the breaker converts repeated failure into fast failure, so your client stops being the attack.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b0.mp3",
+      "transcript": "Start with what you can actually measure: the SLI, a concrete signal of health like the fraction of requests that succeed.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b1.mp3",
+      "transcript": "The SLI alone means nothing until you compare it to a target: the SLO, say 99.9 percent of requests succeed over 30 days.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b2.mp3",
+      "transcript": "Here is the reframe: one minus the SLO is your error budget, the failure you have explicitly decided to allow, about 43 minutes a month at 99.9.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b3.mp3",
+      "transcript": "Every failed request spends that budget, and the burn rate tells you how fast: an afternoon incident can torch a whole month's allowance.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b4.mp3",
+      "transcript": "The burn rate is a decision, not a dashboard: burning slow means budget to spare, so ship faster and take risks.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "observability-slos",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/observability-slos__b5.mp3",
+      "transcript": "Burning hot means the budget is nearly gone, so freeze risky changes until it recovers; reliability is now a number you spend, not a gut feeling.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b0.mp3",
+      "transcript": "Requests arrive at whatever rate clients feel like sending, but your service can only survive a finite rate, so every request first hits the token bucket.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b1.mp3",
+      "transcript": "Meanwhile a refill process drips tokens into the bucket at r per second; that steady drip is the sustained rate you are willing to serve long-term.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b2.mp3",
+      "transcript": "The bucket holds at most capacity tokens, so a quiet period banks up to b tokens; that stored slack is exactly how big a burst you can absorb at once.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b3.mp3",
+      "transcript": "Every request must withdraw one token, so admission reduces to a single question: is there a token in the bucket right now?",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b4.mp3",
+      "transcript": "If a token is there, the request takes it and gets served; within budget, users never notice the limiter exists.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b5.mp3",
+      "transcript": "If the bucket is empty you are past both budgets, so the request is rejected — and under overload you shed low-priority work first to protect what matters.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "rate-limiting-load-shedding",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/rate-limiting-load-shedding__b6.mp3",
+      "transcript": "One bucket encodes two limits: refill rate caps sustained throughput, capacity caps the burst, and shedding turns overload into triage instead of collapse.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b0.mp3",
+      "transcript": "Big architecture calls fail when teams trade opinions; this flow replaces debate with a scored, written decision.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b1.mp3",
+      "transcript": "Start by enumerating the genuine options on the table, like monolith versus microservices, not just the loudest proposal.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b2.mp3",
+      "transcript": "Then define the criteria that matter for this system and weight them: a pre-market-fit startup weights simplicity and velocity, not hyperscale.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b3.mp3",
+      "transcript": "Every option is evaluated against every weighted criterion, producing a total score that turns preference into arithmetic you can argue about.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b4.mp3",
+      "transcript": "The highest weighted total wins; the lower totals become explicit rejected alternatives instead of silently forgotten paths.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b5.mp3",
+      "transcript": "Both outcomes flow into an ADR: record the winner, and just as importantly, record why each alternative lost.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "tradeoff-analysis-adrs",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/tradeoff-analysis-adrs__b6.mp3",
+      "transcript": "The value is not the arithmetic, it is the forced conversation about weights, plus a written record the next engineer can revisit when constraints change.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b0.mp3",
+      "transcript": "A junior starts drawing databases immediately; a senior runs a six-step method that guarantees the diagram answers the actual question.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b1.mp3",
+      "transcript": "Step one, frame: clarify functional requirements, non-functional targets, and constraints, because everything downstream is derived from these answers.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b2.mp3",
+      "transcript": "Then estimate: back-of-envelope math on peak requests per second, storage, and bandwidth, so the design is sized to reality instead of taste.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b3.mp3",
+      "transcript": "Only now do you sketch the high-level design: the major components and the request path, at whiteboard altitude, not implementation detail.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b4.mp3",
+      "transcript": "Then deep-dive into the pieces that matter most for this problem, like the data model and storage choices, using the requirements you framed.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b5.mp3",
+      "transcript": "Next, hunt the bottleneck: with your estimates in hand, ask which component breaks first at the stated scale, that risk is where the design earns its keep.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "the-interview-method",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/the-interview-method__b6.mp3",
+      "transcript": "Finish by naming the tradeoffs you made and what you would revisit; the method, not the diagram, is what separates senior from junior.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b0.mp3",
+      "transcript": "One client, two request paths: writing a new short link, and the read-heavy redirect that serves every click after it.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b1.mp3",
+      "transcript": "Creates hit the rate limiter first, so a burst of write traffic can never starve the system or mint codes faster than it can store them.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b2.mp3",
+      "transcript": "Admitted creates take a monotonic id, encode it in base sixty-two, and store the mapping — each id is used once, so uniqueness holds by construction.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b3.mp3",
+      "transcript": "The mapping lands in a store sharded by short code with consistent hashing, so writes and storage spread across nodes as the system grows.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b4.mp3",
+      "transcript": "Redirects are the hot path: the client hits the cache, and on a hit we answer straight away with a 301 to the long URL.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b5.mp3",
+      "transcript": "On a miss, the cache falls back to the owning shard, fills itself, and still resolves — slower, but never wrong, because the store is the source of truth.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "designing-a-real-system",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/designing-a-real-system__b6.mp3",
+      "transcript": "The design is the composition: limiter, id generator, shards, and cache each solve one problem, and the invariants — unique codes, correct redirects — hold across all of them.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b0.mp3",
+      "transcript": "Everything starts with the spec: traffic numbers, data types, budget, and availability targets — plus the design you built to meet them.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b1.mp3",
+      "transcript": "First, the capacity gate: your back-of-envelope peak RPS and storage must fit the provisioned budget — servers times per-server capacity.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b2.mp3",
+      "transcript": "Pass capacity and the consistency gate takes over: every data type must land in a store whose guarantees match its correctness needs.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b3.mp3",
+      "transcript": "Next, the cache gate: your hit-rate math must show the read-heavy load actually stays off the backing stores at peak.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b4.mp3",
+      "transcript": "Then containment: when a shard or dependency fails, the blast radius must stay bounded — the design survives partial failure by arithmetic, not hope.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b5.mp3",
+      "transcript": "Notice the gates are chained with AND — one failed check anywhere invalidates the whole design; there is no partial credit.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    },
+    {
+      "lessonSlug": "capstone-design-and-defend",
+      "url": "https://hocrntqhgvmeaxwlhzwl.supabase.co/storage/v1/object/public/academy-voice/system-design/capstone-design-and-defend__b6.mp3",
+      "transcript": "Only when all four computed checks pass does the design earn its verdict — that's the course's founding principle: proof, not vibes.",
+      "httpStatus": null,
+      "contentType": "",
+      "contentLength": 0,
+      "error": "fetch failed"
+    }
+  ]
+}

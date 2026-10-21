@@ -1,4 +1,7 @@
 /**
+ * Prototype presentation fixture. It is not an authority for Academy identity,
+ * counts, publication, or certification.
+ *
  * Academy catalog — the learner-facing curriculum for the bright "/learn"
  * experience. Seeded with real, credible topics that match the studio's actual
  * stack (Python, JS/TS, LLM engineering, RAG, agents, shipping full-stack SaaS).

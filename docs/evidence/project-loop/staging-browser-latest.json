@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:48:36.237Z",
+  "status": "pass",
+  "classification": "hosted_browser_verified",
+  "resultStatus": "passed",
+  "expected": {
+    "baseURL": "https://sageideas-academy-staging-js73jqntw-sage-ideas.vercel.app",
+    "deploymentId": "dpl_D4bosTT24UBnEPVvxoVpFs7WLbLV",
+    "commitSha": "8e3c083901911a8eedc6823082eab0fb88d457f5",
+    "branch": "production/01-program-loop-v1"
+  },
+  "summary": {
+    "expectedTests": 15,
+    "observedTests": 15,
+    "passed": 15,
+    "failed": 0
+  },
+  "tests": [
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › the axe gate proves its deliberately broken and known-good fixtures",
+      "status": "passed",
+      "durationMs": 780
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › / meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2488
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /services meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2888
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /work meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2164
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /pricing meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2024
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /blog meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2270
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /contact meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2625
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /login meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2274
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /signup meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 1864
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /academy/catalog meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2328
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /academy/method meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2055
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /academy/labs meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 2691
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /academy/try meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 1973
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › /checkout/audit meets automated WCAG 2.2 AA and responsive contracts",
+      "status": "passed",
+      "durationMs": 1925
+    },
+    {
+      "title": "staging-mobile-chromium › accessibility-performance.spec.ts › skip navigation is the first keyboard stop and transfers focus to main",
+      "status": "passed",
+      "durationMs": 957
+    }
+  ],
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "blockedCapabilities": [
+    "hosted_migrations",
+    "database_restore",
+    "authenticated_integrations",
+    "controlled_lab_runtime",
+    "human_review_beta",
+    "production_deployment"
+  ],
+  "findings": []
+}

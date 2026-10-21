@@ -1,0 +1,178 @@
+[
+  {
+    "source_id": "rfc-9110-http-semantics",
+    "title": "RFC 9110: HTTP Semantics",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "RFC 9110 (June 2022, Internet Standard STD 97)",
+    "excerpt": "Defines HTTP request/response semantics, intermediaries, methods, status codes, and the protocol properties used when drawing distributed request paths.",
+    "keywords": ["http", "request path", "latency", "intermediary", "proxy", "cdn"]
+  },
+  {
+    "source_id": "rfc-9111-http-caching",
+    "title": "RFC 9111: HTTP Caching",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc9111.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "RFC 9111 (June 2022, Internet Standard STD 98)",
+    "excerpt": "Defines cache storage, freshness, validation, invalidation, shared/private behavior, and security considerations for HTTP caches.",
+    "keywords": ["cache", "freshness", "validation", "invalidation", "cache-control", "cdn edge"]
+  },
+  {
+    "source_id": "rfc-6585-rate-limiting",
+    "title": "RFC 6585: Additional HTTP Status Codes",
+    "organization": "IETF",
+    "url": "https://www.rfc-editor.org/rfc/rfc6585.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "RFC 6585 (April 2012)",
+    "excerpt": "Defines 429 Too Many Requests and the optional Retry-After response signal used by rate-limited clients.",
+    "keywords": ["429", "rate limiting", "retry-after", "load shedding", "backpressure"]
+  },
+  {
+    "source_id": "postgresql-indexes",
+    "title": "PostgreSQL Documentation: Indexes",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/indexes.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18 current documentation, Chapter 11",
+    "excerpt": "Documents index types, multicolumn and partial indexes, index-only scans, and the operational tradeoff between faster access and write/storage cost.",
+    "keywords": ["database", "index", "selectivity", "read path", "write amplification"]
+  },
+  {
+    "source_id": "postgresql-warm-standby",
+    "title": "PostgreSQL Documentation: Warm Standby and Streaming Replication",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/warm-standby.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18 current documentation, Chapter 26.2",
+    "excerpt": "Documents standby replication, streaming behavior, replication lag, failover, and synchronous replication tradeoffs.",
+    "keywords": ["replication", "standby", "failover", "lag", "read-after-write", "availability"]
+  },
+  {
+    "source_id": "postgresql-partitioning",
+    "title": "PostgreSQL Documentation: Table Partitioning",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/ddl-partitioning.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18 current documentation, Chapter 5.12",
+    "excerpt": "Documents range, list, and hash partitioning, pruning, maintenance benefits, and constraints that guide partition-key selection.",
+    "keywords": ["partitioning", "sharding", "partition key", "pruning", "hotspot"]
+  },
+  {
+    "source_id": "aws-caching-challenges",
+    "title": "Caching Challenges and Strategies",
+    "organization": "Amazon Web Services",
+    "url": "https://aws.amazon.com/builders-library/caching-challenges-and-strategies/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Amazon Builders' Library (current)",
+    "excerpt": "Explains local and external caches, cache failure modes, request coalescing, load amplification, hit rate, and downstream protection.",
+    "keywords": ["cache aside", "request coalescing", "cache stampede", "hit rate", "load amplification"]
+  },
+  {
+    "source_id": "aws-timeouts-retries-jitter",
+    "title": "Timeouts, Retries, and Backoff with Jitter",
+    "organization": "Amazon Web Services",
+    "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Amazon Builders' Library (current)",
+    "excerpt": "Explains bounded timeouts, retry amplification, exponential backoff, jitter, idempotency, and retry placement in layered services.",
+    "keywords": ["timeout", "retry", "backoff", "jitter", "idempotency", "resilience"]
+  },
+  {
+    "source_id": "aws-avoiding-overload",
+    "title": "Avoiding Overload in Distributed Systems by Putting the Smaller Service in Control",
+    "organization": "Amazon Web Services",
+    "url": "https://aws.amazon.com/builders-library/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Amazon Builders' Library (current)",
+    "excerpt": "Describes admission control, load shedding, queue bounds, client behavior, and techniques that prevent overload from becoming an outage cascade.",
+    "keywords": ["overload", "load shedding", "admission control", "queue bound", "backpressure"]
+  },
+  {
+    "source_id": "google-sre-load-balancing",
+    "title": "Google SRE Book: Load Balancing at the Frontend",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/load-balancing-frontend/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Engineering, Chapter 19",
+    "excerpt": "Explains DNS and virtual-IP load balancing, health-aware routing, traffic distribution, and the operational constraints of frontend balancing.",
+    "keywords": ["load balancer", "health check", "traffic distribution", "frontend", "failover"]
+  },
+  {
+    "source_id": "google-sre-slos",
+    "title": "Google SRE Book: Service Level Objectives",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/service-level-objectives/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Engineering, Chapter 4",
+    "excerpt": "Defines SLIs, SLOs, SLAs, user-centered indicators, percentile-based latency, and error budgets as operational decision tools.",
+    "keywords": ["sli", "slo", "sla", "error budget", "availability", "latency percentile"]
+  },
+  {
+    "source_id": "google-sre-monitoring",
+    "title": "Google SRE Book: Monitoring Distributed Systems",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Engineering, Chapter 6",
+    "excerpt": "Defines black-box and white-box monitoring and frames latency, traffic, errors, and saturation as core service signals.",
+    "keywords": ["observability", "monitoring", "latency", "traffic", "errors", "saturation"]
+  },
+  {
+    "source_id": "aws-sqs-visibility-timeout",
+    "title": "Amazon SQS Visibility Timeout",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Amazon SQS Developer Guide (current)",
+    "excerpt": "Documents in-flight messages, redelivery, at-least-once behavior, visibility timeout, and the need for idempotent consumers.",
+    "keywords": ["queue", "visibility timeout", "redelivery", "at least once", "idempotency"]
+  },
+  {
+    "source_id": "raft-paper",
+    "title": "In Search of an Understandable Consensus Algorithm",
+    "organization": "USENIX / Stanford University",
+    "url": "https://raft.github.io/raft.pdf",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "USENIX ATC 2014 paper",
+    "excerpt": "Presents Raft consensus through leader election, log replication, safety constraints, membership changes, and majority quorum reasoning.",
+    "keywords": ["consensus", "raft", "leader election", "quorum", "log replication", "safety"]
+  },
+  {
+    "source_id": "cap-gilbert-lynch",
+    "title": "Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services",
+    "organization": "MIT Laboratory for Computer Science",
+    "url": "https://groups.csail.mit.edu/tds/papers/Gilbert/Brewer2.pdf",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "ACM SIGACT News 33(2), 2002",
+    "excerpt": "Formalizes the consistency, availability, and network-partition model behind CAP and proves the limitation for asynchronous networks.",
+    "keywords": ["cap theorem", "consistency", "availability", "partition tolerance", "distributed systems"]
+  },
+  {
+    "source_id": "aws-adr-guidance",
+    "title": "Using Architectural Decision Records to Streamline Technical Decision-Making",
+    "organization": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/welcome.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "AWS Prescriptive Guidance (current)",
+    "excerpt": "Defines an ADR workflow that records context, considered options, decisions, consequences, status, and ownership for durable technical reasoning.",
+    "keywords": ["adr", "architecture decision record", "tradeoff", "context", "consequence"]
+  }
+]

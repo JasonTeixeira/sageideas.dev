@@ -1,0 +1,182 @@
+[
+  {
+    "source_id": "apple-app-architecture",
+    "title": "App Architecture",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/swiftui/model-data",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["SwiftUI", "state", "data flow", "architecture"]
+  },
+  {
+    "source_id": "apple-keychain-services",
+    "title": "Keychain Services",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/security/keychain-services",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["keychain", "token", "secret", "storage"]
+  },
+  {
+    "source_id": "apple-background-tasks",
+    "title": "Background Tasks",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/backgroundtasks",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["background", "lifecycle", "scheduling", "expiration"]
+  },
+  {
+    "source_id": "apple-network-framework",
+    "title": "Network Framework",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/network",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["network", "connection", "path", "recovery"]
+  },
+  {
+    "source_id": "apple-accessibility",
+    "title": "Accessibility",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/accessibility/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["VoiceOver", "accessibility", "dynamic type", "input"]
+  },
+  {
+    "source_id": "apple-xctest",
+    "title": "XCTest",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/xctest",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["test", "unit", "UI", "performance"]
+  },
+  {
+    "source_id": "apple-metrickit",
+    "title": "MetricKit",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/documentation/metrickit",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["crash", "hang", "performance", "diagnostics"]
+  },
+  {
+    "source_id": "apple-app-store-review-guidelines",
+    "title": "App Review Guidelines",
+    "organization": "Apple",
+    "url": "https://developer.apple.com/app-store/review/guidelines/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["App Store", "review", "privacy", "release"]
+  },
+  {
+    "source_id": "android-app-architecture",
+    "title": "Guide to App Architecture",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/topic/architecture",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["architecture", "UI layer", "data layer", "state"]
+  },
+  {
+    "source_id": "android-workmanager",
+    "title": "WorkManager",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/topic/libraries/architecture/workmanager",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["background", "durable work", "constraint", "retry"]
+  },
+  {
+    "source_id": "android-room",
+    "title": "Save Data in a Local Database Using Room",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/training/data-storage/room",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["database", "offline", "migration", "persistence"]
+  },
+  {
+    "source_id": "android-keystore",
+    "title": "Android Keystore System",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/privacy-and-security/keystore",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["keystore", "key", "credential", "hardware-backed"]
+  },
+  {
+    "source_id": "android-permissions",
+    "title": "Permissions on Android",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/guide/topics/permissions/overview",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["permission", "denied", "least privilege", "privacy"]
+  },
+  {
+    "source_id": "android-accessibility",
+    "title": "Build Accessible Apps",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/guide/topics/ui/accessibility",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["TalkBack", "accessibility", "semantics", "touch target"]
+  },
+  {
+    "source_id": "android-testing",
+    "title": "Test Apps on Android",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/training/testing",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["test", "device", "instrumented", "regression"]
+  },
+  {
+    "source_id": "android-vitals",
+    "title": "Android Vitals",
+    "organization": "Google Android",
+    "url": "https://developer.android.com/topic/performance/vitals",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["crash", "ANR", "performance", "release"]
+  },
+  {
+    "source_id": "owasp-masvs",
+    "title": "Mobile Application Security Verification Standard",
+    "organization": "OWASP",
+    "url": "https://mas.owasp.org/MASVS/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["MASVS", "storage", "authentication", "network"]
+  },
+  {
+    "source_id": "w3c-wcag-22",
+    "title": "Web Content Accessibility Guidelines 2.2",
+    "organization": "W3C",
+    "url": "https://www.w3.org/TR/WCAG22/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["accessibility", "target size", "focus", "input"]
+  },
+  {
+    "source_id": "react-native-new-architecture",
+    "title": "React Native New Architecture",
+    "organization": "Meta Open Source",
+    "url": "https://reactnative.dev/architecture/landing-page",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["cross-platform", "renderer", "native module", "interop"]
+  },
+  {
+    "source_id": "sqlite-isolation",
+    "title": "Isolation in SQLite",
+    "organization": "SQLite Project",
+    "url": "https://www.sqlite.org/isolation.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "keywords": ["SQLite", "isolation", "transaction", "WAL"]
+  }
+]

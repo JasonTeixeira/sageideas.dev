@@ -1,5 +1,5 @@
 // #7 Structured output — CLEAR
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn how to make an AI return clean, structured data — like JSON — that your code can actually use, reliably, every single time. This is the trick that turns a chatbot into a real building block in your app."],
   ['02', "Let me show you the problem. Your program needs the AI's answer as data. So you ask it for JSON. And it replies: Sure! Here's the JSON you asked for — and that one friendly sentence just crashed your parser. Free text and code don't mix."],
   ['03', "So here's the core idea. You need a guaranteed shape. You start by writing a schema — that's just a definition of the exact fields and types you expect back. For example: a name that's text, an amount that's a number, a date. That schema is your contract."],
@@ -10,3 +10,5 @@ export default [
   ['08', "So let's recap. Define a schema — the exact shape you want. Force the AI to fill it with structured output. Validate the result. And retry on failure. That's how you get reliable data out of an unreliable narrator."],
   ['09', "If you want to build this into your own app, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

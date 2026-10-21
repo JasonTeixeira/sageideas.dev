@@ -1,5 +1,5 @@
 // #2 Evals — CLEAR REWRITE
-export default [
+const scenes = [
   ['01', "Hey, welcome back. Today you're going to learn how to actually test an AI feature — so you know it works, instead of just hoping it does. By the end, you'll be able to build something called an eval, and catch bad changes before your users ever see them."],
   ['02', "Let me show you the problem first. Say your AI feature works on the three examples you tried. So you ship it. But three examples isn't a test — it's a guess. You have no real idea how it does on the other thousand cases."],
   ['03', "It gets worse. You tweak the prompt to fix one bad answer. Did that make everything better, or did it quietly break five other things? Without a test, you genuinely cannot tell. That's called testing by vibes, and vibes don't survive production."],
@@ -13,3 +13,5 @@ export default [
   ['11', "So let's recap. An eval has three parts: a set of real examples, a way to score them, and a gate that blocks bad changes. And you slice the score so no failure can hide. The whole point is simple: you can't ship what you can't measure."],
   ['12', "If you want to build this exact eval harness yourself, for free, head to sageideas dot dev slash academy. That's it for today. Proof, not paper. I'll see you in the next one."],
 ];
+
+export default scenes;

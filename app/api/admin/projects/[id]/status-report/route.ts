@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import { requireAdminApi } from '@/lib/admin-guard';
+import { logAudit, requireAdminApi } from '@/lib/admin-guard';
+import { parseStatusReportInput } from '@/lib/admin/academy-content-contract';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
-
-type Body = {
-  visible_to_client?: boolean;
-  custom_note?: string;
-};
 
 type DeliverableRow = {
   id: string;
@@ -42,9 +38,12 @@ export async function POST(
   if (guard instanceof NextResponse) return guard;
   const { id: engagementId } = await params;
 
-  const body = ((await req.json().catch(() => ({}))) ?? {}) as Body;
-  const visibleToClient = body.visible_to_client === true;
-  const customNote = typeof body.custom_note === 'string' ? body.custom_note.trim() : '';
+  const body = await req.json().catch(() => null);
+  const parsed = parseStatusReportInput(engagementId, body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'invalid_body' }, { status: 400 });
+  }
+  const { visibleToClient, customNote } = parsed.data;
 
   const sb = supabaseAdmin();
 
@@ -212,16 +211,37 @@ export async function POST(
     .single();
 
   if (insErr || !inserted) {
-    return NextResponse.json(
-      { error: 'insert_failed', detail: insErr?.message },
-      { status: 500 },
-    );
+    console.error('[admin-status-report] insert failed', insErr);
+    return NextResponse.json({ error: 'persistence_failed' }, { status: 500 });
   }
 
-  await sb
+  await logAudit({
+    actorId: guard.userId,
+    actorEmail: guard.email,
+    action: 'project.status_report.create',
+    entityType: 'project_status_update',
+    entityId: inserted.id,
+    after: {
+      engagementId,
+      periodStart: periodStartIso,
+      periodEnd: periodEndIso,
+      visibleToClient,
+    },
+  });
+
+  const { error: engagementUpdateError } = await sb
     .from('engagements')
     .update({ status_report_last_sent_at: periodEndIso })
     .eq('id', engagementId);
+  if (engagementUpdateError) {
+    // The immutable report is already created and audited. Returning success avoids
+    // duplicate reports on client retry; operations can reconcile this cursor later.
+    console.error('[admin-status-report] engagement reconciliation failed', engagementUpdateError);
+  }
 
-  return NextResponse.json({ ok: true, report: inserted });
+  return NextResponse.json({
+    ok: true,
+    report: inserted,
+    reconciliation_pending: Boolean(engagementUpdateError),
+  });
 }

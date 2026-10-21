@@ -1,0 +1,36 @@
+{
+  "release": {
+    "status": "production_ready",
+    "trust": {
+      "academyCertification": "certified",
+      "labTrust": "trusted_controlled_runtime",
+      "labEvidence": "mastery"
+    }
+  },
+  "http": {
+    "status": "pass",
+    "expected": {
+      "baseURL": "https://sageideas.dev",
+      "deploymentId": "production",
+      "commitSha": "main",
+      "branch": "main"
+    }
+  },
+  "browser": {
+    "status": "pass",
+    "expected": {
+      "baseURL": "https://different.example.com",
+      "deploymentId": "dpl_different",
+      "commitSha": "0000000000000000000000000000000000000000",
+      "branch": "main"
+    }
+  },
+  "rollback": {
+    "status": "pass",
+    "restored": false
+  },
+  "labs": {
+    "status": "ready",
+    "gates": {}
+  }
+}

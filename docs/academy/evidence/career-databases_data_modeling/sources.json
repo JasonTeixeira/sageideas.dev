@@ -1,0 +1,178 @@
+[
+  {
+    "source_id": "postgresql-18-constraints",
+    "title": "PostgreSQL 18: Constraints",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Primary, foreign-key, unique, not-null, check, and exclusion constraints encode data invariants in the database.",
+    "keywords": ["constraints", "primary key", "foreign key", "referential integrity", "unique", "check"]
+  },
+  {
+    "source_id": "postgresql-18-indexes",
+    "title": "PostgreSQL 18: Indexes",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/18/indexes.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Indexes can accelerate row retrieval but add system overhead and must be chosen against real access patterns.",
+    "keywords": ["indexes", "access patterns", "partial index", "covering index", "query performance"]
+  },
+  {
+    "source_id": "postgresql-18-explain",
+    "title": "PostgreSQL 18: Using EXPLAIN",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/using-explain.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "EXPLAIN exposes the query plan selected by the planner so performance hypotheses can be tested against evidence.",
+    "keywords": ["explain", "query plan", "planner", "cost", "performance"]
+  },
+  {
+    "source_id": "postgresql-18-transactions",
+    "title": "PostgreSQL 18: Transaction Isolation",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Isolation levels define which concurrency phenomena may occur, with Serializable emulating a serial order for committed transactions.",
+    "keywords": ["transaction", "isolation", "read committed", "repeatable read", "serializable", "anomaly"]
+  },
+  {
+    "source_id": "postgresql-18-concurrency",
+    "title": "PostgreSQL 18: Concurrency Control",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/mvcc.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "PostgreSQL concurrency control balances simultaneous access with data integrity through MVCC, locks, and retryable failures.",
+    "keywords": ["mvcc", "concurrency", "locking", "deadlock", "serialization retry"]
+  },
+  {
+    "source_id": "postgresql-18-schema-evolution",
+    "title": "PostgreSQL 18: Modifying Tables",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/ddl-alter.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "ALTER TABLE supports deliberate schema evolution across columns, constraints, defaults, and types, each with operational consequences.",
+    "keywords": ["alter table", "migration", "schema evolution", "constraint", "column"]
+  },
+  {
+    "source_id": "postgresql-18-row-security",
+    "title": "PostgreSQL 18: Row Security Policies",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Enabled row security restricts visible or modifiable rows by policy and defaults to deny when no policy allows access.",
+    "keywords": ["row level security", "policy", "tenant isolation", "default deny", "privacy"]
+  },
+  {
+    "source_id": "postgresql-18-sql-dump",
+    "title": "PostgreSQL 18: SQL Dump",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/backup-dump.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "pg_dump creates internally consistent logical backups, but restoration must be exercised and verified as an independent operation.",
+    "keywords": ["backup", "pg_dump", "pg_restore", "restore drill", "retention"]
+  },
+  {
+    "source_id": "postgresql-18-pitr",
+    "title": "PostgreSQL 18: Continuous Archiving and Point-in-Time Recovery",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/continuous-archiving.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Base backups plus archived write-ahead log records support restoration to a selected recovery point.",
+    "keywords": ["pitr", "wal", "continuous archiving", "rpo", "rto", "recovery"]
+  },
+  {
+    "source_id": "postgresql-18-monitoring",
+    "title": "PostgreSQL 18: Cumulative Statistics System",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/monitoring-stats.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "PostgreSQL statistics views expose activity and accumulated behavior needed for query and incident diagnosis.",
+    "keywords": ["monitoring", "statistics", "pg_stat", "query incidents", "observability"]
+  },
+  {
+    "source_id": "postgresql-18-materialized-views",
+    "title": "PostgreSQL 18: Materialized Views",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/rules-materializedviews.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Materialized views persist query results for faster reads but require explicit refresh and may not contain current data.",
+    "keywords": ["materialized view", "read model", "cache", "refresh", "staleness"]
+  },
+  {
+    "source_id": "postgresql-18-logical-replication",
+    "title": "PostgreSQL 18: Logical Replication",
+    "organization": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/logical-replication.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "PostgreSQL 18",
+    "excerpt": "Logical replication publishes data changes to subscribers and supports incremental movement into read and analytics systems.",
+    "keywords": ["logical replication", "cdc", "publisher", "subscriber", "analytics boundary"]
+  },
+  {
+    "source_id": "sqlite-current-language",
+    "title": "SQL As Understood By SQLite",
+    "organization": "SQLite Project",
+    "url": "https://sqlite.org/lang.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current documentation",
+    "excerpt": "SQLite implements most SQL while documenting supported syntax and engine-specific omissions or extensions.",
+    "keywords": ["sqlite", "sql dialect", "create table", "select", "alter table"]
+  },
+  {
+    "source_id": "sqlite-current-transactions",
+    "title": "SQLite Transaction Control",
+    "organization": "SQLite Project",
+    "url": "https://www.sqlite.org/lang_transaction.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current documentation",
+    "excerpt": "SQLite supports explicit BEGIN, COMMIT, and ROLLBACK semantics and distinguishes read from write transactions.",
+    "keywords": ["sqlite", "transaction", "commit", "rollback", "atomicity"]
+  },
+  {
+    "source_id": "sqlite-current-foreign-keys",
+    "title": "SQLite Foreign Key Support",
+    "organization": "SQLite Project",
+    "url": "https://www.sqlite.org/foreignkeys.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current documentation",
+    "excerpt": "SQLite foreign-key constraints maintain parent-child integrity when support is enabled and correctly indexed.",
+    "keywords": ["sqlite", "foreign key", "referential integrity", "parent", "child"]
+  },
+  {
+    "source_id": "sqlite-current-query-planner",
+    "title": "SQLite Query Planning",
+    "organization": "SQLite Project",
+    "url": "https://www.sqlite.org/queryplanner.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "current documentation",
+    "excerpt": "SQLite uses a cost-based planner to choose among access paths, including multi-column and covering indexes and indexed sorting.",
+    "keywords": ["sqlite", "query planner", "index", "covering index", "sort"]
+  }
+]

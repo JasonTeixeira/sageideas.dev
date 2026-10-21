@@ -19,7 +19,7 @@ import { InstallPrompt } from '@/components/pwa/install-prompt'
 import { UpdateToast } from '@/components/pwa/update-toast'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { getLocale } from '@/lib/i18n/server'
-import { getMessages } from '@/lib/i18n/messages'
+import { getClientMessages } from '@/lib/i18n/messages'
 import { isRtl, localeHrefLang } from '@/lib/i18n/config'
 import { localizedAlternates } from '@/lib/i18n/alternates'
 import { LocaleProvider } from '@/components/i18n/locale-provider'
@@ -215,7 +215,7 @@ export default async function RootLayout({
 }>) {
   const h = await headers()
   const locale = await getLocale()
-  const messages = getMessages(locale)
+  const messages = getClientMessages(locale)
   const isPortal = h.get('x-portal') === '1'
   const pathname = (h.get('x-pathname') ?? '').split('?')[0]
   const isLivingHomepage = pathname === '/'

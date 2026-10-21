@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T19:32:39.437Z",
+  "scope": "observability-recovery",
+  "status": "pass_local_contract",
+  "controls": {
+    "publicReadiness": "bounded_anonymous_probe_with_safe_error_codes",
+    "telemetryPrivacy": "bounded_redacted_route_only",
+    "telemetryFailure": "privacy_safe_structured_signal",
+    "sloFailure": "unknown_and_503",
+    "tracing": "bounded_sampling_and_scrubbed_events",
+    "alerts": [
+      {
+        "id": "availability",
+        "signal": "readiness",
+        "severity": "SEV1",
+        "owner": "platform-on-call",
+        "threshold": "failed twice in five minutes",
+        "runbook": "docs/sops/05-incident-response.md"
+      },
+      {
+        "id": "errors",
+        "signal": "error_rate",
+        "severity": "SEV2",
+        "owner": "platform-on-call",
+        "threshold": ">=5% for five minutes",
+        "runbook": "docs/sops/05-incident-response.md"
+      },
+      {
+        "id": "latency",
+        "signal": "lcp_p75",
+        "severity": "SEV3",
+        "owner": "web-on-call",
+        "threshold": ">2500ms for fifteen minutes",
+        "runbook": "docs/sops/05-incident-response.md"
+      },
+      {
+        "id": "jobs",
+        "signal": "dead_letters",
+        "severity": "SEV2",
+        "owner": "automation-on-call",
+        "threshold": ">0 for five minutes",
+        "runbook": "docs/sops/05-incident-response.md"
+      },
+      {
+        "id": "backups",
+        "signal": "recovery_point_age",
+        "severity": "SEV2",
+        "owner": "data-on-call",
+        "threshold": ">24h",
+        "runbook": "docs/sops/06-data-backup-restore.md"
+      }
+    ],
+    "incidentResponse": "roles_severity_cadence_timeline_blameless_postmortem",
+    "rollback": "approved_two_person_target_and_verification",
+    "recovery": "approved_isolated_rpo_rto_integrity_reconciliation"
+  },
+  "deterministicEvidence": [
+    "known-good and deliberately broken contract fixtures",
+    "telemetry redaction, URL minimization, metric bounds, and sampling tests",
+    "signal-to-alert mapping tests",
+    "recovery-drill evidence validator tests",
+    "checked-in source and runbook audit"
+  ],
+  "externalEvidencePending": [
+    "Configure a real alert destination and prove delivery/escalation in isolated staging.",
+    "Observe release-correlated Sentry traces and scrubbed events over an operating window.",
+    "Perform an approved isolated deployment rollback drill.",
+    "Perform an approved isolated database and storage restore drill and measure achieved RPO/RTO.",
+    "No credential, deployment, remote restore, provider mutation, or customer communication was performed."
+  ],
+  "findings": []
+}

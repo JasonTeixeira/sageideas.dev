@@ -66,8 +66,11 @@ export async function syncDiscordPremiumFromCheckout(session: Stripe.Checkout.Se
     typeof session.customer === 'string' ? session.customer : session.customer?.id ?? null;
   const username = session.metadata.discord_username ?? session.customer_details?.name ?? null;
 
-  await assignRole(discordUserId, 'Premium Member');
-  await assignRole(discordUserId, 'Academy Member');
+  const premiumAssigned = await assignRole(discordUserId, 'Premium Member');
+  const academyAssigned = await assignRole(discordUserId, 'Academy Member');
+  if (!premiumAssigned || !academyAssigned) {
+    throw new Error('Discord premium roles are not configured');
+  }
   await updateDiscordPremium({
     discordUserId,
     username,
@@ -93,8 +96,11 @@ export async function syncDiscordPremiumFromSubscription(sub: Stripe.Subscriptio
   const active = ['active', 'trialing'].includes(sub.status);
   const customerId = typeof sub.customer === 'string' ? sub.customer : sub.customer.id;
   if (active) {
-    await assignRole(discordUserId, 'Premium Member');
-    await assignRole(discordUserId, 'Academy Member');
+    const premiumAssigned = await assignRole(discordUserId, 'Premium Member');
+    const academyAssigned = await assignRole(discordUserId, 'Academy Member');
+    if (!premiumAssigned || !academyAssigned) {
+      throw new Error('Discord premium roles are not configured');
+    }
   } else {
     await removeRole(discordUserId, 'Premium Member');
   }

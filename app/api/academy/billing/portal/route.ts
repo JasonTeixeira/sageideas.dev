@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server'
-import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server'
+import {
+  createSupabaseServerClient,
+  isSupabasePublicConfigured,
+  supabaseAdmin,
+} from '@/lib/supabase/server'
 import { getStripe, isStripeConfigured } from '@/lib/stripe/client'
 
 export const runtime = 'nodejs'
@@ -11,6 +15,10 @@ export const dynamic = 'force-dynamic'
  * page — no fake links: if there is no real Stripe customer, we say so.
  */
 export async function POST(): Promise<NextResponse> {
+  if (!isSupabasePublicConfigured()) {
+    return NextResponse.json({ error: 'Authentication unavailable.' }, { status: 503 })
+  }
+
   const sb = await createSupabaseServerClient()
   const {
     data: { user },
@@ -20,6 +28,10 @@ export async function POST(): Promise<NextResponse> {
   }
 
   if (!isStripeConfigured()) {
+    return NextResponse.json({ error: 'Billing is not available right now.' }, { status: 503 })
+  }
+
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()) {
     return NextResponse.json({ error: 'Billing is not available right now.' }, { status: 503 })
   }
 

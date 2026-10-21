@@ -4,6 +4,13 @@ import { cookies } from 'next/headers';
 
 type CookieToSet = { name: string; value: string; options?: CookieOptions };
 
+export function isSupabasePublicConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+    && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim(),
+  );
+}
+
 // Service-role client for elevated server-side operations.
 // Use sparingly — bypasses RLS. Most reads should go through `createSupabaseServerClient`
 // which respects the authenticated user's session and RLS policies.

@@ -1,0 +1,200 @@
+[
+  {
+    "source_id": "nist-sp-800-145-cloud",
+    "title": "The NIST Definition of Cloud Computing",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://csrc.nist.gov/pubs/sp/800/145/final",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NIST SP 800-145",
+    "excerpt": "Defines essential cloud characteristics, service models, and deployment models used to distinguish cloud operating concerns from provider branding.",
+    "keywords": ["cloud", "on-demand", "elasticity", "service model", "deployment model"]
+  },
+  {
+    "source_id": "oci-image-spec",
+    "title": "OCI Image Specification",
+    "organization": "Open Container Initiative",
+    "url": "https://specs.opencontainers.org/image-spec/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "OCI Image Specification (current)",
+    "excerpt": "Defines content-addressable image manifests, configuration, layers, descriptors, platform metadata, and digest-based identity.",
+    "keywords": ["container image", "manifest", "layer", "digest", "content addressable", "multi-architecture"]
+  },
+  {
+    "source_id": "docker-multi-stage-builds",
+    "title": "Docker Documentation: Multi-stage Builds",
+    "organization": "Docker",
+    "url": "https://docs.docker.com/build/building/multi-stage/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Docker Build documentation (current)",
+    "excerpt": "Documents named build stages and selective artifact copying so build toolchains do not have to ship in runtime images.",
+    "keywords": ["dockerfile", "multi-stage build", "builder", "runtime image", "image size"]
+  },
+  {
+    "source_id": "compose-spec",
+    "title": "Compose Specification",
+    "organization": "Docker / Compose Specification",
+    "url": "https://compose-spec.io/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Compose Specification (current)",
+    "excerpt": "Defines services, networks, volumes, configuration, secrets, dependencies, and lifecycle behavior for multi-container applications.",
+    "keywords": ["compose", "service", "dependency", "network", "volume", "local stack"]
+  },
+  {
+    "source_id": "twelve-factor-config",
+    "title": "The Twelve-Factor App: Config",
+    "organization": "Twelve-Factor App",
+    "url": "https://12factor.net/config",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Twelve-Factor App methodology",
+    "excerpt": "Separates deploy-varying configuration from code and emphasizes environment-based configuration without committing credentials.",
+    "keywords": ["configuration", "environment", "secret", "deploy", "config contract"]
+  },
+  {
+    "source_id": "kubernetes-deployments",
+    "title": "Kubernetes Documentation: Deployments",
+    "organization": "Cloud Native Computing Foundation / Kubernetes",
+    "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Kubernetes current documentation",
+    "excerpt": "Documents declarative Deployment updates, ReplicaSets, rollout status, rolling strategies, revisions, rollback, scaling, and failure handling.",
+    "keywords": ["kubernetes", "deployment", "rolling update", "replicaset", "rollback", "revision"]
+  },
+  {
+    "source_id": "kubernetes-probes",
+    "title": "Kubernetes Documentation: Liveness, Readiness, and Startup Probes",
+    "organization": "Cloud Native Computing Foundation / Kubernetes",
+    "url": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Kubernetes current documentation",
+    "excerpt": "Distinguishes restart, traffic-readiness, and startup diagnostics and documents how kubelet reacts to each result.",
+    "keywords": ["liveness", "readiness", "startup probe", "health check", "traffic gate", "restart"]
+  },
+  {
+    "source_id": "kubernetes-config-secrets",
+    "title": "Kubernetes Documentation: Secrets",
+    "organization": "Cloud Native Computing Foundation / Kubernetes",
+    "url": "https://kubernetes.io/docs/concepts/configuration/secret/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Kubernetes current documentation",
+    "excerpt": "Documents Secret objects, delivery to workloads, access controls, encryption considerations, and security cautions around sensitive configuration.",
+    "keywords": ["secret", "configuration", "credential", "rbac", "encryption", "kubernetes"]
+  },
+  {
+    "source_id": "kubernetes-dns-services",
+    "title": "Kubernetes Documentation: DNS for Services and Pods",
+    "organization": "Cloud Native Computing Foundation / Kubernetes",
+    "url": "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Kubernetes current documentation",
+    "excerpt": "Defines cluster DNS records and naming behavior for Services and Pods used to trace workload network paths.",
+    "keywords": ["dns", "service discovery", "pod", "service", "network path"]
+  },
+  {
+    "source_id": "terraform-plan",
+    "title": "Terraform CLI Documentation: Plan",
+    "organization": "HashiCorp",
+    "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Terraform CLI documentation (current)",
+    "excerpt": "Documents speculative and saved execution plans, refresh behavior, proposed changes, automation use, and plan-file sensitivity.",
+    "keywords": ["infrastructure as code", "terraform", "plan", "drift", "desired state", "apply"]
+  },
+  {
+    "source_id": "opentelemetry-signals",
+    "title": "OpenTelemetry Documentation: Signals",
+    "organization": "Cloud Native Computing Foundation / OpenTelemetry",
+    "url": "https://opentelemetry.io/docs/concepts/signals/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "OpenTelemetry current documentation",
+    "excerpt": "Defines traces, metrics, logs, baggage, and profiles as complementary telemetry signals for observing distributed workloads.",
+    "keywords": ["observability", "trace", "metric", "log", "context propagation", "telemetry"]
+  },
+  {
+    "source_id": "google-sre-slos",
+    "title": "Google SRE Book: Service Level Objectives",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/service-level-objectives/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Engineering, Chapter 4",
+    "excerpt": "Defines SLIs, SLOs, SLAs, user-centered measurements, percentile reasoning, and error budgets for operating decisions.",
+    "keywords": ["sli", "slo", "error budget", "availability", "latency", "burn rate"]
+  },
+  {
+    "source_id": "google-sre-incidents",
+    "title": "Google SRE Book: Managing Incidents",
+    "organization": "Google",
+    "url": "https://sre.google/sre-book/managing-incidents/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Site Reliability Engineering, Chapter 14",
+    "excerpt": "Explains incident command, operational roles, communication, control, recovery, and structured learning from production failures.",
+    "keywords": ["incident response", "mitigation", "recovery", "incident commander", "communication", "postmortem"]
+  },
+  {
+    "source_id": "dora-metrics",
+    "title": "DORA: A History of the Four Keys",
+    "organization": "Google Cloud DORA",
+    "url": "https://dora.dev/guides/dora-metrics-four-keys/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "DORA guidance (current)",
+    "excerpt": "Defines deployment frequency, lead time for changes, change failure rate, and failed deployment recovery time as software-delivery performance measures.",
+    "keywords": ["dora", "deployment frequency", "lead time", "change failure rate", "recovery time"]
+  },
+  {
+    "source_id": "slsa-specification",
+    "title": "SLSA Specification",
+    "organization": "OpenSSF / SLSA",
+    "url": "https://slsa.dev/spec/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "SLSA specification (current)",
+    "excerpt": "Defines supply-chain threat models, build provenance, verification, and assurance tracks for producing and consuming software artifacts.",
+    "keywords": ["software supply chain", "provenance", "build", "artifact", "attestation", "verification"]
+  },
+  {
+    "source_id": "nist-ssdf",
+    "title": "Secure Software Development Framework",
+    "organization": "National Institute of Standards and Technology",
+    "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "NIST SP 800-218 Version 1.1",
+    "excerpt": "Defines secure development practices across preparation, software protection, secure production, and vulnerability response.",
+    "keywords": ["ssdf", "secure build", "vulnerability", "supply chain", "release", "provenance"]
+  },
+  {
+    "source_id": "semantic-versioning",
+    "title": "Semantic Versioning 2.0.0",
+    "organization": "Semantic Versioning specification",
+    "url": "https://semver.org/spec/v2.0.0.html",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "Semantic Versioning 2.0.0",
+    "excerpt": "Defines version precedence and major, minor, patch, prerelease, and build metadata semantics for public interfaces.",
+    "keywords": ["semantic version", "release", "major", "minor", "patch", "prerelease"]
+  },
+  {
+    "source_id": "finops-framework",
+    "title": "FinOps Framework",
+    "organization": "FinOps Foundation",
+    "url": "https://www.finops.org/framework/",
+    "source_tier": 1,
+    "retrieved_at": "2026-08-28",
+    "version": "FinOps Framework (current)",
+    "excerpt": "Defines principles, personas, capabilities, and iterative practices for understanding and optimizing cloud value and usage.",
+    "keywords": ["finops", "cloud cost", "unit economics", "forecast", "rightsizing", "capacity"]
+  }
+]

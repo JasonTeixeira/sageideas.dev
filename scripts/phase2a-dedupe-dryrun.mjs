@@ -9,10 +9,10 @@
  * Run: SUPABASE_SERVICE_ROLE_KEY=... node scripts/phase2a-dedupe-dryrun.mjs
  */
 
-const URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://hocrntqhgvmeaxwlhzwl.supabase.co';
+const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-if (!KEY) {
-  console.error('Set SUPABASE_SERVICE_ROLE_KEY first.');
+if (!URL || !KEY) {
+  console.error('Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY first.');
   process.exit(2);
 }
 const REST = `${URL}/rest/v1`;

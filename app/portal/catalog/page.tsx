@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { getPortalContext } from '@/lib/portal/auth';
 import { getServiceCatalog } from '@/lib/portal/queries';
 import { Topbar } from '@/components/portal/topbar';
@@ -78,6 +79,7 @@ function ServiceCard({ item }: { item: any }) {
           </div>
           <form action={`/api/portal/checkout`} method="POST">
             <input type="hidden" name="priceId" value={item.stripe_price_id} />
+            <input type="hidden" name="requestKey" value={randomUUID()} />
             <input type="hidden" name="recurring" value={item.recurring ? '1' : '0'} />
             <Button size="sm" type="submit">
               Add

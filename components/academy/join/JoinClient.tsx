@@ -55,7 +55,10 @@ export function JoinClient({
       try {
         const res = await fetch('/api/checkout', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'idempotency-key': crypto.randomUUID(),
+          },
           body: JSON.stringify({ kind: 'academy_allaccess', interval }),
         })
         const data = await res.json().catch(() => ({}))

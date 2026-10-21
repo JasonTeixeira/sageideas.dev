@@ -10,7 +10,7 @@ export type AcademyFulfillmentResult = {
   trackSlug: string
   email: string
   enrollmentId: string | null
-  emailStatus: 'sent' | 'queued' | 'failed'
+  emailStatus: 'sent' | 'failed' | 'dead_lettered'
 }
 
 export async function fulfillAcademyCheckout(

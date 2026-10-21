@@ -1,12 +1,9 @@
 // Same RLS checks as tests/rls/run.mjs but as a Playwright test for CI.
 // Skipped from default e2e config testDir; included for completeness.
 import { test, expect } from '@playwright/test';
+import { loadRlsTestConfig } from './config.mjs';
 
-const SUPABASE_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://hocrntqhgvmeaxwlhzwl.supabase.co';
-const ANON_KEY =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  'sb_publishable_B25xhSjOc977b-IDH76Hlg_kzn6ency';
+const { supabaseUrl: SUPABASE_URL, anonKey: ANON_KEY } = loadRlsTestConfig();
 
 const BASE = `${SUPABASE_URL}/rest/v1`;
 const HEADERS = {

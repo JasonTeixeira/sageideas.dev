@@ -11,7 +11,7 @@
  * Order is critical (children before parents) because most FKs do not cascade.
  *
  * Run with:
- *   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npx tsx tests/db/cleanup.ts
+ *   SAGE_ALLOW_TEST_DATA_CLEANUP=approved npm run test:cleanup
  */
 
 // Node 20 ships without a global WebSocket; supabase-js v2 imports the realtime
@@ -130,6 +130,11 @@ async function deleteAuthUsers(sb: SupabaseClient): Promise<number> {
 }
 
 async function main() {
+  if (process.env.SAGE_ALLOW_TEST_DATA_CLEANUP !== 'approved') {
+    throw new Error(
+      'Test-data cleanup is disabled. Obtain approval and set SAGE_ALLOW_TEST_DATA_CLEANUP=approved.',
+    );
+  }
   const url = need('NEXT_PUBLIC_SUPABASE_URL');
   const key = need('SUPABASE_SERVICE_ROLE_KEY');
   const sb = createClient(url, key, {

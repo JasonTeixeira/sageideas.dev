@@ -1,7 +1,4 @@
-import { Resend } from 'resend';
-
-const FROM = 'Sage Ideas <sage@sageideas.dev>';
-const SITE = 'https://www.sageideas.dev';
+import { sendEmail, SITE } from '@/lib/email/send';
 
 type WelcomeEmailInput = {
   to: string;
@@ -83,16 +80,7 @@ function escapeHtml(s: string) {
 }
 
 export async function sendWelcomeEmail({ to, fullName = '' }: WelcomeEmailInput): Promise<WelcomeEmailResult> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn('[welcome-email] RESEND_API_KEY missing — skipping send for', to);
-    return { ok: false, reason: 'missing_api_key' };
-  }
-
-  try {
-    const resend = new Resend(apiKey);
-    const { data, error } = await resend.emails.send({
-      from: FROM,
+  const result = await sendEmail({
       to,
       subject: 'Welcome to Sage Ideas Studio',
       html: renderHtml({ fullName, to }),
@@ -100,17 +88,13 @@ export async function sendWelcomeEmail({ to, fullName = '' }: WelcomeEmailInput)
       headers: {
         'List-Unsubscribe': `<${SITE}/unsubscribe?email=${encodeURIComponent(to)}>`,
       },
+      templateKey: 'studio_welcome',
+      metadata: { fullName: fullName || null },
     });
-
-    if (error) {
-      console.warn('[welcome-email] resend error:', error.message);
-      return { ok: false, reason: 'send_failed', error: error.message };
-    }
-
-    return { ok: true, id: data?.id ?? '' };
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'unknown';
-    console.warn('[welcome-email] threw:', message);
-    return { ok: false, reason: 'send_failed', error: message };
-  }
+  if (result.ok) return { ok: true, id: result.id };
+  return {
+    ok: false,
+    reason: result.reason === 'missing_api_key' ? 'missing_api_key' : 'send_failed',
+    error: result.reason,
+  };
 }

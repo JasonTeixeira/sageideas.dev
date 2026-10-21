@@ -6,8 +6,8 @@ import { IdempotencyLab } from '@/components/academy/sample/IdempotencyLab'
 import { getT } from '@/lib/i18n/t'
 import { getLocale } from '@/lib/i18n/server'
 import { localizedAlternates } from '@/lib/i18n/alternates'
+import { SkipToContent } from '@/components/skip-to-content'
 
-const SITE = 'https://www.sageideas.dev'
 const INK = '#F2EFE9'
 const DIM = '#9C9CA6'
 const LINE = '#1E1E24'
@@ -56,10 +56,20 @@ function Block({ n, kind, children }: { n: string; kind: string; children: React
   )
 }
 
-// The animated "retry storm" diagram — CSS-only pulses travelling the request
-// lines. Without a key, 3 retries → 3 charges (red). With a key → 1 (green).
-function RetryDiagram({ t }: { t: (source: string) => string }) {
-  const Row = ({ label, color, charges, keyed }: { label: string; color: string; charges: string; keyed: boolean }) => (
+function RetryRow({
+  label,
+  color,
+  charges,
+  keyed,
+  t,
+}: {
+  label: string
+  color: string
+  charges: string
+  keyed: boolean
+  t: (source: string) => string
+}) {
+  return (
     <div style={{ border: `1px solid ${LINE}`, borderRadius: 14, background: '#0B0B0E', padding: '18px 20px' }}>
       <div style={{ ...mono, fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.12em', color, marginBottom: 16 }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
@@ -77,11 +87,16 @@ function RetryDiagram({ t }: { t: (source: string) => string }) {
       </div>
     </div>
   )
+}
+
+// The animated "retry storm" diagram — CSS-only pulses travelling the request
+// lines. Without a key, 3 retries → 3 charges (red). With a key → 1 (green).
+function RetryDiagram({ t }: { t: (source: string) => string }) {
   return (
     <div style={{ display: 'grid', gap: 14, marginTop: 8 }}>
       <style>{`@keyframes sgpulseMove{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}.sgpulse{animation:sgpulseMove 1.5s linear infinite}@media (prefers-reduced-motion: reduce){.sgpulse{animation:none;left:50%}}`}</style>
-      <Row label={t('Without a key — every retry charges')} color={RED} charges="3" keyed={false} />
-      <Row label={t('With an idempotency key — retries are no-ops')} color={GREEN} charges="1" keyed />
+      <RetryRow label={t('Without a key — every retry charges')} color={RED} charges="3" keyed={false} t={t} />
+      <RetryRow label={t('With an idempotency key — retries are no-ops')} color={GREEN} charges="1" keyed t={t} />
     </div>
   )
 }
@@ -90,9 +105,10 @@ export default async function TryLessonPage() {
   const t = await getT()
   return (
     <>
+      <SkipToContent />
       <AcademyNav />
       <div style={{ background: '#0B0B0E', color: INK, fontFamily: 'var(--font-sans), sans-serif', overflowX: 'clip', minHeight: '100vh' }}>
-        <main style={{ maxWidth: 760, margin: '0 auto', padding: 'clamp(40px, 6vw, 72px) clamp(20px, 4vw, 40px) 100px' }}>
+        <main id="main-content" tabIndex={-1} style={{ maxWidth: 760, margin: '0 auto', padding: 'clamp(40px, 6vw, 72px) clamp(20px, 4vw, 40px) 100px' }}>
           {/* lesson chrome */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={kicker}>{t('Free sample lesson · no signup')}</div>

@@ -10,27 +10,51 @@ export async function requireAdminApi(): Promise<{
   email: string;
   fullName: string | null;
 } | NextResponse> {
-  const sb = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await sb.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    !process.env.SUPABASE_SERVICE_ROLE_KEY
+  ) {
+    return NextResponse.json({ error: 'authentication_unavailable' }, { status: 503 });
   }
-  const admin = supabaseAdmin();
-  const { data: profile } = await admin
-    .from('profiles')
-    .select('app_role, full_name, email')
-    .eq('id', user.id)
-    .maybeSingle();
-  if (!profile || profile.app_role !== 'admin') {
-    return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+
+  try {
+    const sb = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await sb.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+    }
+    const admin = supabaseAdmin();
+    const { data: profile } = await admin
+      .from('profiles')
+      .select('app_role, full_name, email')
+      .eq('id', user.id)
+      .maybeSingle();
+    if (!profile || profile.app_role !== 'admin') {
+      return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+    }
+    const mfaRequired =
+      process.env.NODE_ENV === 'production' || process.env.MFA_REQUIRED_FOR_ADMIN === 'true';
+    if (mfaRequired) {
+      const { data: assurance } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (assurance?.currentLevel !== 'aal2') {
+        return NextResponse.json(
+          { error: 'mfa_required', enrollmentRequired: assurance?.nextLevel !== 'aal2' },
+          { status: 403 },
+        );
+      }
+    }
+    return {
+      userId: user.id,
+      email: profile.email ?? user.email ?? '',
+      fullName: profile.full_name,
+    };
+  } catch (error) {
+    console.error('[admin-guard] authentication unavailable', error);
+    return NextResponse.json({ error: 'authentication_unavailable' }, { status: 503 });
   }
-  return {
-    userId: user.id,
-    email: profile.email ?? user.email ?? '',
-    fullName: profile.full_name,
-  };
 }
 
 export async function logAudit(args: {

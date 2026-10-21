@@ -8,6 +8,7 @@ const INK = '#F2EFE9'
 const DIM = '#9598A2'
 const LINE = '#2A2A32'
 const ACCENT = '#3D5AFE'
+const ACCENT_INK = '#8FA0FF'
 const GREEN = '#18B663'
 const AMBER = '#E0A93E'
 
@@ -61,7 +62,7 @@ export function MethodLoop() {
           >
             <span aria-hidden="true" className="sgLoopRail" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: s.color, color: s.color, opacity: 0.7, animationDelay: `${i * 0.55}s` }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ ...mono, fontSize: 11, color: s.color }}>{s.n}</span>
+              <span style={{ ...mono, fontSize: 11, color: s.color === ACCENT ? ACCENT_INK : s.color }}>{s.n}</span>
               <span style={{ ...serif, fontSize: 18, fontWeight: 600, color: INK, letterSpacing: '-0.01em' }}>{s.name}</span>
             </div>
             <p style={{ margin: '8px 0 0', fontSize: 12.5, color: DIM, lineHeight: 1.5 }}>{s.desc}</p>

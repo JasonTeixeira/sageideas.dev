@@ -6,7 +6,6 @@ import { getT } from '@/lib/i18n/t'
 import { getLocale } from '@/lib/i18n/server'
 import { localizedAlternates } from '@/lib/i18n/alternates'
 
-const SITE = 'https://www.sageideas.dev'
 const INK = '#F2EFE9'
 const DIM = '#9C9CA6'
 const LINE = '#1E1E24'

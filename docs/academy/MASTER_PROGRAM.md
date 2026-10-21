@@ -1,5 +1,7 @@
 # Sage Academy — Master Program (the ultimate-system build, run autonomously)
 
+> **Historical curriculum snapshot.** Counts and certification claims here are not current authority. Use `data/academy/registry.json` and `docs/evidence/academy/canonical-truth/latest.md` for the repository inventory; no course is certified until Harness V2 passes.
+
 > The operator approved running ALL five programs to make the academy the best on the
 > planet: complete content, independently verified for accuracy, maximally interactive,
 > translated worldwide, on the app stores. This doc sequences them, tracks progress, and

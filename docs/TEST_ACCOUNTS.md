@@ -2,16 +2,16 @@
 
 Deterministic test fixtures created by `scripts/seed-test-data.ts` and consumed by Playwright E2E + RLS suites.
 
-> **Scope:** these accounts live in the same Supabase project as production. They are intentionally tagged so they can be wiped any time via `tests/db/cleanup.ts`. Do **not** rename or remove the `+test`/`+admin`/`+pending` markers in the email — cleanup matches on those.
+> **Scope:** create these accounts only in an isolated test or staging project. Never seed them into production. They are intentionally tagged so an approved cleanup can remove them via `tests/db/cleanup.ts`. Do **not** rename or remove the `+test`/`+admin`/`+pending` markers in the email — cleanup matches on those.
 
 ## Credentials
 
-| Role             | Email                              | Password             | App role  | Approval status |
+| Role             | Default email                      | Password source      | App role  | Approval status |
 |------------------|------------------------------------|----------------------|-----------|-----------------|
-| Admin            | `sage+admin@sageideas.org`         | `Test!Admin#2026`    | `admin`   | `approved`      |
-| Client (primary) | `client1+test@sageideas.org`       | `Test!Client#2026`   | `client`  | `approved`      |
-| Client (member)  | `client2+test@sageideas.org`       | `Test!Client#2026`   | `client`  | `approved`      |
-| Pending user     | `pending+test@sageideas.org`       | `Test!Pending#2026`  | `pending` | `pending`       |
+| Admin            | `sage+admin@sageideas.org`         | `SAGE_TEST_ADMIN_PASSWORD` | `admin` | `approved` |
+| Client (primary) | `client1+test@sageideas.org`       | `SAGE_TEST_CLIENT1_PASSWORD` | `client` | `approved` |
+| Client (member)  | `client2+test@sageideas.org`       | `SAGE_TEST_CLIENT2_PASSWORD` | `client` | `approved` |
+| Pending user     | `pending+test@sageideas.org`       | `SAGE_TEST_PENDING_PASSWORD` | `pending` | `pending` |
 
 The admin email pattern (`+admin@sageideas.org`) hits the auto-promote rule in `lib/auth/roles.ts` so the `app_role` will land on `admin` even on a fresh boot.
 
@@ -41,12 +41,16 @@ Cleanup walks down from these markers, no schema changes required:
 ## Running
 
 ```bash
-# Required env (copy from `vercel env pull` or your local .env.local)
+# Required staging/test env (retrieve from the approved secret manager)
 export NEXT_PUBLIC_SUPABASE_URL=...
 export SUPABASE_SERVICE_ROLE_KEY=...
+export SAGE_TEST_ADMIN_PASSWORD=...
+export SAGE_TEST_CLIENT1_PASSWORD=...
+export SAGE_TEST_CLIENT2_PASSWORD=...
+export SAGE_TEST_PENDING_PASSWORD=...
 
-npm run seed:test-data    # idempotent — safe to run repeatedly
-npm run test:cleanup      # removes everything seeded above
+SAGE_ALLOW_TEST_DATA_MUTATION=approved npm run seed:test-data
+SAGE_ALLOW_TEST_DATA_CLEANUP=approved npm run test:cleanup
 ```
 
 ## Playwright integration
@@ -55,4 +59,4 @@ E2E tests grab a session for any of these accounts via the helper at `tests/fixt
 
 ## Rotating passwords
 
-Edit the `ACCOUNTS` block in `scripts/seed-test-data.ts`, re-run `npm run seed:test-data`, and update this doc. The seed script calls `auth.admin.updateUserById` so password rotation is just a re-run.
+Rotate the four password secrets, obtain approval, then rerun the seed command. The seed script calls `auth.admin.updateUserById`; no password belongs in source control.

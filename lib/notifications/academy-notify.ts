@@ -102,7 +102,7 @@ export async function sendStreakSave(userId: string, streak: number): Promise<bo
         templateKey: 'academy_streak_save',
         userId,
       })
-      if (res.ok || res.status === 'queued') {
+      if (res.ok) {
         sent = true
         await recordNotification(userId, 'streak_save', 'email', { streak })
       }

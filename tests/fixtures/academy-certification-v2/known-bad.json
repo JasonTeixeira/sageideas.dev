@@ -1,0 +1,56 @@
+{
+  "course": {
+    "slug": "fixture-bad",
+    "aliases": [],
+    "title": "Deliberately Broken Fixture",
+    "topic": "testing",
+    "level": "Beginner",
+    "lifecycleStatus": "draft",
+    "routes": {
+      "course": "/academy/course/fixture-bad",
+      "learn": "/academy/learn/fixture-bad"
+    },
+    "sources": { "ledger": "fixture" },
+    "lessons": [
+      {
+        "slug": "broken-loop",
+        "title": "Broken Loop",
+        "moduleTitle": "Module 1",
+        "moduleSort": 1,
+        "sort": 1
+      }
+    ]
+  },
+  "lessons": {
+    "broken-loop": [
+      { "type": "sprint-contract", "outcome": "Appear complete despite hard failures.", "intensity": "micro", "time": "10 minutes", "proof": "An invalid proof.", "unlock": "Never." },
+      { "type": "mission", "text": "Follow /academy/learn/fixture-bad/missing-lesson." },
+      { "type": "pretest", "prompt": "Can a high score buy down a hard fail?", "reveal": "No." },
+      { "type": "concept", "text": "A fabricated statistic says 99.9 percent of defects disappear automatically." },
+      { "type": "diagram", "title": "Broken reference", "nodes": [{ "id": "known", "label": "Known" }], "edges": [{ "from": "known", "to": "ghost" }] },
+      { "type": "video", "title": "Promised lesson video", "duration": "3:00", "src": "/academy/missing-video.mp4" },
+      { "type": "lab", "title": "Failing lab", "summary": "This result does not match.", "language": "js", "starter": "console.log(1)", "check": "2" },
+      { "type": "verification", "items": ["Pretend everything passed."] },
+      { "type": "unlock-gate", "criteria": ["Ignore the failures."] }
+    ]
+  },
+  "solutions": {
+    "broken-loop": { "language": "js", "code": "console.log(1)" }
+  },
+  "sourceLedger": [
+    { "source_id": "different-source", "title": "Different Source", "organization": "Fixture Standards", "url": "https://example.com/different", "source_tier": 1, "retrieved_at": "2026-08-27", "excerpt": "This source does not support the fabricated claim." }
+  ],
+  "evidence": {
+    "broken-loop": {
+      "claimCoverageComplete": true,
+      "claimRefs": [{ "claim": "99.9 percent of defects disappear automatically.", "sourceIds": ["fabricated-source"] }],
+      "lab": { "trust": "controlled_evaluator", "results": [{ "blockIndex": 6, "status": "fail", "reason": "stdout mismatch" }] },
+      "accessibility": { "status": "fail", "axe": "fail", "keyboardFocus": "pass", "screenReader": "pass", "reducedMotion": "pass", "zoomReflow": "pass", "targetSize": "pass", "critical": 0, "serious": 1, "violations": ["color-contrast"] },
+      "media": { "status": "fail", "missing": ["lesson video"] },
+      "performance": { "status": "pass" },
+      "consistency": { "status": "pass" },
+      "expert": { "contentCorrectness": "pass", "pedagogy": "pass" },
+      "human": { "visual": "pass", "ux": "pass" }
+    }
+  }
+}

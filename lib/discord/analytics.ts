@@ -95,24 +95,23 @@ export async function updateDiscordPremium(input: {
   stripeCustomerId?: string | null;
   stripeSubscriptionId?: string | null;
 }): Promise<void> {
-  try {
-    await supabaseAdmin().from('discord_members').upsert(
-      {
-        discord_user_id: input.discordUserId,
-        username: input.username ?? null,
-        academy_member: true,
-        premium_member: input.premiumMember,
-        premium_status: input.premiumStatus,
-        stripe_customer_id: input.stripeCustomerId ?? null,
-        stripe_subscription_id: input.stripeSubscriptionId ?? null,
-        premium_role_synced_at: new Date().toISOString(),
-        last_seen_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'discord_user_id' },
-    );
-  } catch (err) {
-    console.warn('[discord/analytics] premium update failed', err instanceof Error ? err.message : err);
+  const { error } = await supabaseAdmin().from('discord_members').upsert(
+    {
+      discord_user_id: input.discordUserId,
+      username: input.username ?? null,
+      academy_member: true,
+      premium_member: input.premiumMember,
+      premium_status: input.premiumStatus,
+      stripe_customer_id: input.stripeCustomerId ?? null,
+      stripe_subscription_id: input.stripeSubscriptionId ?? null,
+      premium_role_synced_at: new Date().toISOString(),
+      last_seen_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: 'discord_user_id' },
+  );
+  if (error) {
+    throw new Error(`Discord premium persistence failed: ${error.message}`);
   }
 }
 

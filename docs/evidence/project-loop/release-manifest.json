@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "sageideas-production-program-loop-v1",
+  "generatedAt": "2026-09-05T19:40:13.183Z",
+  "releaseId": "local-candidate-2026-09-05-a0098a86",
+  "releaseCommit": "a0098a861d68480f68810c48d2cb2e71befb5e55",
+  "branch": "production/01-program-loop-v1",
+  "inventoryHash": "sha256:831a8b962eec5157ce767b2653d5968d2cf677e72d51816e0b1a9da8bde068da",
+  "status": "local_production_candidate",
+  "trust": {
+    "academyCertification": "uncertified",
+    "labTrust": "untrusted_current_runtime",
+    "labEvidence": "practice_only"
+  },
+  "localProof": {
+    "observationCount": 24,
+    "failedCommands": 0,
+    "dependencyVulnerabilities": 0,
+    "completedSafeWorkstreams": 12,
+    "totalSafeWorkstreams": 12
+  },
+  "checkpoints": [
+    {
+      "workstreamId": "repository-foundation",
+      "commit": "44e7cbe1af713ce289feafe412156f4b1a7f7b20",
+      "inventoryHash": "sha256:5e461ccb2212202f51c7ca0e22fb57fe0c7ab9a31e6c060b7f26ff2559c34522",
+      "completedAt": "2026-09-04T15:47:51.827Z"
+    },
+    {
+      "workstreamId": "build-quality",
+      "commit": "bc5ef2c8dd01746407f017269477d2e1f5c57830",
+      "inventoryHash": "sha256:900ae1ee39386a4b1d7b286ae1e7e008fbff9d55d53f56cb84f4398a9f238416",
+      "completedAt": "2026-09-04T16:21:07.702Z"
+    },
+    {
+      "workstreamId": "auth-security",
+      "commit": "61cdbbba293fc141fb007e57426ba41bb00b91f5",
+      "inventoryHash": "sha256:9162659750ff789c8b4b4c62ebba6aa8057f96923761695c0e85845e1fbeb52c",
+      "completedAt": "2026-09-04T16:46:48.340Z"
+    },
+    {
+      "workstreamId": "data-integrity",
+      "commit": "1495a41fa3a0098c4643cbc8f6ae4a85df131c89",
+      "inventoryHash": "sha256:cc7ee4c3452b7ff6ec97a09390881524ae0b463ae04d8e2f31e13b9c0f151d5c",
+      "completedAt": "2026-09-04T17:28:31.891Z"
+    },
+    {
+      "workstreamId": "billing",
+      "commit": "e87ea1f8324619722c124921c6f0ccced5ebbdaf",
+      "inventoryHash": "sha256:2115243835ccaf5d4ff7f29106c333d4f2aac53aca842ff800e8560571762ed5",
+      "completedAt": "2026-09-04T18:27:05.080Z"
+    },
+    {
+      "workstreamId": "critical-user-journeys",
+      "commit": "8f062a2982f61984d2fad2a98cea941ecba00454",
+      "inventoryHash": "sha256:9465a2e0c209fde0a5c17af41c81969c54edb0612d9d2d90439129447f372416",
+      "completedAt": "2026-09-04T19:12:58.289Z"
+    },
+    {
+      "workstreamId": "academy",
+      "commit": "a775a20a0f44344e9eeb986eea574a659e067d5c",
+      "inventoryHash": "sha256:7eb6433720d9527a6ace3a3a788b20235ddabe03d682fd0dc89da082e8f5c418",
+      "completedAt": "2026-09-04T19:27:45.728Z"
+    },
+    {
+      "workstreamId": "admin-portal",
+      "commit": "b3cc7a05ea936fd47315adc7790376757736715e",
+      "inventoryHash": "sha256:54cfbf679598e8baba09a544b630431be404e52c6968f7aac24c32c05e381e3b",
+      "completedAt": "2026-09-04T19:46:08.095Z"
+    },
+    {
+      "workstreamId": "communications-jobs",
+      "commit": "2f150644af361960bb6d004a9f6e73f128611394",
+      "inventoryHash": "sha256:038fe370979f050e66a4189c0dc9660edb3242bf6215ce6bf533add668ec1193",
+      "completedAt": "2026-09-04T20:17:12.887Z"
+    },
+    {
+      "workstreamId": "accessibility-performance",
+      "commit": "a4dc1aec7569633db1fc89fa0d415a1362ab1f1a",
+      "inventoryHash": "sha256:f84001efadb388dc089605bbf7f79130fe44cb7928611ff7e1999f1dea42a884",
+      "completedAt": "2026-09-04T20:49:43.822Z"
+    },
+    {
+      "workstreamId": "observability-recovery",
+      "commit": "07645a53b28881127a09343fc6d46283e8cbbacf",
+      "inventoryHash": "sha256:1f929a1e7a4331b3d2a203854bf20fe70d9dd20f38c25ab7117d578f21881a90",
+      "completedAt": "2026-09-04T21:10:43.320Z"
+    },
+    {
+      "workstreamId": "release-readiness",
+      "commit": "4473fb67ab27b8de4878221e1ef1557c367be64c",
+      "inventoryHash": "sha256:150b09036478243b35d7a5387cf18102121935fd1eb95965236b3610042ca18a",
+      "completedAt": "2026-09-04T21:25:29.494Z"
+    }
+  ],
+  "evidenceHashes": {
+    "observations": {
+      "path": "docs/evidence/project-loop/observations-latest.json",
+      "sha256": "sha256:b3a5b0982193e5f62bfeb7bb4e1a1ece8d6ef42f50cf1a21bbfb4335302481b9"
+    },
+    "securityReview": {
+      "path": "docs/evidence/project-loop/security-review-latest.json",
+      "sha256": "sha256:7eae1a14f09116f3e9a674a0a44182952a93503b5420177562e478706a79ba89"
+    },
+    "accessibilityPerformance": {
+      "path": "docs/evidence/project-loop/accessibility-performance-audit.json",
+      "sha256": "sha256:82d098e997120328b179b13980d9fda786fc367abe0bc3494ceb6cebd7103874"
+    },
+    "observabilityRecovery": {
+      "path": "docs/evidence/project-loop/observability-recovery-audit.json",
+      "sha256": "sha256:ca9109d78961780e18a9091324bb3a5e60df0ea434e060704663c10566ea075e"
+    }
+  },
+  "runtimeRequirements": [
+    "ACADEMY_GATE_ENABLED",
+    "ACADEMY_LAB_EVALUATOR_PROVIDER",
+    "ACADEMY_LAB_EVALUATOR_SECRET",
+    "ACADEMY_LAB_EVALUATOR_URL",
+    "AWS_DEFAULT_REGION",
+    "AWS_REGION",
+    "BOOKING_MAX_ADVANCE_DAYS",
+    "BOOKING_NOTIFY_EMAIL",
+    "CI",
+    "CRON_SECRET",
+    "DEEPSEEK_API_KEY",
+    "DEEPSEEK_BASE_URL",
+    "DEEPSEEK_MODEL",
+    "DISCORD_APPLICATION_ID",
+    "DISCORD_BOT_PERMISSIONS",
+    "DISCORD_BOT_TOKEN",
+    "DISCORD_BOT_USER_ID",
+    "DISCORD_CLIENT_ID",
+    "DISCORD_CLIENT_SECRET",
+    "DISCORD_ENABLE_MENTION_RESPONSES",
+    "DISCORD_GUILD_ID",
+    "DISCORD_PUBLIC_KEY",
+    "DISCORD_SHOW_PROMPT_VERSION",
+    "E2E_STRIPE_MOCK",
+    "E2E_STRIPE_MOCK_URL",
+    "EXA_API_KEY",
+    "FFMPEG_BIN",
+    "GH_TOKEN",
+    "GITHUB_TOKEN",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_PLACES_API_KEY",
+    "INTERVIEW_GATE_ENABLED",
+    "LANGFUSE_BASEURL",
+    "LANGFUSE_BASE_URL",
+    "LANGFUSE_PUBLIC_KEY",
+    "LANGFUSE_SECRET_KEY",
+    "LANGFUSE_TRACING_ENVIRONMENT",
+    "LOCAL_ADMIN_BYPASS",
+    "MFA_REQUIRED_FOR_ADMIN",
+    "NEWSLETTER_SECRET",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_DISCORD_INVITE_URL",
+    "NEXT_PUBLIC_FF_ANALYTICS",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPPORT_EMAIL",
+    "NEXT_PUBLIC_VERCEL_ENV",
+    "NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA",
+    "NEXT_RUNTIME",
+    "NODE_ENV",
+    "OPENAI_API_KEY",
+    "PAGESPEED_API_KEY",
+    "PIPER_BIN",
+    "PIPER_VOICE_MODEL",
+    "QUALITY_GITHUB_OWNER",
+    "QUALITY_GITHUB_REPOS",
+    "QUALITY_GITHUB_TOKEN",
+    "RESEND_API_KEY",
+    "RESEND_AUDIENCE_ID",
+    "RESEND_WEBHOOK_SECRET",
+    "REVENUE_EMAIL_SEND_MODE",
+    "REVENUE_LEAD_DAILY_BUDGET_USD",
+    "REVENUE_OS_CI_PROOF_PATH",
+    "REVENUE_OS_LIVE_CONNECTORS",
+    "REVENUE_OS_LIVE_PROOF_PATH",
+    "REVENUE_OS_LOAD_PROOF_PATH",
+    "REVENUE_OS_WORKER_PROOF_PATH",
+    "REVENUE_WORKER_LEASE_SECONDS",
+    "REVENUE_WORKER_MAX_JOBS",
+    "SAGE_CAREER_OS_ROOT",
+    "SAGE_KERNEL_ROOT",
+    "SENTRY_DSN",
+    "SENTRY_TRACES_SAMPLE_RATE",
+    "SES_FROM_EMAIL",
+    "SITE_URL",
+    "SPROUT_LAB_ENABLED",
+    "SPROUT_MACOS_VOICE",
+    "SPROUT_TTS_PROVIDER",
+    "STRIPE_PRICE_ACADEMY_PREMIUM",
+    "STRIPE_PRICE_DISCORD_PREMIUM",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "STUDIO_ADMIN_EMAIL",
+    "SUPABASE_AUTH_HOOK_SECRET",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "UPSTASH_REDIS_REST_TOKEN",
+    "UPSTASH_REDIS_REST_URL",
+    "VAPID_PRIVATE_KEY",
+    "VAPID_PUBLIC_KEY",
+    "VAPID_SUBJECT",
+    "VERCEL",
+    "VERCEL_ENV",
+    "VERCEL_GIT_COMMIT_SHA",
+    "VERCEL_REGION"
+  ],
+  "rollback": {
+    "runbook": "docs/sops/07-deployment-rollback.md",
+    "triggers": [
+      "readiness fails twice within five minutes",
+      "a critical customer journey fails",
+      "security or data-integrity regression",
+      "error signals exceed the approved threshold"
+    ],
+    "verification": [
+      "public health and active release identity",
+      "SLO/error/dead-letter telemetry",
+      "read-only critical customer journeys",
+      "audit and provider-event reconciliation"
+    ]
+  },
+  "externalBoundaries": [
+    {
+      "id": "staging_deployment",
+      "status": "approval_required"
+    },
+    {
+      "id": "hosted_migrations",
+      "status": "approval_required"
+    },
+    {
+      "id": "live_integrations",
+      "status": "approval_required"
+    },
+    {
+      "id": "controlled_lab_runtime",
+      "status": "approval_required"
+    },
+    {
+      "id": "human_review_beta",
+      "status": "approval_required"
+    }
+  ]
+}

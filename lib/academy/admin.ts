@@ -1,6 +1,6 @@
 import { createSupabaseServerClient, supabaseAdmin } from '@/lib/supabase/server'
 
-/** Returns the admin user if the current session is an admin/owner, else null. */
+/** Returns the admin user after the canonical role and optional MFA checks. */
 export async function getAdminUser(): Promise<{ id: string; email: string | null } | null> {
   try {
     const sb = await createSupabaseServerClient()
@@ -9,10 +9,21 @@ export async function getAdminUser(): Promise<{ id: string; email: string | null
     } = await sb.auth.getUser()
     if (!user) return null
     const admin = supabaseAdmin()
-    const { data } = await admin.from('app_users').select('role').eq('id', user.id).maybeSingle()
-    const role = data?.role
-    if (role === 'admin' || role === 'owner') return { id: user.id, email: user.email ?? null }
-    return null
+    const { data: profile } = await admin
+      .from('profiles')
+      .select('app_role, email')
+      .eq('id', user.id)
+      .maybeSingle()
+    if (profile?.app_role !== 'admin') return null
+
+    const mfaRequired =
+      process.env.NODE_ENV === 'production' || process.env.MFA_REQUIRED_FOR_ADMIN === 'true'
+    if (mfaRequired) {
+      const { data: assurance } = await sb.auth.mfa.getAuthenticatorAssuranceLevel()
+      if (assurance?.currentLevel !== 'aal2') return null
+    }
+
+    return { id: user.id, email: profile.email ?? user.email ?? null }
   } catch {
     return null
   }
