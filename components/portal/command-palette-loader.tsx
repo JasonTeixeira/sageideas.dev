@@ -15,8 +15,10 @@ import {
  */
 export async function CommandPaletteLoader({
   organizationId,
+  isAdmin = false,
 }: {
   organizationId: string | null;
+  isAdmin?: boolean;
 }) {
   const empty: CommandIndex = { projects: [], invoices: [], threads: [] };
 
@@ -24,7 +26,7 @@ export async function CommandPaletteLoader({
     ? empty
     : await buildIndex(organizationId);
 
-  return <CommandPalette index={index} />;
+  return <CommandPalette index={index} isAdmin={isAdmin} />;
 }
 
 async function buildIndex(organizationId: string): Promise<CommandIndex> {

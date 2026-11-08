@@ -72,7 +72,7 @@ export default async function PortalLayout({ children }: { children: React.React
         memberships={switcherMemberships}
         activeOrg={ctx.activeOrg}
       />
-      <CommandPaletteLoader organizationId={ctx.organizationId} />
+      <CommandPaletteLoader organizationId={ctx.organizationId} isAdmin={ctx.isAdmin} />
     </div>
   );
 }

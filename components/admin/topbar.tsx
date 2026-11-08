@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { signOut } from '@/app/auth/actions';
 import { initials } from '@/lib/utils';
+import { MobileNav } from '@/components/portal/mobile-nav';
 
 export interface Crumb {
   label: string;
@@ -20,6 +21,7 @@ export function AdminTopbar({
   return (
     <header className="sticky top-0 z-20 border-b border-[#27272a] bg-[#0a0a0c]/95 backdrop-blur">
       <div className="flex items-center gap-4 px-6 lg:px-8 py-3">
+        <MobileNav isAdmin />
         <nav className="flex items-center gap-1.5 text-xs text-[#71717a] flex-1 min-w-0">
           <Link href="/admin" className="hover:text-[#fafafa] truncate">Admin</Link>
           {crumbs.map((c, i) => (

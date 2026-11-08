@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Command } from 'cmdk';
+import { getPortalNavItems } from './nav-items';
 import {
   Search,
   FolderKanban,
@@ -45,7 +46,7 @@ const HELP_SHORTCUTS: Array<{ label: string; href: string }> = [
   { label: 'Billing', href: '/portal/billing' },
 ];
 
-export function CommandPalette({ index }: { index: CommandIndex }) {
+export function CommandPalette({ index, isAdmin = false }: { index: CommandIndex; isAdmin?: boolean }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const previouslyFocused = useRef<HTMLElement | null>(null);
@@ -224,10 +225,10 @@ export function CommandPalette({ index }: { index: CommandIndex }) {
           )}
 
           <Command.Group
-            heading="Help"
+            heading={isAdmin ? 'Studio' : 'Help'}
             className="text-[10px] uppercase tracking-wider text-[#52525b] px-2 py-1.5"
           >
-            {HELP_SHORTCUTS.map((s) => (
+            {(isAdmin ? getPortalNavItems({ isAdmin }) : HELP_SHORTCUTS).map((s) => (
               <Command.Item
                 key={s.href}
                 data-testid="cmdk-item"
