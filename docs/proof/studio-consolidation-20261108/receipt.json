@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-08T16:33:37.981553+00:00",
+  "objective": "one owner dashboard and navigation",
+  "base": "597a39f6",
+  "branch": "fix/studio-admin-entry-20261108",
+  "source": "ebf52d205993b62523c5e87b5b41e57fa9650e27",
+  "focusedTests": {
+    "pass": 18,
+    "fail": 0
+  },
+  "scopedLint": "pass",
+  "typecheckAndStagedSecretGate": "pass",
+  "productionBuild": {
+    "status": "pass",
+    "command": "npm run build",
+    "nextVersion": "16.2.9",
+    "dependencies": "normal clean npm ci installation",
+    "localLog": "/tmp/studio-consolidation-build-clean.log"
+  },
+  "browser": {
+    "scope": "local-only fake database, existing development-only admin preview, reduced motion",
+    "desktopNavigation": {
+      "dashboardCount": 1,
+      "violations": []
+    },
+    "mobileNavigation": {
+      "dashboardCount": 1,
+      "keyboardFocus": true,
+      "escapeAndFocusRestore": true,
+      "desktopResizeReleasesModal": true,
+      "violations": []
+    },
+    "nextVersion": "16.2.9",
+    "dependencies": "normal clean npm ci installation"
+  },
+  "review": "no remaining concrete findings",
+  "baselineUnit": {
+    "pass": 314,
+    "fail": 16
+  },
+  "currentUnit": {
+    "focusedPass": 18,
+    "focusedFail": 0,
+    "existingPass": 314,
+    "existingFail": 16,
+    "newFailures": []
+  },
+  "dependencyAudit": {
+    "info": 0,
+    "low": 4,
+    "moderate": 15,
+    "high": 29,
+    "critical": 4,
+    "total": 52
+  },
+  "runtimeConfigChanges": false,
+  "liveDataChanges": false,
+  "pushOrDeploy": false,
+  "productionProject": "qa-portfolio",
+  "remaining": [
+    "explicit owner publication approval",
+    "16 existing unrelated unit failures and unchanged dependency audit debt",
+    "live authenticated client/owner verification after publication",
+    "any live test-account cleanup requires exact scoped inventory and approval"
+  ],
+  "dependencyCleanInstall": {
+    "status": "pass",
+    "command": "npm ci --no-audit --no-fund",
+    "isolatedDirectory": "/tmp/studio-install-proof",
+    "ignoreScripts": false,
+    "legacyPeerDeps": false,
+    "existingLockedVersionsChanged": 0,
+    "existingLockedURLsOrIntegrityHashesChanged": 0,
+    "reviewedExistingLockedPackages": 1608
+  }
+}

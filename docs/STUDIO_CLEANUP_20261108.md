@@ -1,5 +1,8 @@
 # Studio cleanup — November 8, 2026
 
+Historical first-pass report. Owner navigation and preview behavior are superseded
+by [the completed local consolidation](STUDIO_CONSOLIDATION_20261108.md).
+
 ## Diagnosis
 
 The screenshots show two existing applications, not evidence of two deployed

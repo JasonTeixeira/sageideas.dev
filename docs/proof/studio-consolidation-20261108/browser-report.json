@@ -1,0 +1,14 @@
+{
+  "scope": "local-only fake database, existing development-only admin preview, reduced motion",
+  "desktopNavigation": {
+    "dashboardCount": 1,
+    "violations": []
+  },
+  "mobileNavigation": {
+    "dashboardCount": 1,
+    "keyboardFocus": true,
+    "escapeAndFocusRestore": true,
+    "desktopResizeReleasesModal": true,
+    "violations": []
+  }
+}
