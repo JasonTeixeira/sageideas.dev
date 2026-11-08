@@ -1,0 +1,13 @@
+{
+  "command": "npm ci --dry-run --ignore-scripts --no-audit --no-fund",
+  "source": "0386bd93",
+  "exitCode": 1,
+  "reason": "manifest/lock mismatch",
+  "missingRoots": [
+    "@react-three/drei",
+    "@react-three/fiber",
+    "ffmpeg-static",
+    "three"
+  ],
+  "fullLocalLog": "/tmp/studio-consolidation-install-red.log"
+}
