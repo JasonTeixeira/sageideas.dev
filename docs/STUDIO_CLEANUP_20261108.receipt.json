@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-08T16:01:34.050169+00:00",
+  "scope": "local studio admin entry cleanup",
+  "branch": "fix/studio-admin-entry-20261108",
+  "focusedTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "scopedLint": "pass",
+  "commitTypecheck": "pass",
+  "stagedSecretScan": "pass",
+  "review": "no remaining concrete findings after two corrections",
+  "existingUnitSuite": {
+    "passed": 306,
+    "failed": 24
+  },
+  "build": "blocked: unresolved OpenTelemetry exporter dependencies",
+  "audit": {
+    "critical": 4,
+    "high": 29,
+    "moderate": 15,
+    "low": 4
+  },
+  "liveChanges": false,
+  "databaseChanges": false,
+  "deployment": "not performed",
+  "remaining": [
+    "resolve baseline build and unit failures before release",
+    "verify staging database and email isolation",
+    "inventory exact live test records and dependencies before requesting removal approval",
+    "owner approval before push/deploy or live record mutations"
+  ]
+}
