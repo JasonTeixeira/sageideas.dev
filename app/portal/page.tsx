@@ -74,13 +74,14 @@ type AuditEntry = {
 export default async function PortalDashboard({
   searchParams,
 }: {
-  searchParams: Promise<{ org?: string }>;
+  searchParams: Promise<{ org?: string | string[]; view?: string | string[] }>;
 }) {
-  const { org } = await searchParams;
-  const orgSlug = org?.trim() || null;
+  const { org, view } = await searchParams;
+  const orgSlug = (Array.isArray(org) ? org[0] : org)?.trim() || null;
+  const clientView = (Array.isArray(view) ? view[0] : view) === 'client';
   const ctx = await getPortalContext({ orgSlug });
   // Owners have one default dashboard. Explicit org links retain client review.
-  if (ctx.isAdmin && !orgSlug) redirect('/admin');
+  if (ctx.isAdmin && !orgSlug && !clientView) redirect('/admin');
   const orgId = ctx.organizationId;
   const sb = supabaseAdmin();
 

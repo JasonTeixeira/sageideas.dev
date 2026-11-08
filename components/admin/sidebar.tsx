@@ -120,7 +120,7 @@ export function AdminSidebar() {
 
       <div className="px-3 py-3 border-t border-[#27272a]">
         <Link
-          href="/portal"
+          href="/portal?view=client"
           className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs text-[#71717a] hover:text-[#fafafa] hover:bg-[#18181b] transition-colors"
         >
           <span className="font-mono uppercase tracking-widest">Switch to portal →</span>
