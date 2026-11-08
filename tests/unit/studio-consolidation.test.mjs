@@ -112,3 +112,26 @@ test('mobile owner drawer renders the same single owner navigation', () => {
   assert.match(html, /href="\/admin\/proposals"/);
   assert.doesNotMatch(html, /href="\/portal"|Admin · Pipeline/);
 });
+
+test('admin topbar exposes the canonical mobile navigation', () => {
+  const { AdminTopbar } = load('components/admin/topbar.tsx', {
+    'react/jsx-runtime': jsxRuntime, 'next/link': { default: 'a' },
+    '@/lib/utils': { initials: () => 'S' },
+    '@/components/portal/mobile-nav': { MobileNav: ({ isAdmin }) => jsxRuntime.jsx('button', { children: isAdmin ? 'Owner mobile navigation' : 'Client mobile navigation' }) },
+  });
+  const html = renderToStaticMarkup(jsxRuntime.jsx(AdminTopbar, { email: 'owner@example.com' }));
+  assert.match(html, /Owner mobile navigation/);
+});
+test('owner command palette uses canonical navigation rather than client shortcuts', () => {
+  const leaf = ({ children }) => jsxRuntime.jsx('div', { children });
+  const Command = Object.assign(leaf, { Input: leaf, List: leaf, Empty: leaf, Group: leaf, Item: leaf });
+  const { CommandPalette } = load('components/portal/command-palette.tsx', {
+    react: { useState: () => [true, () => {}], useRef: () => ({ current: null }), useEffect: () => {}, useCallback: (fn) => fn },
+    'react/jsx-runtime': jsxRuntime, 'next/navigation': { useRouter: () => ({ push: () => {} }) },
+    cmdk: { Command }, 'lucide-react': icons, './nav-items': navModule(),
+  });
+  const html = renderToStaticMarkup(jsxRuntime.jsx(CommandPalette, { isAdmin: true, index: { projects: [], invoices: [], threads: [] } }));
+  assert.match(html, /Proposals/);
+  assert.match(html, /Account &amp; security/);
+  assert.doesNotMatch(html, />Billing</);
+});
