@@ -58,7 +58,8 @@
     "test:e2e:local:acquisition": "node --env-file-if-exists=.env.local scripts/ops/run-playwright.mjs test tests/e2e/admin/acquisition.spec.ts --config=playwright.e2e.config.ts --project=chromium",
     "db:push": "node --env-file-if-exists=.env.local scripts/ops/supabase-cli.mjs db push",
     "test:rls": "node --env-file-if-exists=.env.local tests/rls/run.mjs && node --env-file-if-exists=.env.local tests/rls/signed-in.mjs && node --env-file-if-exists=.env.local tests/rls/audit-log.mjs && node --env-file-if-exists=.env.local tests/rls/uploads.mjs",
-    "test:unit": "tsx tests/unit/run.mjs",
+    "test:studio": "node --test tests/unit/studio-entry.test.mjs tests/unit/studio-consolidation.test.mjs",
+    "test:unit": "npm run test:studio && tsx tests/unit/run.mjs",
     "academy:audit-courses": "tsx scripts/academy/authoring/audit-courses.ts",
     "job-os:load-proof": "tsx --env-file=.env.local scripts/job-os/staging-load-proof.ts",
     "typecheck": "tsc --noEmit",
@@ -235,6 +236,7 @@
     "i18n:heal": "tsx scripts/heal-i18n.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.1042.0",
     "@aws-sdk/client-s3": "^3.879.0",
     "@aws-sdk/client-sesv2": "^3.879.0",
     "@aws-sdk/lib-dynamodb": "^3.879.0",
@@ -251,6 +253,8 @@
     "@langfuse/client": "^5.6.0",
     "@langfuse/otel": "^5.6.0",
     "@langfuse/tracing": "^5.6.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.219.0",
+    "@opentelemetry/otlp-exporter-base": "0.219.0",
     "@opentelemetry/sdk-trace-node": "^2.8.0",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-alert-dialog": "1.1.15",
