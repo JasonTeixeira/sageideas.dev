@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import { Menu, X, LogOut } from 'lucide-react';
 import { signOut } from '@/app/auth/actions';
@@ -93,7 +94,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
         <Menu className="w-4 h-4" />
       </button>
 
-      {open && (
+      {open && typeof document !== 'undefined' && createPortal(
         <div
           className="lg:hidden fixed inset-0 z-[60]"
           role="dialog"
@@ -122,7 +123,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#27272a]">
               <div className="min-w-0">
                 <div className="font-semibold text-[#fafafa] text-sm">The Studio</div>
-                <div className="text-[10px] text-[#71717a] truncate uppercase tracking-wider">
+                <div className="text-[10px] text-[#a1a1aa] truncate uppercase tracking-wider">
                   {isAdmin ? 'Admin cockpit' : orgName ?? 'Sage Ideas'}
                 </div>
               </div>
@@ -136,7 +137,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
               </button>
             </div>
             <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
-              <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
+              <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#a1a1aa]">
                 {isAdmin ? 'Cockpit' : 'Workspace'}
               </div>
               {getPortalNavItems({ isAdmin }).map(({ href, label, icon: Icon }, idx) => {
@@ -178,7 +179,8 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
               </form>
             </div>
           </aside>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

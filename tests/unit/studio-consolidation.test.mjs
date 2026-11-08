@@ -13,7 +13,7 @@ function load(path, deps = {}, env = {}) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
   }).outputText;
   vm.runInNewContext(code, {
-    exports, URL, Headers, console, process: { env },
+    exports, URL, Headers, console, document: { body: {} }, process: { env },
     require: (name) => deps[name] ?? {},
   });
   return exports;
@@ -45,6 +45,7 @@ test('client navigation remains free of owner destinations', () => {
 test('owner portal detail pages reuse the owner sidebar', () => {
   const { Sidebar } = load('components/portal/sidebar.tsx', {
     'react/jsx-runtime': jsxRuntime,
+    'react-dom': { createPortal: (children) => children },
     'next/link': { default: 'a' },
     'next/navigation': { usePathname: () => '/portal/messages/123' },
     '@/lib/utils': { cn: (...args) => args.join(' ') },
@@ -102,6 +103,7 @@ test('mobile owner drawer renders the same single owner navigation', () => {
   const { MobileNav } = load('components/portal/mobile-nav.tsx', {
     react: { useState: () => [true, () => {}], useRef: () => ({ current: null }), useEffect: () => {}, useCallback: (fn) => fn },
     'react/jsx-runtime': jsxRuntime,
+    'react-dom': { createPortal: (children) => children },
     'next/link': { default: 'a' },
     'next/navigation': { usePathname: () => '/admin' },
     '@/lib/utils': { cn: (...args) => args.join(' ') },

@@ -912,7 +912,7 @@ test('programs A/B/C/E: budget, MDX, viz, and leads inbox surfaces are wired', a
   const mdxIndex = await readFile(new URL('../../components/mdx/index.ts', import.meta.url), 'utf8');
   const vizIndex = await readFile(new URL('../../components/viz/index.ts', import.meta.url), 'utf8');
   const leadsMigration = await readFile(new URL('../../supabase/migrations/0045_leads_admin_inbox.sql', import.meta.url), 'utf8');
-  const sidebar = await readFile(new URL('../../components/admin/sidebar.tsx', import.meta.url), 'utf8');
+  const { adminNav } = await import('../../components/admin/nav-items.ts');
 
   assert.match(mdxIndex, /ProofBlock/);
   assert.match(mdxIndex, /SystemDiagram/);
@@ -920,7 +920,7 @@ test('programs A/B/C/E: budget, MDX, viz, and leads inbox surfaces are wired', a
   assert.match(vizIndex, /MetricGrid/);
   assert.match(leadsMigration, /add column if not exists status/);
   assert.match(leadsMigration, /leads_score_created_at_idx/);
-  assert.match(sidebar, /\/admin\/leads/);
+  assert.ok(adminNav.some((item) => item.href === '/admin/leads'));
 });
 
 test('discord community ops: premium command, analytics dashboard, cron, and migration are wired', async () => {
@@ -933,7 +933,7 @@ test('discord community ops: premium command, analytics dashboard, cron, and mig
   const commands = await readFile(new URL('../../lib/discord/sage-commands.ts', import.meta.url), 'utf8');
   const register = await readFile(new URL('../../scripts/discord/register-sage-commands.mjs', import.meta.url), 'utf8');
   const packageJson = JSON.parse(await readFile(new URL('../../package.json', import.meta.url), 'utf8'));
-  const sidebar = await readFile(new URL('../../components/admin/sidebar.tsx', import.meta.url), 'utf8');
+  const { adminNav } = await import('../../components/admin/nav-items.ts');
   const vercel = await readFile(new URL('../../vercel.json', import.meta.url), 'utf8');
 
   assert.match(migration, /create table if not exists public\.discord_members/);
@@ -1029,7 +1029,7 @@ test('discord community ops: premium command, analytics dashboard, cron, and mig
   const railway = await readFile(new URL('../../railway.worker.json', import.meta.url), 'utf8');
   assert.match(dockerfile, /npm", "run", "discord:gateway"/);
   assert.match(railway, /Dockerfile\.worker/);
-  assert.match(sidebar, /\/admin\/discord/);
+  assert.ok(adminNav.some((item) => item.href === '/admin/discord'));
   assert.match(vercel, /\/api\/cron\/discord\/daily/);
   assert.match(vercel, /\/api\/cron\/discord\/weekly/);
 });

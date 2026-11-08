@@ -6,7 +6,6 @@ import { ShieldCheck } from 'lucide-react';
 import { adminNav } from './nav-items';
 import { cn } from '@/lib/utils';
 
-
 function SageLogo() {
   return (
     <svg viewBox="0 0 64 64" className="w-7 h-7" fill="none" aria-label="Sage Ideas">
@@ -32,7 +31,7 @@ export function AdminSidebar() {
         </div>
         <div className="min-w-0 flex-1">
           <div className="font-semibold tracking-tight text-[#fafafa] text-sm">The Studio</div>
-          <div className="text-[10px] text-[#71717a] truncate uppercase tracking-wider">
+          <div className="text-[10px] text-[#a1a1aa] truncate uppercase tracking-wider">
             Admin cockpit
           </div>
         </div>
@@ -42,7 +41,7 @@ export function AdminSidebar() {
       </div>
 
       <nav aria-label="Studio navigation" className="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-0.5">
-        <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
+        <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#a1a1aa]">
           Cockpit
         </div>
         {adminNav.map(({ href, label, icon: Icon }) => {
