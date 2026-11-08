@@ -138,8 +138,10 @@ export const metadata: Metadata = {
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
   name: 'Sage Ideas',
   legalName: 'Sage Ideas LLC',
+  alternateName: 'Sage Ideas LLC',
   url: SITE_URL,
   logo: `${SITE_URL}/brand/sage-mark.svg`,
   description:
@@ -153,7 +155,8 @@ const organizationSchema = {
   email: 'sage@sageideas.dev',
   sameAs: [
     'https://github.com/JasonTeixeira',
-    'https://linkedin.com/in/jason-teixeira',
+    'https://www.linkedin.com/in/jason-teixeira',
+    'https://www.youtube.com/@SageideasAI',
   ],
   address: {
     '@type': 'PostalAddress',
@@ -175,6 +178,7 @@ const organizationSchema = {
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': `${SITE_URL}/#organization`,
   name: 'Sage Ideas LLC',
   url: SITE_URL,
   description:
@@ -199,7 +203,8 @@ const professionalServiceSchema = {
   email: 'sage@sageideas.dev',
   sameAs: [
     'https://github.com/JasonTeixeira',
-    'https://linkedin.com/in/jason-teixeira',
+    'https://www.linkedin.com/in/jason-teixeira',
+    'https://www.youtube.com/@SageideasAI',
   ],
 }
 
