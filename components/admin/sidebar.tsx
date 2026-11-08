@@ -2,60 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  LayoutDashboard,
-  Users,
-  KanbanSquare,
-  Radar,
-  Calendar,
-  Clock,
-  Receipt,
-  FileSignature,
-  FileText,
-  FolderOpen,
-  ScrollText,
-  Settings2,
-  ShieldCheck,
-  TrendingUp,
-  UserCog,
-  GraduationCap,
-  Inbox,
-  MessageCircle,
-  BriefcaseBusiness,
-  Network,
-  Megaphone,
-  type LucideIcon,
-} from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
+import { adminNav } from './nav-items';
 import { cn } from '@/lib/utils';
 
-const NAV: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/opportunities', label: 'Opportunity OS', icon: Network },
-  { href: '/admin/traffic', label: 'Traffic OS', icon: Megaphone },
-  { href: '/admin/acquisition', label: 'Acquisition OS', icon: Radar },
-  { href: '/admin/job-applications', label: 'Job Application OS', icon: BriefcaseBusiness },
-  { href: '/admin/leads', label: 'Leads Inbox', icon: Inbox },
-  { href: '/admin/crm', label: 'CRM', icon: Users },
-  { href: '/admin/pipeline', label: 'Pipeline', icon: KanbanSquare },
-  { href: '/admin/calendar', label: 'Calendar', icon: Calendar },
-  { href: '/admin/time-tracking', label: 'Time Tracking', icon: Clock },
-  { href: '/admin/profitability', label: 'Profitability', icon: TrendingUp },
-  { href: '/admin/workload', label: 'Workload', icon: Users },
-  { href: '/admin/proposals', label: 'Proposals', icon: FileSignature },
-  { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
-  { href: '/admin/invoices', label: 'Invoices', icon: Receipt },
-  { href: '/admin/payments', label: 'Payments', icon: Receipt },
-  { href: '/admin/academy', label: 'Academy', icon: GraduationCap },
-  { href: '/admin/discord', label: 'Discord', icon: MessageCircle },
-  { href: '/admin/documents', label: 'Documents', icon: FolderOpen },
-  { href: '/admin/templates', label: 'Templates', icon: FileText },
-  { href: '/admin/project-templates', label: 'Project templates', icon: KanbanSquare },
-  { href: '/admin/audit-log', label: 'Audit Log', icon: ScrollText },
-  { href: '/admin/observability', label: 'Observability', icon: TrendingUp },
-  { href: '/admin/availability', label: 'Availability', icon: Calendar },
-  { href: '/admin/users', label: 'Users', icon: UserCog },
-  { href: '/admin/settings', label: 'Settings', icon: Settings2 },
-];
 
 function SageLogo() {
   return (
@@ -91,11 +41,11 @@ export function AdminSidebar() {
         </span>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav aria-label="Studio navigation" className="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-0.5">
         <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
           Cockpit
         </div>
-        {NAV.map(({ href, label, icon: Icon }) => {
+        {adminNav.map(({ href, label, icon: Icon }) => {
           const active =
             href === '/admin'
               ? pathname === '/admin'
@@ -104,6 +54,7 @@ export function AdminSidebar() {
             <Link
               key={href}
               href={href}
+              aria-current={active ? 'page' : undefined}
               className={cn(
                 'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors',
                 active
@@ -118,14 +69,7 @@ export function AdminSidebar() {
         })}
       </nav>
 
-      <div className="px-3 py-3 border-t border-[#27272a]">
-        <Link
-          href="/portal?view=client"
-          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs text-[#71717a] hover:text-[#fafafa] hover:bg-[#18181b] transition-colors"
-        >
-          <span className="font-mono uppercase tracking-widest">Switch to portal →</span>
-        </Link>
-      </div>
+
     </aside>
   );
 }

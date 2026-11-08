@@ -1,3 +1,4 @@
+import { adminNav } from '@/components/admin/nav-items';
 import {
   LayoutDashboard,
   Briefcase,
@@ -6,9 +7,6 @@ import {
   Receipt,
   Sparkles,
   Settings2,
-  ShieldCheck,
-  Users,
-  Activity,
   Calendar,
   Bell,
   HelpCircle,
@@ -34,16 +32,7 @@ export const portalClientNav: NavItem[] = [
   { href: '/portal/help', label: 'Help', icon: HelpCircle },
 ];
 
-// Admin nav consolidated to /admin/* routes (Phase 2A.6).
-export const portalAdminNav: NavItem[] = [
-  { href: '/admin', label: 'Admin · Pipeline', icon: ShieldCheck },
-  { href: '/admin/crm', label: 'Clients', icon: Users },
-  { href: '/admin/audit-log', label: 'Activity', icon: Activity },
-  { href: '/admin/settings', label: 'Settings', icon: Settings2 },
-];
-
+// Owners always use the canonical cockpit navigation, including on client details.
 export function getPortalNavItems(opts: { isAdmin?: boolean } = {}): NavItem[] {
-  return opts.isAdmin
-    ? [...portalClientNav, ...portalAdminNav]
-    : portalClientNav;
+  return opts.isAdmin ? adminNav : portalClientNav;
 }

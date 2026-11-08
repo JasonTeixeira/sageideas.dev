@@ -1,3 +1,4 @@
+import { getOwnerDestination } from '@/lib/studio-routing';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
@@ -299,6 +300,16 @@ export async function updateSession(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = '/pending-approval';
       url.search = '';
+      return redirectWithSessionCookies(url, response);
+    }
+
+    // Canonical owner destinations are role-gated; clients retain their portal.
+    const ownerDestination = isAdmin ? getOwnerDestination(pathname) : null;
+    if (ownerDestination) {
+      const url = request.nextUrl.clone();
+      url.pathname = ownerDestination;
+      url.searchParams.delete('view');
+      url.searchParams.delete('org');
       return redirectWithSessionCookies(url, response);
     }
 

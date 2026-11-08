@@ -76,12 +76,11 @@ export default async function PortalDashboard({
 }: {
   searchParams: Promise<{ org?: string | string[]; view?: string | string[] }>;
 }) {
-  const { org, view } = await searchParams;
+  const { org } = await searchParams;
   const orgSlug = (Array.isArray(org) ? org[0] : org)?.trim() || null;
-  const clientView = (Array.isArray(view) ? view[0] : view) === 'client';
   const ctx = await getPortalContext({ orgSlug });
-  // Owners have one default dashboard. Explicit org links retain client review.
-  if (ctx.isAdmin && !orgSlug && !clientView) redirect('/admin');
+  // Owner dashboard links, including old preview links, always use the cockpit.
+  if (ctx.isAdmin) redirect('/admin');
   const orgId = ctx.organizationId;
   const sb = supabaseAdmin();
 

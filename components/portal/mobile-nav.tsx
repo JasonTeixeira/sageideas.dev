@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, LogOut } from 'lucide-react';
 import { signOut } from '@/app/auth/actions';
 import { cn } from '@/lib/utils';
-import { portalAdminNav, portalClientNav } from './nav-items';
+import { getPortalNavItems } from './nav-items';
 
 type Props = {
   orgName?: string;
@@ -98,7 +98,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
           className="lg:hidden fixed inset-0 z-[60]"
           role="dialog"
           aria-modal="true"
-          aria-label="Portal navigation"
+          aria-label={isAdmin ? "Studio navigation" : "Client navigation"}
           id="portal-mobile-nav"
         >
           {/* Full-screen tinted layer purely for the visual scrim. */}
@@ -123,7 +123,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
               <div className="min-w-0">
                 <div className="font-semibold text-[#fafafa] text-sm">The Studio</div>
                 <div className="text-[10px] text-[#71717a] truncate uppercase tracking-wider">
-                  {orgName ?? 'Sage Ideas'}
+                  {isAdmin ? 'Admin cockpit' : orgName ?? 'Sage Ideas'}
                 </div>
               </div>
               <button
@@ -137,9 +137,9 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
             </div>
             <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
               <div className="px-2 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
-                Workspace
+                {isAdmin ? 'Cockpit' : 'Workspace'}
               </div>
-              {portalClientNav.map(({ href, label, icon: Icon }, idx) => {
+              {getPortalNavItems({ isAdmin }).map(({ href, label, icon: Icon }, idx) => {
                 const active =
                   href === '/portal'
                     ? pathname === '/portal'
@@ -148,6 +148,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
                   <Link
                     key={href}
                     href={href}
+                    aria-current={active ? 'page' : undefined}
                     ref={idx === 0 ? firstLinkRef : undefined}
                     onClick={close}
                     className={cn(
@@ -163,32 +164,7 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
                 );
               })}
 
-              {isAdmin && (
-                <>
-                  <div className="px-2 pt-5 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
-                    Admin
-                  </div>
-                  {portalAdminNav.map(({ href, label, icon: Icon }) => {
-                    const active = pathname === href || pathname?.startsWith(href + '/');
-                    return (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={close}
-                        className={cn(
-                          'flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-colors',
-                          active
-                            ? 'bg-[#18181b] text-[#fafafa]'
-                            : 'text-[#a1a1aa] hover:bg-[#18181b] hover:text-[#fafafa]',
-                        )}
-                      >
-                        <Icon className="w-4 h-4 shrink-0" />
-                        <span>{label}</span>
-                      </Link>
-                    );
-                  })}
-                </>
-              )}
+
             </nav>
             <div className="p-4 border-t border-[#27272a]">
               <form action={signOut}>
