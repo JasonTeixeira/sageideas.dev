@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { getPortalContext } from '@/lib/portal/auth';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { Topbar } from '@/components/portal/topbar';
@@ -70,8 +71,16 @@ type AuditEntry = {
   created_at: string;
 };
 
-export default async function PortalDashboard() {
-  const ctx = await getPortalContext();
+export default async function PortalDashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ org?: string }>;
+}) {
+  const { org } = await searchParams;
+  const orgSlug = org?.trim() || null;
+  const ctx = await getPortalContext({ orgSlug });
+  // Owners have one default dashboard. Explicit org links retain client review.
+  if (ctx.isAdmin && !orgSlug) redirect('/admin');
   const orgId = ctx.organizationId;
   const sb = supabaseAdmin();
 
