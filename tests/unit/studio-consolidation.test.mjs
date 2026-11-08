@@ -7,7 +7,7 @@ import * as jsxRuntime from 'react/jsx-runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { NextRequest, NextResponse } from 'next/server.js';
 
-function load(path, deps = {}, env = {}) {
+function load(path, deps = {}, env = {}, globals = {}) {
   const exports = {};
   const code = ts.transpileModule(readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
@@ -15,6 +15,7 @@ function load(path, deps = {}, env = {}) {
   vm.runInNewContext(code, {
     exports, URL, Headers, console, document: { body: {} }, process: { env },
     require: (name) => deps[name] ?? {},
+    ...globals,
   });
   return exports;
 }
@@ -137,4 +138,26 @@ test('owner command palette uses canonical navigation rather than client shortcu
   assert.match(html, /Proposals/);
   assert.match(html, /Account &amp; security/);
   assert.doesNotMatch(html, />Billing</);
+});
+
+test('open mobile navigation closes when the viewport becomes desktop', () => {
+  const effects = [];
+  let onDesktopChange;
+  let closed = false;
+  const { MobileNav } = load('components/portal/mobile-nav.tsx', {
+    react: { useState: () => [true, (value) => { if (value === false) closed = true; }], useRef: () => ({ current: null }), useEffect: (fn) => effects.push(fn), useCallback: (fn) => fn },
+    'react/jsx-runtime': jsxRuntime, 'react-dom': { createPortal: (children) => children },
+    'next/link': { default: 'a' }, 'next/navigation': { usePathname: () => '/admin' },
+    '@/lib/utils': { cn: (...args) => args.join(' ') }, './nav-items': navModule(), 'lucide-react': icons,
+  }, {}, {
+    window: { matchMedia: () => ({ matches: false, addEventListener: (_type, fn) => { onDesktopChange = fn; }, removeEventListener: () => {} }) },
+    document: { body: { style: {} }, addEventListener: () => {}, removeEventListener: () => {}, activeElement: null },
+    requestAnimationFrame: () => {},
+  });
+  renderToStaticMarkup(jsxRuntime.jsx(MobileNav, { isAdmin: true }));
+  const cleanup = effects.map((fn) => fn());
+  assert.equal(typeof onDesktopChange, 'function', 'desktop transition needs a listener');
+  onDesktopChange({ matches: true });
+  assert.equal(closed, true);
+  cleanup.forEach((fn) => fn?.());
 });
