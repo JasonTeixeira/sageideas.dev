@@ -19,7 +19,7 @@ function loadSource(path, dependencies, env = {}) {
   return exports.default;
 }
 
-async function dashboardOutcome(isAdmin, org) {
+async function dashboardOutcome(isAdmin, org, view) {
   let selectedOrg;
   const page = loadSource('app/portal/page.tsx', {
     'next/navigation': { redirect: (path) => { throw new Error(`redirect:${path}`); } },
@@ -30,7 +30,7 @@ async function dashboardOutcome(isAdmin, org) {
     '@/lib/supabase/server': { supabaseAdmin: () => { throw new Error('portal-render'); } },
   });
   let outcome;
-  try { await page({ searchParams: Promise.resolve(org === undefined ? {} : { org }) }); }
+  try { await page({ searchParams: Promise.resolve({ org, view }) }); }
   catch (error) { outcome = error.message; }
   return { outcome, selectedOrg };
 }
@@ -65,4 +65,13 @@ test('E2E accepts explicit local and staging targets', () => {
   for (const url of ['http://localhost:3040', 'https://studio-staging.vercel.app']) {
     assert.equal(config({ PW_BASE_URL: url }).use.baseURL, url);
   }
+});
+
+test('repeated organization parameters use the first selection', async () => {
+  assert.deepEqual(await dashboardOutcome(true, ['acme', 'beta']), { outcome: 'portal-render', selectedOrg: 'acme' });
+});
+test('explicit client view keeps the owner portal switch usable', async () => {
+  assert.equal((await dashboardOutcome(true, undefined, 'client')).outcome, 'portal-render');
+  const sidebar = readFileSync(new URL('../../components/admin/sidebar.tsx', import.meta.url), 'utf8');
+  assert.match(sidebar, /href="\/portal\?view=client"/);
 });
