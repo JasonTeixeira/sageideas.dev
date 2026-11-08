@@ -54,4 +54,3 @@ export const adminNav: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/portal/inbox', label: 'Notifications', icon: Inbox },
   { href: '/portal/settings', label: 'Account & security', icon: ShieldCheck },
 ];
-

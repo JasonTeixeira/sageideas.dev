@@ -24,6 +24,18 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
 
   const close = useCallback(() => setOpen(false), []);
 
+  // A hidden mobile drawer must release its focus trap and scroll lock.
+  useEffect(() => {
+    if (!open) return;
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const onChange = (event: MediaQueryListEvent) => {
+      if (event.matches) close();
+    };
+    if (desktop.matches) close();
+    desktop.addEventListener('change', onChange);
+    return () => desktop.removeEventListener('change', onChange);
+  }, [open, close]);
+
   // Close on route change.
   useEffect(() => {
     if (lastPathRef.current !== pathname) {
@@ -142,8 +154,8 @@ export function MobileNav({ orgName, isAdmin = false }: Props) {
               </div>
               {getPortalNavItems({ isAdmin }).map(({ href, label, icon: Icon }, idx) => {
                 const active =
-                  href === '/portal'
-                    ? pathname === '/portal'
+                  href === '/portal' || href === '/admin'
+                    ? pathname === href
                     : pathname === href || pathname?.startsWith(href + '/');
                 return (
                   <Link

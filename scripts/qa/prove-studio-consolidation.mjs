@@ -32,7 +32,10 @@ try {
  await page.keyboard.press('Escape');
  assert.equal(await page.getByRole('button',{name:'Open navigation'}).getAttribute('aria-expanded'),'false');
  assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('aria-label')),'Open navigation');
- const report={scope:'local-only fake database, existing development-only admin preview, reduced motion',desktopNavigation:{dashboardCount:1,violations:desktopAxe.violations},mobileNavigation:{dashboardCount:1,keyboardFocus:true,escapeAndFocusRestore:true,violations:mobileAxe.violations}};
+ await page.getByRole('button',{name:'Open navigation'}).click();
+ await page.setViewportSize({width:1440,height:1000});
+ await page.waitForFunction(()=>document.body.style.overflow !== 'hidden' && !document.querySelector('#portal-mobile-nav'));
+ const report={scope:'local-only fake database, existing development-only admin preview, reduced motion',desktopNavigation:{dashboardCount:1,violations:desktopAxe.violations},mobileNavigation:{dashboardCount:1,keyboardFocus:true,escapeAndFocusRestore:true,desktopResizeReleasesModal:true,violations:mobileAxe.violations}};
  await writeFile(out+'/report.json',JSON.stringify(report,null,2));
  assert.equal(desktopAxe.violations.length,0, 'desktop navigation must pass axe');
  assert.equal(mobileAxe.violations.length,0, 'mobile navigation must pass axe');
