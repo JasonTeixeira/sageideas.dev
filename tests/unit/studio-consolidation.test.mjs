@@ -97,3 +97,18 @@ test('owner detail links and MFA account settings remain reachable', async () =>
     assert.equal(response.headers.get('location'), null, path);
   }
 });
+
+test('mobile owner drawer renders the same single owner navigation', () => {
+  const { MobileNav } = load('components/portal/mobile-nav.tsx', {
+    react: { useState: () => [true, () => {}], useRef: () => ({ current: null }), useEffect: () => {}, useCallback: (fn) => fn },
+    'react/jsx-runtime': jsxRuntime,
+    'next/link': { default: 'a' },
+    'next/navigation': { usePathname: () => '/admin' },
+    '@/lib/utils': { cn: (...args) => args.join(' ') },
+    './nav-items': navModule(), 'lucide-react': icons,
+  });
+  const html = renderToStaticMarkup(jsxRuntime.jsx(MobileNav, { isAdmin: true }));
+  assert.match(html, /href="\/admin"/);
+  assert.match(html, /href="\/admin\/proposals"/);
+  assert.doesNotMatch(html, /href="\/portal"|Admin · Pipeline/);
+});

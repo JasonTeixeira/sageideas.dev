@@ -42,8 +42,8 @@ test('admin opening the client dashboard lands in the admin cockpit', async () =
 test('approved clients retain their dashboard', async () => {
   assert.equal((await dashboardOutcome(false)).outcome, 'portal-render');
 });
-test('admin explicitly selecting an organization retains the client view', async () => {
-  assert.deepEqual(await dashboardOutcome(true, 'acme'), { outcome: 'portal-render', selectedOrg: 'acme' });
+test('old organization dashboard links cannot open a second owner dashboard', async () => {
+  assert.equal((await dashboardOutcome(true, 'acme')).outcome, 'redirect:/admin');
 });
 
 function config(env) {
@@ -68,10 +68,10 @@ test('E2E accepts explicit local and staging targets', () => {
 });
 
 test('repeated organization parameters use the first selection', async () => {
-  assert.deepEqual(await dashboardOutcome(true, ['acme', 'beta']), { outcome: 'portal-render', selectedOrg: 'acme' });
+  assert.deepEqual(await dashboardOutcome(false, ['acme', 'beta']), { outcome: 'portal-render', selectedOrg: 'acme' });
 });
-test('explicit client view keeps the owner portal switch usable', async () => {
-  assert.equal((await dashboardOutcome(true, undefined, 'client')).outcome, 'portal-render');
+test('old preview links cannot open a second owner dashboard', async () => {
+  assert.equal((await dashboardOutcome(true, undefined, 'client')).outcome, 'redirect:/admin');
   const sidebar = readFileSync(new URL('../../components/admin/sidebar.tsx', import.meta.url), 'utf8');
-  assert.match(sidebar, /href="\/portal\?view=client"/);
+  assert.doesNotMatch(sidebar, /Switch to portal|view=client/);
 });
