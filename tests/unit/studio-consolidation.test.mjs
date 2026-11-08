@@ -105,7 +105,7 @@ test('mobile owner drawer renders the same single owner navigation', () => {
     'react/jsx-runtime': jsxRuntime,
     'react-dom': { createPortal: (children) => children },
     'next/link': { default: 'a' },
-    'next/navigation': { usePathname: () => '/admin' },
+    'next/navigation': { usePathname: () => '/admin/proposals' },
     '@/lib/utils': { cn: (...args) => args.join(' ') },
     './nav-items': navModule(), 'lucide-react': icons,
   });
@@ -113,6 +113,7 @@ test('mobile owner drawer renders the same single owner navigation', () => {
   assert.match(html, /href="\/admin"/);
   assert.match(html, /href="\/admin\/proposals"/);
   assert.doesNotMatch(html, /href="\/portal"|Admin · Pipeline/);
+  assert.equal((html.match(/aria-current="page"/g) ?? []).length, 1);
 });
 
 test('admin topbar exposes the canonical mobile navigation', () => {
